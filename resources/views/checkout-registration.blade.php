@@ -26,54 +26,50 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="index.html">HOMe</a>
+							<a href="index.html">Home</a>
 							<span><i class="fa fa-caret-right	"></i></span>
-							<span>Authentication</span>
+							<span>Thông tin tài khoản</span>
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<h2 class="page-title">Create an account</h2>
+						<h2 class="page-title">Tạo tài khoản</h2>
 					</div>	
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- PERSONAL-INFOMATION START -->
 						<div class="personal-infomation">
 							<form class="primari-box personal-info-box" id="personalinfo" method="post" action="#">
-								<h3 class="box-subheading">Your personal information</h3>
+								<h3 class="box-subheading">Thông tin của bạn</h3>
 								<div class="personal-info-content">
 									<div class="form-group primary-form-group p-info-group">
-										<label>Title</label>
+										<label>Giới tính</label>
 										<span class="radio-box">
 											<input id="radio1" type="radio" name="sex" value="1" checked="checked">
-											<label for="radio1">Mr.</label>
+											<label for="radio1">Nam</label>
 										</span>
 										<span class="radio-box">
 											<input id="radio2" type="radio" name="sex" value="2">
 											
-											<label for="radio2">Mrs.</label>
+											<label for="radio2">Nữ</label>
 										</span>
 									</div>
 									<div class="form-group primary-form-group p-info-group">
-										<label for="firstname">First Name <sup>*</sup></label>
+										<label for="firstname">Tên <sup>*</sup></label>
 										<input type="text" value="" name="firstname" id="firstname" class="form-control input-feild">
-									</div>
-									<div class="form-group primary-form-group p-info-group">
-										<label for="lastname">Last Name <sup>*</sup></label>
-										<input type="text" value="" name="lastname" id="lastname" class="form-control input-feild">
-									</div>
+									</div>									
 									<div class="form-group primary-form-group p-info-group">
 										<label for="email">Email<sup>*</sup></label>
 										<input type="email" value="" name="email" id="email" class="form-control input-feild">
 									</div>
 									<div class="form-group primary-form-group p-info-group">
-										<label for="password">Password <sup>*</sup></label>
+										<label for="password">Mật khẩu <sup>*</sup></label>
 										<input type="password" value="" name="password" id="password" class="form-control input-feild">
-										<span class="min-pass">(Five characters minimum)</span>
+										<span class="min-pass">(mật khẩu tối thiểu 5 ký tự)</span>
 									</div>
 									<div class="form-group primary-form-group p-info-group">
-										<label>Date of Birth</label>
+										<label>Ngày sinh</label>
 										<div class="birth-day">
 											<select id="d-b-day" name="birthday">
 												<option value="">- &nbsp;&nbsp;</option>
@@ -249,20 +245,7 @@
 											</select>													
 										</div>
 									</div>
-									<div class="form-group primary-form-group p-info-group">
-										<label class="cheker">
-											<input type="checkbox" name="checkbox">
-											<span></span>
-										</label>
-										<a href="#">Sign up for our newsletter!</a>
-									</div>
-									<div class="form-group primary-form-group p-info-group">
-										<label class="cheker">
-											<input type="checkbox" name="checkbox">
-											<span></span>
-										</label>
-										<a href="#">Receive special offers from our partners!</a>
-									</div>
+									
 									<div class="submit-button p-info-submit-button">
 										<a href="checkout-address.html" id="SubmitCreate" class="btn main-btn">
 											<span>

@@ -10,10 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/',"ViewController@index");
 Route::get('shop-gird.html', function () {
     return view('shop-gird');
 });
@@ -73,3 +70,8 @@ Route::get('wishlist.html', function () {
 Route::get('my-cart-step-2-info.html', function () {
     return view('my-cart-step-2-info');
 });
+
+Route::post('signinCreate',"UserController@login");
+
+Route::post('',"UserController@login");
+Route::post('AccountCreate',"UserController@register");

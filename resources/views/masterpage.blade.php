@@ -95,36 +95,36 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<div class="header-left-menu">
 							<div class="welcome-info">
-								Welcome <span>BootExperts</span>
+								Xin chào <span><?php if(Session::get('login')==true || Session::has('login')) echo Session::get('login_name')."!"; else echo "bạn!";?></span>
 							</div>
 							<div class="currenty-converter">
 								<form method="post" action="#" id="currency-set">
 									<div class="current-currency">
-										<span class="cur-label">Currency : </span><strong>USD</strong>
+										<span class="cur-label">Đơn vị tính : </span><strong>VNĐ</strong>
 									</div>
 									<ul class="currency-list currency-toogle">
 										<li>
-											<a title="Dollar (USD)" href="#">Dollar (USD)</a>
+											<a title="Việt Nam đồng (VNĐ)" href="#">Việt Nam đồng (VNĐ)</a>
 										</li>
 										<li>
-										<a title="Euro (EUR)" href="#">Euro (EUR)</a>
+										<a title="Dollar (USD)" href="#">Dollar (USD)</a>
 										</li>
 									</ul>
 								</form>									
 							</div>
 							<div class="selected-language">
 								<div class="current-lang">
-									<span class="current-lang-label">Language : </span><strong>English</strong>
+									<span class="current-lang-label">Ngôn ngữ : </span><strong>Vietnamese</strong>
 								</div>
 								<ul class="languages-choose language-toogle">
 									<li>
-										<a href="#" title="English">
-											<span>English</span>
+										<a href="/vn" title="Vietnamese">
+											<span>Vietnamese</span>
 										</a>
 									</li>
 									<li>
-										<a href="#" title="Français (French)">
-											<span>Français</span>
+										<a href="/en" title="English (English)">
+											<span>English</span>
 										</a>
 									</li>
 								</ul>										
@@ -137,11 +137,11 @@
 						<div class="header-right-menu">
 							<nav>
 								<ul class="list-inline">
-									<li><a href="checkout.html">Check Out</a></li>
-									<li><a href="wishlist.html">Wishlist</a></li>
-									<li><a href="my-account.html">My Account</a></li>
-									<li><a href="cart.html">My Cart</a></li>
-									<li><a href="registration.html">Sign in</a></li>
+									<li style="display:none"><a href="checkout.html">Check Out</a></li>
+									<li><a href="wishlist.html">Yêu thích</a></li>
+									<li><a href="my-account.html">Tài Khoản</a></li>
+									<li><a href="cart.html">Giỏ hàng</a></li>
+									<li><a href="registration.html">Đăng Nhập</a></li>
 								</ul>									
 							</nav>
 						</div>
@@ -274,207 +274,51 @@
 						<div class="mainmenu">
 							<nav>
 								<ul class="list-inline mega-menu">
-									<li class="active"><a href="index.html">Home</a>
+									<li class="active"><a href="{{Asset('')}}">Home</a>
 										<!-- DROPDOWN MENU START -->
-										<div class="home-var-menu">
+										<!-- <div class="home-var-menu">
 											<ul class="home-menu">
 												<li><a href="index.html">Home variation 1</a></li>
 												<li><a href="index-2.html">Home variation 2</a></li>
 											</ul>												
-										</div>
+										</div> -->
 										<!-- DROPDOWN MENU END -->
 									</li>
+									@if(count($menu)>0)
+									@for($i=0;$i< count($menu["root_menu"]);$i++)
 									<li>
-										<a href="shop-gird.html">Women</a>
+										<a title="{{$menu['root_menu'][$i]['name']}}" href="{{$menu['root_menu'][$i]['url']}}">{{$menu["root_menu"][$i]["name"]}}</a>
 										<!-- DRODOWN-MEGA-MENU START -->
-										<div class="drodown-mega-menu">
+										<?php $ischeck=false; ?>
+											@for($j=0;$j< count($menu["second_menu"]);$j++)
+											@if($menu["root_menu"][$i]["id"]==$menu["second_menu"][$j]["root"])
+												<?php $ischeck=true; break;?>
+											@endif
+											@endfor
+											<?php if($ischeck) echo '<div class="drodown-mega-menu">'; ?>				
+											@for($j=0;$j< count($menu["second_menu"]);$j++)
+											@if($menu["root_menu"][$i]["id"]==$menu["second_menu"][$j]["root"])
+											
 											<div class="left-mega col-xs-6">
 												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">TOPS</a>
+													<a title="{{$menu['second_menu'][$j]['name']}}" class="mega-menu-title" href="{{$menu['second_menu'][$j]['url']}}">{{$menu["second_menu"][$j]["name"]}}</a>
 													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
+														@for($k=0;$k< count($menu["three_menu"]);$k++)
+														@if($menu["second_menu"][$j]["id"]==$menu["three_menu"][$k]["root"])
+														<li><a title="{{$menu['three_menu'][$k]['name']}}" href="{{$menu['three_menu'][$k]['url']}}">{{$menu["three_menu"][$k]["name"]}}</a></li>	
+														@endif
+														@endfor													
 													</ul>
 												</div>
 											</div>
-											<div class="right-mega col-xs-6">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">Prodect</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Watch</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
-										<!-- DRODOWN-MEGA-MENU END -->
-									</li>
-									<li>
-										<a href="shop-gird.html">Men</a>
-										<!-- DRODOWN-MEGA-MENU START -->
-										<div class="drodown-mega-menu">
-											<div class="left-mega col-xs-6">
-												<div class="mega-menu-list">
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
-										<!-- DRODOWN-MEGA-MENU END -->
-									</li>
-									<li>
-										<a href="shop-gird.html">clothing</a>
-										<!-- DRODOWN-MEGA-MENU START -->	
-										<div class="drodown-mega-menu">
-											<div class="left-mega col-xs-6">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">TOPS</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">new product</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="right-mega col-xs-6">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">Prodect</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Watch</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">best sale month</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>
-										</div>	
+
+											@endif
+											@endfor
+											<?php if($ischeck) echo '</div>'; ?>												
 										<!-- DRODOWN-MEGA-MENU END -->										
 									</li>
-									<li>
-										<a href="shop-gird.html">Tops</a>
-										<!-- DRODOWN-MEGA-MENU START -->
-										<div class="drodown-mega-menu">
-											<div class="left-mega col-xs-4">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">TOPS</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="right-mega col-xs-4">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">best sale month</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="right-mega col-xs-4">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">top rate product</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="left-mega col-xs-6">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">Latest product</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>	
-											<div class="left-mega col-xs-6">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">popular product</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>											
-										</div>
-										<!-- DRODOWN-MEGA-MENU END -->
-									</li>
-									<li>
-										<a href="shop-gird.html">T-shirts</a>
-										<!-- DRODOWN-MEGA-MENU START -->
-										<div class="drodown-mega-menu">
-											<div class="left-mega col-xs-6">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">TOPS</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">new product</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="right-mega col-xs-6">
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">Prodect</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Watch</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-												<div class="mega-menu-list">
-													<a class="mega-menu-title" href="shop-gird.html">best sale month</a>
-													<ul>
-														<li><a href="shop-gird.html">T-shirts</a></li>
-														<li><a href="shop-gird.html">clothing</a></li>
-														<li><a href="shop-gird.html">Delivery</a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
-										<!-- DRODOWN-MEGA-MENU END -->
-									</li>
-									<li><a href="#">Delivery</a></li>
-									<li><a href="about-us.html">About us</a></li>
+									@endfor
+									@endif
 								</ul>
 							</nav>
 						</div>
@@ -488,31 +332,34 @@
 							<span class="mobile-menu-title">MENU</span>
 							<nav>
 								<ul>
-									<li><a href="index.html">Home</a>
+									<li class="active"><a href="{{Asset('')}}">Home</a>											
+									</li>
+									@if(count($menu)>0)
+									@for($i=0;$i< count($menu["root_menu"]);$i++)							
+									<li><a tile="{{$menu['root_menu'][$i]['name']}}" href="shop-gird.html">{{$menu['root_menu'][$i]['name']}}</a>														
+										
 										<ul>
-											<li><a href="index.html">Home variation 1</a></li>
-											<li><a href="index-2.html">Home variation 2</a></li>
-										</ul>														
-									</li>								
-									<li><a href="shop-gird.html">Women</a>
-										<ul>
-											<li><a href="shop-gird.html">Tops</a>
+										@for($j=0;$j< count($menu["second_menu"]);$j++)
+										@if($menu["root_menu"][$i]["id"]==$menu["second_menu"][$j]["root"])
+											<li><a title="{{$menu['second_menu'][$j]['name']}}" href="shop-gird.html">{{$menu['second_menu'][$j]['name']}}</a>
 												<ul>
-													<li><a href="shop-gird.html">T-Shirts</a></li>
-													<li><a href="shop-gird.html">Blouses</a></li>
+													@for($k=0;$k< count($menu["three_menu"]);$k++)
+													@if($menu["second_menu"][$j]["id"]==$menu["three_menu"][$k]["root"])
+													<li><a title="{{$menu['three_menu'][$k]['name']}}" href="shop-gird.html">{{$menu['three_menu'][$k]['name']}}</a></li>
+													@endif
+													@endfor	
 												</ul>													
-											</li>
-											<li><a href="shop-gird.html">Dresses</a>
-												<ul>
-													<li><a href="shop-gird.html">Casual Dresses</a></li>
-													<li><a href="shop-gird.html">Summer Dresses</a></li>
-													<li><a href="shop-gird.html">Evening Dresses</a></li>	
-												</ul>	
-											</li>
+											</li>											
+										@endif
+										@endfor
 
 										</ul>
+										
 									</li>
-									<li><a href="shop-gird.html">men</a>
+
+									@endfor
+									@endif
+									<!-- <li><a href="shop-gird.html">men</a>
 										<ul>											
 											<li><a href="shop-gird.html">Tops</a>
 												<ul>
@@ -541,7 +388,7 @@
 									<li><a href="shop-gird.html">tops</a></li>
 									<li><a href="shop-gird.html">T-shirts</a></li>
 									<li><a href="#">Delivery</a></li>
-									<li><a href="about-us.html">About us</a></li>
+									<li><a href="about-us.html">About us</a></li> -->
 								</ul>
 							</nav>
 						</div>						
