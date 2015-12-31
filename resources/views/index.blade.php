@@ -71,10 +71,12 @@
 						<!-- SLIDER-AREA END -->
 						<!-- SLIDER-RIGHT START -->
 						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+						@if(count($ads)>0 && isset($ads[0]))
 							<div class="slider-right zoom-img m-top">
-								<a href="#"><img class="public/img-responsive" src="public/img/product/cms11.jpg" alt="sidebar left" /></a>
+								<a href="{{$ads[0]->url}}"><img class="public/img-responsive" src="{{$ads[0]->image}}" alt="{{$ads[0]->name}}" /></a>
 							</div>
 						</div>
+						@endif
 						<!-- SLIDER-RIGHT END -->
 					</div>
 					<!-- MAIN-SLIDER-AREA END -->
@@ -99,8 +101,8 @@
 												<div class="new-product">
 													<div class="single-product-item">
 														<div class="product-image">
-															<a href="#"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
-															<a href="#" class="new-mark-box">{{$values->icon_status}}</a>
+															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 															<div class="overlay-content">
 																<ul>
 																	<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
@@ -123,10 +125,10 @@
 																	<span>{{$values->view}} View</span>
 																</div>																
 															</div>
-															<a  title="{{$values->name}}" href="single-product.html" style="text-transform: uppercase;">{{$values->name}}</a>
+															<a  title="{{$values->name}}" href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" style="text-transform: uppercase;">{{$values->name}}</a>
 															<div class="price-box">
-																<span class="price">{{number_format($values->price)}} vnđ</span>
-																<span class="old-price">{{number_format($values->promotion_price)}} vnđ</span>
+																<span class="price">{{number_format($values->promotion_price)}} vnđ</span>
+																<span class="old-price">{{number_format($values->price)}} vnđ</span>
 															</div>
 														</div>
 													</div>
@@ -162,8 +164,8 @@
 												<div class="new-product">
 													<div class="single-product-item">
 														<div class="product-image">
-															<a href="#"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
-															<a href="#" class="new-mark-box">{{$values->icon_status}}</a>
+															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 															<div class="overlay-content">
 																<ul>
 																	<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
@@ -186,10 +188,10 @@
 																	<span>{{$values->view}} View</span>
 																</div>
 															</div>
-															<a title="{{$values->name}}" href="single-product.html" style="text-transform: uppercase;">{{$values->name}}</a>
+															<a title="{{$values->name}}" href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" style="text-transform: uppercase;">{{$values->name}}</a>
 															<div class="price-box">
-																<span class="price">{{number_format($values->price)}}</span>
-																<span class="old-price">{{number_format($values->promotion_price)}}</span>
+																<span class="price">{{number_format($values->promotion_price)}} vnđ</span>
+																<span class="old-price">{{number_format($values->price)}} vnđ</span>
 															</div>
 														</div>
 													</div>
@@ -211,17 +213,21 @@
 				<div class="row">
 					<!-- ADD-TWO-BY-ONE-COLUMN START -->
 					<div class="add-two-by-one-column">
+					@if(count($ads)>0 && isset($ads[1]))
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 							<div class="tow-column-add zoom-img">
-								<a href="#"><img src="public/img/product/shope-add1.jpg" alt="shope-add" /></a>
+								<a href="{{$ads[1]->url}}"><img src="{{$ads[1]->image}}" alt="{{$ads[1]->name}}" /></a>
 							</div>
 						</div>
+					@endif
+					@if(count($ads)>0 && isset($ads[2]))
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 							<div class="one-column-add zoom-img">
-								<a href="#"><img src="public/img/product/shope-add2.jpg" alt="shope-add" /></a>
+								<a href="{{$ads[2]->url}}"><img src="{{$ads[2]->image}}" alt="{{$ads[2]->name}}" /></a>
 							</div>								
 						</div>
 					</div>
+					@endif
 					<!-- ADD-TWO-BY-ONE-COLUMN END -->
 				</div>
 				<div class="row">
@@ -240,8 +246,8 @@
 									<div class="item">
 										<div class="single-product-item">
 											<div class="product-image">
-												<a href="#"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
-												<a href="#" class="new-mark-box">{{$values->icon_status}}</a>
+												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 												<div class="overlay-content">
 													<ul>
 														<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
@@ -264,10 +270,10 @@
 														<span>{{$values->view}} View</span>
 													</div>
 												</div>
-												<a title="{{$values->name}}" href="single-product.html" style="text-transform: uppercase;">{{$values->name}}</a>
+												<a title="{{$values->name}}" href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" style="text-transform: uppercase;">{{$values->name}}</a>
 												<div class="price-box">
-													<span class="price">{{number_format($values->price)}}</span>
-													<span class="old-price">{{number_format($values->promotion_price)}}</span>
+													<span class="price">{{number_format($values->promotion_price)}} vnđ</span>
+													<span class="old-price">{{number_format($values->price)}} vnđ</span>
 												</div>
 											</div>
 										</div>							
@@ -290,140 +296,74 @@
 							<!-- TAB PANES START -->
 							<div class="tab-content bg-tab-content">
 								<!-- TABS ONE START-->
-								<div role="tabpanel" class="tab-pane active" id="women-tab">
-									<div class="bg-tab-content-area tab-carousel-1">
-										<!-- TAB-SINGLE-ITEM START -->
-										<div class="item">
-											<div class="single-product-item">
-												<div class="product-image">
-													<a href="#"><img src="public/img/product/sale/3.jpg" alt="product-image" /></a>
-													<a href="#" class="new-mark-box">new</a>
-													<div class="overlay-content">
-														<ul>
-															<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-															<li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-															<li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-															<li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
-														</ul>
-													</div>
-												</div>
-												<div class="product-info">
-													<div class="customar-comments-box">
-														<div class="rating-box">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-half-empty"></i>
-														</div>
-														<div class="review-box">
-															<span>1 Review(s)</span>
+								@if(count($tab_category)>0 && count($product)>0)
+								<?php $i=0; ?>
+								@foreach($tab_category as $values_category)
+									<?php $i++; if($i==1){?>
+									<div role="tabpanel" class="tab-pane active" id="{{$values_category->name}}-tab"><?php } else {?>
+									<div role="tabpanel" class="tab-pane" id="{{$values_category->name}}-tab">
+									<?php  }?>
+										<div class="bg-tab-content-area tab-carousel-<?php echo $i;?>">
+											<!-- TAB-SINGLE-ITEM START -->
+											@foreach($product as $values_product)
+											@if($values_product->tab_categoryID==$values_category->id)
+											<div class="item">
+												<div class="single-product-item">
+													<div class="product-image">
+														<a href="{{Asset('products')}}/{{$values_product->id}}/{{$convert->convertString($values_product->name)}}.html"><img src="{{$values_product->image}}" title="{{$values_product->name}}" alt="{{$values_product->name}}" /></a>
+														<a href="{{Asset('products')}}/{{$values_product->id}}/{{$convert->convertString($values_product->name)}}.html" title="{{$values_product->name}}" class="new-mark-box">{{$values_product->icon_status}}</a>
+														<div class="overlay-content">
+															<ul>
+																<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
+																<li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
+																<li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
+																<li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+															</ul>
 														</div>
 													</div>
-													<a href="single-product.html">Short Sleeves T-shirt</a>
-													<div class="price-box">
-														<span class="price">$16.51</span>
+													<div class="product-info">
+														<div class="customar-comments-box">
+															<!-- <div class="rating-box">
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star-half-empty"></i>
+															</div> -->
+															<div class="review-box">
+																<span>{{$values_product->view}} View</span>
+															</div>
+														</div>
+														<a style="text-transform: uppercase;" title="{{$values_product->name}}" href="{{Asset('products')}}/{{$values_product->id}}/{{$convert->convertString($values_product->name)}}.html">{{$values_product->name}}</a>
+														<div class="price-box">
+															<span class="price">{{number_format($values_product->promotion_price)}} vnđ</span>
+															<span class="old-price">{{number_format($values_product->price)}} vnđ</span>
+														</div>
 													</div>
-												</div>
-											</div>							
-										</div>
-										<!-- TAB-SINGLE-ITEM END -->
-									</div>	
-								</div>
+												</div>							
+											</div>
+											@endif
+											@endforeach
+											<!-- TAB-SINGLE-ITEM END -->
+										</div>	
+									</div>
+								@endforeach
+								@endif
 								<!-- TABS ONE END-->
-								<!-- TABS TWO START-->
-								<div role="tabpanel" class="tab-pane" id="tops-tab">
-									<div class="bg-tab-content-area tab-carousel-2">
-										<!-- TAB-SINGLE-ITEM START -->
-										<div class="item">
-											<div class="single-product-item">
-												<div class="product-image">
-													<a href="#"><img src="public/img/product/sale/9.jpg" alt="product-image" /></a>
-													<a href="#" class="new-mark-box">sale!</a>
-													<div class="overlay-content">
-														<ul>
-															<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-															<li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-															<li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-															<li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
-														</ul>
-													</div>
-												</div>
-												<div class="product-info">
-													<div class="customar-comments-box">
-														<div class="rating-box">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-half-empty"></i>
-															<i class="fa fa-star-half-empty"></i>
-														</div>
-														<div class="review-box">
-															<span>1 Review(s)</span>
-														</div>
-													</div>
-													<a href="single-product.html">Printed Dress</a>
-													<div class="price-box">
-														<span class="price">$23.40</span>
-														<span class="old-price">$26.00</span>
-													</div>
-												</div>
-											</div>							
-										</div>
-										<!-- TAB-SINGLE-ITEM END -->
-									</div>	
-								</div>
-								<!-- TABS TWO END-->
-								<!-- TABS THREE START-->
-								<div role="tabpanel" class="tab-pane" id="t-shirts">
-									<div class="bg-tab-content-area tab-carousel-3">
-										<!-- TAB-SINGLE-ITEM START -->
-										<div class="item">
-											<div class="single-product-item">
-												<div class="product-image">
-													<a href="#"><img src="public/img/product/sale/5.jpg" alt="product-image" /></a>
-													<a href="#" class="new-mark-box">new</a>
-													<div class="overlay-content">
-														<ul>
-															<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-															<li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-															<li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-															<li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
-														</ul>
-													</div>
-												</div>
-												<div class="product-info">
-													<div class="customar-comments-box">
-														<div class="rating-box">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-half-empty"></i>
-														</div>
-														<div class="review-box">
-															<span>1 Review(s)</span>
-														</div>
-													</div>
-													<a href="single-product.html">Printed Dress</a>
-													<div class="price-box">
-														<span class="price">$50.99</span>
-													</div>
-												</div>
-											</div>							
-										</div>
-										<!-- TAB-SINGLE-ITEM END -->
-									</div>					
-								</div>
-								<!-- TABS THREE END-->
+								
 							</div>	
 							<!-- TAB PANES END -->
 							<!-- TABS MENU START-->
 							<div class="tab-carousel-menu">
 								<ul class="nav nav-tabs product-bg-nav">
-									<li class="active"><a href="#women-tab" data-toggle="tab">Women</a></li>
-									<li><a href="#tops-tab" data-toggle="tab">tops</a></li>
-									<li><a href="#t-shirts" data-toggle="tab">t-shirts</a></li>
+									@if(count($tab_category)>0 && count($product)>0)
+									<?php $flag=true; ?>
+									@foreach($tab_category as $values)
+									<?php if($flag){ ?>
+									<li class="active"><a href="#{{$values->name}}-tab" data-toggle="tab">{{$values->name}}</a></li><?php $flag=false; } else{?>
+										<li><a href="#{{$values->name}}-tab" data-toggle="tab">{{$values->name}}</a></li><?php }?>
+									@endforeach
+									@endif
 								</ul>
 							</div>
 							<!-- TABS MENU END-->					
@@ -447,8 +387,8 @@
 									<div class="item">
 										<div class="single-product-item">
 											<div class="product-image">
-												<a href="#"><img src="public/img/product/sale/1.jpg" title="{{$values->name}}" alt="{{$values->name}}" /></a>
-												<a href="#" class="new-mark-box">{{$values->icon_status}}</a>
+												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 												<div class="overlay-content">
 													<ul>
 														<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
@@ -471,10 +411,10 @@
 														<span>{{$values->view}} View</span>
 													</div>
 												</div>
-												<a title="{{$values->name}}" href="single-product.html" style="text-transform: uppercase;">{{$values->name}}</a>
+												<a title="{{$values->name}}" href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" style="text-transform: uppercase;">{{$values->name}}</a>
 												<div class="price-box">
-													<span class="price">{{number_format($values->price)}}</span>
-													<span class="old-price">{{number_format($values->promotion_price)}}</span>
+													<span class="price">{{number_format($values->promotion_price)}} vnđ</span>
+													<span class="old-price">{{number_format($values->price)}} vnđ</span>
 												</div>
 											</div>
 										</div>							
@@ -492,20 +432,24 @@
 				<div class="row">
 					<!-- IMAGE-ADD-AREA START -->
 					<div class="image-add-area">
+					@if(count($ads)>0 && isset($ads[3]))
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<!-- ONEHALF-ADD START -->
 							<div class="onehalf-add-shope zoom-img">
-								<a href="#"><img src="public/img/product/one-helf1.jpg" alt="shope-add" /></a>
+								<a href="{{$ads[3]->url}}"><img src="{{$ads[3]->image}}" alt="{{$ads[3]->name}}" /></a>
 							</div>
 							<!-- ONEHALF-ADD END -->
 						</div>
+					@endif
+					@if(count($ads)>0 && isset($ads[4]))
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<!-- ONEHALF-ADD START -->
 							<div class="onehalf-add-shope zoom-img">
-								<a href="#"><img src="public/img/product/one-helf2.jpg" alt="shope-add" /></a>
+								<a href="{{$ads[4]->url}}"><img src="{{$ads[4]->image}}" alt="{{$ads[4]->name}}" /></a>
 							</div>
 							<!-- ONEHALF-ADD END -->
-						</div>						
+						</div>
+					@endif						
 					</div>
 					<!-- IMAGE-ADD-AREA END -->
 				</div>
@@ -518,7 +462,7 @@
 				<div class="row">
 					<div class="latest-news-row">
 						<div class="center-title-area">
-							<h2 class="center-title"><a href="#">Tin tức</a></h2>
+							<h2 class="center-title"><a href="{{Asset('')}}tin-tuc">Tin tức</a></h2>
 						</div>	
 						<div class="col-xs-12">
 							<div class="row">
@@ -529,14 +473,14 @@
 									<div class="item">
 										<div class="latest-news-post">
 											<div class="single-latest-post">
-												<a href="#"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
-												<h2><a title="{{$values->name}}" href="#">{{$values->name}}</a></h2>
+												<a href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+												<h2><a title="{{$values->name}}" href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html">{{$values->name}}</a></h2>
 												<p>{{$values->description}}</p>
 												<div class="latest-post-info">
 													<i class="fa fa-calendar"></i><span>{{$values->created_at}}</span>
 												</div>
 												<div class="read-more">
-													<a title="{{$values->name}}" href="#">Xem Thêm <i class="fa fa-long-arrow-right"></i></a>
+													<a title="{{$values->name}}" href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html">Xem Thêm <i class="fa fa-long-arrow-right"></i></a>
 												</div>
 											</div>
 										</div>

@@ -19,6 +19,11 @@ class NewsController extends Controller
 		$news = new news();
 		return $news->orderBy('id', 'desc')->take(10)->get();
 	}
+	public static function getNewsWhereID($id)
+	{
+		$news = new news();
+		return $news->orderBy('id', 'desc')->where('id','=',$id)->get();
+	}
 }
 
 ?>

@@ -14,6 +14,15 @@ Route::get('/',"ViewController@index");
 Route::get('shop-gird.html', function () {
     return view('shop-gird');
 });
+
+Route::get('products/{id}/{name}.html','ViewController@productDetail');
+
+Route::get("news/{id}/{name}.html",'ViewController@detailnews');
+Route::get("tin-tuc",'ViewController@news');
+
+Route::get("san-pham/gird/{category}",'ViewController@productsgird');
+Route::get("san-pham/list/{category}",'ViewController@productslist');
+
 Route::get('contact-us.html', function () {
     return view('contact-us');
 });
@@ -58,9 +67,6 @@ Route::get('shop-list.html', function () {
     return view('shop-list');
 });
 
-Route::get('single-product.html', function () {
-    return view('single-product');
-});
 
 
 Route::get('wishlist.html', function () {

@@ -9,7 +9,7 @@
 	class news extends Model
 	{		
 		public $table = "news";
-		public $fillable=['name','image','description','content','user','created_at'];
+		public $fillable=['name','image','description','content','user','view','created_at'];
 		
 	}
  ?>

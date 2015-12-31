@@ -17,15 +17,14 @@ class CrateProductTable extends Migration
             $table->string('name');
             $table->string('promotion_price');
             $table->string('price');
-            $table->string('content');
             $table->string('image');
             $table->integer('quantity');
-            $table->string('size');
-            $table->string('color');
             $table->string('status');
             $table->integer('view');
             $table->integer('user');
-            
+            $table->integer('tab_categoryID');
+            $table->integer('categoryID');
+            $table->Integer('menuID');
             $table->timestamp('created_at');
         });
     }

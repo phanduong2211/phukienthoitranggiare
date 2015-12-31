@@ -17,6 +17,7 @@ class CreateMunuTable extends Migration
             $table->integer('root');
             $table->string('name');
             $table->string('url');
+            $table->timestamps();
         });
     }
 

@@ -19,6 +19,7 @@ class CreateSlideshowTable extends Migration
             $table->string('content');
             $table->string('url');
             $table->string('page');
+            $table->timestamps();
         });
     }
 

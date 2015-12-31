@@ -43,44 +43,44 @@
 									<div class="tab-content">
 										<div class="tab-pane active" id="thumbnail_1">
 											<div class="single-product-image">
-												<img src="public/img/product/sale/1.jpg" alt="single-product-image" />
+												<img src="{{Asset('')}}public/img/product/sale/1.jpg" alt="single-product-image" />
 												<a class="new-mark-box" href="#">new</a>
-												<a class="fancybox" href="public/img/product/sale/1.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="{{Asset('')}}public/img/product/sale/1.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>	
 										</div>
 										<div class="tab-pane" id="thumbnail_2">
 											<div class="single-product-image">
-												<img src="public/img/product/sale/3.jpg" alt="single-product-image" />
+												<img src="{{Asset('')}}public/img/product/sale/3.jpg" alt="single-product-image" />
 												<a class="new-mark-box" href="#">new</a>
-												<a class="fancybox" href="public/img/product/sale/3.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="{{Asset('')}}public/img/product/sale/3.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>	
 										</div>
 										<div class="tab-pane" id="thumbnail_3">
 											<div class="single-product-image">
-												<img src="public/img/product/sale/9.jpg" alt="single-product-image" />
+												<img src="{{Asset('')}}public/img/product/sale/9.jpg" alt="single-product-image" />
 												<a class="new-mark-box" href="#">new</a>
-												<a class="fancybox" href="public/img/product/sale/9.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="{{Asset('')}}public/img/product/sale/9.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>	
 										</div>
 										<div class="tab-pane" id="thumbnail_4">
 											<div class="single-product-image">
-												<img src="public/img/product/sale/13.jpg" alt="single-product-image" />
+												<img src="{{Asset('')}}public/img/product/sale/13.jpg" alt="single-product-image" />
 												<a class="new-mark-box" href="#">new</a>
-												<a class="fancybox" href="public/img/product/sale/13.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="{{Asset('')}}public/img/product/sale/13.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>	
 										</div>
 										<div class="tab-pane" id="thumbnail_5">
 											<div class="single-product-image">
-												<img src="public/img/product/sale/7.jpg" alt="single-product-image" />
+												<img src="{{Asset('')}}public/img/product/sale/7.jpg" alt="single-product-image" />
 												<a class="new-mark-box" href="#">new</a>
-												<a class="fancybox" href="public/img/product/sale/7.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="{{Asset('')}}public/img/product/sale/7.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>	
 										</div>
 										<div class="tab-pane" id="thumbnail_6">
 											<div class="single-product-image">
-												<img src="public/img/product/sale/12.jpg" alt="single-product-image" />
+												<img src="{{Asset('')}}public/img/product/sale/12.jpg" alt="single-product-image" />
 												<a class="new-mark-box" href="#">new</a>
-												<a class="fancybox" href="public/img/product/sale/12.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="{{Asset('')}}public/img/product/sale/12.jpg" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>	
 										</div>
 									</div>										
@@ -89,22 +89,22 @@
 									<!-- Nav tabs -->
 									<ul class="nav nav-tabs select-product-tab bxslider">
 										<li class="active">
-											<a href="#thumbnail_1" data-toggle="tab"><img src="public/img/product/sidebar_product/1.jpg" alt="pro-thumbnail" /></a>
+											<a href="#thumbnail_1" data-toggle="tab"><img src="{{Asset('')}}public/img/product/sidebar_product/1.jpg" alt="pro-thumbnail" /></a>
 										</li>
 										<li>
-											<a href="#thumbnail_2" data-toggle="tab"><img src="public/img/product/sidebar_product/2.jpg" alt="pro-thumbnail" /></a>
+											<a href="#thumbnail_2" data-toggle="tab"><img src="{{Asset('')}}public/img/product/sidebar_product/2.jpg" alt="pro-thumbnail" /></a>
 										</li>
 										<li>
-											<a href="#thumbnail_3" data-toggle="tab"><img src="public/img/product/sidebar_product/3.jpg" alt="pro-thumbnail" /></a>
+											<a href="#thumbnail_3" data-toggle="tab"><img src="{{Asset('')}}public/img/product/sidebar_product/3.jpg" alt="pro-thumbnail" /></a>
 										</li>
 										<li>
-											<a href="#thumbnail_4" data-toggle="tab"><img src="public/img/product/sidebar_product/4.jpg" alt="pro-thumbnail" /></a>
+											<a href="#thumbnail_4" data-toggle="tab"><img src="{{Asset('')}}public/img/product/sidebar_product/4.jpg" alt="pro-thumbnail" /></a>
 										</li>
 										<li>
-											<a href="#thumbnail_5" data-toggle="tab"><img src="public/img/product/sidebar_product/5.jpg" alt="pro-thumbnail" /></a>
+											<a href="#thumbnail_5" data-toggle="tab"><img src="{{Asset('')}}public/img/product/sidebar_product/5.jpg" alt="pro-thumbnail" /></a>
 										</li>
 										<li>
-											<a href="#thumbnail_6" data-toggle="tab"><img src="public/img/product/sidebar_product/6.jpg" alt="pro-thumbnail" /></a>
+											<a href="#thumbnail_6" data-toggle="tab"><img src="{{Asset('')}}public/img/product/sidebar_product/6.jpg" alt="pro-thumbnail" /></a>
 										</li>
 									</ul>										
 								</div>
@@ -268,7 +268,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/3.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/3.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -295,7 +295,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/1.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/1.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -323,7 +323,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/9.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/9.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -351,7 +351,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/5.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/5.jpg" alt="product-image" /></a>
 														<div class="overlay-content">
 														</div>
 													</div>
@@ -380,7 +380,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/12.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/12.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -408,7 +408,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/13.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/13.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -435,7 +435,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/7.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/7.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -463,7 +463,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/11.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/11.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -490,7 +490,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/10.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/10.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -517,7 +517,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/2.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/2.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -544,7 +544,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/4.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/4.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -571,7 +571,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/6.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/6.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -599,7 +599,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="#"><img src="public/img/product/sale/8.jpg" alt="product-image" /></a>
+														<a href="#"><img src="{{Asset('')}}public/img/product/sale/8.jpg" alt="product-image" /></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -638,28 +638,28 @@
 							<h2 class="left-title">Viewed products</h2>
 							<ul>
 								<li>
-									<a href="#"><img src="public/img/product/sidebar_product/2.jpg" alt="" /></a>
+									<a href="#"><img src="{{Asset('')}}public/img/product/sidebar_product/2.jpg" alt="" /></a>
 									<div class="r-sidebar-pro-content">
 										<h5><a href="#">Faded Short ...</a></h5>
 										<p>Faded short sleeves t-shirt with high...</p>
 									</div>
 								</li>
 								<li>
-									<a href="#"><img src="public/img/product/sidebar_product/4.jpg" alt="" /></a>
+									<a href="#"><img src="{{Asset('')}}public/img/product/sidebar_product/4.jpg" alt="" /></a>
 									<div class="r-sidebar-pro-content">
 										<h5><a href="#">Printed Chif ..</a></h5>
 										<p>Printed chiffon knee length dress...</p>
 									</div>
 								</li>
 								<li>
-									<a href="#"><img src="public/img/product/sidebar_product/6.jpg" alt="" /></a>
+									<a href="#"><img src="{{Asset('')}}public/img/product/sidebar_product/6.jpg" alt="" /></a>
 									<div class="r-sidebar-pro-content">
 										<h5><a href="#">Printed Sum ...</a></h5>
 										<p>Long printed dress with thin...</p>
 									</div>
 								</li>
 								<li>
-									<a href="#"><img src="public/img/product/sidebar_product/1.jpg" alt="" /></a>
+									<a href="#"><img src="{{Asset('')}}public/img/product/sidebar_product/1.jpg" alt="" /></a>
 									<div class="r-sidebar-pro-content">
 										<h5><a href="#">Printed Dress </a></h5>
 										<p>100% cotton double printed dress....</p>
@@ -687,7 +687,7 @@
 						<!-- SINGLE SIDE BAR START -->						
 						<div class="single-product-right-sidebar">
 							<div class="slider-right zoom-img">
-								<a href="#"><img class="img-responsive" src="public/img/product/cms11.jpg" alt="sidebar left" /></a>
+								<a href="#"><img class="img-responsive" src="{{Asset('')}}public/img/product/cms11.jpg" alt="sidebar left" /></a>
 							</div>							
 						</div>
 					</div>

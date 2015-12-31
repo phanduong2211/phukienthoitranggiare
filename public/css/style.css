@@ -464,9 +464,9 @@ ul.filtering-menu{border-bottom:0 solid #eee;margin-top:17px;padding-bottom:6px;
 #slidevalue{border:0 none;color:#777;float:right;font-size:13px;font-weight:normal;margin-top:3px;width:72%;}
 .cheker{float:left;margin-bottom:0;margin-right:8px;margin-top:3px;}
 .cheker input{display:none;}
-.cheker span{background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll 0px -257px;display:block;height:15px;width:15px;}
-.cheker input:checked + span{background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -15px -257px;}
-.cheker span:hover{background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -30px -257px;}
+.cheker span{background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll 0px -257px;display:block;height:15px;width:15px;}
+.cheker input:checked + span{background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -15px -257px;}
+.cheker span:hover{background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -30px -257px;}
 ul.product-color-var{overflow-y:scroll;max-height:200px;}
 ul.product-color-var li{margin-bottom:9px;}
 i.color-beige, i.color-white, i.color-black, i.color-orange, i.color-blue, i.color-green, i.color-yellow, i.color-pink{width:16px;height:16px;border:1px solid #666;background:#fff;color:#fff;}
@@ -500,13 +500,13 @@ ul.gategory-product li.gategory-product-list div.single-product-item .overlay-co
 .product-shooting-bar{border:1px solid #d6d4d4;clear:both;padding:6px 10px 9px;overflow:hidden;}
 .product-shooting-bar label{color:#333;font-size:13px;line-height:25px;}
 .shoort-by{float:left;margin-right:20px;margin-top:4px;}
-.short-select-option{background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -302px 0px;float:right;height:27px;border-left:1px solid #d6d4d4;width:190px;margin-left:6px;}
+.short-select-option{background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -302px 0px;float:right;height:27px;border-left:1px solid #d6d4d4;width:190px;margin-left:6px;}
 .short-select-option:hover{background-position:-302px -27px;}
 .short-select-option select{background:rgba(0, 0, 0, 0) none repeat scroll 0 0;opacity:1;height:28px;width:190px;border:medium none;-webkit-appearance:none;-moz-appearance:none;outline:medium none;color:#777;font-size:12px;padding-left:5px;}
 .short-select-option select option{}
 .show-page{float:left;margin-right:20px;margin-top:4px;}
 .show-page label{float:left;}
-.s-page-select-option{background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -435px 0px;border-left:1px solid #d6d4d4;float:left;height:27px;margin-left:6px;margin-right:12px;width:57px;}
+.s-page-select-option{background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -435px 0px;border-left:1px solid #d6d4d4;float:left;height:27px;margin-left:6px;margin-right:12px;width:57px;}
 .s-page-select-option:hover{background-position:-435px -27px;}
 .s-page-select-option select{width:57px;background:rgba(0, 0, 0, 0) none repeat scroll 0 0;opacity:1;height:28px;border:medium none;-webkit-appearance:none;-moz-appearance:none;outline:medium none;color:#777;font-size:12px;padding-left:5px;}
 .s-page-select-option select option{}
@@ -570,7 +570,7 @@ h2.contant-page-title{margin-bottom:17px;}
 .contact-form-center h3.contact-subheading{font-size:18px;line-height:18px;text-transform:uppercase;font-family:"Open Sans",sans-serif;font-weight:600;color:#555454;margin:10px 0 17px;}
 form.contact-form{}
 form.contact-form label{display:block;margin:14px 0;}
-.con-form-select{background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -230px 0;border-left:1px solid #d6d4d4;height:27px;width:262px;}
+.con-form-select{background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -230px 0;border-left:1px solid #d6d4d4;height:27px;width:262px;}
 .con-form-select:hover{background-position:-230px -27px;}
 .con-form-select select{background:rgba(0, 0, 0, 0) none repeat scroll 0 0;opacity:1;height:28px;width:262px;border:medium none;-webkit-appearance:none;-moz-appearance:none;outline:medium none;color:#777;font-size:12px;padding-left:5px;}
 .con-form-select select option{}
@@ -584,7 +584,7 @@ form.contact-form button.send-message i{margin-left:4px;}
 div.file-uploader{background:rgba(0, 0, 0, 0) none repeat scroll 0 0;cursor:pointer;overflow:hidden;position:relative;width:203px;margin-bottom:50px;}
 div.file-uploader input[type=file]{background:rgba(0, 0, 0, 0) none repeat scroll 0 0;border:medium none;cursor:default;float:left;height:100%;opacity:0;position:absolute;right:0;top:0;width:100%;}
 .contact-form-box div.file-uploader span.filename{width:114px;}
-div.file-uploader span.action{-moz-user-select:none;background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll 0 -378px;color:#fff;cursor:pointer;display:inline;float:right;font-size:13px;height:27px;line-height:27px;overflow:hidden;text-align:center;text-shadow:0 1px 0 rgba(0, 0, 0, 0.1);width:94px;}
+div.file-uploader span.action{-moz-user-select:none;background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll 0 -378px;color:#fff;cursor:pointer;display:inline;float:right;font-size:13px;height:27px;line-height:27px;overflow:hidden;text-align:center;text-shadow:0 1px 0 rgba(0, 0, 0, 0.1);width:94px;}
 div.file-uploader span.filename{-moz-user-select:none;background:#fbfbfb none repeat scroll 0 0;border:1px solid #d6d4d4;color:#777;font-size:13px;line-height:27px;margin-right:0px;padding:5px 6px;}
 .error-page-area{}
 .error-content{text-align:center;}
@@ -635,7 +635,7 @@ form.error-ser-form .error-ser-btn:hover{background:#3A3D42 none repeat scroll 0
 .p-info-group label{display:block;line-height:18px;margin-bottom:5px;margin-top:5px;text-transform:capitalize;}
 .p-info-group span{color:#333;display:block;float:left;font-size:13px;margin-right:35px;}
 .personal-infomation .primary-form-group input{max-width:270px}
-.birth-day, .birth-month, .birth-year{background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -412px 0px;border-left:1px solid #d6d4d4;float:left;height:27px;margin-left:0px;margin-right:15px;width:80px;margin-bottom:10px;}
+.birth-day, .birth-month, .birth-year{background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -412px 0px;border-left:1px solid #d6d4d4;float:left;height:27px;margin-left:0px;margin-right:15px;width:80px;margin-bottom:10px;}
 .birth-day select, .birth-month select, .birth-year select{width:80px;background:rgba(0, 0, 0, 0) none repeat scroll 0 0;opacity:1;height:28px;border:medium none;-webkit-appearance:none;-moz-appearance:none;outline:medium none;color:#777;font-size:12px;padding-left:5px;}
 .birth-day:hover, .birth-month:hover, .birth-year:hover{background-position:-412px -27px;}
 span.radio-box{}
@@ -701,7 +701,7 @@ div.wishlists-chart table tr td a:hover{color:#777;}
 .wish-back-link{margin-top:25px;border-top:1px solid #d6d4d4;padding-top:10px;margin-bottom:30px;}
 .wish-back-link a{margin-right:8px;}
 .wish-prioriti{}
-.wish-prioriti{background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -303px -81px;border-left:1px solid #d6d4d4;height:27px;width:189px;}
+.wish-prioriti{background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -303px -81px;border-left:1px solid #d6d4d4;height:27px;width:189px;}
 .wish-prioriti select{width:189px;background:rgba(0, 0, 0, 0) none repeat scroll 0 0;opacity:1;height:28px;border:medium none;-webkit-appearance:none;-moz-appearance:none;outline:medium none;color:#777;font-size:12px;padding-left:5px;}
 .wish-prioriti:hover{background-position:-303px -108px;}
 .cart-plus-minus{background:#fbfbfb none repeat scroll 0 0;border:1px solid #ccc;padding:5px;width:100%;}
@@ -791,9 +791,9 @@ div.create-new-account .form-content p{font-size:13px;margin:0 0 5px;}
 div.registered-account .primary-form-group input{max-width:271px;}
 p.filup-below{margin:0;color:#333;font-size:13px;line-height:20px;}
 .felup-required{color:red;margin:9px 0 16px;font-size:13px;line-height:20px;}
-.selected-state, .selected-country, .delivery-address{width:272px;background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -221px 0px;margin-bottom:0;}
+.selected-state, .selected-country, .delivery-address{width:272px;background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -221px 0px;margin-bottom:0;}
 .selected-state select#sel-state, .selected-country select#sel-country, .delivery-address select#deli-address{width:272px;}
-.selected-state:hover, .selected-country:hover, .delivery-address:hover{background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -221px -27px;}
+.selected-state:hover, .selected-country:hover, .delivery-address:hover{background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -221px -27px;}
 .deli-address-group label{margin-top:0;text-transform:none;}
 .chose-address{margin:10px 0 22px;}
 .chose-address a{position:relative;top:2px;left:-3px;}
@@ -927,7 +927,7 @@ span.large-btn:hover i{color:#333;}
 .single-product-size{}
 .single-product-size p{}
 p.small-title{font-size:12px;}
-.single-product-size select{-moz-appearance:none;-webkit-appearance:none;background:rgba(0, 0, 0, 0) url("img/sprite.png") no-repeat scroll -266px 0;border:none;border-left:1px solid #ccc;color:#777;font-size:12px;height:27px;width:228px;margin:5px 0 5px;padding-left:5px;}
+.single-product-size select{-moz-appearance:none;-webkit-appearance:none;background:rgba(0, 0, 0, 0) url("../img/sprite.png") no-repeat scroll -266px 0;border:none;border-left:1px solid #ccc;color:#777;font-size:12px;height:27px;width:228px;margin:5px 0 5px;padding-left:5px;}
 .single-product-size select option{}
 .single-product-color{margin-bottom:15px;overflow:hidden;}
 .single-product-color p{margin-bottom:5px;}
