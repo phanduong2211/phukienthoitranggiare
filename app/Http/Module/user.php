@@ -25,10 +25,12 @@
 				if($data[0]->password==$password)
 				{
 					Session::put('login_name',$data[0]->name);
+					Session::put('login_userID',$data[0]->id);
 					return true;
 				}
 			}
 			return false;
 		}
+
 	}
  ?>

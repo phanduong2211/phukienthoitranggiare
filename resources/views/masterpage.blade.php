@@ -5,7 +5,7 @@
         <title>Home</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		
+		<meta name="csrf_token" content="{{ csrf_token() }}" />
 		<!-- Favicon
 		============================================ -->
 		<link rel="shortcut icon" type="image/x-icon" href="{{Asset('')}}public/img/favicon.png">
@@ -141,7 +141,9 @@
 									<li><a href="wishlist.html">Yêu thích</a></li>
 									<li><a href="my-account.html">Tài Khoản</a></li>
 									<li><a href="cart.html">Giỏ hàng</a></li>
-									<li><a href="registration.html">Đăng Nhập</a></li>
+									<?php if(!Session::has('login_name')) echo '<li><a href="registration.html">Đăng Nhập</a></li>';
+										else echo '<li><a href="signout">Đăng Xuất</a></li>';
+									?>
 								</ul>									
 							</nav>
 						</div>
@@ -173,7 +175,7 @@
 								<div class="search-product form-group">
 									<select name="catsearch" class="cat-search">
 										<option value="">Tất cả</option>
-										@foreach($category as $values)
+										@foreach($categorys as $values)
 										<option value="{{$values->id}}">{{$values->name}}</option>	
 										@endforeach							
 									</select>
@@ -776,6 +778,8 @@
 		
 		<!-- fancybox js -->
         <script src="{{Asset('')}}public/js/jquery.fancybox.js"></script>
+        <!-- ajax js -->
+        <script src="{{Asset('')}}public/js/ajax.js"></script>
 		
 		<!-- bxslider js -->
         <script src="{{Asset('')}}public/js/jquery.bxslider.min.js"></script>
@@ -791,6 +795,11 @@
 		
 		<!-- jqueryui js -->
         <script src="{{Asset('')}}public/js/jqueryui.js"></script>
+        <!-- bootbox.min js -->
+       <!--  <script src="{{Asset('')}}public/js/bootbox.min.js"></script> -->
+
+        <!-- bootbox js -->
+        <script src="{{Asset('')}}public/js/bootbox.js"></script>
 		
 		<!-- bootstrap js -->
         <script src="{{Asset('')}}public/js/bootstrap.min.js"></script>

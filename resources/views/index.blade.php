@@ -60,7 +60,7 @@
 												<div class="d-table-cell">
 													<h2 class="animated bounceInDown">BEST THEMES</h2>
 													<p class="animated bounceInUp">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod ut laoreet dolore magna aliquam erat volutpat.</p>	
-													<a class="wow zoomInDown" data-wow-duration="1s" data-wow-delay="1s" href="#">Read More <i class="fa fa-caret-right"></i></a>
+													<a class="wow zoomInDown" data-wow-duration="1s" data-wow-delay="1s" href="javascript:void(0)">Read More <i class="fa fa-caret-right"></i></a>
 												</div>
 											</div>
 										</div> -->
@@ -104,13 +104,13 @@
 															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
 															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 															<div class="overlay-content">
-																<ul>
-																	<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-																	<li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-																	<li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-																	<li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+																<ul id="{{$values->id}}">
+																	<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-search"></i></a></li>
+																	<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
+																	<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-retweet"></i></a></li>
+																	<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
 																</ul>
-															</div>
+															</div>															
 														</div>
 														<div class="product-info">
 															<div class="customar-comments-box">
@@ -167,11 +167,11 @@
 															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
 															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 															<div class="overlay-content">
-																<ul>
-																	<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-																	<li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-																	<li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-																	<li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+																<ul id="{{$values->id}}">
+																	<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-search"></i></a></li>
+																	<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
+																	<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-retweet"></i></a></li>
+																	<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
 																</ul>
 															</div>
 														</div>
@@ -249,11 +249,11 @@
 												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
 												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 												<div class="overlay-content">
-													<ul>
-														<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-														<li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-														<li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-														<li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+													<ul id="{{$values->id}}">
+														<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-search"></i></a></li>
+														<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
+														<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-retweet"></i></a></li>
+														<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
 													</ul>
 												</div>
 											</div>
@@ -313,11 +313,11 @@
 														<a href="{{Asset('products')}}/{{$values_product->id}}/{{$convert->convertString($values_product->name)}}.html"><img src="{{$values_product->image}}" title="{{$values_product->name}}" alt="{{$values_product->name}}" /></a>
 														<a href="{{Asset('products')}}/{{$values_product->id}}/{{$convert->convertString($values_product->name)}}.html" title="{{$values_product->name}}" class="new-mark-box">{{$values_product->icon_status}}</a>
 														<div class="overlay-content">
-															<ul>
-																<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-																<li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-																<li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-																<li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+															<ul id="{{$values_product->id}}" >
+																<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-search"></i></a></li>
+																<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
+																<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-retweet"></i></a></li>
+																<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
 															</ul>
 														</div>
 													</div>
@@ -389,12 +389,12 @@
 											<div class="product-image">
 												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
 												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
-												<div class="overlay-content">
-													<ul>
-														<li><a href="#" title="Quick view"><i class="fa fa-search"></i></a></li>
-														<li><a href="#" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
-														<li><a href="#" title="Quick view"><i class="fa fa-retweet"></i></a></li>
-														<li><a href="#" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
+												<div class="overlay-content" >
+													<ul id="{{$values->id}}">
+														<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-search"></i></a></li>
+														<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-shopping-cart"></i></a></li>
+														<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-retweet"></i></a></li>
+														<li><a href="javascript:void(0)" title="Quick view"><i class="fa fa-heart-o"></i></a></li>
 													</ul>
 												</div>
 											</div>

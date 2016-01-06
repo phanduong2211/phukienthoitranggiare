@@ -25,9 +25,9 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="index.html">Trang Chủ<span><i class="fa fa-caret-right"></i> </span> </a>
+							<a href="{{Asset('')}}">Trang Chủ<span><i class="fa fa-caret-right"></i> </span> </a>
 							<span> <i class="fa fa-caret-right"> </i> </span>
-							<a href="{{Asset('')}}product/{{$convert->convertString($category[0]->name)}}">{{$category[0]->name}}</a>
+							<a href="{{Asset('')}}product/{{$convert->convertString($category['name'])}}">{{$category['name']}}</a>
 							<span>{{$product[0]->name}}</span>
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->

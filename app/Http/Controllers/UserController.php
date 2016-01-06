@@ -18,6 +18,7 @@ class UserController extends Controller
     {
     	
     }
+    // đăng nhập tài khoản
     public function login()
     {
     	$email=Input::get("email");
@@ -30,10 +31,10 @@ class UserController extends Controller
     	Session::put('login',false);
     	return Redirect::to('registration.html');
     }
+    // tạo tài khoản
     public function register()
     {
     	$data =Input::all();
-    	return $data;    
     	if(user::check_user($data["email"]))
     	{
 
@@ -44,5 +45,14 @@ class UserController extends Controller
     	}
     	Session::put('email_register',false);
     	return Redirect::to('registration.html');
+    }
+    // kiểm tra login hay chưa
+    public static function isLogin()
+    {
+        if(Session::has('login_userID'))
+        {
+            return true;
+        }
+        return false;
     }
 }

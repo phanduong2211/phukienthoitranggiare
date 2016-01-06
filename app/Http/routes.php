@@ -23,6 +23,10 @@ Route::get("tin-tuc",'ViewController@news');
 Route::get("san-pham/gird/{category}",'ViewController@productsgird');
 Route::get("san-pham/list/{category}",'ViewController@productslist');
 
+
+
+
+
 Route::get('contact-us.html', function () {
     return view('contact-us');
 });
@@ -55,13 +59,8 @@ Route::get('checkout.html', function () {
     return view('checkout');
 });
 
-Route::get('my-account.html', function () {
-    return view('my-account');
-});
-
-Route::get('registration.html', function () {
-    return view('registration');
-});
+Route::get('my-account.html',"ViewController@myacount");
+Route::get('registration.html','ViewController@registration');
 
 Route::get('shop-list.html', function () {
     return view('shop-list');
@@ -69,9 +68,9 @@ Route::get('shop-list.html', function () {
 
 
 
-Route::get('wishlist.html', function () {
-    return view('wishlist');
-});
+Route::get('wishlist.html',"ViewController@wishlist");
+Route::get('wishlist',"ViewController@postwishlist");
+Route::post('deletewishlist',"ViewController@deletewishlist");
 
 Route::get('my-cart-step-2-info.html', function () {
     return view('my-cart-step-2-info');
@@ -81,3 +80,9 @@ Route::post('signinCreate',"UserController@login");
 
 Route::post('',"UserController@login");
 Route::post('AccountCreate',"UserController@register");
+
+Route::get("test","ViewController@deletewishlist");
+
+/*Route::get("test1",function(){
+    return Session::get("name_test");
+});*/

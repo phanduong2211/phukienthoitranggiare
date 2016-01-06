@@ -26,7 +26,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="index.html">HOMe <span><i class="fa fa-caret-right"></i> </span> </a>
+							<a href="{{Asset('')}}">Home <span><i class="fa fa-caret-right"></i> </span> </a>
 							<a href="my-account.html"> my account <span><i class="fa fa-caret-right"></i></span></a>
 							<span> My wishlists</span>
 						</div>
@@ -55,7 +55,7 @@
 					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 						<h2 class="page-title">My wishlists</h2>
 						<!-- WISHLISTS-AREA START -->
-						<div class="wishlists-area">
+						<!-- <div class="wishlists-area">
 							<form class="new-wishlists-box primari-box" id="savewishlist" method="post" action="#">
 								<h3 class="box-subheading">New wishlist</h3>
 								<div class="primary-box-content">
@@ -68,10 +68,10 @@
 									</div>
 								</div>
 							</form>								
-						</div>
+						</div> -->
 						<!-- WISHLISTS-AREA END -->
 						<!-- WISHLISTS-CHART START -->
-						<div class="wishlists-chart table-responsive">
+						<!-- <div class="wishlists-chart table-responsive">
 							<table class="table table-bordered">
 								<tr>
 									<th class="wish-name">Name</th>
@@ -106,30 +106,32 @@
 									</td>
 								</tr>
 							</table>
-						</div>	
+						</div>	 -->
 						<!-- WISHLISTS-CHART END -->
 						<!-- WISHLISTS-ITEM START -->
 						<div class="wishlists-item">
-							<div class="wishlists-item-title">
+							<!-- <div class="wishlists-item-title">
 								<a href="#">Hide product show bought products' info <i class="fa fa-close"></i></a>
 							</div>
 							<div class="Permalink">
 								<p>Permalink:</p>
 								<input type="text" readonly="readonly" value="htpp://bootexpert.com/product/single-item" class="form-control view-permalink">
 								<a href="#" class="send-wish-list">Send this wishlist</a>
-							</div>
+							</div> -->
 							<div class="wishlists-all-item">
 								<div class="row">
+								<?php $i=-1 ?>
+									@foreach($product as $values)
 									<div class="col-md-3 col-sm-4 col-xs-12">
 										<!-- WISHLISTS-SINGLE-ITEM START -->
 										<div class="wishlists-single-item">
 											<div class="wishlist-image">
-												<a href="#"><img src="public/img/wishlist/printed-chiffon-dress.jpg" alt="" /></a>
+												<a href="{{Asset('products')}}/{{$values[0]->id}}/{{$convert->convertString($values[0]->name)}}.html"><img src="{{$values[0]->image}}" title="{{$values[0]->name}}" alt="{{$values[0]->name}}" /></a>
 											</div>
 											<div class="wishlist-title">
-												<p>Printed Casul Dress <a href="#"><i class="fa fa-close"></i></a></p>
+												<p><?php echo $values[0]->name; $i++; ?><a id="abc" href="javascript:void(0)"><i class="fa fa-close deletewishlist" id="{{$wishlistID[$i]}}"></i></a></p>
 											</div>
-											<div class="form-group primary-form-group wishlists-form-group">
+											<!-- <div class="form-group primary-form-group wishlists-form-group">
 												<label>Quantity: </label>
 												<input type="text" value="1" name="quantity" class="form-control input-feild">
 											</div>
@@ -143,96 +145,17 @@
 													</select>												
 												</div>											
 											</div>	
-											<a class="wish-save" href="#">Save</a>									
-										</div>
-										<!-- WISHLISTS-SINGLE-ITEM END -->
-									</div>	
-									<div class="col-md-3 col-sm-4 col-xs-12">
-										<!-- WISHLISTS-SINGLE-ITEM START -->
-										<div class="wishlists-single-item">
-											<div class="wishlist-image">
-												<a href="#"><img src="public/img/wishlist/printed-dress.jpg" alt="" /></a>
-											</div>
-											<div class="wishlist-title">
-												<p>Sleeves T-shirt <a href="#"><i class="fa fa-close"></i></a></p>
-											</div>
-											<div class="form-group primary-form-group wishlists-form-group">
-												<label>Quantity: </label>
-												<input type="text" value="1" name="quantity" class="form-control input-feild">
-											</div>
-											<div class="form-group primary-form-group wishlists-form-group">
-												<label>Priority: </label>
-												<div class="wish-prioriti">
-													<select name="wishprioriti" id="wishPrioriti2">
-														<option value="">High</option>
-														<option value="">Medium</option>
-														<option value="">Low</option>
-													</select>												
-												</div>											
-											</div>	
-											<a class="wish-save" href="#">Save</a>								
-										</div>
-										<!-- WISHLISTS-SINGLE-ITEM END -->
-									</div>	
-									<div class="col-md-3 col-sm-4 col-xs-12">
-										<!-- WISHLISTS-SINGLE-ITEM START -->
-										<div class="wishlists-single-item">
-											<div class="wishlist-image">
-												<a href="#"><img src="public/img/wishlist/printed-summer-dress.jpg" alt="" /></a>
-											</div>
-											<div class="wishlist-title">
-												<p>Clothing Summer Dresses <a href="#"><i class="fa fa-close"></i></a></p>
-											</div>
-											<div class="form-group primary-form-group wishlists-form-group">
-												<label>Quantity: </label>
-												<input type="text" value="1" name="quantity" class="form-control input-feild">
-											</div>
-											<div class="form-group primary-form-group wishlists-form-group">
-												<label>Priority: </label>
-												<div class="wish-prioriti">
-													<select name="wishprioriti" id="wishPrioriti3">
-														<option value="">High</option>
-														<option value="">Medium</option>
-														<option value="">Low</option>
-													</select>												
-												</div>											
-											</div>	
-											<a class="wish-save" href="#">Save</a>								
+											<a class="wish-save" href="#">Save</a> -->									
 										</div>
 										<!-- WISHLISTS-SINGLE-ITEM END -->
 									</div>
-									<div class="col-md-3 col-sm-4 col-xs-12 hidden-sm">
-										<!-- WISHLISTS-SINGLE-ITEM START -->
-										<div class="wishlists-single-item">
-											<div class="wishlist-image">
-												<a href="#"><img src="public/img/wishlist/faded-short-sleeves-tshirt.jpg" alt="" /></a>
-											</div>
-											<div class="wishlist-title">
-												<p>Blouse <a href="#"><i class="fa fa-close"></i></a></p>
-											</div>
-											<div class="form-group primary-form-group wishlists-form-group">
-												<label>Quantity: </label>
-												<input type="text" value="1" name="quantity" class="form-control input-feild">
-											</div>
-											<div class="form-group primary-form-group wishlists-form-group">
-												<label>Priority: </label>
-												<div class="wish-prioriti">
-													<select name="wishprioriti" id="wishPrioriti4">
-														<option value="">High</option>
-														<option value="">Medium</option>
-														<option value="">Low</option>
-													</select>												
-												</div>											
-											</div>	
-											<a class="wish-save" href="#">Save</a>								
-										</div>
-										<!-- WISHLISTS-SINGLE-ITEM END -->
-									</div>										
+									@endforeach	
+																		
 								</div>
 								<!-- WISH-LIST BACT HOME START-->
 								<div class="wish-back-link">
 									<a  class="wish-save" href="my-account.html"><i class="fa fa-chevron-left"></i> Back to Your Account</a>
-									<a  class="wish-save" href="index.html"><i class="fa fa-chevron-left"></i> Home</a>
+									<a  class="wish-save" href="{{Asset('')}}"><i class="fa fa-chevron-left"></i> Home</a>
 								</div>
 								<!-- WISH-LIST BACT HOME END -->
 							</div>
