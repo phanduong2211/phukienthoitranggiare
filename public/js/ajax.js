@@ -1,7 +1,7 @@
 $(function(){
 
 	$('.fa-heart-o').click(function() {		
-			ajaxget("wishlist",$(this).parent().parent().parent().attr('id'));
+			ajaxget("wishlist",$(this).parent().parent().parent().attr('id'),"Thêm thành công sản phẩm vào wishlist");
 	});
 	deletewishlist();
 
@@ -41,7 +41,7 @@ $(function(){
 		});
 	}
 	//ajax jquery get 
-	function ajaxget(url,data)
+	function ajaxget(url,data,alert)
 	{
 		$.get(url,
         {
@@ -50,14 +50,18 @@ $(function(){
         function(data,status){
 	        if(status=="success"){
 	            if(data==1)
-	            	console.log("thanh cong");
+	            	bootbox.alert(alert, function() {
+					  
+					});
 	            else if(data == 0)
 	            {
 	            	window.location.replace("registration.html");
 	            	console.log("chưa đăng nhập");
 	            }
 	            else if(data == 2)
-	            	console.log("đã tồn tại");
+	            	bootbox.alert("Đã tồn tại sản phẩm này trong wishlist của bạn", function() {
+					  
+					});
         	}
         	console.log(status);
         });

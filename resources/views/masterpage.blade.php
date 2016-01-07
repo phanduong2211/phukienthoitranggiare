@@ -139,10 +139,10 @@
 								<ul class="list-inline">
 									<li style="display:none"><a href="checkout.html">Check Out</a></li>
 									<li><a href="wishlist.html">Yêu thích</a></li>
-									<li><a href="my-account.html">Tài Khoản</a></li>
+									
 									<li><a href="cart.html">Giỏ hàng</a></li>
 									<?php if(!Session::has('login_name')) echo '<li><a href="registration.html">Đăng Nhập</a></li>';
-										else echo '<li><a href="signout">Đăng Xuất</a></li>';
+										else echo '<li><a href="my-account.html">Tài Khoản</a></li> <li><a href="signout">Đăng Xuất</a></li>';
 									?>
 								</ul>									
 							</nav>
