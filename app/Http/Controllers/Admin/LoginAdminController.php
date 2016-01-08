@@ -40,6 +40,14 @@ class LoginAdminController extends BaseController
 			return Redirect::to('admin');
 		}
 		return Redirect::to('admin/login')->with(['message'=>'Email hoặc mật khẩu sai.','username'=>Input::get('username')]);
+	}
+
+	public function logout()
+	{
+		if($this->isLogin()){
+			Session::forget("logininfo");
+		}
+		return Redirect::to('admin/login');
 	}	
 }
 

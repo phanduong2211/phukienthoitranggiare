@@ -90,6 +90,8 @@ Route::get("test","ViewController@test");
 Route::get("admin/login","Admin\LoginAdminController@index");
 Route::post("admin/login","Admin\LoginAdminController@login");
 
+Route::get("admin/logout","Admin\LoginAdminController@logout");
+
 Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::get("/","Admin\IndexController@index");
 });
