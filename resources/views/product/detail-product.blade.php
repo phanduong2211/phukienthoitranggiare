@@ -117,7 +117,7 @@
 								</div>
 							</div>
 							<div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">
-								<div class="single-product-descirption">
+								<div class="single-product-descirption" data-productID="{{$product[0]->id}}">
 									<h2>{{$product[0]->name}}</h2>
 									<div class="single-product-social-share">
 										<ul>
@@ -158,7 +158,7 @@
 									<div class="single-product-info">
 										<a href="#"><i class="fa fa-envelope"></i></a>
 										<a href="#"><i class="fa fa-print"></i></a>
-										<a href="#"><i class="fa fa-heart"></i></a>
+										<a href="javascript:void(0)"><i class="fa fa-heart fa-wishlist"></i></a>
 									</div>
 									<div class="single-product-quantity">
 										<p class="small-title">Số lượng</p> 
@@ -185,8 +185,8 @@
 										<a href="#"><span style="background:<?php echo $color[$i];?>"></span></a>
 										<?php }?>
 									</div>
-									<div class="single-product-add-cart">
-										<a class="add-cart-text" title="Thêm {{$product[0]->name}} vào giỏ hàng" href="#">Thêm vào giỏ hàng</a>
+									<div class="single-product-add-cart" data-productID="{{$product[0]->id}}">
+										<a class="add-cart-text" title="Thêm {{$product[0]->name}} vào giỏ hàng" href="javascript:void(0)">Thêm vào giỏ hàng</a>
 									</div>
 								</div>
 							</div>

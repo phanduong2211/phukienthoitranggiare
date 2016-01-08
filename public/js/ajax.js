@@ -1,12 +1,46 @@
 $(function(){
 
-	$('.fa-heart-o').click(function() {		
-			ajaxget("wishlist",$(this).parent().parent().parent().attr('id'),"Thêm thành công sản phẩm vào wishlist");
+//////////////click add wishlist
+	$('.fa-heart-o').parent().click(function() {		
+			ajaxget("wishlist",$(this).parent().parent().attr('id'),"Thêm thành công sản phẩm vào wishlist");
+	});
+	$(".fa-wishlist").parent().click(function() {
+		//alert()
+		ajaxget("../../wishlist",$(this).parent().parent().attr('data-productID'),"Thêm thành công sản phẩm vào wishlist");
 	});
 	deletewishlist();
+///////////////// click add cart
+	$(".add-cart").parent().click(function() {
+		//alert($(this).parent().parent().attr('id'));
+		ajaxpost("add-cart",$(this).parent().parent().attr('id'));
+		
+	});
+	$(".single-product-add-cart").on("click",function(){
 
+		ajaxpost("../../add-cart",$(this).attr("data-productID"));
+		//alert($(this).attr("data-productID"));
+	});
 
+//////////////click count add quantity in cart 
+	/*$(".quantity-product").change(function(){
+    	console.log("abc");
+	});*/
+	$(".qtybutton").click(function(){
+		alert("ldkf");
+	});
 
+	////////////delete product in cart
+	$(".cart_quantity_delete").on("click",function(){
+		///alert();
+		var index= $(this).attr("data-index");
+		bootbox.confirm("Xóa sản phẩm này khỏi giỏ hàng của bạn?", function(result) {
+			  	if(result==true)
+			  	{			  		
+			  		ajaxpost("delete-cart",index);
+			  	}
+			}); 
+		
+	});
 	////////////////////////////////////////--------------------////////////////////////////////
 
 	//ajax post 
@@ -32,11 +66,30 @@ $(function(){
 		success: function(data, textStatus, jqXHR)
 		{
 			console.log(textStatus);
-			//data: data from server 
+			if(data==1){				
+				bootbox.alert("Đã thêm sản phầm vào giỏ hàng", function() {
+					  $(".count-cart").text(parseInt($(".count-cart").text())+1);
+					});				
+			}
+			else if(data==-1)
+			{
+				bootbox.alert("Sản phẩm này đã có trong giỏ hàng", function() {
+					  //$(".count-cart").text(parseInt($(".count-cart").text())+1);					  
+					});
+			}
+			else if(data==2)
+			{
+				bootbox.alert("Sản phẩm đã được xóa khỏi giỏ hàng", function() {
+					  //$(".count-cart").text(parseInt($(".count-cart").text())+1);	
+					  window.location.reload();				  
+					});
+			}
+			//return true;
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			console.log(textStatus);
+			//return false;
 		}
 		});
 	}

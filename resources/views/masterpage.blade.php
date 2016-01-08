@@ -200,12 +200,12 @@
 					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right shopingcartarea">
 						<div class="shopping-cart-out pull-right">
 							<div class="shopping-cart">
-								<a class="shop-link" href="cart.html" title="View my shopping cart">
+								<a class="shop-link" href="cart.html" title="Vào xem giỏ hàng của bạn">
 									<i class="fa fa-shopping-cart cart-icon"></i>
-									<b>My Cart</b>
-									<span class="ajax-cart-quantity">2</span>
+									<b>Giỏ Hàng</b>
+									<span class="ajax-cart-quantity count-cart"><?php echo count(Session::get("cart"))-1; ?></span>
 								</a>
-								<div class="shipping-cart-overly">
+								<!-- <div class="shipping-cart-overly">
 									<div class="shipping-item">
 										<span class="cross-icon"><i class="fa fa-times-circle"></i></span>
 										<div class="shipping-item-image">
@@ -241,7 +241,7 @@
 									<div class="shipping-checkout-btn">
 										<a href="checkout.html">Check out <i class="fa fa-chevron-right"></i></a>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>	

@@ -106,7 +106,7 @@
 															<div class="overlay-content">
 																<ul id="{{$values->id}}">
 																	<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
-																	<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart"></i></a></li>
+																	<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
 																	<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
 																	<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 																</ul>
@@ -169,7 +169,7 @@
 															<div class="overlay-content">
 																<ul id="{{$values->id}}">
 																	<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
-																	<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart"></i></a></li>
+																	<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
 																	<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
 																	<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 																</ul>
@@ -251,7 +251,7 @@
 												<div class="overlay-content">
 													<ul id="{{$values->id}}">
 														<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
-														<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart"></i></a></li>
+														<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
 														<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
 														<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 													</ul>
@@ -315,7 +315,7 @@
 														<div class="overlay-content">
 															<ul id="{{$values_product->id}}" >
 																<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
-																<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart"></i></a></li>
+																<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
 																<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
 																<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-heart-o"></i></a></li>
 															</ul>
@@ -392,7 +392,7 @@
 												<div class="overlay-content" >
 													<ul id="{{$values->id}}">
 														<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
-														<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart"></i></a></li>
+														<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
 														<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
 														<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 													</ul>

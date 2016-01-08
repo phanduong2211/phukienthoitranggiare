@@ -22,8 +22,8 @@ Route::get("tin-tuc",'ViewController@news');
 
 Route::get("san-pham/gird/{category}",'ViewController@productsgird');
 Route::get("san-pham/list/{category}",'ViewController@productslist');
-
-
+Route::post("add-cart","ViewController@addcart");
+Route::post("delete-cart","ViewController@deletecart");
 
 
 
@@ -35,9 +35,7 @@ Route::get('about-us.html', function () {
     return view('about-us');
 });
 
-Route::get('cart.html', function () {
-    return view('cart');
-});
+Route::get('cart.html',"ViewController@cart");
 
 Route::get('checkout-signin.html', function () {
     return view('checkout-signin');
@@ -81,7 +79,7 @@ Route::post('signinCreate',"UserController@login");
 Route::post('',"UserController@login");
 Route::post('AccountCreate',"UserController@register");
 
-Route::get("test","ViewController@deletewishlist");
+Route::get("test","ViewController@test");
 
 /*Route::get("test1",function(){
     return Session::get("name_test");

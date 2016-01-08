@@ -213,6 +213,29 @@ class ViewController extends Controller
 		}
 		return view::make("registration",array('menu'=>$menu,"categorys"=>$categorys));
 	}
+	public function cart()
+	{
+		$menu = MenuController::getMenu();
+		$categorys = CategoryController::getCategory();
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}
+		$product = array();
+		if(Session::has("cart"))
+		{
+			$convert = new convertString();
+			$cart = Session::get("cart");
+			//return $cart;
+			//$product[] = ProductController::getProductWhereID($cart[0][0]["id"]);
+			for($i=1;$i< count($cart);$i++)
+			{				
+				$product[] =  ProductController::getProductWhereID($cart[$i][0]["id"]);
+			}
+			
+		}		
+		return View::make("cart",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,"convert"=>$convert));
+	}
 	public function wishlist()
 	{
 		if(UserController::isLogin())
@@ -260,9 +283,56 @@ class ViewController extends Controller
 			WishlistController::deletewishlist($_POST['contents']);
 			return $_POST['contents'];		
 	}
+	public function deletecart()
+	{
+		$cart = Session::get("cart");
+		$index = $_POST["contents"]+1;
+		/*if($index==0)
+			Session::put("removeCartAtIndex0","true");*/
+		unset($cart[$index]);
+		$cart = array_values($cart);
+		Session::put("cart",$cart);
+		return 2;
+	}
+	public function addcart()
+	{
+		$cartinfo[] = array("id"=>$_POST['contents']);
+		if(!Session::has("cart"))
+		{
+			$cartinfo[] = array(array("id"=>$_POST['contents']));	
+			Session::put("cart",$cartinfo);
+			//return true;
+		}
+		else
+		{
+			//$cartinfo[] = array("id"=>$_POST['contents']);
+			$cart = Session::get("cart");
+			for($i=1;$i< count($cart);$i++)
+			{
+				if($cart[$i][0]["id"] == $_POST['contents'])
+					return -1;
+			}
+			//if($flag)
+			Session::push("cart",$cartinfo);
+			
+		}
+		return 1;
+	}
 	public function test()
 	{
-		
+	    //Session::forget("cart");
+		$abc = Session::get("cart");
+		return $abc;
+		//return$abc[0]["id"];
+		//return ($abc[0]->id);
+		for($i=0;$i< count($abc);$i++)
+		{
+			if($i==0)
+				echo $abc[0]["id"];
+			else
+			echo  $abc[$i][0]["id"];
+		}
+		//return Session::get("cart");
 	}
 }
 

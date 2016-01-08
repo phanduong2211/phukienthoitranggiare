@@ -26,9 +26,9 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="index.html">HOMe</a>
+							<a href="index.html">Home</a>
 							<span><i class="fa fa-caret-right	"></i></span>
-							<span>Your shopping cart</span>
+							<span>Giỏ hàng</span>
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->
 					</div>
@@ -36,7 +36,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- SHOPPING-CART SUMMARY START -->
-						<h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Your shopping cart contains: 2 products</span></h2>
+						<h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Giỏ hàng của bạn có : <?php echo count(Session::get("cart"))-1; ?> sản phẩm</span></h2>
 						<!-- SHOPPING-CART SUMMARY END -->
 					</div>	
 					
@@ -63,116 +63,61 @@
 						</div>
 						<!-- SHOPING-CART-MENU END -->
 						<!-- CART TABLE_BLOCK START -->
+						<?php if(Session::has("cart") && count(Session::get("cart"))>1){ $i=0; ?>
 						<div class="table-responsive">
 							<!-- TABLE START -->
 							<table class="table table-bordered" id="cart-summary">
 								<!-- TABLE HEADER START -->
 								<thead>
 									<tr>
-										<th class="cart-product">Product</th>
-										<th class="cart-description">Description</th>
-										<th class="cart-avail text-center">Availability</th>
-										<th class="cart-unit text-right">Unit price</th>
-										<th class="cart_quantity text-center">Qty</th>
+										<th class="cart-product">Sản phẩm</th>
+										<th class="cart-description">Thông tin</th>
+										<th class="cart-avail text-center">Tình trạng</th>
+										<th class="cart-unit text-right">Giá</th>
+										<th class="cart_quantity text-center">Số lượng</th>
 										<th class="cart-delete">&nbsp;</th>
-										<th class="cart-total text-right">Total</th>
+										<th class="cart-total text-right">Thành tiền</th>
 									</tr>
 								</thead>
 								<!-- TABLE HEADER END -->
 								<!-- TABLE BODY START -->
 								<tbody>	
+									
 									<!-- SINGLE CART_ITEM START -->
+									
+									@foreach($product as $values)
 									<tr>
 										<td class="cart-product">
-											<a href="#"><img alt="Blouse" src="public/img/product/cart-image1.jpg"></a>
+											<a href="#"><img alt="Blouse" src="{{Asset('')}}{{$values[0]->image}}"></a>
 										</td>
 										<td class="cart-description">
-											<p class="product-name"><a href="#">Faded Short Sleeves T-shirt</a></p>
-											<small>SKU : demo_1</small>
-											<small><a href="#">Size : S, Color : Orange</a></small>
-										</td>
-										<td class="cart-avail"><span class="label label-success">In stock</span></td>
-										<td class="cart-unit">
-											<ul class="price text-right">
-												<li class="price">$16.51</li>
-											</ul>
-										</td>
-										<td class="cart_quantity text-center">
-											<div class="cart-plus-minus-button">
-												<input class="cart-plus-minus" type="text" name="qtybutton" value="0">
-											</div>
-										</td>
-										<td class="cart-delete text-center">
-											<span>
-												<a href="#" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
-											</span>
-										</td>
-										<td class="cart-total">
-											<span class="price">$16.51</span>
-										</td>
-									</tr>
-									<!-- SINGLE CART_ITEM END -->
-									<!-- SINGLE CART_ITEM START -->
-									<tr>
-										<td class="cart-product">
-											<a href="#"><img alt="Blouse" src="public/img/product/cart-image2.jpg"></a>
-										</td>
-										<td class="cart-description">
-											<p class="product-name"><a href="#">Blouse</a></p>
-											<small>SKU : demo_2</small>
-											<small><a href="#">Size : S, Color : Black</a></small>
-										</td>
-										<td class="cart-avail"><span class="label label-success">In stock</span></td>
-										<td class="cart-unit">
-											<ul class="price text-right">
-												<li class="price special-price">$24.00</li>
-												<li class="price-percent-reduction small">&nbsp;-3%&nbsp;</li>
-												<li class="old-price">$27.00</li>
-											</ul>
-										</td>
-										<td class="cart_quantity text-center">
-											<div class="cart-plus-minus-button">
-												<input class="cart-plus-minus" type="text" name="qtybutton" value="0">
-											</div>
-										</td>
-										<td class="cart-delete text-center">
-											<a href="#" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
-										</td>
-										<td class="cart-total">
-											<span class="price">$22.95</span>
-										</td>
-									</tr>
-									<!-- SINGLE CART_ITEM END -->
-									<!-- SINGLE CART_ITEM START -->
-									<tr>
-										<td class="cart-product">
-											<a href="#"><img alt="Blouse" src="public/img/product/cart-image3.jpg"></a>
-										</td>
-										<td class="cart-description">
-											<p class="product-name"><a href="#">Printed Summer Dress</a></p>
+											<p class="product-name"><a href="{{Asset('products')}}/{{$values[0]->id}}/{{$convert->convertString($values[0]->name)}}.html">{{$values[0]->name}}</a></p>
 											<small>SKU : demo_5</small>
-											<small><a href="#">Size : M, Color : Blue</a></small>
+											<small><a href="javascript:void(0)">Size : M, Color : Blue</a></small>
 										</td>
-										<td class="cart-avail"><span class="label label-success">In stock</span></td>
+										<td class="cart-avail"><span class="label label-success"><?php if($values[0]->quantity >3) echo "Còn hàng"; else if($values[0]->quantity > 0) echo "Còn ít hàng"; else echo "Hết hàng" ?></span></td>
 										<td class="cart-unit">
 											<ul class="price text-right">
-												<li class="price special-price">$30.45</li>
+												<li class="price special-price">{{number_format($values[0]->promotion_price)}} vnđ</li>
 												<li class="price-percent-reduction small">&nbsp;-7.05%&nbsp;</li>
-												<li class="old-price">$37.50</li>
+												<li class="old-price">{{number_format($values[0]->price)}} vnđ</li>
 											</ul>
 										</td>
 										<td class="cart_quantity text-center">
 											<div class="cart-plus-minus-button">
-												<input class="cart-plus-minus" type="text" name="qtybutton" value="0">
+												<input class="cart-plus-minus quantity-product" type="text" name="qtybutton" value="1">
 											</div>
 										</td>
 										<td class="cart-delete text-center">
-											<a href="#" class="cart_quantity_delete" title="Delete"><i class="fa fa-trash-o"></i></a>
+											<a href="javascript:void(0)" class="cart_quantity_delete" data-index= "{{$i}}" data-id="{{$values[0]->id}}" title="Delete"><i class="fa fa-trash-o"></i></a>
 										</td>
 										<td class="cart-total">
-											<span class="price">$30.45</span>
+											<span class="price">{{number_format($values[0]->promotion_price)}} vnđ</span>
 										</td>
 									</tr>
+									<?php $i++;?>
+									@endforeach
+
 									<!-- SINGLE CART_ITEM END -->
 								</tbody>
 								<!-- TABLE BODY END -->
@@ -204,6 +149,7 @@
 							</table>
 							<!-- TABLE END -->
 						</div>
+						<?php }else echo '<h1 style="text-align:center">Giỏ hàng trống</h1><br>'?>
 						<!-- CART TABLE_BLOCK END -->
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
