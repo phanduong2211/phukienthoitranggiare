@@ -32,5 +32,11 @@
 			return false;
 		}
 
+		public static function get_user($email,$password)
+		{
+			$data=DB::table("users")->select('id','name')->where('email',$email)->where('password',md5($password))->first();
+			return $data;
+		}
+
 	}
  ?>

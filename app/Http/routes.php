@@ -84,3 +84,14 @@ Route::get("test","ViewController@test");
 /*Route::get("test1",function(){
     return Session::get("name_test");
 });*/
+
+
+//Admin
+Route::get("admin/login","Admin\LoginAdminController@index");
+Route::post("admin/login","Admin\LoginAdminController@login");
+
+Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
+    Route::get("/","Admin\IndexController@index");
+});
+
+//Admin//
