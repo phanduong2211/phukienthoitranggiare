@@ -94,6 +94,11 @@ Route::get("admin/logout","Admin\LoginAdminController@logout");
 
 Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::get("/","Admin\IndexController@index");
+
+
+    Route::get("website/menu","Admin\WebsiteController@menu");
+    Route::get("website/menu/add","Admin\WebsiteController@addmenu");
+    Route::post("website/menu/add","Admin\WebsiteController@savemenu");
 });
 
 //Admin//

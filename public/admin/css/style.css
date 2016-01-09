@@ -6211,3 +6211,145 @@ header.blue-bg .search:focus {
     background: #fff;
     border-radius:4px;
 }
+
+.desc{
+    color:#888;
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    margin-bottom: 13px;
+}
+.ps{
+    margin: 5px 0px;
+    display: block;
+    color:#555;
+    font-size: 12px;
+}
+.table.noborder th{
+    border-top:0;
+}
+.message{
+    color:red;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.table .groupaction{
+    visibility: hidden;
+}
+.table tr:hover .groupaction{
+    visibility: visible;
+}
+.table .groupaction .remove{
+    display: inline;
+    
+}
+.table .groupaction a{
+    padding-right:7px;
+}
+.table .groupaction .remove input[type='submit']{
+    color:#9C1616;
+    background-color: transparent;
+    border: 0;
+    padding: 0px;
+    padding-right: 7px;
+
+}
+.table .groupaction .remove input[type='submit']:hover{
+    text-decoration: underline;
+}
+.table .stt{
+    width:100%;
+    border:1px solid #ddd;
+    padding: 2px;
+}
+.table tr.an{
+    background-color: #f5f5f5;
+    color:#999;
+}
+.table .groupaction .toggle{
+    color:green;
+}
+.imgbox{
+    background-position: center center;
+    background-color: #f5f5f5;
+    background-size:contain;
+    background-repeat: no-repeat;
+    
+    height: 100px;
+}
+.shadowbox.nopdbottom{
+    padding-bottom: 0px;
+}
+.button.disabled{
+    opacity: 0.7;
+}
+.uploadimg:hover{
+    cursor: pointer;
+    border-color: #888;
+}
+.require{
+    position: relative;
+}
+.require .red{
+    color:red;
+    position: absolute;
+    display: block;
+    top:2px;
+    left: 2px;
+}
+.frmsearch{
+    border:1px solid #ccc;
+    width: 100%;
+    float: right;
+}
+.frmsearch .textboxsearch{
+    border:0;
+    outline: none;
+    padding: 1px 5px;
+    width: 87%;
+    float: left;
+}
+.frmsearch .buttonsearch{
+    border:0;
+    outline: none;
+    background-image: url("../img/icsearch.gif");
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 22px;
+    height: 22px;
+    float: right;
+}
+.sfilter{
+    height: 25px;
+    margin-left: 5px;
+}
+.btn-count{
+    position: relative;
+}
+.btn-count i{
+    position: absolute;
+    display: block;
+    top:-7px;
+    right: -4px;
+    background-color: red;
+    padding: 1px 5px;
+    z-index: 999;
+    color:white;
+    font-style: normal;
+    font-size:10px;
+    border-radius: 3px;
+    display: none;
+}
+.nicupload{
+    display: none
+}
+.table th[width='3%']{
+    text-align: center;
+}
+.message{
+    color:red;
+    text-align: center;
+    padding: 20px;
+    display: block;
+}

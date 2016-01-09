@@ -28,7 +28,7 @@
     <link href="{{Asset('public/admin')}}/css/style.css" rel="stylesheet">
     <link href="{{Asset('public/admin')}}/css/style-responsive.css" rel="stylesheet" />
 
-
+    @yield('css')
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
@@ -289,7 +289,7 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
                   <li>
-                      <a class="active" href="index.html">
+                      <a href="{{Asset('admin')}}">
                           <i class="fa fa-dashboard"></i>
                           <span>Dashboard</span>
                       </a>
@@ -332,7 +332,7 @@
                           <span>Website</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="boxed_page.html">Boxed Page</a></li>
+                          <li><a  href="{{Asset('admin/website/menu')}}">Menu</a></li>
                           <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
                           <li><a  href="header-color.html">Different Color Top bar</a></li>
                           <li><a  href="mega_menu.html">Mega Menu</a></li>
@@ -393,7 +393,7 @@
     <script src="{{Asset('public/admin')}}/js/owl.carousel.js" ></script>
     <script src="{{Asset('public/admin')}}/js/jquery.customSelect.min.js" ></script>
     <script src="{{Asset('public/admin')}}/js/respond.min.js" ></script>
-
+    @yield('script')
     <!--right slidebar-->
     <script src="{{Asset('public/admin')}}/js/slidebars.min.js"></script>
 
@@ -421,7 +421,25 @@
       //custom select box
 
       $(function(){
+        $(".sfilter").change(function(){
+                $(this).parent().submit();
+            });
+            var sort="<?php if(isset($_GET['s'])) echo $_GET['s']; else echo '0' ?>";
+
+            $("select[name='s']").val(sort);
+
+            var filter="<?php if(isset($_GET['f'])) echo $_GET['f']; else echo '0' ?>";
+
+            $("select[name='f']").val(filter);
           $('select.styled').customSelect();
+
+          $("form.remove").submit(function(){
+            return confirm("Bạn có chắc muốn xóa?");
+          });
+
+
+          $(".message").fadeOut(20000);
+
       });
 
   </script>

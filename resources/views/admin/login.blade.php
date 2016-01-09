@@ -55,7 +55,7 @@
 		@endif
 		<div id="ctbox">
 			<form method="post" action="">
-				Email
+				Tài khoản hoặc email
 				<div style="height:3px"></div>
 				<input class="form-control" type="text" name="username" value="<?php echo (Session::has('username'))?Session::get('username'):'' ?>" /><br />
 				Mật khẩu
