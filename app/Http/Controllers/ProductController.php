@@ -36,6 +36,11 @@ class ProductController extends Controller
 		$product = new product();
 		return $product->where('categoryID','=',$categoryID)->take(10)->get();
 	}
+	public static function update($data,$id)
+	{
+		$product =new product();
+		return $product->updateProduct($data,$id);
+	}
 }
 
 ?>

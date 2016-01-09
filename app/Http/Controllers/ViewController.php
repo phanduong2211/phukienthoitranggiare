@@ -95,8 +95,13 @@ class ViewController extends Controller
 			return $menu;
 	}
 	public function productDetail($id,$name)
-	{
+	{		
 		$product = ProductController::getProductWhereID($id);
+		//return $product;
+		$product[0]->view +=1;
+		$data[0] = $product[0];
+		//$data =array("id","name","promotion_price","price","image","quantity","status","icon_status","user","view","categoryID","menuID","tab_categoryID","created_at");		
+		ProductController::update($data,$id); /////update view
 		$detailproduct = DetailProductController::getDetailProduct($id);
 		$ads = AdsController::getAdsWhereType(1);
 		$menu = MenuController::getMenu();

@@ -137,12 +137,12 @@
 						<div class="header-right-menu">
 							<nav>
 								<ul class="list-inline">
-									<li style="display:none"><a href="checkout.html">Check Out</a></li>
-									<li><a href="wishlist.html">Yêu thích</a></li>
+									<li style="display:none"><a href="{{Asset('')}}checkout.html">Check Out</a></li>
+									<li><a href="{{Asset('')}}wishlist.html">Yêu thích</a></li>
 									
-									<li><a href="cart.html">Giỏ hàng</a></li>
-									<?php if(!Session::has('login_name')) echo '<li><a href="registration.html">Đăng Nhập</a></li>';
-										else echo '<li><a href="my-account.html">Tài Khoản</a></li> <li><a href="signout">Đăng Xuất</a></li>';
+									<li><a href="{{Asset('')}}cart.html">Giỏ hàng</a></li>
+									<?php if(!Session::has('login_name')) echo '<li><a href="\registration.html">Đăng Nhập</a></li>';
+										else echo '<li><a href="\my-account.html">Tài Khoản</a></li> <li><a href="\signout">Đăng Xuất</a></li>';
 									?>
 								</ul>									
 							</nav>
@@ -200,7 +200,7 @@
 					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right shopingcartarea">
 						<div class="shopping-cart-out pull-right">
 							<div class="shopping-cart">
-								<a class="shop-link" href="cart.html" title="Vào xem giỏ hàng của bạn">
+								<a class="shop-link" href="{{Asset('')}}cart.html" title="Vào xem giỏ hàng của bạn">
 									<i class="fa fa-shopping-cart cart-icon"></i>
 									<b>Giỏ Hàng</b>
 									<span class="ajax-cart-quantity count-cart"><?php echo count(Session::get("cart"))-1; ?></span>
