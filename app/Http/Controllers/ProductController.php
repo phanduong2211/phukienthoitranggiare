@@ -41,6 +41,14 @@ class ProductController extends Controller
 		$product =new product();
 		return $product->updateProduct($data,$id);
 	}
+	public static function getProductWhereName($name)
+	{
+		return product::where("name","like","%".$name."%")->paginate(16);
+	}
+	public static function getProductWhereNameAndCate($name,$categoryID)
+	{
+		return product::where("categoryID","=",$categoryID)->where("name","like","%".$name."%")->paginate(16);
+	}
 }
 
 ?>

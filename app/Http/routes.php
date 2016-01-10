@@ -24,7 +24,7 @@ Route::get("san-pham/gird/{category}",'ViewController@productsgird');
 Route::get("san-pham/list/{category}",'ViewController@productslist');
 Route::post("add-cart","ViewController@addcart");
 Route::post("delete-cart","ViewController@deletecart");
-
+Route::get("tim-kiem","ViewController@search"); ///tìm kiếm sản phẩm
 
 
 Route::get('contact-us.html', function () {

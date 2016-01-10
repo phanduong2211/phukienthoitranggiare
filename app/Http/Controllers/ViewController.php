@@ -222,6 +222,7 @@ class ViewController extends Controller
 	{
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
+		$convert = new convertString();
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
@@ -229,7 +230,7 @@ class ViewController extends Controller
 		$product = array();
 		if(Session::has("cart"))
 		{
-			$convert = new convertString();
+			
 			$cart = Session::get("cart");
 			//return $cart;
 			//$product[] = ProductController::getProductWhereID($cart[0][0]["id"]);
@@ -323,6 +324,33 @@ class ViewController extends Controller
 		}
 		return 1;
 	}
+	public function search()
+	{
+
+		$categoryID = Input::get("category");
+		$productName = Input::get("name");
+
+		$menu = MenuController::getMenu();
+		$categorys = CategoryController::getCategory();
+		$convert = new convertString();
+		$product =array();
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}
+
+		if($categoryID == "all")
+		{
+			$product = ProductController::getProductWhereName($productName);
+		}
+		else
+		{
+			$product = ProductController::getProductWhereNameAndCate($productName,$categoryID);
+		}
+		$product->appends(['category' => $categoryID,"name"=>$productName])->render();
+		return View::make("product.search-product",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,
+					"convert"=>$convert));
+	}
 	public function test()
 	{
 	    //Session::forget("cart");
@@ -339,6 +367,7 @@ class ViewController extends Controller
 		}
 		//return Session::get("cart");
 	}
+	
 }
 
 ?>

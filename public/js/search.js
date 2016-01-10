@@ -1,0 +1,17 @@
+$(function(){
+	$(".listgrid").on("click",function(){
+		$(".view-systeam").find("li").removeClass("active");
+		$(".Productlistview").addClass("displaynone");
+		$(".Productlistgrid").removeClass("displaynone");
+		$(this).addClass("active");
+	});
+	$(".listview").on("click",function(){
+		$(".view-systeam").find("li").removeClass("active");
+		$(".Productlistgrid").addClass("displaynone");
+		$(".Productlistview").removeClass("displaynone");
+		$(this).addClass("active");
+	});
+	$("#productShort").change(function(){
+		$(this).val();
+	});
+});

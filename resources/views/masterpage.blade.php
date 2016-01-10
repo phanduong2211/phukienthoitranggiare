@@ -171,16 +171,16 @@
 						<!-- HEADER-RIGHT-CALLUS END -->
 						<!-- CATEGORYS-PRODUCT-SEARCH START -->
 						<div class="categorys-product-search">
-							<form action="#" method="get" class="search-form-cat">
+							<form action="tim-kiem" method="get" class="search-form-cat">
 								<div class="search-product form-group">
-									<select name="catsearch" class="cat-search">
-										<option value="">Tất cả</option>
+									<select name="category" class="cat-search">
+										<option value="all">Tất cả</option>
 										@foreach($categorys as $values)
 										<option value="{{$values->id}}">{{$values->name}}</option>	
 										@endforeach							
 									</select>
-									<input type="text" class="form-control search-form" name="s" placeholder="Enter your search key ... " />
-									<button class="search-button" value="Search" name="s" type="submit">
+									<input type="text" class="form-control search-form" name="name" placeholder="Nhập vào sản phẩm cần tìm... " />
+									<button class="search-button" value="Search" type="submit">
 										<i class="fa fa-search"></i>
 									</button>									 
 								</div>
@@ -203,7 +203,7 @@
 								<a class="shop-link" href="{{Asset('')}}cart.html" title="Vào xem giỏ hàng của bạn">
 									<i class="fa fa-shopping-cart cart-icon"></i>
 									<b>Giỏ Hàng</b>
-									<span class="ajax-cart-quantity count-cart"><?php echo count(Session::get("cart"))-1; ?></span>
+									<span class="ajax-cart-quantity count-cart"><?php if(Session::has("cart")) echo count(Session::get("cart"))-1; else echo '0'; ?></span>
 								</a>
 								<!-- <div class="shipping-cart-overly">
 									<div class="shipping-item">
@@ -778,6 +778,8 @@
 		
 		<!-- fancybox js -->
         <script src="{{Asset('')}}public/js/jquery.fancybox.js"></script>
+        <!-- search js -->
+        <script src="{{Asset('')}}public/js/search.js"></script>
         <!-- ajax js -->
         <script src="{{Asset('')}}public/js/ajax.js"></script>
 		

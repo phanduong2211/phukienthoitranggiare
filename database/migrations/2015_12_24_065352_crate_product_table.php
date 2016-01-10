@@ -21,6 +21,7 @@ class CrateProductTable extends Migration
             $table->integer('quantity');
             $table->string('status');
             $table->integer('view');
+            $table->text('content');
             $table->integer('user');
             $table->integer('tab_categoryID');
             $table->integer('categoryID');

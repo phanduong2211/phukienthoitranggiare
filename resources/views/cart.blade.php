@@ -36,7 +36,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- SHOPPING-CART SUMMARY START -->
-						<h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Giỏ hàng của bạn có : <?php echo count(Session::get("cart"))-1; ?> sản phẩm</span></h2>
+						<h2 class="page-title"><span class="shop-pro-item">Giỏ hàng của bạn có : <?php if(Session::has("cart")) echo count(Session::get("cart"))-1; else echo '0'; ?> sản phẩm</span></h2>
 						<!-- SHOPPING-CART SUMMARY END -->
 					</div>	
 					
@@ -197,7 +197,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- RETURNE-CONTINUE-SHOP START -->
 						<div class="returne-continue-shop">
-							<a href="index.html" class="continueshoping"><i class="fa fa-chevron-left"></i>Continue shopping</a>
+							<a href="{{Asset("")}}" class="continueshoping"><i class="fa fa-chevron-left"></i>Quay về trang chủ</a>
 							<a href="checkout-signin.html" class="procedtocheckout">Proceed to checkout<i class="fa fa-chevron-right"></i></a>
 						</div>	
 						<!-- RETURNE-CONTINUE-SHOP END -->						

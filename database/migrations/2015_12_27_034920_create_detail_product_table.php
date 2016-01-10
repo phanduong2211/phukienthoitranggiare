@@ -14,12 +14,12 @@ class CreateDetailProductTable extends Migration
     {
         Schema::create("detailproduct",function(Blueprint $table){
             $table->increments('id');
-            $table->string('images');
+            $table->text('images');
             $table->string('silebar_images');
-            $table->string('infomation');
+            $table->text('infomation');
             $table->string('size');
             $table->string('color');
-            $table->string('comment');
+            $table->text('comment');
             $table->string('data_sheet');
             $table->Integer('productID');
             $table->timestamps();
