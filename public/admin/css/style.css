@@ -6228,12 +6228,6 @@ header.blue-bg .search:focus {
 .table.noborder th{
     border-top:0;
 }
-.message{
-    color:red;
-    text-align: center;
-    padding: 5px;
-    margin-bottom: 10px;
-}
 .table .groupaction{
     visibility: hidden;
 }
@@ -6347,9 +6341,38 @@ header.blue-bg .search:focus {
 .table th[width='3%']{
     text-align: center;
 }
-.message{
-    color:red;
-    text-align: center;
-    padding: 20px;
+.message {
+    margin-left: 0;
+    padding: 12px;
+}
+.message {
+       border-left: 4px solid #7ad03a;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+        color: #444;
+        font-size: 13px;
+}
+.hidemessage i.fa{
+    margin-top: 4px;
+    color:#B1B1B1;
+}
+.hidemessage i.fa:hover{
+    color:#888;
+    cursor: pointer;
+}
+.sumitem{
+    color:#888;
     display: block;
+    margin-bottom: 5px;
+}
+.sumitem b{
+    color:#999;
+    font-weight: normal;
+}
+.titlepage{
+    font-size: 20px;
+    margin-bottom: 30px;
+    margin-top: 0;
+    padding-top: 0;
 }

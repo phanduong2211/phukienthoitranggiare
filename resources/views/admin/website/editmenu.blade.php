@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Thêm Menu')
+@section('title', 'Sửa Menu')
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{Asset('public/admin')}}/css/validate.css" />
 @endsection
@@ -22,11 +22,13 @@
     			'trong':true
     		}
     	]);
+
+          $("select[name='root']").val("<?php echo $data->root ?>");
 	});
 </script>
 @endsection
 @section('content')
-<h1 class="titlepage">Thêm Menu</h1>
+<h1 class="titlepage">Sửa Menu</h1>
 @if(Session::has('message'))
         <p class="message hidemessage"> {{ Session::get('message') }}
         <i class="pull-right fa fa-times-circle"></i>
@@ -39,7 +41,7 @@
     		</div>
     		<div class="col-md-10 require">
     			<div class="red">*</div>
-    			<textarea class="form-control" name="name"></textarea>
+    			<textarea class="form-control" name="name">{{$data->name}}</textarea>
     			
     		</div>
     	</div><br />
@@ -54,7 +56,7 @@
     					<select name="root" class="form-control">
     						<option value="-1">--Lựa Chọn--</option>
     						<option value="0">Không Thuộc</option>
-    					   @foreach($data as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
+    					   @foreach($dataall as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
                         </select>
     					<span class="desc">Nếu không thuộc menu nào thì chọn không thuộc</span>
     				</div>
@@ -67,7 +69,7 @@
     				</div>
     				<div class="col-md-8 require">
     					<div class="red">*</div>
-    					<input type="text" name="url" class="form-control" />
+    					<input type="text" name="url" class="form-control" value="{{$data->url}}" />
     					<span class="desc">vd: gioi-thieu</span>
     				</div>
     			</div><br />
@@ -76,10 +78,11 @@
     	<div class="row">
     		<div class="col-md-12 text-right">
     			<input type="submit" class="btn btn-success" value="Lưu Lại" />
-    			<input type="reset" class="btn btn-default" value="Nhập Lại" />
+    			<input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
     		</div>
     	</div><br />
     	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
+        <input type="hidden" name="idedit" value="{{$data->id}}"/>
     </form>
 
 @endsection

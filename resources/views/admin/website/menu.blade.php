@@ -10,7 +10,8 @@
 @endsection
 @section('content')
 @if(Session::has('message'))
-        <p class="message"> {{ Session::get('message') }}<br>
+        <p class="message hidemessage"> {{ Session::get('message') }}
+        <i class="pull-right fa fa-times-circle"></i>
         </p>
 @endif
 <div class="row">
@@ -20,24 +21,15 @@
        </div>
    </div>
    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
-    <form method="get" action="" class="pull-right">
-        <select class="sfilter" name="f">
-            <option value="0">-Lọc-</option>
-            <option value="1">Đang Khóa</option>
-            <option value="2">Là Admin</option>
-            <option value="3">Là Mod</option>
-            <option value="4">Là NV</option>
-        </select>
-    </form>
+    
     <form method="get" action="" class="pull-right">
         <select class="sfilter" name="s">
             <option value="0">-Sắp xếp-</option>
             <option value="1">Mới nhất</option>
             <option value="2">Cũ nhất</option>
-            <option value="3">Họ Tên</option>
-            <option value="4">Số ĐT</option>
-            <option value="5">Email</option>
-            <option value="6">Chức Vụ</option>
+            <option value="3">Tên</option>
+            <option value="4">Ngày Tạo</option>
+            <option value="5">Ngày Cập Nhật</option>
         </select>
     </form>
     <form method="get" action="" class="pull-right">
@@ -55,6 +47,7 @@
 </div><!---search-->
 <br />
  <div class="table-responsive">
+    <span class="sumitem">Tất cả <b></b></span>
    <table class="table table-hover">
        <tr>
             <th>STT</th>
@@ -64,18 +57,20 @@
             <th>Ngày Cập Nhật</th>
         </tr>
         <?php $count=0; ?>
-        @foreach ($data as $key => $value):
-        <?php $count++; ?>
+        @foreach ($data as $key => $value)
+        <?php if($value->root==0){$count++; ?>
             <tr>
             <td>{{$count}}</td>
             <td>
                 {{$value->name}}
                  <div class="groupaction">
-                        <a class="edit" href=''>Sửa</a>
-                        <form method="post" action="" class="remove">
-                                <input type="hidden" name="id" value="1">
-                                <input type="hidden" name="title" value="1">
+                        <a class="edit" href='{{Asset('admin/website/menu/edit?id='.$value->id)}}'>Sửa</a>
+                        <form method="post" action="{{Asset('admin/website/menu/delete')}}" class="remove">
+                                <input type="hidden" name="id" value="{{$value->id}}">
+                                <input type="hidden" name="title" value="{{$value->name}}">
+                                <input type="hidden" name="root" value="{{$value->root}}">
                                 <input type="submit" value="Xóa">
+                                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                             </form>
                     </div>
             </td>
@@ -89,8 +84,41 @@
                  {{$value->updated_at}}
             </td>
         </tr>
+        <?php 
+            foreach ($data as $subvalue) {
+                if($value->id==$subvalue->root){
+         ?>
+            <tr class="submenu">
+            <td></td>
+            <td>
+                <i class="fa fa-mail-forward"></i> {{$subvalue->name}}
+                 <div class="groupaction">
+                        <a class="edit" href='{{Asset('admin/website/menu/edit?id='.$subvalue->id)}}'>Sửa</a>
+                        <form method="post" action="{{Asset('admin/website/menu/delete')}}" class="remove">
+                                <input type="hidden" name="id" value="{{$subvalue->id}}">
+                                <input type="hidden" name="title" value="{{$subvalue->name}}">
+                                <input type="hidden" name="root" value="{{$subvalue->root}}">
+                                <input type="submit" value="Xóa">
+                                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                            </form>
+                    </div>
+            </td>
+             <td>
+                 {{$subvalue->url}}
+            </td>
+            <td>
+                 {{$subvalue->created_at}}
+            </td>
+            <td>
+                 {{$subvalue->updated_at}}
+            </td>
+            </tr>
+        <?php }}} ?>
         @endforeach
         
     </table>
+    <script type="text/javascript">
+    sumrowitem="{{$count}}";
+    </script>
 </div>
     @endsection

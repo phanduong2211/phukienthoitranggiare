@@ -438,7 +438,17 @@
           });
 
 
-          $(".message").fadeOut(20000);
+          $(".hidemessage .fa").click(function(){
+            $(this).parent().fadeOut();
+          });
+
+          $(".btn-reset").click(function(){
+            window.location.reload();
+          });
+
+          if(sumrowitem!=null){
+            $(".sumitem b").html("("+sumrowitem+")");
+          }
 
       });
 
