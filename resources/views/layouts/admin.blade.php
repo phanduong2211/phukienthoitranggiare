@@ -258,9 +258,7 @@
             <div class="top-nav ">
                 <!--search & user info start-->
                 <ul class="nav pull-right top-menu">
-                    <li>
-                        <input type="text" class="form-control search" placeholder="Search">
-                    </li>
+                   
                     <!-- user login dropdown start-->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -371,14 +369,14 @@
       <!--main content end-->
 
       <!--footer start-->
-      <footer class="site-footer">
+      <!-- <footer class="site-footer">
           <div class="text-center">
               2013 &copy; FlatLab by VectorLab.
               <a href="#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
-      </footer>
+      </footer> -->
       <!--footer end-->
   </section>
 

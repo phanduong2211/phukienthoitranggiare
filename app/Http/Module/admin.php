@@ -12,7 +12,7 @@
 		
 		public static function get_user($username,$password)
 		{
-			$data=DB::table("admin")->select('id','name')->where(function($q) use ($username) {
+			$data=DB::table("admin")->select('id','name','active')->where(function($q) use ($username) {
 				$q->where('username', $username)->orWhere('email', $username);
 			})->where('password',md5($password))->first();
 			return $data;

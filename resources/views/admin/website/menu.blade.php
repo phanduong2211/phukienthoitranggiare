@@ -78,10 +78,10 @@
                  {{$value->url}}
             </td>
             <td>
-                 {{$value->created_at}}
+                 {{date('d/m/Y H:i',strtotime($value->created_at))}}
             </td>
             <td>
-                 {{$value->updated_at}}
+                 {{date('d/m/Y H:i',strtotime($value->updated_at))}}
             </td>
         </tr>
         <?php 
@@ -107,10 +107,10 @@
                  {{$subvalue->url}}
             </td>
             <td>
-                 {{$subvalue->created_at}}
+                 {{date('d/m/Y H:i',strtotime($subvalue->created_at))}}
             </td>
             <td>
-                 {{$subvalue->updated_at}}
+                 {{date('d/m/Y H:i',strtotime($subvalue->updated_at))}}
             </td>
             </tr>
         <?php }}} ?>

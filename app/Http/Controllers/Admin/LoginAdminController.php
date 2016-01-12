@@ -48,8 +48,12 @@ class LoginAdminController extends BaseController
 
 		$result=Admin::get_user($username,$password);
 		if(is_object($result)){
-			Session::put('logininfo',$result);
-			return Redirect::to('admin');
+			if($result->active==1){
+				Session::put('logininfo',$result);
+				return Redirect::to('admin');
+			}else{
+				return Redirect::to('admin/login')->with(['message'=>'Tài khoản '.$username.' đã bị khóa. Vui lòng liên hệ admin để biết thêm chi tiết.','username'=>$username]);
+			}
 		}
 		return Redirect::to('admin/login')->with(['message'=>'Tài khoản hoặc mật khẩu sai.','username'=>$username]);
 	}
