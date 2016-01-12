@@ -136,6 +136,7 @@
                 </div><!--/.blog-item-->
              </div>
             @endforeach
+            <div style="text-align:center"><?php echo $news->render(); ?></div>
                  <div class="blog-item">
                    <div class="row">
                        <div class="col-md-10">

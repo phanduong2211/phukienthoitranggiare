@@ -16,13 +16,16 @@ class NewsController extends Controller
 {
 	public static function getNews()
 	{
-		$news = new news();
-		return $news->orderBy('id', 'desc')->take(10)->get();
+		return news::orderBy('id','desc')->paginate(5);
 	}
 	public static function getNewsWhereID($id)
 	{
-		$news = new news();
-		return $news->orderBy('id', 'desc')->where('id','=',$id)->get();
+		return news::orderBy('id', 'desc')->where('id','=',$id)->get();
+	}
+	public static function update($data,$id)
+	{
+		$news =new news();
+		return $news->updateNews($data,$id);
 	}
 }
 

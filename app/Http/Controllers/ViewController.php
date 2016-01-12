@@ -16,6 +16,7 @@ class ViewController extends Controller
 	public function index()
 	{
 		$ads = AdsController::getAds();
+		$info = InfoController::getInfo();
 		$menu = MenuController::getMenu();
 		$convert = new convertString();		
 		$slideshow = SlideShowController::getSlideShow('index');
@@ -49,7 +50,7 @@ class ViewController extends Controller
 			$menu = array();
 		}
 		return View::make("index",array("menu"=>$menu,"slideshow"=>$slideshow,"product"=>$product,"news"=>$news,"tab_category"=>$tab_category,
-			"convert"=>$convert,"ads"=>$ads,"categorys"=>$categorys));
+			"convert"=>$convert,"ads"=>$ads,"categorys"=>$categorys,"info"=>$info));
 	}	
 	public function ConvertMenuToArray($menu)
 	{
@@ -98,6 +99,7 @@ class ViewController extends Controller
 	{		
 		$product = ProductController::getProductWhereID($id);
 		//return $product;
+		$info = InfoController::getInfo();
 		$product[0]->view +=1;
 		$data[0] = $product[0];
 		//$data =array("id","name","promotion_price","price","image","quantity","status","icon_status","user","view","categoryID","menuID","tab_categoryID","created_at");		
@@ -130,15 +132,16 @@ class ViewController extends Controller
 			$relatedproducts = ProductController::getProductWhereCategoryID($product[0]->categoryID);
 			$convert = new convertString();
 			return view('product.detail-product',array("menu"=>$menu,"product"=>$product,"detailproduct"=>$detailproduct,
-				"relatedproducts"=>$relatedproducts,"convert"=>$convert,"category"=>$category,"categorys"=>$categorys,"ads"=>$ads));
+				"relatedproducts"=>$relatedproducts,"convert"=>$convert,"category"=>$category,"categorys"=>$categorys,"ads"=>$ads,"info"=>$info));
 		}
 		else
-			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys));
+			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info));
 	}
 	public function myacount()
 	{
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
+		$info = InfoController::getInfo();
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
@@ -147,12 +150,13 @@ class ViewController extends Controller
 		{
 			$menu = array();
 		}
-		return view::make('my-account',array("menu"=>$menu,"categorys"=>$categorys));
+		return view::make('my-account',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info));
 	}
 	public function news()
 	{
 		$news = NewsController::getNews();
 		$menu = MenuController::getMenu();
+		$info = InfoController::getInfo();
 		$categorys = CategoryController::getCategory();
 		if(count($menu)>0)
 		{
@@ -164,16 +168,21 @@ class ViewController extends Controller
 		}
 		if(count($news)>0){
 			$convert = new convertString();
-			return view('news.news',array('menu'=>$menu,'news'=>$news,"convert"=>$convert,"categorys"=>$categorys));
+			return view('news.news',array('menu'=>$menu,'news'=>$news,"convert"=>$convert,"categorys"=>$categorys,"info"=>$info));
 		}
 		else
-			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys));
+			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info));
 	}
 	public function detailnews($id,$name)
 	{
 		$news = NewsController::getNewsWhereID($id);
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
+		$convert = new convertString();
+		$info = InfoController::getInfo();
+		$news[0]->view +=1;
+		$data[0] = $news[0];
+		NewsController::update($data,$id); /////update view
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
@@ -181,45 +190,50 @@ class ViewController extends Controller
 		if(count($news)>0)
 		{
 			
-			return view('news.detailnews',array('menu'=>$menu,'news'=>$news,"categorys"=>$categorys));
+			return view('news.detailnews',array('menu'=>$menu,'news'=>$news,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert));
 		}
 		else
-			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys));
+			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info));
 		
 	}
 	public function productsgird($category)
 	{
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
+		$info = InfoController::getInfo();
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
 		}
-		return view('product.products-gird',array('menu'=>$menu,"categorys"=>$categorys));
+		return view('product.products-gird',array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info));
 	}
 
 	public function productslist($category)
 	{
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
+		$info = InfoController::getInfo();
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
 		}
-		return view('product.products-list',array('menu'=>$menu,"categorys"=>$categorys));
+		return view('product.products-list',array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info));
 	}
 	public function registration()
 	{
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
+		$info = InfoController::getInfo();
+		$convert = new convertString();
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
 		}
-		return view::make("registration",array('menu'=>$menu,"categorys"=>$categorys));
+		return view::make("registration",array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert));
 	}
 	public function cart()
 	{
+		$info = InfoController::getInfo();
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
 		$convert = new convertString();
@@ -240,7 +254,7 @@ class ViewController extends Controller
 			}
 			
 		}		
-		return View::make("cart",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,"convert"=>$convert));
+		return View::make("cart",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,"convert"=>$convert,"info"=>$info));
 	}
 	public function wishlist()
 	{
@@ -250,6 +264,7 @@ class ViewController extends Controller
 			//return $wishlist;
 			if(count($wishlist)>0)
 			{
+				$info = InfoController::getInfo();
 				$product=array();
 				$wishlistID=array();
 				foreach ($wishlist as $values) {
@@ -267,7 +282,7 @@ class ViewController extends Controller
 					$menu = $this->ConvertMenuToArray($menu);
 				}
 				return View::make("wishlist",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,
-					"convert"=>$convert,"wishlistID"=>$wishlistID));
+					"convert"=>$convert,"wishlistID"=>$wishlistID,"info"=>$info));
 			}
 		}
 		else
@@ -329,7 +344,7 @@ class ViewController extends Controller
 
 		$categoryID = Input::get("category");
 		$productName = Input::get("name");
-
+		$info = InfoController::getInfo();
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
 		$convert = new convertString();
@@ -349,7 +364,7 @@ class ViewController extends Controller
 		}
 		$product->appends(['category' => $categoryID,"name"=>$productName])->render();
 		return View::make("product.search-product",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,
-					"convert"=>$convert));
+					"convert"=>$convert,"info"=>$info));
 	}
 	public function test()
 	{
