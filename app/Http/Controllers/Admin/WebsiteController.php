@@ -51,7 +51,7 @@ class WebsiteController extends BaseController
 	}	
 	public function addmenu()
 	{
-		$data=menu::select('id','name')->where('root',0)->get();
+		$data=menu::select('id','name','root')->orderBy('root','asc')->get();
 		return View::make("admin.website.addmenu",array('data'=>$data));
 	}	
 
@@ -75,7 +75,7 @@ class WebsiteController extends BaseController
 		if($data==null)
 			return Redirect::to('admin/website/menu')->with(['message'=>'Menu không tồn tại.']);
 		
-		$dataall=$menu->where('root',0)->where('id','<>',Input::get('id'))->get();
+		$dataall=$menu->select('id','name','root')->where('id','<>',Input::get('id'))->get();
 
 		return View::make("admin.website.editmenu",array('data'=>$data,'dataall'=>$dataall));
 	}	

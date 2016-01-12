@@ -6361,15 +6361,6 @@ header.blue-bg .search:focus {
     color:#888;
     cursor: pointer;
 }
-.sumitem{
-    color:#888;
-    display: block;
-    margin-bottom: 5px;
-}
-.sumitem b{
-    color:#999;
-    font-weight: normal;
-}
 .titlepage{
     font-size: 20px;
     margin-bottom: 30px;

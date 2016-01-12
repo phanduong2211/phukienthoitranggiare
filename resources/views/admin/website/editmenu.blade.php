@@ -8,7 +8,7 @@
  <script src="{{Asset('public/admin')}}/js/validate.js" ></script>
 <script type="text/javascript">
 	$(function(){
-		$("#nav-accordion>li:eq(3)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
+		$("#nav-accordion>li:eq(2)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
 		$("#frm").kiemtra([
     		{
     			'name':'name',
@@ -17,10 +17,6 @@
     			'name':'root',
     			'select':true
     		}
-    		,{
-    			'name':'url',
-    			'trong':true
-    		}
     	]);
 
           $("select[name='root']").val("<?php echo $data->root ?>");
@@ -28,7 +24,7 @@
 </script>
 @endsection
 @section('content')
-<h1 class="titlepage">Sửa Menu</h1>
+<h1 class="titlepage"><a href='{{Asset('admin/website/menu')}}'><i class="fa fa-chevron-circle-left"></i></a> Sửa Menu</h1>
 @if(Session::has('message'))
         <p class="message hidemessage"> {{ Session::get('message') }}
         <i class="pull-right fa fa-times-circle"></i>
@@ -56,7 +52,18 @@
     					<select name="root" class="form-control">
     						<option value="-1">--Lựa Chọn--</option>
     						<option value="0">Không Thuộc</option>
-    					   @foreach($dataall as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
+    					    <?php 
+                           function dequy($parentid,$arr,$text = ''){
+                                foreach ($arr as $key => $value) {
+                                    if($value->root==$parentid){?>
+                                        <option value="{{$value->id}}">{{$text.$value->name}}</option>
+                                        <?php 
+                                        dequy($value->id,$arr,$text.'--');
+                                    }
+                                }
+                            }
+                       dequy(0,$dataall);
+                            ?>
                         </select>
     					<span class="desc">Nếu không thuộc menu nào thì chọn không thuộc</span>
     				</div>
@@ -67,8 +74,7 @@
     				<div class="col-md-4">
     					Url:
     				</div>
-    				<div class="col-md-8 require">
-    					<div class="red">*</div>
+    				<div class="col-md-8">
     					<input type="text" name="url" class="form-control" value="{{$data->url}}" />
     					<span class="desc">vd: gioi-thieu</span>
     				</div>

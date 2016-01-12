@@ -102,6 +102,16 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::get("website/menu/edit","Admin\WebsiteController@editmenu");
     Route::post("website/menu/edit","Admin\WebsiteController@saveeditmenu");
     Route::post("website/menu/delete","Admin\WebsiteController@deletemenu");
+
+    Route::get("category","Admin\CategoryAdminController@index");
+    Route::get("category/add","Admin\CategoryAdminController@add");
+    Route::post("category/add","Admin\CategoryAdminController@save");
+    Route::get("category/edit","Admin\CategoryAdminController@edit");
+    Route::post("category/edit","Admin\CategoryAdminController@saveedit");
+    Route::post("category/delete","Admin\CategoryAdminController@delete");
+
+    Route::get("product","Admin\ProductController@index");
+     Route::get("product/add","Admin\ProductController@add");
 });
 
 //Admin//

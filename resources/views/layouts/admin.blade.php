@@ -299,25 +299,9 @@
                           <span>Sản Phẩm</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="boxed_page.html">Boxed Page</a></li>
-                          <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
-                          <li><a  href="header-color.html">Different Color Top bar</a></li>
-                          <li><a  href="mega_menu.html">Mega Menu</a></li>
-                          <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
-                          <li><a  href="email_template.html" target="_blank">Email Template</a></li>
-                      </ul>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-list"></i>
-                          <span>Danh Mục SP</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="boxed_page.html">Boxed Page</a></li>
-                          <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
-                          <li><a  href="header-color.html">Different Color Top bar</a></li>
-                          <li><a  href="mega_menu.html">Mega Menu</a></li>
+                          <li><a  href="{{Asset('admin/product')}}">Danh Sách Sản Phẩm</a></li>
+                          <li><a  href="{{Asset('admin/product/add')}}">Thêm Sản Phẩm</a></li>
+                          <li><a  href="{{Asset('admin/category')}}">Loại Sản Phẩm</a></li>
                           <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
                           <li><a  href="email_template.html" target="_blank">Email Template</a></li>
                       </ul>
@@ -443,11 +427,6 @@
           $(".btn-reset").click(function(){
             window.location.reload();
           });
-
-          if(sumrowitem!=null){
-            $(".sumitem b").html("("+sumrowitem+")");
-          }
-
       });
 
   </script>
