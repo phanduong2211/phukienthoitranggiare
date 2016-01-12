@@ -111,7 +111,8 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::post("category/delete","Admin\CategoryAdminController@delete");
 
     Route::get("product","Admin\ProductController@index");
-     Route::get("product/add","Admin\ProductController@add");
+    Route::get("product/add","Admin\ProductController@add");
+	Route::get("product/edit","Admin\ProductController@edit");
 });
 
 //Admin//
