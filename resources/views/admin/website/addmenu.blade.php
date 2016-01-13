@@ -76,7 +76,7 @@
     				</div>
     				<div class="col-md-8">
     					<input type="text" name="url" class="form-control" />
-    					<span class="desc">vd: gioi-thieu</span>
+    					<span class="desc">vd: gioi-thieu. Nếu bỏ trống thì loại menu sẽ là post</span>
     				</div>
     			</div><br />
     		</div>

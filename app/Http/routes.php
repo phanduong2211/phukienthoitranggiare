@@ -110,9 +110,20 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::post("category/edit","Admin\CategoryAdminController@saveedit");
     Route::post("category/delete","Admin\CategoryAdminController@delete");
 
+    Route::get("tab","Admin\TabController@index");
+    Route::get("tab/add","Admin\TabController@add");
+    Route::post("tab/add","Admin\TabController@save");
+    Route::get("tab/edit","Admin\TabController@edit");
+    Route::post("tab/edit","Admin\TabController@saveedit");
+    Route::post("tab/delete","Admin\TabController@delete");
+
     Route::get("product","Admin\ProductController@index");
     Route::get("product/add","Admin\ProductController@add");
+    Route::post("product/add","Admin\ProductController@save");
 	Route::get("product/edit","Admin\ProductController@edit");
+    Route::post("product/edit","Admin\ProductController@saveedit");
+
+
 });
 
 //Admin//

@@ -26,7 +26,6 @@ class CrateProductTable extends Migration
             $table->integer('tab_categoryID');
             $table->integer('categoryID');
             $table->Integer('menuID');
-            $table->timestamps();
         });
     }
 

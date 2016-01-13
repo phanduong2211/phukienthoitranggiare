@@ -302,7 +302,7 @@
                           <li><a  href="{{Asset('admin/product')}}">Danh Sách Sản Phẩm</a></li>
                           <li><a  href="{{Asset('admin/product/add')}}">Thêm Sản Phẩm</a></li>
                           <li><a  href="{{Asset('admin/category')}}">Loại Sản Phẩm</a></li>
-                          <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
+                          <li><a  href="{{Asset('admin/tab')}}">Tab</a></li>
                           <li><a  href="email_template.html" target="_blank">Email Template</a></li>
                       </ul>
                   </li>
@@ -427,7 +427,7 @@
           $(".btn-reset").click(function(){
             window.location.reload();
           });
-          $("#test").click();
+          
       });
 
   </script>

@@ -6352,6 +6352,7 @@ header.blue-bg .search:focus {
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
         color: #444;
         font-size: 13px;
+        margin-bottom: 15px;
 }
 .hidemessage i.fa{
     margin-top: 4px;
@@ -6366,7 +6367,4 @@ header.blue-bg .search:focus {
     margin-bottom: 30px;
     margin-top: 0;
     padding-top: 0;
-}
-#test{
-    
 }

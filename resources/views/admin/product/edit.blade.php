@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Thêm Sản Phẩm')
+@section('title', 'Cập Nhật Sản Phẩm')
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{Asset('public/admin')}}/css/validate.css" />
 <style type="text/css">
@@ -30,7 +30,6 @@
 }
 .boxupload .showimage{
     color:blue;
-    display: none;
 }
 .boxupload .showimage:hover{
     cursor: pointer;
@@ -38,6 +37,25 @@
 }
 .boxupload .showimg{
     width: 100px;
+}
+.tabs{
+    margin-bottom:15px;
+    border-bottom:1px solid #ccc;
+}
+.tabs li{
+    list-style: none;
+    display: block;
+    float: left;
+    margin-right: 30px;
+    padding-bottom: 5px;
+    color:#999;
+}
+.tabs li:hover,.tabs li.active{
+    cursor: pointer;
+    color: #000;
+}
+#detailproduct{
+    display: none;
 }
 </style>
 @endsection
@@ -125,6 +143,15 @@
                 $(this).html(" Xem hình ảnh");
             }
         });
+        $(".tabs li").click(function(){
+            if(!$(this).hasClass("active")){
+                var oldid=$(this).parent().find(".active").removeClass("active").attr("data-id");
+                $(this).addClass("active");
+                $("#"+oldid).hide();
+                var id=$(this).attr("data-id");
+                $("#"+id).show();
+            }
+        });
 	});
 
     function showImg(input) {
@@ -145,7 +172,13 @@
 </script>
 @endsection
 @section('content')
-<h1 class="titlepage"><a href='{{Asset('admin/product')}}'><i class="fa fa-chevron-circle-left"></i></a> Thêm Sản Phẩm</h1>
+<h1 class="titlepage"><a href='{{Asset('admin/product')}}'><i class="fa fa-chevron-circle-left"></i></a> Cập Nhật Sản Phẩm</h1>
+<div class="tabs clearfix">
+    <li class="active" data-id="infoproduct">Thông Tin Sản Phẩm</li>
+    <li data-id="detailproduct">Chi Tiết Sản Phẩm</li>
+</div>
+<!--Infotab-->
+<div id="infoproduct">
 @if(Session::has('message'))
         <p class="message hidemessage"> {{ Session::get('message') }}
         <i class="pull-right fa fa-times-circle"></i>
@@ -153,29 +186,21 @@
 @endif
 
 <?php 
-    $dataold=array();
-    $dataold['name']="";
-    $dataold['promotion_price']="";
-    $dataold['price']="";
-    $dataold['quantity']="";
-    $dataold['content']="";
-    $dataold['original_price']="";
-    $dataold['image']="";
-
-
-    if(Session::has('dataold')){
-        $dataold=Session::get('dataold');
-    }
+function showImage($path){
+    if(strpos($path, "http")===0)
+        return $path;
+    return Asset('public/image/upload').'/'.$path;
+}
 ?>
 
-    <form method="post" action="" id="frm" enctype="multipart/form-data">
+    <form method="post" action="" id="frm" name="frm" enctype="multipart/form-data">
     	<div class="row">
     		<div class="col-md-2">
     			Tên Sản Phẩm:
     		</div>
     		<div class="col-md-10 require">
     			<div class="red">*</div>
-    			<textarea class="form-control" name="name">{{$dataold['name']}}</textarea>
+    			<textarea class="form-control" name="name">{{$data->name}}</textarea>
     			
     		</div>
     	</div>
@@ -188,7 +213,7 @@
                     </div>
                     <div class="col-md-8 require">
                         <div class="red">*</div>
-                        <input type="text" name="promotion_price" class="form-control" value="{{$dataold['promotion_price']}}" />
+                        <input type="text" name="promotion_price" class="form-control" value="{{number_format($data->promotion_price,0,',','.')}}" />
                         <span class="desc">VD: 1 triệu thì điền 1.000.000 hoặc 1,000,000 hoặc 1 000 000. Nếu chưa có giá thì điền 0</span>
                     </div>
                 </div><br />
@@ -201,7 +226,7 @@
                     <div class="col-md-8 require">
                         <div class="red">*</div>
                 
-                        <input type="text" name="price" value="{{$dataold['price']}}" class="form-control" />
+                        <input type="text" name="price" value="{{number_format($data->price,0,',','.')}}" class="form-control" />
                         <span class="desc">Giá bán hiện tại của sản phẩm này.</span>
                     </div>
                 </div><br />
@@ -215,7 +240,7 @@
                     </div>
                     <div class="col-md-8 require">
                         <div class="red">*</div>
-                        <input type="text" name="original_price" class="form-control" value="{{$dataold['original_price']}}" />
+                        <input type="text" name="original_price" class="form-control" value="{{number_format($data->original_price,0,',','.')}}" />
                         <span class="desc">Giá sỉ. Giá này không hiển thị trên website. Chỉ QTV biết giá này</span>
                     </div>
                 </div><br />
@@ -226,7 +251,7 @@
                         Mô Tả Ngắn Gọn:
                     </div>
                     <div class="col-md-8">
-                        <textarea class="form-control" name="content">{{$dataold['content']}}</textarea>
+                        <textarea class="form-control" name="content">{{$data->content}}</textarea>
                     </div>
                 </div><br />
             </div>
@@ -240,14 +265,14 @@
                     <div class="col-md-8 require">
                         <div class="red">*</div>
                         <div class="addon addon-right">
-                            <input type="text" name="image" class="form-control" value="<?php if(strpos($dataold['image'],"http")===0) echo $dataold['image'] ?>" />
+                            <input type="text" name="image" class="form-control" value="<?php if(strpos($data->image,"http")===0) echo $data->image ?>"  />
                             <i class="fa fa-upload addon-icon" id="upload" title="upload image"></i>
                             <input type="file" name="image_upload" class="file" />
                         </div>
                         <div class="boxupload">
-                            <span class="filename"></span>
+                            <span class="filename"><?php if(!strpos($data->image, "http")===0) echo $data->image."." ?></span>
                             <span class="showimage"> Xem hình ảnh</span>
-                            <img src="" class="showimg" />
+                            <img src="<?php echo showImage($data->image) ?>" class="showimg" />
                         </div>
                         <span class="desc">Copy url hình ảnh và dán vào hoặc click vào icon upload để upload ảnh mới.</span>
                     </div>
@@ -260,7 +285,7 @@
                     </div>
                     <div class="col-md-8 require">
                         <div class="red">*</div>
-                       <input type="text" name="quantity" class="form-control" value="{{$dataold['quantity']}}" />
+                       <input type="text" name="quantity" class="form-control" value="{{$data->quantity}}" />
                         <span class="desc">Số lượng hiện có của sản phẩm. Nếu chưa có hàng thì điền là 0</span>
                     </div>
                 </div><br />
@@ -318,7 +343,6 @@
                             <option value="-1">--Lựa Chọn--</option>
                             @foreach($datacategory as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
                         </select>
-                        <span class="desc">Số lượng hiện có của sản phẩm. Nếu chưa có hàng thì điền là 0</span>
                     </div>
                 </div><br />
             </div>
@@ -363,10 +387,22 @@
     	<div class="row">
     		<div class="col-md-12 text-right">
     			<input type="submit" class="btn btn-success" value="Lưu Lại" />
-    			<input type="reset" class="btn btn-default" value="Nhập Lại" />
+    			<input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
     		</div>
     	</div><br />
     	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
+        <input type="hidden" name="idedit" value="{{$data->id}}"/>
     </form>
-
+    <script type="text/javascript">
+    document.frm.menuID.value="{{$data->menuID}}";
+    document.frm.categoryID.value="{{$data->categoryID}}";
+    document.frm.tab_categoryID.value="{{$data->tab_categoryID}}";
+     document.frm.status.value="{{$data->status}}";
+    </script>
+</div><!--//Infotab-->
+<!--DetailTab-->
+<div id="detailproduct">
+    detail
+</div>
+<!--//DetailTab-->
 @endsection

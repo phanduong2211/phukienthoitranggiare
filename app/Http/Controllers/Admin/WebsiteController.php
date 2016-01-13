@@ -8,6 +8,7 @@ use Session;
 use Redirect;
 use View;
 use App\Http\Module\menu;
+use App\Http\Module\product;
 
 class WebsiteController extends BaseController
 {
@@ -58,9 +59,20 @@ class WebsiteController extends BaseController
 	public function savemenu()
 	{
 		$menu= new menu();
-		$menu->fill(Input::get());
+
+		$data=array(
+			'name'=>trim(Input::get('name')),
+			'root'=>Input::get('root'),
+			'url'=>trim(Input::get('url'))
+		);
+
+		if($data['root']==-1){
+			return Redirect::to('admin/website/menu')->with(['message'=>'Vui lòng điền đầy đủ thông tin.']);
+		}
+
+		$menu->fill($data);
 		if($menu->save()){
-			return Redirect::to('admin/website/menu')->with(['message'=>'Thêm thành công menu '.Input::get('name')]);
+			return Redirect::to('admin/website/menu')->with(['message'=>'Thêm thành công menu "'.$data['name'].'"']);
 		}else{
 			return Redirect::to('admin/website/menu/add')->with(['message'=>'Có lỗi. Vui lòng thử lại']);
 		}
@@ -83,10 +95,21 @@ class WebsiteController extends BaseController
 	public function saveeditmenu()
 	{
 		$menu=menu::find(Input::get('idedit'));
-		$menu->fill(Input::get());
+		
+		$data=array(
+			'name'=>trim(Input::get('name')),
+			'root'=>Input::get('root'),
+			'url'=>trim(Input::get('url'))
+		);
+
+		if($data['root']==-1){
+			return Redirect::to('admin/website/menu/edit?id='.Input::get('idedit'))->with(['message'=>'Vui lòng điền đầy đủ thông tin.']);
+		}
+
+		$menu->fill($data);
 
 		if($menu->update()){
-			return Redirect::to('admin/website/menu')->with(['message'=>'Cập nhật thành công menu '.Input::get('name')]);
+			return Redirect::to('admin/website/menu')->with(['message'=>'Cập nhật thành công menu "'.$data['name'].'"']);
 		}else{
 			return Redirect::to('admin/website/menu/edit?id='.Input::get('idedit'))->with(['message'=>'Cập nhật thất bại. Vui lòng thử lại.']);
 		}
@@ -98,6 +121,12 @@ class WebsiteController extends BaseController
 			$menu=menu::where('root',Input::get('id'))->get();
 			if(count($menu)>0){
 				return Redirect::to('admin/website/menu')->with(['message'=>'Menu "'.Input::get('title').'" đã có menu con. Không thể xóa']);
+			}
+		}
+		if(Input::get("url")==""){
+			$product=product::where('menuID',Input::get('id'))->get();
+			if(count($product)>0){
+				return Redirect::to('admin/website/menu')->with(['message'=>'Menu "'.Input::get('title').'" đã có sản phẩm. Không thể xóa']);
 			}
 		}
 		$menu=menu::find(Input::get('id'));

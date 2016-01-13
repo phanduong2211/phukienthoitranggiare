@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Quản Lý Menu')
+@section('title', 'Quản Lý Tab')
 @section('script')
 <script type="text/javascript">
     $(function(){
-        $("#nav-accordion>li:eq(2)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
+        $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(3)").addClass("active");
     });
 </script>
 @endsection
@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:5px">
        <div class="group-button clearfix">
-           <a href="{{Asset('admin/website/menu/add')}}" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
+           <a href="{{Asset('admin/tab/add')}}" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
        </div>
    </div>
    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
@@ -51,67 +51,25 @@
        <tr>
             <th>STT</th>
             <th>Tên</th>
-            <th>Url</th>
             <th>Ngày Tạo</th>
             <th>Ngày Cập Nhật</th>
         </tr>
         <?php $count=0; ?>
-        <?php 
-            function dequy($parentid,$arr,$res = '<i class="fa fa-mail-forward"></i>'){
-                foreach ($arr as $key => $subvalue) {
-                    if($subvalue->root==$parentid){?>
- <tr class="submenu">
-            <td></td>
-            <td>
-                <?php echo $res ?> {{$subvalue->name}}
-                 <div class="groupaction">
-                        <a class="edit" href='{{Asset('admin/website/menu/edit?id='.$subvalue->id)}}'>Sửa</a>
-                        <form method="post" action="{{Asset('admin/website/menu/delete')}}" class="remove">
-                                <input type="hidden" name="id" value="{{$subvalue->id}}">
-                                <input type="hidden" name="title" value="{{$subvalue->name}}">
-                                <input type="hidden" name="root" value="{{$subvalue->root}}">
-                                <input type="hidden" name="url" value="{{$subvalue->url}}">
-                                <input type="submit" value="Xóa">
-                                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-                            </form>
-                    </div>
-            </td>
-             <td>
-                 {{$subvalue->url}}
-            </td>
-            <td>
-                 {{date('d/m/Y H:i',strtotime($subvalue->created_at))}}
-            </td>
-            <td>
-                 {{date('d/m/Y H:i',strtotime($subvalue->updated_at))}}
-            </td>
-            </tr>
-                    <?php     
-                        dequy($subvalue->id,$arr,$res.' <i class="fa fa-mail-forward"></i>');
-                    }
-                }
-            }
-        ?>
-        <?php foreach ($data as $key => $value) {?>
-         <?php if($value->root==0){$count++; ?>
+        @foreach ($data as $key => $value)
+        <?php $count++; ?>
             <tr>
             <td>{{$count}}</td>
             <td>
                 {{$value->name}}
                  <div class="groupaction">
-                        <a class="edit" href='{{Asset('admin/website/menu/edit?id='.$value->id)}}'>Sửa</a>
-                        <form method="post" action="{{Asset('admin/website/menu/delete')}}" class="remove">
+                        <a class="edit" href='{{Asset('admin/tab/edit?id='.$value->id)}}'>Sửa</a>
+                        <form method="post" action="{{Asset('admin/tab/delete')}}" class="remove">
                                 <input type="hidden" name="id" value="{{$value->id}}">
                                 <input type="hidden" name="title" value="{{$value->name}}">
-                                <input type="hidden" name="root" value="{{$value->root}}">
-                                <input type="hidden" name="url" value="{{$value->url}}">
                                 <input type="submit" value="Xóa">
                                 <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                             </form>
                     </div>
-            </td>
-            <td>
-                 {{$value->url}}
             </td>
             <td>
                  {{date('d/m/Y H:i',strtotime($value->created_at))}}
@@ -120,10 +78,8 @@
                  {{date('d/m/Y H:i',strtotime($value->updated_at))}}
             </td>
         </tr>
-            <?php dequy($value->id,$data);
-            } ?>
-       <?php } ?>
        
+        @endforeach
         
     </table>
 </div>

@@ -15,7 +15,7 @@ class CategoryAdminController extends BaseController
 
 		$category=new category();
 		$order='id';
-		$typeorder='asc';
+		$typeorder='desc';
 		if(Input::exists('s')){
 			switch (Input::get('s')) {
 				case '1':
@@ -96,7 +96,7 @@ class CategoryAdminController extends BaseController
 		if($category->delete()){
 			return Redirect::to('admin/category')->with(['message'=>'Xóa thành công loại sản phẩm "'.Input::get('title').'"']);
 		}else{
-			return Redirect::to('admin/category')->with(['message'=>'Có lỗi xóa loại sản phẩm "'.Input::get('title').'" thất bại. Vui lòng thử lại.']);
+			return Redirect::to('admin/category')->with(['message'=>'Loại sản phẩm "'.Input::get('title').'" đã có sản phẩm. Không thể xóa']);
 		}
 		
 	}	
