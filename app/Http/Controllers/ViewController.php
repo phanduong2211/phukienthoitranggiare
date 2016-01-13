@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -10,7 +8,6 @@ use Input;
 use Session;
 use Redirect;
 use View;
-
 class ViewController extends Controller
 {
 	public function index()
@@ -49,6 +46,7 @@ class ViewController extends Controller
 		{
 			$menu = array();
 		}
+
 		return View::make("index",array("menu"=>$menu,"slideshow"=>$slideshow,"product"=>$product,"news"=>$news,"tab_category"=>$tab_category,
 			"convert"=>$convert,"ads"=>$ads,"categorys"=>$categorys,"info"=>$info));
 	}	
@@ -131,6 +129,7 @@ class ViewController extends Controller
 			//return $category['name'];
 			$relatedproducts = ProductController::getProductWhereCategoryID($product[0]->categoryID);
 			$convert = new convertString();
+
 			return view('product.detail-product',array("menu"=>$menu,"product"=>$product,"detailproduct"=>$detailproduct,
 				"relatedproducts"=>$relatedproducts,"convert"=>$convert,"category"=>$category,"categorys"=>$categorys,"ads"=>$ads,"info"=>$info));
 		}
@@ -207,7 +206,6 @@ class ViewController extends Controller
 		}
 		return view('product.products-gird',array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info));
 	}
-
 	public function productslist($category)
 	{
 		$menu = MenuController::getMenu();
@@ -341,7 +339,6 @@ class ViewController extends Controller
 	}
 	public function search()
 	{
-
 		$categoryID = Input::get("category");
 		$productName = Input::get("name");
 		$info = InfoController::getInfo();
@@ -353,7 +350,6 @@ class ViewController extends Controller
 		{
 			$menu = $this->ConvertMenuToArray($menu);
 		}
-
 		if($categoryID == "all")
 		{
 			$product = ProductController::getProductWhereName($productName);
@@ -384,5 +380,4 @@ class ViewController extends Controller
 	}
 	
 }
-
 ?>
