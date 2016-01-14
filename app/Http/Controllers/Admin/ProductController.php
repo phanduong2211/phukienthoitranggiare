@@ -79,7 +79,7 @@ class ProductController extends BaseController
 		$data['datamenu']=menu::select('id','name','root')->where('url','')->get();
 		$data['datacategory']=category::select('id','name')->get();
 		$data['datatabcategory']=tab_category::select('id','name')->get();
-		
+		$data['detail']=detailproduct::where('productID',Input::get('id'))->first();
 		return View::make("admin.product.edit",$data);
 	}	
 
@@ -107,6 +107,35 @@ class ProductController extends BaseController
 			return Redirect::to('admin/product/edit?id='.$product->id)->with(['message'=>'Cập nhật sản phẩm thất bại.']);
 		}
 	}	
+
+
+	public function detail(){
+		$productdetail=detailproduct::find(Input::get('idedit'));
+		$images="";
+		foreach (Input::get('images') as $key => $value) {
+			if($value!=""){
+				$images.=$value."   ";
+			}
+		}
+		$images=trim($images);
+		$images=str_replace("   ", ",", $images);
+
+		$productdetail->images=$images;
+
+		$silebar_images="";
+		foreach (Input::get('silebar_images') as $key => $value) {
+			if($value!=""){
+				$silebar_images.=$value."   ";
+			}
+		}
+		$silebar_images=trim($silebar_images);
+		$silebar_images=str_replace("   ", ",", $silebar_images);
+		$productdetail->silebar_images=$silebar_images;
+
+		if($productdetail->update()){
+			return Redirect::to('admin/product/edit?id='.Input::get('idproductedit'))->with(['message'=>'Cập nhật thành công chi tiết sản phẩm "'.Input::get('nameproductedit').'"']);
+		}
+	}
 
 	public function delete()
 	{
