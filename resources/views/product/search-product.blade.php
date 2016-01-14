@@ -18,6 +18,7 @@
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->
 					</div>
+					
 				</div>
 				<div class="row">
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -95,15 +96,9 @@
 						<div class="product-left-sidebar">
 							<h2 class="left-title">Tags </h2>
 							<div class="category-tag">
-								<a href="#">fashion</a>
-								<a href="#">handbags</a>
-								<a href="#">women</a>
-								<a href="#">men</a>
-								<a href="#">kids</a>
-								<a href="#">New</a>
-								<a href="#">Accessories</a>
-								<a href="#">clothing</a>
-								<a href="#">New</a>
+								@foreach($tag as $values)
+								<a href="{{Asset('')}}tag/{{$convert->convertString($values->name)}}">{{$values->name}}</a>								
+							@endforeach
 							</div>
 						</div>
 						<!-- SINGLE SIDEBAR TAG END -->
@@ -161,10 +156,10 @@
 								<!-- PRODUCT-SHOOTING-RESULT START -->
 								<div class="product-shooting-result">
 									<form action="#">
-										<button class="btn compare-button">
+										<!-- <button class="btn compare-button">
 											So sánh (<span class="compare-value">1</span>)
 											<i class="fa fa-chevron-right"></i>
-										</button>
+										</button> -->
 									</form>
 									
 									<?php echo $product->render(); ?>
@@ -188,7 +183,7 @@
 													<ul id="{{$values->id}}">
 														<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
 														<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
-														<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
+														<!-- <li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li> -->
 														<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 													</ul>
 												</div>
@@ -265,7 +260,7 @@
 														<ul id="{{$values->id}}">
 														<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
 														<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
-														<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
+														<!-- <li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li> -->
 														<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 													</ul>
 													</div>												
@@ -282,10 +277,10 @@
 						<!-- PRODUCT-SHOOTING-RESULT START -->
 						<div class="product-shooting-result product-shooting-result-border">
 							<form action="#">
-								<button class="btn compare-button">
+								<!-- <button class="btn compare-button">
 									So sánh (<strong class="compare-value">1</strong>)
 									<i class="fa fa-chevron-right"></i>
-								</button>
+								</button> -->
 							</form>
 								<?php echo $product->render(); ?>
 						</div>	

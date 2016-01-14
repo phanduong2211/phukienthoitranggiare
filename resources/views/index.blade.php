@@ -99,7 +99,7 @@
 																<ul id="{{$values->id}}">
 																	<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
 																	<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
-																	<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
+																	<!-- <li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li> -->
 																	<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 																</ul>
 															</div>															
@@ -162,7 +162,7 @@
 																<ul id="{{$values->id}}">
 																	<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
 																	<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
-																	<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
+																	<!-- <li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li> -->
 																	<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 																</ul>
 															</div>
@@ -244,7 +244,7 @@
 													<ul id="{{$values->id}}">
 														<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
 														<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
-														<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
+														<!-- <li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li> -->
 														<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 													</ul>
 												</div>
@@ -308,7 +308,7 @@
 															<ul id="{{$values_product->id}}" >
 																<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
 																<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
-																<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
+																<!-- <li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li> -->
 																<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-heart-o"></i></a></li>
 															</ul>
 														</div>
@@ -385,7 +385,7 @@
 													<ul id="{{$values->id}}">
 														<li><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="Xem chi tiết"><i class="fa fa-search"></i></a></li>
 														<li><a href="javascript:void(0)" title="Thêm vào giỏ hàng"><i class="fa fa-shopping-cart add-cart"></i></a></li>
-														<li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li>
+														<!-- <li><a href="javascript:void(0)" title="So sánh"><i class="fa fa-retweet"></i></a></li> -->
 														<li><a href="javascript:void(0)" title="Thêm vào yêu thích"><i class="fa fa-heart-o"></i></a></li>
 													</ul>
 												</div>
@@ -465,14 +465,14 @@
 									<div class="item">
 										<div class="latest-news-post">
 											<div class="single-latest-post">
-												<a href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
-												<h2><a title="{{$values->name}}" href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html">{{$values->name}}</a></h2>
+												<a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+												<h2><a title="{{$values->name}}" href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html">{{$values->name}}</a></h2>
 												<p>{{$values->description}}</p>
 												<div class="latest-post-info">
 													<i class="fa fa-calendar"></i><span>{{$values->created_at}}</span>
 												</div>
 												<div class="read-more">
-													<a title="{{$values->name}}" href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html">Xem Thêm <i class="fa fa-long-arrow-right"></i></a>
+													<a title="{{$values->name}}" href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html">Xem Thêm <i class="fa fa-long-arrow-right"></i></a>
 												</div>
 											</div>
 										</div>

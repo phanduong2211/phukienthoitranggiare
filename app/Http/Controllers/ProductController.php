@@ -31,10 +31,21 @@ class ProductController extends Controller
 		$product = new product();
 		return $product->where('status','=',$status)->get();
 	}
-	public static function getProductWhereCategoryID($categoryID)
-	{
-		$product = new product();
-		return $product->where('categoryID','=',$categoryID)->take(10)->get();
+	public static function getProductWhereCategoryID($categoryID,$id)
+	{		
+		return product::where('categoryID','=',$categoryID)->where('id','!=',$id)->take(10)->get();
+	}
+	public static function getAllProductWhereCategoryID($categoryID)
+	{		
+		return product::where('categoryID','=',$categoryID)->paginate(16);
+	}
+	public static function getAllProductWhereTagID($ID)
+	{		
+		return product::where('TagID','=',$ID)->paginate(16);
+	}
+	public static function getAllProductWhereMenuID($ID)
+	{		
+		return product::where('menuID','=',$ID)->paginate(16);
 	}
 	public static function update($data,$id)
 	{

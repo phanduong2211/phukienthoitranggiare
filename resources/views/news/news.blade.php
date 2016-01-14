@@ -122,10 +122,10 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-8 col-md-9 blog-content">
-                            <a href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" class="img-responsive img-blog" src="{{$values->image}}" width="100%" alt="{{$values->name}}"></a>
-                            <h2><a href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html">{{$values->name}}</a></h2>
+                            <a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" class="img-responsive img-blog" src="{{$values->image}}" width="100%" alt="{{$values->name}}"></a>
+                            <h2><a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html">{{$values->name}}</a></h2>
                             <h3>{{$values->description}}</h3>
-                            <a style="margin-top: -38px;float: right;" class="btn btn-primary readmore" href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html">Xem Thêm <i class="fa fa-angle-right"></i></a>
+                            <a style="margin-top: -38px;float: right;" class="btn btn-primary readmore" href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html">Xem Thêm <i class="fa fa-angle-right"></i></a>
                         </div> 
                 </div><!--/.blog-item-->
              </div>
@@ -149,11 +149,11 @@
                 	@foreach($newsnews as $values)
                                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4" style="padding-right:0">
-                        <a href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">
+                        <a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">
                         <img src="{{Asset('')}}{{$values->image}}" alt="{{$values->name}}"></a>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8" style="margin-top:-5px">
-                        <a style="color:#c52d2f;" href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">{{$values->name}}</a>
+                        <a style="color:#c52d2f;" href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">{{$values->name}}</a>
                         <div class="entry-meta small muted">
                             Lúc {{$values->updated_at}}    </div>
                         </div>
@@ -168,11 +168,11 @@
                     @foreach($newMaxView as $values)
                                         <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4" style="padding-right:0">
-                            <a  href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">
+                            <a  href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">
                             <img src="{{Asset('')}}{{$values->image}}" alt="{{$values->name}}"></a>
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8" style="margin-top:-5px">
-                            <a style="color:#c52d2f;" href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">{{$values->name}}</a>
+                            <a style="color:#c52d2f;" href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">{{$values->name}}</a>
                             <div class="entry-meta small muted">
                                 Lúc {{$values->updated_at}}                                </div>
                             </div>

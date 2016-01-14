@@ -184,7 +184,7 @@
 						<!-- HEADER-RIGHT-CALLUS END -->
 						<!-- CATEGORYS-PRODUCT-SEARCH START -->
 						<div class="categorys-product-search">
-							<form action="tim-kiem" method="get" class="search-form-cat">
+							<form action="{{Asset('')}}tim-kiem" method="get" class="search-form-cat">
 								<div class="search-product form-group">
 									<select name="category" class="cat-search">
 										<option value="all">Tất cả</option>
@@ -217,44 +217,7 @@
 									<i class="fa fa-shopping-cart cart-icon"></i>
 									<b>Giỏ Hàng</b>
 									<span class="ajax-cart-quantity count-cart"><?php if(Session::has("cart")) echo count(Session::get("cart"))-1; else echo '0'; ?></span>
-								</a>
-								<!-- <div class="shipping-cart-overly">
-									<div class="shipping-item">
-										<span class="cross-icon"><i class="fa fa-times-circle"></i></span>
-										<div class="shipping-item-image">
-											<a href="#"><img src="{{Asset('')}}public/img/shopping-image.jpg" alt="shopping image" /></a>
-										</div>
-										<div class="shipping-item-text">
-											<span>2 <span class="pro-quan-x">x</span> <a href="#" class="pro-cat">Watch</a></span>
-											<span class="pro-quality"><a href="#">S,Black</a></span>
-											<p>$22.95</p>
-										</div>
-									</div>
-									<div class="shipping-item">
-										<span class="cross-icon"><i class="fa fa-times-circle"></i></span>
-										<div class="shipping-item-image">
-											<a href="#"><img src="{{Asset('')}}public/img/shopping-image2.jpg" alt="shopping image" /></a>
-										</div>
-										<div class="shipping-item-text">
-											<span>2 <span class="pro-quan-x">x</span> <a href="#" class="pro-cat">Women Bag</a></span>
-											<span class="pro-quality"><a href="#">S,Gary</a></span>
-											<p>$19.95</p>
-										</div>
-									</div>
-									<div class="shipping-total-bill">
-										<div class="cart-prices">
-											<span class="shipping-cost">$2.00</span>
-											<span>Shipping</span>
-										</div>
-										<div class="total-shipping-prices">
-											<span class="shipping-total">$24.95</span>
-											<span>Total</span>
-										</div>										
-									</div>
-									<div class="shipping-checkout-btn">
-										<a href="checkout.html">Check out <i class="fa fa-chevron-right"></i></a>
-									</div>
-								</div> -->
+								</a>								
 							</div>
 						</div>
 					</div>	
@@ -264,7 +227,7 @@
 						<div class="mainmenu">
 							<nav>
 								<ul class="list-inline mega-menu">
-									<li class="active"><a href="{{Asset('')}}">Home</a>
+									<li class="active"><a href="{{Asset('')}}">Trag chủ</a>
 										<!-- DROPDOWN MENU START -->
 										<!-- <div class="home-var-menu">
 											<ul class="home-menu">
@@ -277,7 +240,11 @@
 									@if(count($menu)>0)
 									@for($i=0;$i< count($menu["root_menu"]);$i++)
 									<li>
-										<a title="{{$menu['root_menu'][$i]['name']}}" href="{{$menu['root_menu'][$i]['url']}}">{{$menu["root_menu"][$i]["name"]}}</a>
+										@if($menu['root_menu'][$i]['url']!="")
+											<a title="{{$menu['root_menu'][$i]['name']}}" href="{{Asset('')}}{{$menu['root_menu'][$i]['url']}}" >{{$menu["root_menu"][$i]["name"]}}</a>
+											@else
+											<a title="{{$menu['root_menu'][$i]['name']}}" href="{{Asset('')}}{{$convert->convertString($menu['root_menu'][$i]['name'])}}" >{{$menu["root_menu"][$i]["name"]}}</a>
+										@endif
 										<!-- DRODOWN-MEGA-MENU START -->
 										<?php $ischeck=false; ?>
 											@for($j=0;$j< count($menu["second_menu"]);$j++)
@@ -291,11 +258,21 @@
 											
 											<div class="left-mega col-xs-6">
 												<div class="mega-menu-list">
+												@if($menu['second_menu'][$j]['url']!="")
 													<a title="{{$menu['second_menu'][$j]['name']}}" class="mega-menu-title" href="{{$menu['second_menu'][$j]['url']}}">{{$menu["second_menu"][$j]["name"]}}</a>
+													@else
+													<a title="{{$menu['second_menu'][$j]['name']}}" class="mega-menu-title" href="{{Asset('')}}{{$convert->convertString($menu['root_menu'][$i]['name'])}}/{{$convert->convertString($menu['second_menu'][$j]['name'])}}">{{$menu["second_menu"][$j]["name"]}}</a>
+												@endif
 													<ul>
 														@for($k=0;$k< count($menu["three_menu"]);$k++)
 														@if($menu["second_menu"][$j]["id"]==$menu["three_menu"][$k]["root"])
-														<li><a title="{{$menu['three_menu'][$k]['name']}}" href="{{$menu['three_menu'][$k]['url']}}">{{$menu["three_menu"][$k]["name"]}}</a></li>	
+														<li>
+														@if($menu['three_menu'][$k]['url']!="")
+															<a title="{{$menu['three_menu'][$k]['name']}}" href="{{$menu['three_menu'][$k]['url']}}">{{$menu["three_menu"][$k]["name"]}}</a>
+															@else
+															<a title="{{$menu['three_menu'][$k]['name']}}" href="{{Asset('')}}{{$convert->convertString($menu['root_menu'][$i]['name'])}}/{{$convert->convertString($menu['second_menu'][$j]['name'])}}/{{$convert->convertString($menu['three_menu'][$k]['name'])}}">{{$menu["three_menu"][$k]["name"]}}</a>
+														@endif
+														</li>	
 														@endif
 														@endfor													
 													</ul>
@@ -322,7 +299,7 @@
 							<span class="mobile-menu-title">MENU</span>
 							<nav>
 								<ul>
-									<li class="active"><a href="{{Asset('')}}">Home</a>											
+									<li class="active"><a href="{{Asset('')}}">Trang chủ</a>											
 									</li>
 									@if(count($menu)>0)
 									@for($i=0;$i< count($menu["root_menu"]);$i++)							
@@ -348,37 +325,7 @@
 									</li>
 
 									@endfor
-									@endif
-									<!-- <li><a href="shop-gird.html">men</a>
-										<ul>											
-											<li><a href="shop-gird.html">Tops</a>
-												<ul>
-													<li><a href="shop-gird.html">Sports</a></li>
-													<li><a href="shop-gird.html">Day</a></li>
-													<li><a href="shop-gird.html">Evening</a></li>
-												</ul>														
-											</li>
-											<li><a href="shop-gird.html">Blouses</a>
-												<ul>
-													<li><a href="shop-gird.html">Handbag</a></li>
-													<li><a href="shop-gird.html">Headphone</a></li>
-													<li><a href="shop-gird.html">Houseware</a></li>
-												</ul>														
-											</li>
-											<li><a href="shop-gird.html">Accessories</a>
-												<ul>
-													<li><a href="shop-gird.html">Houseware</a></li>
-													<li><a href="shop-gird.html">Home</a></li>
-													<li><a href="shop-gird.html">Health & Beauty</a></li>
-												</ul>														
-											</li>
-										</ul>										
-									</li>
-									<li><a href="shop-gird.html">clothing</a></li>
-									<li><a href="shop-gird.html">tops</a></li>
-									<li><a href="shop-gird.html">T-shirts</a></li>
-									<li><a href="#">Delivery</a></li>
-									<li><a href="about-us.html">About us</a></li> -->
+									@endif									
 								</ul>
 							</nav>
 						</div>						
@@ -452,7 +399,7 @@
 								</div>
 								<div class="facality-text">
 									<h3 class="facality-heading-text">Hỗ trợ 24/7</h3>
-									<span>Từ vấn trực tuyến</span>
+									<span>Tư vấn trực tuyến</span>
 								</div>
 							</div>
 						</div>
@@ -620,7 +567,7 @@
 												<h2>Danh mục</h2>
 												<ul>
 												@foreach($categorys as $values)
-													<li><a href="{{Asset('')}}{{$convert->convertString($values->name)}}"><i class="fa fa-angle-double-right"></i>{{$values->name}} </a></li>
+													<li><a href="{{Asset('')}}danh-muc/{{$convert->convertString($values->name)}}"><i class="fa fa-angle-double-right"></i>{{$values->name}} </a></li>
 												@endforeach
 												</ul>
 											</div>
@@ -650,7 +597,7 @@
 												<ul>
 													<li><a href="{{Asset('')}}wishlist.html"><i class="fa fa-angle-double-right"></i>Yêu thích</a></li>
 													<li><a href="{{Asset('')}}cart.html"><i class="fa fa-angle-double-right"></i>Giỏ hàng</a></li>
-													<li><a href="{{Asset('')}}compage.html"><i class="fa fa-angle-double-right"></i>So sánh</a></li>
+													<!-- <li><a href="{{Asset('')}}compage.html"><i class="fa fa-angle-double-right"></i>So sánh</a></li> -->
 												@if(!Session::has("login_name"))													
 													<li><a href="{{Asset('')}}registration.html"><i class="fa fa-angle-double-right"></i>Đăng ký</a></li>
 													@else													

@@ -17,7 +17,7 @@ Route::get('shop-gird.html', function () {
 
 Route::get('products/{id}/{name}.html','ViewController@productDetail');
 
-Route::get("news/{id}/{name}.html",'ViewController@detailnews');
+Route::get("tin-tuc/{id}/{name}.html",'ViewController@detailnews');
 Route::get("tin-tuc",'ViewController@news');
 
 Route::get("san-pham/gird/{category}",'ViewController@productsgird');
@@ -25,6 +25,12 @@ Route::get("san-pham/list/{category}",'ViewController@productslist');
 Route::post("add-cart","ViewController@addcart");
 Route::post("delete-cart","ViewController@deletecart");
 Route::get("tim-kiem","ViewController@search"); ///tìm kiếm sản phẩm
+Route::get("danh-muc/{category}","ViewController@category");
+Route::get("tag/{tag}","ViewController@tag");
+Route::get("signout","ViewController@signout");
+Route::get("{menu}","ViewController@getMenu");
+Route::get("{menu1}/{menu2}","ViewController@getMenuSecond");
+Route::get("{menu1}/{menu2}/{menu3}","ViewController@getMenuThree");
 
 
 Route::get('contact-us.html', function () {
