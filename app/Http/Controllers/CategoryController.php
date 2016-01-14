@@ -16,14 +16,25 @@ class CategoryController extends Controller
 {
 	public static function getCategory()
 	{
-		$category = new category();
-		return $category->orderBy('id', 'asc')->get();
+		return category::orderBy('id', 'desc')->get();
 	}
 
 	public static function getCategoryWhereID($id)
 	{
-		$category = new category();
-		return $category->where('id', '=',$id)->get();
+		return category::where('id', '=',$id)->get();
+	}
+	public static function getCategoryWhereName($name)
+	{
+		$category = category::orderBy('id', 'desc')->get();
+		$convert = new convertString();
+		foreach($category as $values)
+		{
+			if($convert->convertString($values->name)==$name)
+			{
+				return $values->id;
+			}
+		}
+		return 0;
 	}
 }
 

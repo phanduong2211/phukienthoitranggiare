@@ -142,7 +142,7 @@ class ViewController extends Controller
 				}
 			}
 			//return $category['name'];
-			$relatedproducts = ProductController::getProductWhereCategoryID($product[0]->categoryID);
+			$relatedproducts = ProductController::getProductWhereCategoryID($product[0]->categoryID,$product[0]->id);
 			$convert = new convertString();
 
 			return view('product.detail-product',array("menu"=>$menu,"product"=>$product,"detailproduct"=>$detailproduct,
@@ -434,6 +434,7 @@ class ViewController extends Controller
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
 		$header = array("title"=>$productName,"keyword","description");
+		$tag = TagController::getTag();
 		foreach($info as $values)
 		{
 			if($values->name == "keyword" && $values->contents!="")
@@ -458,7 +459,167 @@ class ViewController extends Controller
 		}
 		$product->appends(['category' => $categoryID,"name"=>$productName])->render();
 		return View::make("product.search-product",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,
-					"convert"=>$convert,"info"=>$info,"header"=>$header));
+					"convert"=>$convert,"info"=>$info,"header"=>$header,"tag"=>$tag));
+	}
+	public function category($name)
+	{
+		$info = InfoController::getInfo();
+		$menu = MenuController::getMenu();
+		$convert = new convertString();
+		$categorys = CategoryController::getCategory();
+		$categoryID = 0;
+		$categoryName ="";
+		foreach($categorys as $values)
+		{
+			if($convert->convertString($values->name)==$name)
+			{
+				$categoryID = $values->id;
+				$categoryName = $values->name;
+				break;
+			}
+		}
+		$header = array("title"=>$categoryName." - Phụ kiện thời trang","keyword"=>$categoryName,"description"=>$categoryName);
+		
+		$product = ProductController::getAllProductWhereCategoryID($categoryID);
+		$tag = TagController::getTag();
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}
+		if(count($product)>0)
+			return View::make("product.products-gird",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
+				,"tag"=>$tag,"Name"=>$categoryName));
+		else 
+			return "không tìm thấy trang";
+	}
+	public function tag($name)
+	{
+		$info = InfoController::getInfo();
+		$menu = MenuController::getMenu();
+		$convert = new convertString();
+		$categorys = CategoryController::getCategory();
+		$ID = 0;
+		$Name ="";
+		$tag = TagController::getTag();
+		foreach($tag as $values)
+		{
+			if($convert->convertString($values->name)==$name)
+			{
+				$ID = $values->id;
+				$Name = $values->name;
+				break;
+			}
+		}
+		$header = array("title"=>$Name." - Phụ kiện thời trang","keyword"=>$Name,"description"=>$Name);
+		
+		$product = ProductController::getAllProductWhereTagID($ID);		
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}
+		if(count($product)>0)
+			return View::make("product.products-gird",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
+				,"tag"=>$tag,"Name"=>$Name));
+		else 
+			return "không tìm thấy trang";
+	}
+	public function signout()
+	{
+		Session::forget('login_userID');
+		Session::forget("login_name");
+		Session::forget('login');
+		return Redirect::to("/");
+	}
+	public function getMenu($name)
+	{
+		$info = InfoController::getInfo();
+		$menu = MenuController::getMenu();
+		$convert = new convertString();
+		$categorys = CategoryController::getCategory();
+		$ID = 0;
+		$Name ="";
+		$tag = TagController::getTag();
+		foreach($menu as $values)
+		{
+			if($convert->convertString($values->name)==$name)
+			{
+				$ID = $values->id;
+				$Name = $values->name;
+				break;
+			}
+		}
+		$header = array("title"=>$Name." - Phụ kiện thời trang","keyword"=>$Name,"description"=>$Name);
+		
+		$product = ProductController::getAllProductWhereMenuID($ID);		
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}
+		if(count($product)>0)
+			return View::make("product.products-gird",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
+				,"tag"=>$tag,"Name"=>$Name));
+		else 
+			return "không tìm thấy trang";
+	}
+	public function getMenuSecond($name) /////////////làm tiếp
+	{
+		$info = InfoController::getInfo();
+		$menu = MenuController::getMenu();
+		$convert = new convertString();
+		$categorys = CategoryController::getCategory();
+		$ID = 0;
+		$Name ="";
+		$tag = TagController::getTag();
+		foreach($menu as $values)
+		{
+			if($convert->convertString($values->name)==$name)
+			{
+				$ID = $values->id;
+				$Name = $values->name;
+			}
+		}
+		$header = array("title"=>$Name." - Phụ kiện thời trang","keyword"=>$Name,"description"=>$Name);
+		
+		$product = ProductController::getAllProductWhereMenuID($ID);		
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}
+		if(count($product)>0)
+			return View::make("product.menuproductSecond",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
+				,"tag"=>$tag,"Name"=>$Name));
+		else 
+			return "không tìm thấy trang";
+	}
+	public function getMenuThree($name)
+	{
+		$info = InfoController::getInfo();
+		$menu = MenuController::getMenu();
+		$convert = new convertString();
+		$categorys = CategoryController::getCategory();
+		$ID = 0;
+		$Name ="";
+		$tag = TagController::getTag();
+		foreach($menu as $values)
+		{
+			if($convert->convertString($values->name)==$name)
+			{
+				$ID = $values->id;
+				$Name = $values->name;
+			}
+		}
+		$header = array("title"=>$Name." - Phụ kiện thời trang","keyword"=>$Name,"description"=>$Name);
+		
+		$product = ProductController::getAllProductWhereMenuID($ID);		
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}
+		if(count($product)>0)
+			return View::make("product.menuproductThree",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
+				,"tag"=>$tag,"Name"=>$Name));
+		else 
+			return "không tìm thấy trang";
 	}
 	public function test()
 	{

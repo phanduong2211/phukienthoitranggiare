@@ -15,6 +15,8 @@
 							<a href="index.html">Trang chủ</a>
 							<span><i class="fa fa-caret-right"></i></span>
 							<span>{{$Name}}</span>
+							<span><i class="fa fa-caret-right"></i></span>
+							<span>{{$Name}}</span>
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->
 					</div>
