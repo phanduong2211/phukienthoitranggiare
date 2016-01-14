@@ -43,7 +43,19 @@
 @endsection
 @section('script')
  <script src="{{Asset('public/admin')}}/js/validate.js" ></script>
+
+<script type="text/javascript" src="{{Asset('')}}public/admin/js/dialog.js"></script>
+
 <script type="text/javascript">
+ var base_url_admin="{{Asset('admin')}}/";
+        var asset_path="{{Asset('public')}}/";
+        var __token="{{csrf_token()}}";
+        function callBackUpload(idobjclick,path){
+            $(idobjclick).val(path);
+            $(".boxupload .showimg").attr("src",asset_path+"image/"+path);
+             $(".boxupload .showimage").show();
+            $("#frm input[name='image']").removeClass("error").next(".errortext").hide();
+        }
 	$(function(){
 		$("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
 		$("#frm").kiemtra([
@@ -68,14 +80,7 @@
             },
             {
                 'name':'image',
-                'url':true,
-                'isnull':true
-            },
-            {
-                'name':'image_upload',
-                'file':true,
-                'typefile':'image',
-                'isnull':true
+                'trong':true
             },
             {
                 'name':'quantity',
@@ -109,13 +114,7 @@
             return true;
         });
 
-        
-        $("#upload").click(function(){
-            $(this).parent().find(".file").click().change(function(){
-                showImg(this);
-            });
 
-        });
         $(".boxupload .showimage").click(function(){
             if($(this).html()==" Xem hình ảnh"){
                 $(this).parent().find(".showimg").show();
@@ -143,6 +142,7 @@
         }
     }
 </script>
+<script type="text/javascript" src="{{Asset('')}}public/admin/js/jsupload.js"></script>
 @endsection
 @section('content')
 <h1 class="titlepage"><a href='{{Asset('admin/product')}}'><i class="fa fa-chevron-circle-left"></i></a> Thêm Sản Phẩm</h1>
@@ -161,6 +161,7 @@
     $dataold['content']="";
     $dataold['original_price']="";
     $dataold['image']="";
+    $dataold['tag']="";
 
 
     if(Session::has('dataold')){
@@ -168,7 +169,7 @@
     }
 ?>
 
-    <form method="post" action="" id="frm" enctype="multipart/form-data">
+    <form method="post" action="" id="frm">
     	<div class="row">
     		<div class="col-md-2">
     			Tên Sản Phẩm:
@@ -221,12 +222,13 @@
                 </div><br />
             </div>
             <div class="col-md-6">
-                <div class="row">
+                 <div class="row">
                     <div class="col-md-4">
                         Mô Tả Ngắn Gọn:
                     </div>
                     <div class="col-md-8">
                         <textarea class="form-control" name="content">{{$dataold['content']}}</textarea>
+                      
                     </div>
                 </div><br />
             </div>
@@ -240,12 +242,11 @@
                     <div class="col-md-8 require">
                         <div class="red">*</div>
                         <div class="addon addon-right">
-                            <input type="text" name="image" class="form-control" value="<?php if(strpos($dataold['image'],"http")===0) echo $dataold['image'] ?>" />
-                            <i class="fa fa-upload addon-icon" id="upload" title="upload image"></i>
-                            <input type="file" name="image_upload" class="file" />
+                            <input type="text" name="image" class="form-control" id="imageproduct" value="{{$dataold['image']}}" />
+                            <i class="fa fa-upload addon-icon showupload" title="upload image" href="#imageproduct"></i>
                         </div>
                         <div class="boxupload">
-                            <span class="filename"></span>
+                          
                             <span class="showimage"> Xem hình ảnh</span>
                             <img src="" class="showimg" />
                         </div>
@@ -360,6 +361,32 @@
                 </div><br />
             </div>
         </div>
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+             <div class="row">
+                    <div class="col-md-4">
+                       Tag:
+                    </div>
+                    <div class="col-md-8">
+                        <input name="tagID" type="text" class="form-control" />
+               
+                <span class="desc">Mỗi tag cách nhau 1 dấu ','</span>
+                    </div>
+                </div><br />
+               
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                       Hiển Thị:
+                    </div>
+                    <div class="col-md-8">
+                       <input type="checkbox" name="display" checked="checked" />
+                    </div>
+                </div><br />
+            </div>
+        </div>
     	<div class="row">
     		<div class="col-md-12 text-right">
     			<input type="submit" class="btn btn-success" value="Lưu Lại" />
@@ -368,5 +395,6 @@
     	</div><br />
     	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
     </form>
+@include('upload')
 
 @endsection

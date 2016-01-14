@@ -61,7 +61,20 @@
 @endsection
 @section('script')
  <script src="{{Asset('public/admin')}}/js/validate.js" ></script>
+<script type="text/javascript" src="{{Asset('')}}public/admin/js/dialog.js"></script>
+
 <script type="text/javascript">
+var base_url_admin="{{Asset('admin')}}/";
+        var asset_path="{{Asset('public')}}/";
+        var __token="{{csrf_token()}}";
+        function callBackUpload(idobjclick,path){
+            $(idobjclick).val(path);
+            if(idobjclick=="#imageproduct"){
+                $(".boxupload .showimg").attr("src",asset_path+"image/"+path);
+                 $(".boxupload .showimage").show();
+                $("#frm input[name='image']").removeClass("error").next(".errortext").hide();
+            }
+        }
 	$(function(){
 		$("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
 		$("#frm").kiemtra([
@@ -86,14 +99,7 @@
             },
             {
                 'name':'image',
-                'url':true,
-                'isnull':true
-            },
-            {
-                'name':'image_upload',
-                'file':true,
-                'typefile':'image',
-                'isnull':true
+                'trong':true
             },
             {
                 'name':'quantity',
@@ -170,6 +176,7 @@
         }
     }
 </script>
+<script type="text/javascript" src="{{Asset('')}}public/admin/js/jsupload.js"></script>
 @endsection
 @section('content')
 <h1 class="titlepage"><a href='{{Asset('admin/product')}}'><i class="fa fa-chevron-circle-left"></i></a> Cập Nhật Sản Phẩm</h1>
@@ -189,11 +196,11 @@
 function showImage($path){
     if(strpos($path, "http")===0)
         return $path;
-    return Asset('public/image/upload').'/'.$path;
+    return Asset('public/image/').'/'.$path;
 }
 ?>
 
-    <form method="post" action="" id="frm" name="frm" enctype="multipart/form-data">
+    <form method="post" action="" id="frm" name="frm">
     	<div class="row">
     		<div class="col-md-2">
     			Tên Sản Phẩm:
@@ -265,12 +272,11 @@ function showImage($path){
                     <div class="col-md-8 require">
                         <div class="red">*</div>
                         <div class="addon addon-right">
-                            <input type="text" name="image" class="form-control" value="<?php if(strpos($data->image,"http")===0) echo $data->image ?>"  />
-                            <i class="fa fa-upload addon-icon" id="upload" title="upload image"></i>
-                            <input type="file" name="image_upload" class="file" />
+                            <input type="text" name="image" class="form-control" id="imageproduct" value="<?php echo $data->image ?>"  />
+                            <i class="fa fa-upload addon-icon showupload" href="#imageproduct" title="upload image"></i>
+                           
                         </div>
                         <div class="boxupload">
-                            <span class="filename"><?php if(!strpos($data->image, "http")===0) echo $data->image."." ?></span>
                             <span class="showimage"> Xem hình ảnh</span>
                             <img src="<?php echo showImage($data->image) ?>" class="showimg" />
                         </div>
@@ -384,6 +390,32 @@ function showImage($path){
                 </div><br />
             </div>
         </div>
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+             <div class="row">
+                    <div class="col-md-4">
+                       Tag:
+                    </div>
+                    <div class="col-md-8">
+                        <input name="tagID" type="text" class="form-control" value="{{$data->tagID}}" />
+               
+                <span class="desc">Mỗi tag cách nhau 1 dấu ','</span>
+                    </div>
+                </div><br />
+               
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                       Ngày Tạo:
+                    </div>
+                    <div class="col-md-8">
+                       {{date('d/m/Y H:i',strtotime($data->created_at))}}
+                    </div>
+                </div><br />
+            </div>
+        </div>
     	<div class="row">
     		<div class="col-md-12 text-right">
     			<input type="submit" class="btn btn-success" value="Lưu Lại" />
@@ -405,4 +437,5 @@ function showImage($path){
     detail
 </div>
 <!--//DetailTab-->
+@include('upload')
 @endsection

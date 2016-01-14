@@ -32,7 +32,7 @@
 										for($i=0;$i<count($images); $i++){?>
 										<div class="<?php if($i==0) echo "tab-pane active"; else echo "tab-pane"; ?>" id="thumbnail_<?php echo $i+1?>">
 											<div class="single-product-image">
-												<img src="{{Asset('')}}<?php echo $images[$i];?>" alt="single-product-image" />
+												<img src="{{$convert->showImage($images[$i])}}" alt="single-product-image" />
 												<a class="new-mark-box" href="#">new</a>
 												<a class="fancybox" href="{{Asset('')}}<?php echo $images[$i];?>" alt="single-product-image" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>
@@ -270,7 +270,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{Asset('')}}{{$values->image}}" alt="{{$values->name}}" title="{{$values->name}}"/></a>
+														<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$convert->showImage($values->image)}}" alt="{{$values->name}}" title="{{$values->name}}"/></a>
 													</div>
 													<div class="product-info">
 														<div class="customar-comments-box">
@@ -311,7 +311,7 @@
 							<ul>
 							@foreach($productMaxView as $values)
 								<li>
-									<a style="width:30%;" href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" alt="{{$values->name}}" src="{{Asset('')}}{{$values->image}}" /></a>
+									<a style="width:30%;" href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" alt="{{$values->name}}" src="{{$convert->showImage($values->image)}}" /></a>
 									<div class="r-sidebar-pro-content">
 										<h5><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html">{{$values->name}}</a></h5>
 										<p>{{$values->content}}</p>

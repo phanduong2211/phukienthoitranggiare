@@ -12,6 +12,7 @@ use App\Http\Module\product;
 use App\Http\Module\menu;
 use App\Http\Module\category;
 use App\Http\Module\tab_category;
+use App\Http\Module\detailproduct;
 
 class ProductController extends BaseController
 {
@@ -32,73 +33,17 @@ class ProductController extends BaseController
 		return View::make("admin.product.add",$data);
 	}
 
-	private function KhongDau($str){
-		$str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
-		$str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
-		$str = preg_replace("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
-		$str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $str);
-		$str = preg_replace("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
-		$str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
-		$str = preg_replace("/(đ)/", 'd', $str);
-
-		return $str;
-	}
-
-	private function formatToUrl($name){
-
-		$name=$this->KhongDau(trim(mb_strtolower($name,'UTF-8')));
-
-		if (preg_match_all("/[a-za-z0-9_ ]*/", $name, $matches)) {
-			$str="";
-			foreach($matches[0] as $value)
-			{
-				$str.=$value;
-			}
-
-			$str=str_replace(" ", "-", $str);
-			$str=str_replace("--", "-", $str);
-			$str=str_replace("--", "-", $str);
-			$str=str_replace("_", "-", $str);
-			$str=str_replace("__", "-", $str);
-			return $str;		  
-		}
-
-
-
-		return $name;
-
-	}	
-
-	private function createFileName($name,$basename,$i,$root,$duoi){
-
-		if(file_exists($root."/".$name.".".$duoi)){
-
-			return $this->createFileName($basename."(".$i.")",$basename,$i+1,$root,$duoi);
-		}
-
-		return $name.".".$duoi;
-	}
 
 	public function save()
 	{
 		$product=new product();
 
-		$filename=Input::get('image');
-
-		if(Input::file()) {
-			$image = Input::file('image_upload');
-
-			$name=$this->formatToUrl(Input::get('name'));
-
-			$filename=$this->createFileName($name,$name,1,public_path().'\\image\\upload',$image->getClientOriginalExtension());
-
-		}
-
+	
 		$data=array(
 			'name'=>trim(Input::get('name')),
 			'promotion_price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('promotion_price'))),
 			'price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('price'))),
-			'image'=>$filename,
+			'image'=>Input::get('image'),
 			'quantity'=>Input::get('quantity'),
 			'status'=>Input::get('status'),
 			'view'=>0,
@@ -106,17 +51,17 @@ class ProductController extends BaseController
 			'tab_categoryID'=>Input::get('tab_categoryID'),
 			'categoryID'=>Input::get('categoryID'),
 			'menuID'=>Input::get('menuID'),
-			'display'=>1,
+			'display'=>Input::get('display')=="on"?1:0,
 			'bin'=>0,
 			'original_price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('original_price'))),
-			'content'=>trim(Input::get('content'))
+			'content'=>trim(Input::get('content')),
+			'tagID'=>trim(Input::get('tagID'))
 		);
 		$product->fill($data);
 		if($product->save()){
-			if(Input::file()) {
-				$image = Input::file('image_upload');
-				$image->move(public_path('image/upload/'),$filename);
-			}
+			$productdetail=new detailproduct();
+			$productdetail->fill(array('productID'=>$product->id));
+			$productdetail->save();
 			return Redirect::to('admin/product/edit?id='.$product->id)->with(['message'=>'Thêm thành công sản phẩm "'.$product->name.'"']);
 		}else{
 			return Redirect::to('admin/product/add')->with(['message'=>'Thêm sản phẩm thất bại.','dataold'=>$data]);
@@ -141,37 +86,22 @@ class ProductController extends BaseController
 	public function saveedit()
 	{
 		$product=product::find(Input::get('idedit'));
-
-		$filename=Input::get('image');
-
-		if(Input::file()) {
-			$image = Input::file('image_upload');
-
-			$name=$this->formatToUrl(Input::get('name'));
-
-			$filename=$this->createFileName($name,$name,1,public_path().'\\image\\upload',$image->getClientOriginalExtension());
-
-		}
-
 		$data=array(
 			'name'=>trim(Input::get('name')),
 			'promotion_price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('promotion_price'))),
 			'price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('price'))),
-			'image'=>$filename,
+			'image'=>Input::get('image'),
 			'quantity'=>Input::get('quantity'),
 			'status'=>Input::get('status'),
 			'tab_categoryID'=>Input::get('tab_categoryID'),
 			'categoryID'=>Input::get('categoryID'),
 			'menuID'=>Input::get('menuID'),
 			'original_price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('original_price'))),
-			'content'=>trim(Input::get('content'))
+			'content'=>trim(Input::get('content')),
+			'tagID'=>trim(Input::get('tagID'))
 		);
 		$product->fill($data);
 		if($product->update()){
-			if(Input::file()) {
-				$image = Input::file('image_upload');
-				$image->move(public_path('image/upload/'),$filename);
-			}
 			return Redirect::to('admin/product/edit?id='.$product->id)->with(['message'=>'Cập nhật thành công sản phẩm "'.$product->name.'"']);
 		}else{
 			return Redirect::to('admin/product/edit?id='.$product->id)->with(['message'=>'Cập nhật sản phẩm thất bại.']);

@@ -65,7 +65,7 @@
 						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 						@if(count($ads)>0 && isset($ads[0]))
 							<div class="slider-right zoom-img m-top">
-								<a href="{{$ads[0]->url}}"><img class="public/img-responsive" src="{{$ads[0]->image}}" alt="{{$ads[0]->name}}" /></a>
+								<a href="{{$ads[0]->url}}"><img class="public/img-responsive" src="{{$convert->showImage($ads[0]->image)}}" alt="{{$ads[0]->name}}" /></a>
 							</div>
 						</div>
 						@endif
@@ -93,7 +93,7 @@
 												<div class="new-product">
 													<div class="single-product-item">
 														<div class="product-image">
-															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$convert->showImage($values->image)}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
 															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 															<div class="overlay-content">
 																<ul id="{{$values->id}}">
@@ -156,7 +156,7 @@
 												<div class="new-product">
 													<div class="single-product-item">
 														<div class="product-image">
-															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$convert->showImage($values->image)}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
 															<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 															<div class="overlay-content">
 																<ul id="{{$values->id}}">

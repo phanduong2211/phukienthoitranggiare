@@ -56,7 +56,7 @@ class ViewController extends Controller
 		{
 			$menu = array();
 		}
-
+	
 		return View::make("index",array("menu"=>$menu,"slideshow"=>$slideshow,"product"=>$product,"news"=>$news,"tab_category"=>$tab_category,
 			"convert"=>$convert,"ads"=>$ads,"categorys"=>$categorys,"info"=>$info,"header"=>$header));
 	}	

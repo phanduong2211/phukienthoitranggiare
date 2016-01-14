@@ -45,4 +45,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
      $str = preg_replace("/(Đ)/", 'D', $str);
      return $str; // Trả về chuỗi đã chuyển
     }
+    public function showImage($path){
+        if(strpos($path, "http")===0)
+            return $path;
+        return Asset('public/image/').'/'.$path;
+    }
 }
