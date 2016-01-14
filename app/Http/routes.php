@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,6 +9,45 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+//Admin
+Route::get("admin/login","Admin\LoginAdminController@index");
+Route::post("admin/login","Admin\LoginAdminController@login");
+Route::get("admin/logout","Admin\LoginAdminController@logout");
+Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
+    Route::get("/","Admin\IndexController@index");
+    Route::get("website/menu","Admin\WebsiteController@menu");
+    Route::get("website/menu/add","Admin\WebsiteController@addmenu");
+    Route::post("website/menu/add","Admin\WebsiteController@savemenu");
+    Route::get("website/menu/edit","Admin\WebsiteController@editmenu");
+    Route::post("website/menu/edit","Admin\WebsiteController@saveeditmenu");
+    Route::post("website/menu/delete","Admin\WebsiteController@deletemenu");
+    Route::get("category","Admin\CategoryAdminController@index");
+    Route::get("category/add","Admin\CategoryAdminController@add");
+    Route::post("category/add","Admin\CategoryAdminController@save");
+    Route::get("category/edit","Admin\CategoryAdminController@edit");
+    Route::post("category/edit","Admin\CategoryAdminController@saveedit");
+    Route::post("category/delete","Admin\CategoryAdminController@delete");
+    Route::get("tab","Admin\TabController@index");
+    Route::get("tab/add","Admin\TabController@add");
+    Route::post("tab/add","Admin\TabController@save");
+    Route::get("tab/edit","Admin\TabController@edit");
+    Route::post("tab/edit","Admin\TabController@saveedit");
+    Route::post("tab/delete","Admin\TabController@delete");
+    Route::get("product","Admin\ProductController@index");
+    Route::get("product/add","Admin\ProductController@add");
+    Route::post("product/add","Admin\ProductController@save");
+    Route::get("product/edit","Admin\ProductController@edit");
+    Route::post("product/edit","Admin\ProductController@saveedit");
+    Route::post("product/detail","Admin\ProductController@detail");
+    Route::get("uploadimage","Admin\UploadController@upload");
+    Route::post("uploadimage","Admin\UploadController@upload");
+    Route::post("ajax/loadfolder","Admin\UploadController@loadfolder");
+    Route::post("upload/checkfile","Admin\UploadController@checkfile");
+    Route::post("ajax/removeimg","Admin\UploadController@removeimg");
+});
+//Admin//
+
 Route::get('/',"ViewController@index");
 Route::get('shop-gird.html', function () {
     return view('shop-gird');
@@ -65,59 +103,6 @@ Route::post('signinCreate',"UserController@login");
 Route::post('',"UserController@login");
 Route::post('AccountCreate',"UserController@register");
 Route::get("test","ViewController@test");
-
-
-
-
 /*Route::get("test1",function(){
     return Session::get("name_test");
 });*/
-
-
-//Admin
-Route::get("admin/login","Admin\LoginAdminController@index");
-Route::post("admin/login","Admin\LoginAdminController@login");
-
-Route::get("admin/logout","Admin\LoginAdminController@logout");
-
-Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
-    Route::get("/","Admin\IndexController@index");
-
-
-    Route::get("website/menu","Admin\WebsiteController@menu");
-    Route::get("website/menu/add","Admin\WebsiteController@addmenu");
-    Route::post("website/menu/add","Admin\WebsiteController@savemenu");
-    Route::get("website/menu/edit","Admin\WebsiteController@editmenu");
-    Route::post("website/menu/edit","Admin\WebsiteController@saveeditmenu");
-    Route::post("website/menu/delete","Admin\WebsiteController@deletemenu");
-
-    Route::get("category","Admin\CategoryAdminController@index");
-    Route::get("category/add","Admin\CategoryAdminController@add");
-    Route::post("category/add","Admin\CategoryAdminController@save");
-    Route::get("category/edit","Admin\CategoryAdminController@edit");
-    Route::post("category/edit","Admin\CategoryAdminController@saveedit");
-    Route::post("category/delete","Admin\CategoryAdminController@delete");
-
-    Route::get("tab","Admin\TabController@index");
-    Route::get("tab/add","Admin\TabController@add");
-    Route::post("tab/add","Admin\TabController@save");
-    Route::get("tab/edit","Admin\TabController@edit");
-    Route::post("tab/edit","Admin\TabController@saveedit");
-    Route::post("tab/delete","Admin\TabController@delete");
-
-    Route::get("product","Admin\ProductController@index");
-    Route::get("product/add","Admin\ProductController@add");
-    Route::post("product/add","Admin\ProductController@save");
-	Route::get("product/edit","Admin\ProductController@edit");
-    Route::post("product/edit","Admin\ProductController@saveedit");
-    Route::post("product/detail","Admin\ProductController@detail");
-
-    Route::get("uploadimage","Admin\UploadController@upload");
-    Route::post("uploadimage","Admin\UploadController@upload");
-    Route::post("ajax/loadfolder","Admin\UploadController@loadfolder");
-    Route::post("upload/checkfile","Admin\UploadController@checkfile");
-    Route::post("ajax/removeimg","Admin\UploadController@removeimg");
-
-});
-
-//Admin//
