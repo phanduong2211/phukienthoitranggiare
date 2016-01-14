@@ -1,23 +1,3 @@
-<!doctype html>
-<!--[if IE]><![endif]-->
-<!--[if lt IE 7 ]> <html lang="en" class="ie6">    <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="ie7">    <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="ie8">    <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="ie9">    <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
-    
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Wishlist</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		
-</header>
-<body>
-		<!-- MAIN-MENU-AREA END -->
-		<!-- MAIN-CONTENT-SECTION START -->
 @extends("masterpage")
 @section("miss")
 		<section class="main-content-section">
@@ -26,9 +6,9 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="{{Asset('')}}">Home <span><i class="fa fa-caret-right"></i> </span> </a>
-							<a href="my-account.html"> my account <span><i class="fa fa-caret-right"></i></span></a>
-							<span> My wishlists</span>
+							<a href="{{Asset('')}}">Trang chủ <span><i class="fa fa-caret-right"></i> </span> </a>
+							<a href="my-account.html"> Tài khoản <span><i class="fa fa-caret-right"></i></span></a>
+							<span> Yêu thích</span>
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->
 					</div>
@@ -39,21 +19,15 @@
 						<div class="product-left-sidebar">
 							<h2 class="left-title pro-g-page-title">Tags </h2>
 							<div class="category-tag">
-								<a href="#">fashion</a>
-								<a href="#">handbags</a>
-								<a href="#">men</a>
-								<a href="#">Kids</a>
-								<a href="#">women</a>
-								<a href="#">New</a>
-								<a href="#">Accessories</a>
-								<a href="#">clothing</a>
-								<a href="#">New</a>
+							@foreach($tag as $values)
+								<a href="{{Asset('')}}tag/{{$convert->convertString($values->name)}}">{{$values->name}}</a>								
+							@endforeach
 							</div>
 						</div>	
 						<!-- SINGLE SIDEBAR TAG END -->
 					</div>
 					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-						<h2 class="page-title">My wishlists</h2>
+						<h2 class="page-title">Yêu thích</h2>
 						<!-- WISHLISTS-AREA START -->
 						<!-- <div class="wishlists-area">
 							<form class="new-wishlists-box primari-box" id="savewishlist" method="post" action="#">
@@ -154,8 +128,8 @@
 								</div>
 								<!-- WISH-LIST BACT HOME START-->
 								<div class="wish-back-link">
-									<a  class="wish-save" href="my-account.html"><i class="fa fa-chevron-left"></i> Back to Your Account</a>
-									<a  class="wish-save" href="{{Asset('')}}"><i class="fa fa-chevron-left"></i> Home</a>
+									<a  class="wish-save" href="my-account.html"><i class="fa fa-chevron-left"></i> Tài khoản</a>
+									<a  class="wish-save" href="{{Asset('')}}"><i class="fa fa-chevron-left"></i> Trang chủ</a>
 								</div>
 								<!-- WISH-LIST BACT HOME END -->
 							</div>
@@ -168,6 +142,3 @@
 		<!-- MAIN-CONTENT-SECTION END -->
 		<!-- BRAND-CLIENT-AREA START -->
 		@stop
-    </body>
-
-</html>

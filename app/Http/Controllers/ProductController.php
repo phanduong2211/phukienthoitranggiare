@@ -49,6 +49,10 @@ class ProductController extends Controller
 	{
 		return product::where("categoryID","=",$categoryID)->where("name","like","%".$name."%")->paginate(16);
 	}
+	public static function getproductMaxView()
+	{
+		return product::orderBy('view','desc')->take(5)->get();
+	}
 }
 
 ?>

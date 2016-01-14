@@ -103,7 +103,7 @@ input.search-form[placeholder]:-moz-placeholder{color:#464646;}
 input.search-form[placeholder]::-moz-placeholder{color:#464646;}
 input.search-form[placeholder]:-ms-input-placeholder{color:#464646;}
 .cat-search option{text-transform:capitalize;font-weight:normal;padding:9px 7px 7px 7px;font-size:14px;}
-.search-button{background:#ff4f4f none repeat scroll 0 0;border:medium none;color:#fff;float:right;line-height:42px;position:absolute;right:0;top:0;transition:all 0.3s ease 0s;width:54px;}
+.search-button{height:100%;background:#ff4f4f none repeat scroll 0 0;border:medium none;color:#fff;float:right;line-height:42px;position:absolute;right:0;top:0;transition:all 0.3s ease 0s;width:54px;}
 .search-button:hover{background:#3A3D42;color:#fff;}
 .search-button i{font-size:15px;position:relative;top:-2px;}
 .header-right-callus{background:#3a3d42 none repeat scroll 0 0;float:right;margin-top:50px;padding:0 10px 0px 60px;position:relative;margin-bottom:25px;height:42px;}

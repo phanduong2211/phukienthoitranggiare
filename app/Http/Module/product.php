@@ -9,7 +9,7 @@
 	class product extends Model
 	{		
 		public $table = "product";
-		public $fillable=['name','price','promotion_price','image','quantity','status','view','user','categoryID','content','menuID','tab_categoryID','display','bin','original_price'];
+		public $fillable=['name','price','promotion_price','image','quantity','status','view','user','categoryID','content','menuID','tab_categoryID','display','bin','original_price','tagID'];
 		public function updateProduct($data,$id)
 		{
 			//$product =array("id","name","promotion_price","price","image","quantity",

@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<style type="text/css" media="screen">
+@extends("masterpage")
+@section("miss")
+<style type="text/css" media="screen">
 		body
 		{
 			font-family:arial !important;
@@ -93,10 +91,6 @@
 			font-family:arial !important;
 		}
 	</style>
-</head>
-<body>
-@extends("masterpage")
-@section("miss")
 <div class="container">
 	<section id="blog" class="container">
 	<div class="row">
@@ -151,59 +145,40 @@
         <aside class="col-md-4 col-sm-4">
 
             <div class="widget hotnews">
-                <h3>Tin Nổi Bật</h3>
-
+                <h3>Tin Mới</h3>
+                	@foreach($newsnews as $values)
                                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4" style="padding-right:0">
-                        <a href="/news/tinh-bao-anh-tuyen-350-chuyen-gia-cong-nghe-lam-an-ninh-mang_5.html?ref=widget_image" title="Tình báo Anh tuyển 350 chuyên gia công nghệ làm an ninh mạng"><img src="http://img.f5.sohoa.vnecdn.net/2015/11/24/151123091727-ben-whishaw-780x4-6795-8478-1448329107.jpg" alt="Tình báo Anh tuyển 350 chuyên gia công nghệ làm an ninh mạng"></a>
+                        <a href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">
+                        <img src="{{Asset('')}}{{$values->image}}" alt="{{$values->name}}"></a>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8" style="margin-top:-5px">
-                        <a style="color:#c52d2f;" href="/news/tinh-bao-anh-tuyen-350-chuyen-gia-cong-nghe-lam-an-ninh-mang_5.html?ref=widget_title" title="Tình báo Anh tuyển 350 chuyên gia công nghệ làm an ninh mạng">Tình báo Anh tuyển 350 chuyên gia công nghệ làm an ninh mạng</a>
+                        <a style="color:#c52d2f;" href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">{{$values->name}}</a>
                         <div class="entry-meta small muted">
-                            Lúc 06:56 24/11/2015                            </div>
+                            Lúc {{$values->updated_at}}    </div>
                         </div>
                     </div> 
-                    <br>
-                                    <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4" style="padding-right:0">
-                        <a href="/news/gan-camera-o-pho-den-do-va-ca-phe-den-mo-co-anh-huong-den-quyen-rieng-tu_6.html?ref=widget_image" title="GẮN CAMERA Ở " phỐ="" ĐÈn="" ĐỎ"="" vÀ="" cÀ="" phÊ="" mỜ="" cÓ="" Ảnh="" hƯỞng="" ĐẾn="" quyỀn="" riÊng="" tƯ?"=""><img src="/public/images/news/mat-than.jpg" alt="GẮN CAMERA Ở " phỐ="" ĐÈn="" ĐỎ"="" vÀ="" cÀ="" phÊ="" mỜ="" cÓ="" Ảnh="" hƯỞng="" ĐẾn="" quyỀn="" riÊng="" tƯ?"=""></a>
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8" style="margin-top:-5px">
-                        <a href="/news/gan-camera-o-pho-den-do-va-ca-phe-den-mo-co-anh-huong-den-quyen-rieng-tu_6.html?ref=widget_title" title="GẮN CAMERA Ở " phỐ="" ĐÈn="" ĐỎ"="" vÀ="" cÀ="" phÊ="" mỜ="" cÓ="" Ảnh="" hƯỞng="" ĐẾn="" quyỀn="" riÊng="" tƯ?"="">GẮN CAMERA Ở "PHỐ ĐÈN ĐỎ" VÀ CÀ PHÊ ĐÈN MỜ CÓ ẢNH...</a>
-                        <div class="entry-meta small muted">
-                            Lúc 12:20 24/11/2015                            </div>
-                        </div>
-                    </div> 
-                    <br>
-                    
+                    <br>                                   
+                    @endforeach
                 </div><!--/.recent comments-->
 
 
                 <div class="widget hotnews">
                     <h3>Tin Xem Nhiều</h3>
-
+                    @foreach($newMaxView as $values)
                                         <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4" style="padding-right:0">
-                            <a  href="/news/tinh-bao-anh-tuyen-350-chuyen-gia-cong-nghe-lam-an-ninh-mang_5.html?ref=widget_image" title="Tình báo Anh tuyển 350 chuyên gia công nghệ làm an ninh mạng"><img src="http://img.f5.sohoa.vnecdn.net/2015/11/24/151123091727-ben-whishaw-780x4-6795-8478-1448329107.jpg" alt="Tình báo Anh tuyển 350 chuyên gia công nghệ làm an ninh mạng"></a>
+                            <a  href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">
+                            <img src="{{Asset('')}}{{$values->image}}" alt="{{$values->name}}"></a>
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8" style="margin-top:-5px">
-                            <a style="color:#c52d2f;" href="/news/tinh-bao-anh-tuyen-350-chuyen-gia-cong-nghe-lam-an-ninh-mang_5.html?ref=widget_title" title="Tình báo Anh tuyển 350 chuyên gia công nghệ làm an ninh mạng">Tình báo Anh tuyển 350 chuyên gia công nghệ làm an ninh mạng</a>
+                            <a style="color:#c52d2f;" href="{{Asset('')}}news/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">{{$values->name}}</a>
                             <div class="entry-meta small muted">
-                                Lúc 06:56 24/11/2015                                </div>
+                                Lúc {{$values->updated_at}}                                </div>
                             </div>
                         </div> 
                         <br>
-                                            <div class="row">
-                        <div class="col-md-4 col-sm-4 col-xs-4" style="padding-right:0">
-                            <a href="/news/gan-camera-o-pho-den-do-va-ca-phe-den-mo-co-anh-huong-den-quyen-rieng-tu_6.html?ref=widget_image" title="GẮN CAMERA Ở " phỐ="" ĐÈn="" ĐỎ"="" vÀ="" cÀ="" phÊ="" mỜ="" cÓ="" Ảnh="" hƯỞng="" ĐẾn="" quyỀn="" riÊng="" tƯ?"=""><img src="/public/images/news/mat-than.jpg" alt="GẮN CAMERA Ở " phỐ="" ĐÈn="" ĐỎ"="" vÀ="" cÀ="" phÊ="" mỜ="" cÓ="" Ảnh="" hƯỞng="" ĐẾn="" quyỀn="" riÊng="" tƯ?"=""></a>
-                        </div>
-                        <div class="col-md-8 col-sm-8 col-xs-8" style="margin-top:-5px">
-                            <a href="/news/gan-camera-o-pho-den-do-va-ca-phe-den-mo-co-anh-huong-den-quyen-rieng-tu_6.html?ref=widget_title" title="GẮN CAMERA Ở " phỐ="" ĐÈn="" ĐỎ"="" vÀ="" cÀ="" phÊ="" mỜ="" cÓ="" Ảnh="" hƯỞng="" ĐẾn="" quyỀn="" riÊng="" tƯ?"="">GẮN CAMERA Ở "PHỐ ĐÈN ĐỎ" VÀ CÀ PHÊ ĐÈN MỜ CÓ ẢNH...</a>
-                            <div class="entry-meta small muted">
-                                Lúc 12:20 24/11/2015                                </div>
-                            </div>
-                        </div> 
-                        <br>
+                    @endforeach                  
                         
                     </div><!--/.recent comments-->
 
@@ -213,5 +188,3 @@
         </div>
     </section>
 @stop
-</body>
-</html>

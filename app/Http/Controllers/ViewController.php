@@ -21,7 +21,17 @@ class ViewController extends Controller
 		$tab_category = Tab_categoryController::getTab_category();
 		$news = NewsController::getNews();
 		$categorys = CategoryController::getCategory();
-		$wishlist =array();
+		$wishlist =array();		
+		$header = array("title","keyword","description");
+		foreach($info as $values)
+		{
+			if($values->name == "keyword" && $values->contents!="")
+				$header["keyword"] = $values->contents;
+			if($values->name == "description" && $values->contents!="")
+				$header["description"] = $values->contents;
+			if($values->name == "title" && $values->contents!="")
+				$header["title"] = $values->contents;
+		}	
 		/*if(count($product)>0)
 		{
 			$wishlist = WishlistController::getWishlist();
@@ -48,7 +58,7 @@ class ViewController extends Controller
 		}
 
 		return View::make("index",array("menu"=>$menu,"slideshow"=>$slideshow,"product"=>$product,"news"=>$news,"tab_category"=>$tab_category,
-			"convert"=>$convert,"ads"=>$ads,"categorys"=>$categorys,"info"=>$info));
+			"convert"=>$convert,"ads"=>$ads,"categorys"=>$categorys,"info"=>$info,"header"=>$header));
 	}	
 	public function ConvertMenuToArray($menu)
 	{
@@ -97,15 +107,20 @@ class ViewController extends Controller
 	{		
 		$product = ProductController::getProductWhereID($id);
 		//return $product;
+		$productMaxView = ProductController::getproductMaxView();
 		$info = InfoController::getInfo();
 		$product[0]->view +=1;
 		$data[0] = $product[0];
+		$tag = TagController::getTag();
 		//$data =array("id","name","promotion_price","price","image","quantity","status","icon_status","user","view","categoryID","menuID","tab_categoryID","created_at");		
 		ProductController::update($data,$id); /////update view
 		$detailproduct = DetailProductController::getDetailProduct($id);
 		$ads = AdsController::getAdsWhereType(1);
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
+		$header = array("title"=>$product[0]->name,"keyword"=>$product[0]->name,"description"=>$product[0]->name);
+		
+
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
@@ -131,16 +146,28 @@ class ViewController extends Controller
 			$convert = new convertString();
 
 			return view('product.detail-product',array("menu"=>$menu,"product"=>$product,"detailproduct"=>$detailproduct,
-				"relatedproducts"=>$relatedproducts,"convert"=>$convert,"category"=>$category,"categorys"=>$categorys,"ads"=>$ads,"info"=>$info));
+				"relatedproducts"=>$relatedproducts,"convert"=>$convert,"category"=>$category,"categorys"=>$categorys,"ads"=>$ads,"info"=>$info,
+				"productMaxView"=>$productMaxView,"header"=>$header,"tag"=>$tag));
 		}
-		else
-			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info));
+		else{
+			$header["title"]= "Không tìm thấy sản phẩm";
+			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info,"header"=>$header,"tag"=>$tag));
+		}
 	}
 	public function myacount()
 	{
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
 		$info = InfoController::getInfo();
+		$header = array("title"=>"Thông tin tài khoản","keyword","description");
+		$convert = new convertString();
+		foreach($info as $values)
+		{
+			if($values->name == "keyword" && $values->contents!="")
+				$header["keyword"] = $values->contents;
+			if($values->name == "description" && $values->contents!="")
+				$header["description"] = $values->contents;
+		}
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
@@ -149,7 +176,7 @@ class ViewController extends Controller
 		{
 			$menu = array();
 		}
-		return view::make('my-account',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info));
+		return view::make('my-account',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert,"header"=>$header));
 	}
 	public function news()
 	{
@@ -157,6 +184,16 @@ class ViewController extends Controller
 		$menu = MenuController::getMenu();
 		$info = InfoController::getInfo();
 		$categorys = CategoryController::getCategory();
+		$newsnews = NewsController::getNewsNew(); // lấy ra tin mới nhất
+		$newMaxView = NewsController::getNewsMaxView(); // lấy ra 5 tin tức có lượt view nhiều nhất
+		$header = array("title"=>"Tin tức","keyword","description");
+		foreach($info as $values)
+		{
+			if($values->name == "keyword" && $values->contents!="")
+				$header["keyword"] = $values->contents;
+			if($values->name == "description" && $values->contents!="")
+				$header["description"] = $values->contents;
+		}
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
@@ -167,10 +204,12 @@ class ViewController extends Controller
 		}
 		if(count($news)>0){
 			$convert = new convertString();
-			return view('news.news',array('menu'=>$menu,'news'=>$news,"convert"=>$convert,"categorys"=>$categorys,"info"=>$info));
+			return view('news.news',array('menu'=>$menu,'news'=>$news,"convert"=>$convert,"categorys"=>$categorys,"info"=>$info,"header"=>$header,
+				"newMaxView"=>$newMaxView,"newsnews"=>$newsnews));
 		}
 		else
-			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info));
+			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info
+				,"header"=>$header));
 	}
 	public function detailnews($id,$name)
 	{
@@ -179,9 +218,14 @@ class ViewController extends Controller
 		$categorys = CategoryController::getCategory();
 		$convert = new convertString();
 		$info = InfoController::getInfo();
+		$newsnews = NewsController::getNewsNew(); // lấy ra tin mới nhất
+		$newsRelesion = NewsController::getNewsReleasion($news[0]->categoryNewsID,$news[0]->id); // lấy ra tin tức liên quan
+		$newMaxView = NewsController::getNewsMaxView(); // lấy ra 5 tin tức có lượt view nhiều nhất
 		$news[0]->view +=1;
 		$data[0] = $news[0];
 		NewsController::update($data,$id); /////update view
+		$header = array("title"=>$news[0]->name,"keyword"=>$news[0]->name,"description"=>$news[0]->name);
+		
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
@@ -189,10 +233,12 @@ class ViewController extends Controller
 		if(count($news)>0)
 		{
 			
-			return view('news.detailnews',array('menu'=>$menu,'news'=>$news,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert));
+			return view('news.detailnews',array('menu'=>$menu,'news'=>$news,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert,
+				"newMaxView"=>$newMaxView,"newsRelesion"=>$newsRelesion,"header"=>$header,"newsnews"=>$newsnews));
 		}
 		else
-			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info));
+			return view('product.error',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info,"header"=>$header,
+				"newsnews"=>$newsnews));
 		
 	}
 	public function productsgird($category)
@@ -200,22 +246,38 @@ class ViewController extends Controller
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
 		$info = InfoController::getInfo();
+		$header = array("title"=>"Tin tức","keyword","description");
+		foreach($info as $values)
+		{
+			if($values->name == "keyword" && $values->contents!="")
+				$header["keyword"] = $values->contents;
+			if($values->name == "description" && $values->contents!="")
+				$header["description"] = $values->contents;
+		}
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
 		}
-		return view('product.products-gird',array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info));
+		return view('product.products-gird',array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info,"header"=>$header));
 	}
 	public function productslist($category)
 	{
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
 		$info = InfoController::getInfo();
+		$header = array("title"=>$category,"keyword","description");
+		foreach($info as $values)
+		{
+			if($values->name == "keyword" && $values->contents!="")
+				$header["keyword"] = $values->contents;
+			if($values->name == "description" && $values->contents!="")
+				$header["description"] = $values->contents;
+		}
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
 		}
-		return view('product.products-list',array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info));
+		return view('product.products-list',array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info,"header"=>$header));
 	}
 	public function registration()
 	{
@@ -223,11 +285,20 @@ class ViewController extends Controller
 		$categorys = CategoryController::getCategory();
 		$info = InfoController::getInfo();
 		$convert = new convertString();
+		$header = array("title"=>"Đăng ký hoặc đăng nhập","keyword","description");
+		foreach($info as $values)
+		{
+			if($values->name == "keyword" && $values->contents!="")
+				$header["keyword"] = $values->contents;
+			if($values->name == "description" && $values->contents!="")
+				$header["description"] = $values->contents;
+		}
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
 		}
-		return view::make("registration",array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert));
+		return view::make("registration",array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert
+			,"header"=>$header));
 	}
 	public function cart()
 	{
@@ -235,6 +306,14 @@ class ViewController extends Controller
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
 		$convert = new convertString();
+		$header = array("title"=>"Giỏ hàng","keyword","description");
+		foreach($info as $values)
+		{
+			if($values->name == "keyword" && $values->contents!="")
+				$header["keyword"] = $values->contents;
+			if($values->name == "description" && $values->contents!="")
+				$header["description"] = $values->contents;
+		}
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
@@ -252,7 +331,8 @@ class ViewController extends Controller
 			}
 			
 		}		
-		return View::make("cart",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,"convert"=>$convert,"info"=>$info));
+		return View::make("cart",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,"convert"=>$convert,"info"=>$info
+			,"header"=>$header));
 	}
 	public function wishlist()
 	{
@@ -265,6 +345,15 @@ class ViewController extends Controller
 				$info = InfoController::getInfo();
 				$product=array();
 				$wishlistID=array();
+				$header = array("title"=>"Sản phẩm yêu thích","keyword","description");
+				$tag = TagController::getTag();
+				foreach($info as $values)
+				{
+					if($values->name == "keyword" && $values->contents!="")
+						$header["keyword"] = $values->contents;
+					if($values->name == "description" && $values->contents!="")
+						$header["description"] = $values->contents;
+				}
 				foreach ($wishlist as $values) {
 					$product[]=ProductController::getProductWhereID($values->productID);
 					$wishlistID[]=$values->id;
@@ -280,7 +369,7 @@ class ViewController extends Controller
 					$menu = $this->ConvertMenuToArray($menu);
 				}
 				return View::make("wishlist",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,
-					"convert"=>$convert,"wishlistID"=>$wishlistID,"info"=>$info));
+					"convert"=>$convert,"wishlistID"=>$wishlistID,"info"=>$info,"header"=>$header,"tag"=>$tag));
 			}
 		}
 		else
@@ -344,8 +433,17 @@ class ViewController extends Controller
 		$info = InfoController::getInfo();
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
+		$header = array("title"=>$productName,"keyword","description");
+		foreach($info as $values)
+		{
+			if($values->name == "keyword" && $values->contents!="")
+				$header["keyword"] = $values->contents;
+			if($values->name == "description" && $values->contents!="")
+				$header["description"] = $values->contents;
+		}
 		$convert = new convertString();
 		$product =array();
+
 		if(count($menu)>0)
 		{
 			$menu = $this->ConvertMenuToArray($menu);
@@ -360,7 +458,7 @@ class ViewController extends Controller
 		}
 		$product->appends(['category' => $categoryID,"name"=>$productName])->render();
 		return View::make("product.search-product",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,
-					"convert"=>$convert,"info"=>$info));
+					"convert"=>$convert,"info"=>$info,"header"=>$header));
 	}
 	public function test()
 	{

@@ -2,27 +2,19 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Home</title>
-        @foreach($info as $values)
-        @if($values->contents!="")
-	        @if($values->name=="keyword")        
-	        <meta name="keywords" content="{{$values->contents}}">
-	        @endif
-	        @if($values->name=="description")  
-	        <meta name="description" content="{{$values->contents}}">
-	        @endif
-        @endif
-        @endforeach
+        <title>{{$header['title']}}</title>            
+	    <meta name="keywords" content="{{$header['keyword']}}">	        
+	    <meta name="description" content="{{$header['description']}}">	        
         <meta name="author" content="phukienthoitrang.xyz">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="csrf_token" content="{{ csrf_token() }}" />
 		<!-- Favicon
 		============================================ -->
 		@foreach($info as $values)
-		@if($values->name=="favicon" && $values->contents!="")
+		@if($values->name == "favicon" && $values->contents!="")
 		<link rel="shortcut icon" type="image/x-icon" href="{{Asset('')}}{{$values->contents}}">
 		@endif
-		@endforeach
+		@endforeach		
 		<!-- FONTS
 		============================================ -->	
 		<link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'> 

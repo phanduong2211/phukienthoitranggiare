@@ -1,22 +1,3 @@
-<!doctype html>
-<!--[if IE]><![endif]-->
-<!--[if lt IE 7 ]> <html lang="en" class="ie6">    <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="ie7">    <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="ie8">    <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="ie9">    <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
-    
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Đăng ký hoặc đăng nhập</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		
-</header>
-<body>
-		<!-- MAIN-MENU-AREA END -->
-		<!-- MAIN-CONTENT-SECTION START -->
 @extends("masterpage")
 @section("miss")
 		<section class="main-content-section">
@@ -123,15 +104,3 @@
 		<!-- BRAND-CLIENT-AREA START -->
 
 		@stop
-    </body>
-    <!--<script src="http://jqueryvalidation.org/files/lib/jquery.js"></script>
-    <script src="http://jqueryvalidation.org/files/lib/jquery.mockjax.js"></script>
-	<script src="public/js/jquery.validate.js"></script>
-	<script src="http://jqueryvalidation.org/files/demo/marketo/jquery.maskedinput.js"></script>
-	<script src="http://jqueryvalidation.org/files/demo/marketo/mktSignup.js"></script>
-	<script>
-		$(function(){
-			$("#create-new-account").validate();
-		});
-	</script>-->
-</html>

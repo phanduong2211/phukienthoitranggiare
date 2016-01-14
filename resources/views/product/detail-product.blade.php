@@ -1,24 +1,11 @@
-<!doctype html>
-<!--[if IE]><![endif]-->
-<!--[if lt IE 7 ]> <html lang="en" class="ie6">    <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="ie7">    <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="ie8">    <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="ie9">    <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
-    
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{{$product[0]->name}}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		
-</header>
-<body>
-		<!-- MAIN-MENU-AREA END -->
-		<!-- MAIN-CONTENT-SECTION START -->
 @extends("masterpage")
 @section("miss")
+<style type="text/css" media="screen">
+	.fa-angle-left,.fa-angle-right
+	{
+		padding-top:7px;
+	}
+</style>
 		<section class="main-content-section">
 			<div class="container">
 				<div class="row">
@@ -156,9 +143,9 @@
 										</div>
 									</div>
 									<div class="single-product-info">
-										<a href="#"><i class="fa fa-envelope"></i></a>
-										<a href="#"><i class="fa fa-print"></i></a>
-										<a href="javascript:void(0)"><i class="fa fa-heart fa-wishlist"></i></a>
+										<a href="javascript:void(0)"><i style="padding:15px" class="fa fa-envelope"></i></a>
+										<a href="javascript:void(0)"><i style="padding:15px" class="fa fa-print"></i></a>
+										<a href="javascript:void(0)"><i style="padding:15px" class="fa fa-heart fa-wishlist"></i></a>
 									</div>
 									<div class="single-product-quantity">
 										<p class="small-title">Số lượng</p> 
@@ -322,13 +309,15 @@
 						<div class="single-product-right-sidebar">
 							<h2 class="left-title">Sản phầm xem nhiều</h2>
 							<ul>
+							@foreach($productMaxView as $values)
 								<li>
-									<a href="#"><img src="{{Asset('')}}public/img/product/sidebar_product/2.jpg" alt="" /></a>
+									<a style="width:30%;" href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" alt="{{$values->name}}" src="{{Asset('')}}{{$values->image}}" /></a>
 									<div class="r-sidebar-pro-content">
-										<h5><a href="#">Faded Short ...</a></h5>
-										<p>Faded short sleeves t-shirt with high...</p>
+										<h5><a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html">{{$values->name}}</a></h5>
+										<p>{{$values->content}}</p>
 									</div>
-								</li>								
+								</li>
+							@endforeach								
 							</ul>
 						</div>	
 						<!-- SINGLE SIDE BAR END -->
@@ -336,15 +325,9 @@
 						<div class="single-product-right-sidebar clearfix">
 							<h2 class="left-title">Tags </h2>
 							<div class="category-tag">
-								<a href="#">fashion</a>
-								<a href="#">handbags</a>
-								<a href="#">women</a>
-								<a href="#">men</a>
-								<a href="#">kids</a>
-								<a href="#">New</a>
-								<a href="#">Accessories</a>
-								<a href="#">clothing</a>
-								<a href="#">New</a>
+							@foreach($tag as $values)
+								<a href="{{Asset('')}}tag/{{$convert->convertString($values->name)}}">{{$values->name}}</a>								
+							@endforeach
 							</div>							
 						</div>	
 						<!-- SINGLE SIDE BAR END -->
@@ -364,6 +347,3 @@
 		<!-- MAIN-CONTENT-SECTION END -->
 		<!-- BRAND-CLIENT-AREA START -->
 		@stop
-    </body>
-
-</html>

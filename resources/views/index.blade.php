@@ -1,6 +1,5 @@
 @extends("masterpage")
 @section("miss")
-<head>
 
 <!--[if IE]><![endif]-->
 <!--[if lt IE 7 ]> <html lang="en" class="ie6">    <![endif]-->

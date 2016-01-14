@@ -27,6 +27,18 @@ class NewsController extends Controller
 		$news =new news();
 		return $news->updateNews($data,$id);
 	}
+	public static function getNewsMaxView()
+	{
+		return news::orderBy('view','desc')->take(5)->get();
+	}
+	public static function getNewsReleasion($categoryNewsID,$id)
+	{
+		return news::where('categoryNewsID','=',$categoryNewsID)->where('id','!=',$id)->orderBy('view','desc')->take(5)->get();
+	}
+	public static function getNewsNew()
+	{
+		return news::orderBy('id','desc')->take(5)->get();
+	}
 }
 
 ?>
