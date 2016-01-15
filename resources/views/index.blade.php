@@ -27,7 +27,7 @@
 											<?php $i=0;?>
 											@foreach($slideshow as $values)
 											
-											<img src="{{$values->image}}" alt="main slider" title="#htmlcaption{{$i}}"/>
+											<img src="{{$convert->showImage($values->image)}}" alt="main slider" title="#htmlcaption{{$i}}"/>
 											<?php $i++ ?>
 											@endforeach
 										</div>
@@ -208,14 +208,14 @@
 					@if(count($ads)>0 && isset($ads[1]))
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 							<div class="tow-column-add zoom-img">
-								<a href="{{$ads[1]->url}}"><img src="{{$ads[1]->image}}" alt="{{$ads[1]->name}}" /></a>
+								<a href="{{$ads[1]->url}}"><img src="{{$convert->showImage($ads[1]->image)}}" alt="{{$ads[1]->name}}" /></a>
 							</div>
 						</div>
 					@endif
 					@if(count($ads)>0 && isset($ads[2]))
 						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 							<div class="one-column-add zoom-img">
-								<a href="{{$ads[2]->url}}"><img src="{{$ads[2]->image}}" alt="{{$ads[2]->name}}" /></a>
+								<a href="{{$ads[2]->url}}"><img src="{{$convert->showImage($ads[2]->image)}}" alt="{{$ads[2]->name}}" /></a>
 							</div>								
 						</div>
 					</div>
@@ -238,7 +238,7 @@
 									<div class="item">
 										<div class="single-product-item">
 											<div class="product-image">
-												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$convert->showImage($values->image)}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
 												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 												<div class="overlay-content">
 													<ul id="{{$values->id}}">
@@ -302,7 +302,7 @@
 											<div class="item">
 												<div class="single-product-item">
 													<div class="product-image">
-														<a href="{{Asset('products')}}/{{$values_product->id}}/{{$convert->convertString($values_product->name)}}.html"><img src="{{$values_product->image}}" title="{{$values_product->name}}" alt="{{$values_product->name}}" /></a>
+														<a href="{{Asset('products')}}/{{$values_product->id}}/{{$convert->convertString($values_product->name)}}.html"><img src="{{$convert->showImage($values_product->image)}}" title="{{$values_product->name}}" alt="{{$values_product->name}}" /></a>
 														<a href="{{Asset('products')}}/{{$values_product->id}}/{{$convert->convertString($values_product->name)}}.html" title="{{$values_product->name}}" class="new-mark-box">{{$values_product->icon_status}}</a>
 														<div class="overlay-content">
 															<ul id="{{$values_product->id}}" >
@@ -379,7 +379,7 @@
 									<div class="item">
 										<div class="single-product-item">
 											<div class="product-image">
-												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$convert->showImage($values->image)}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
 												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 												<div class="overlay-content" >
 													<ul id="{{$values->id}}">
@@ -428,7 +428,7 @@
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<!-- ONEHALF-ADD START -->
 							<div class="onehalf-add-shope zoom-img">
-								<a href="{{$ads[3]->url}}"><img src="{{$ads[3]->image}}" alt="{{$ads[3]->name}}" /></a>
+								<a href="{{$ads[3]->url}}"><img src="{{$convert->showImage($ads[3]->image)}}" alt="{{$ads[3]->name}}" /></a>
 							</div>
 							<!-- ONEHALF-ADD END -->
 						</div>
@@ -437,7 +437,7 @@
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<!-- ONEHALF-ADD START -->
 							<div class="onehalf-add-shope zoom-img">
-								<a href="{{$ads[4]->url}}"><img src="{{$ads[4]->image}}" alt="{{$ads[4]->name}}" /></a>
+								<a href="{{$ads[4]->url}}"><img src="{{$convert->showImage($ads[4]->image)}}" alt="{{$ads[4]->name}}" /></a>
 							</div>
 							<!-- ONEHALF-ADD END -->
 						</div>
@@ -465,7 +465,7 @@
 									<div class="item">
 										<div class="latest-news-post">
 											<div class="single-latest-post">
-												<a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$values->image}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
+												<a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$convert->showImage($values->image)}}" title="{{$values->name}}" alt="{{$values->name}}" /></a>
 												<h2><a title="{{$values->name}}" href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html">{{$values->name}}</a></h2>
 												<p>{{$values->description}}</p>
 												<div class="latest-post-info">

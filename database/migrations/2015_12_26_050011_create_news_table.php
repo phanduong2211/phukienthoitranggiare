@@ -20,7 +20,7 @@ class CreateNewsTable extends Migration
             $table->string('content');
             $table->Integer('view');
             $table->string('user');
-            $table->String('categoryNewsID')
+            $table->string('categoryNewsID');
             $table->timestamps();
         });
     }

@@ -15,7 +15,6 @@ class AddColumnToProductTable extends Migration
         Schema::table('product', function (Blueprint $table) {
             $table->tinyInteger('display');
             $table->tinyInteger('bin');
-            $table->timestamp('updated_at');
         });
     }
 

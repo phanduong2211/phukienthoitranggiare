@@ -100,7 +100,7 @@
 										<!-- WISHLISTS-SINGLE-ITEM START -->
 										<div class="wishlists-single-item">
 											<div class="wishlist-image">
-												<a href="{{Asset('products')}}/{{$values[0]->id}}/{{$convert->convertString($values[0]->name)}}.html"><img src="{{$values[0]->image}}" title="{{$values[0]->name}}" alt="{{$values[0]->name}}" /></a>
+												<a href="{{Asset('products')}}/{{$values[0]->id}}/{{$convert->convertString($values[0]->name)}}.html"><img src="{{$convert->showImage($values[0]->image)}}" title="{{$values[0]->name}}" alt="{{$values[0]->name}}" /></a>
 											</div>
 											<div class="wishlist-title">
 												<p><?php echo $values[0]->name; $i++; ?><a id="abc" href="javascript:void(0)"><i class="fa fa-close deletewishlist" id="{{$wishlistID[$i]}}"></i></a></p>
