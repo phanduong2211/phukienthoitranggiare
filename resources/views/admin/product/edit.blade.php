@@ -54,9 +54,6 @@
         cursor: pointer;
         color: #000;
     }
-    #detailproduct{
-        display: none;
-    }
     .uploadimg{
         width: 100px;
     }
@@ -240,11 +237,7 @@ $(".tabs li").click(function(){
     }
 });
 
-if(window.location.hash!=""){
-    if(window.location.hash=="#detail"){
-        $(".tabs li:eq(1)").click();
-    }
-}
+
 $("#colors").focus(function(){
    if(dialogChooseColor==null){
         dialogChooseColor=new dialog($("#dialog3"),{
@@ -343,6 +336,15 @@ function showImg(input) {
     $(document).ready(function(){
         new nicEditor({ fullPanel: true }).panelInstance("infomation");
         new nicEditor({ fullPanel: true }).panelInstance("data_sheet");
+        if(window.location.hash!=""){
+            if(window.location.hash=="#detail"){
+                $(".tabs li:eq(1)").click();
+            }else{
+                  $("#detailproduct").hide();
+            }
+        }else{
+            $("#detailproduct").hide();
+        }
     });
 </script>
 @endsection
