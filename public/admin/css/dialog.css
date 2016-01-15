@@ -29,7 +29,8 @@
     line-height: 19px;
     padding: 10px 12px;
     font-size:13px;
-        position:static;
+    position:static;
+    min-height:inherit;
 }
 .dialog .header .closedialog{
 	float:right;

@@ -84,7 +84,7 @@ var pathremoveimg=null;
 $(document).ready(function(){
     
 
-        $(".showupload").click(function(){
+        $("body").on("click",".showupload",function(){
           if(dialogupload==null){
             dialogupload=new dialog($("#dialogupload"),{
             "width":1000,
@@ -95,6 +95,7 @@ $(document).ready(function(){
           LoadDataFolder();
        		dialogupload.show();
           idobjclick=$(this).attr("href");
+          
         	return false;
    	 	  });
 
@@ -105,7 +106,11 @@ $(document).ready(function(){
 
 				  $(this).addClass("active");   
 				  $("#dialogupload .ct #"+$(this).attr("data-value")).show();	 			
-   	 		 
+   	 		 if($(this).attr("data-value")=="tabuploadimg"){
+          if($("#tabuploadimg>iframe").attr("src")==""){
+            $("#tabuploadimg>iframe").attr("src",base_url_admin+"uploadimage?keyupload="+__token);
+          }
+         }
         }
    	 	});
 
@@ -180,14 +185,12 @@ $(document).ready(function(){
               'ttop':50
               });
               dialogxoahd.init();
-              dialogxoahd.xoaanh=function(){
-                alert("asd");
-              }
+             
             }
             var folder=jQuery.parseJSON(currentItemSeclect.parent('.folderitem').attr("data-value"));
            
             pathremoveimg=folder.folder+"/"+namefile;
-          dialogxoahd.getObj().find("img").attr("src",asset_path+"images/"+pathremoveimg);
+          dialogxoahd.getObj().find("img").attr("src",asset_path+"image/"+pathremoveimg);
           dialogxoahd.getObj().find("b").html(namefile);
             dialogxoahd.show();
 
@@ -200,7 +203,7 @@ $(document).ready(function(){
       $("#btnremoveimgdialog").click(function(){
         var th=$(this);
         th.attr("disabled","disabled").val("Đang xóa...");
-        LoadJson(base_url_admin+"ajax/removeimg",{"file":pathremoveimg},function(result){
+        LoadJson(base_url_admin+"ajax/removeimg",{"file":pathremoveimg,"_token":__token},function(result){
          th.removeAttr("disabled").val("Tiếp tục xóa");
           dialogxoahd.hide();
           if(result==1)

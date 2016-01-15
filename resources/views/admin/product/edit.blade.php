@@ -5,176 +5,210 @@
 <link rel="stylesheet" type="text/css" href="{{Asset('public/admin')}}/css/validate.css" />
 <style type="text/css">
     .addon{
-    position: relative;
-}
-.addon-right .addon-icon{
-    position: absolute;
-    top:10px;
-    right: 10px;
-    cursor: pointer;
-    color:#888;
-}
-.addon-right .addon-icon:hover{
-    cursor: pointer;
-    color:#333;
-}
-.addon-right .file{
-    display: none;
-}
-.boxupload .showimg{
-    display: none;
-}
-.boxupload span{
-    color:#999;
-    font-size: 11px;
-}
-.boxupload .showimage{
-    color:blue;
-}
-.boxupload .showimage:hover{
-    cursor: pointer;
-    text-decoration: underline;
-}
-.boxupload .showimg{
-    width: 100px;
-}
-.tabs{
-    margin-bottom:15px;
-    border-bottom:1px solid #ccc;
-}
-.tabs li{
-    list-style: none;
-    display: block;
-    float: left;
-    margin-right: 30px;
-    padding-bottom: 5px;
-    color:#999;
-}
-.tabs li:hover,.tabs li.active{
-    cursor: pointer;
-    color: #000;
-}
-#detailproduct{
-    display: none;
-}
+        position: relative;
+    }
+    .addon-right .addon-icon{
+        position: absolute;
+        top:10px;
+        right: 10px;
+        cursor: pointer;
+        color:#888;
+    }
+    .addon-right .addon-icon:hover{
+        cursor: pointer;
+        color:#333;
+    }
+    .addon-right .file{
+        display: none;
+    }
+    .boxupload .showimg{
+        display: none;
+    }
+    .boxupload span{
+        color:#999;
+        font-size: 11px;
+    }
+    .boxupload .showimage{
+        color:blue;
+    }
+    .boxupload .showimage:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .boxupload .showimg{
+        width: 100px;
+    }
+    .tabs{
+        margin-bottom:15px;
+        border-bottom:1px solid #ccc;
+    }
+    .tabs li{
+        list-style: none;
+        display: block;
+        float: left;
+        margin-right: 30px;
+        padding-bottom: 5px;
+        color:#999;
+    }
+    .tabs li:hover,.tabs li.active{
+        cursor: pointer;
+        color: #000;
+    }
+    #detailproduct{
+        display: none;
+    }
+    .uploadimg{
+        width: 100px;
+    }
+   
+    .removeimgsss{
+        font-weight: normal;
+    }
+    .removeimgsss:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
 </style>
 @endsection
 @section('script')
- <script src="{{Asset('public/admin')}}/js/validate.js" ></script>
+<script src="{{Asset('public/admin')}}/js/validate.js" ></script>
 <script type="text/javascript" src="{{Asset('')}}public/admin/js/dialog.js"></script>
 
 <script type="text/javascript">
-var base_url_admin="{{Asset('admin')}}/";
-        var asset_path="{{Asset('public')}}/";
-        var __token="{{csrf_token()}}";
-        function callBackUpload(idobjclick,path){
-            $(idobjclick).val(path);
-            if(idobjclick=="#imageproduct"){
-                $(".boxupload .showimg").attr("src",asset_path+"image/"+path);
-                 $(".boxupload .showimage").show();
-                $("#frm input[name='image']").removeClass("error").next(".errortext").hide();
-            }
-        }
-	$(function(){
-		$("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
-		$("#frm").kiemtra([
-    		{
-    			'name':'name',
-    			'trong':true
-    		},
-            {
-                'name':'promotion_price',
-                'gia':true,
-                'message':'Vui lòng nhập giá gốc'
-            },
-            {
-                'name':'price',
-                'gia':true,
-                'message':'Vui lòng nhập giá sản phẩm'
-            },
-            {
-                'name':'original_price',
-                'gia':true,
-                'message':'Vui lòng nhập giá sỉ'
-            },
-            {
-                'name':'image',
-                'trong':true
-            },
-            {
-                'name':'quantity',
-                'so':true
-            },
-            {
-                'name':'menuID',
-                'select':true
-            },
-            {
-                'name':'categoryID',
-                'select':true
-            }
-    	],function(){
-            if($("#frm input[name='image_upload']").val().length>0){
+    var base_url_admin="{{Asset('admin')}}/";
+    var asset_path="{{Asset('public')}}/";
+    var __token="{{csrf_token()}}";
+    function callBackUpload(idobjclick,path){
 
-            }else{
-                var obj=$("#frm input[name='image']");
-                if(obj.val().trim()==""){
-                    obj.addClass("error");
-                        if(!obj.next('.errortext').length){
-                            obj.after("<span class='errortext'></span>");
-                    }
-                    obj.next('.errortext').show().html("Vui lòng chọn hình ảnh.");
-                    obj.on("change",function(){
-                        $(this).off('change').removeClass('error').next(".errortext").hide();
-                    });
-                    return false;
-                }
-            }
-            return true;
-        });
+        if(idobjclick=="#imageproduct"){
+           $(idobjclick).val(path);
+           $(".boxupload .showimg").attr("src",asset_path+"image/"+path);
+           $(".boxupload .showimage").show();
+           $("#frm input[name='image']").removeClass("error").next(".errortext").hide();
+       }else{
 
-        
-        $("#upload").click(function(){
-            $(this).parent().find(".file").click().change(function(){
-                showImg(this);
+        if(idobjclick.indexOf('#imageschooseval')===0 || idobjclick.indexOf('#imagesschooseval')===0){
+            $(idobjclick).val(path).parent().parent().find("img").attr("src",asset_path+"image/"+path);
+
+        }else{
+           $(idobjclick).val(path);
+       }
+   }
+}
+$(function(){
+  $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
+  $("#frm").kiemtra([
+  {
+     'name':'name',
+     'trong':true
+ },
+ {
+    'name':'promotion_price',
+    'gia':true,
+    'message':'Vui lòng nhập giá gốc'
+},
+{
+    'name':'price',
+    'gia':true,
+    'message':'Vui lòng nhập giá sản phẩm'
+},
+{
+    'name':'original_price',
+    'gia':true,
+    'message':'Vui lòng nhập giá sỉ'
+},
+{
+    'name':'image',
+    'trong':true
+},
+{
+    'name':'quantity',
+    'so':true
+},
+{
+    'name':'menuID',
+    'select':true
+},
+{
+    'name':'categoryID',
+    'select':true
+}
+],function(){
+    if($("#frm input[name='image_upload']").val().length>0){
+
+    }else{
+        var obj=$("#frm input[name='image']");
+        if(obj.val().trim()==""){
+            obj.addClass("error");
+            if(!obj.next('.errortext').length){
+                obj.after("<span class='errortext'></span>");
+            }
+            obj.next('.errortext').show().html("Vui lòng chọn hình ảnh.");
+            obj.on("change",function(){
+                $(this).off('change').removeClass('error').next(".errortext").hide();
             });
-
-        });
-        $(".boxupload .showimage").click(function(){
-            if($(this).html()==" Xem hình ảnh"){
-                $(this).parent().find(".showimg").show();
-                $(this).html(" Ẩn hình ảnh");
-            }else{
-                $(this).parent().find(".showimg").hide();
-                $(this).html(" Xem hình ảnh");
-            }
-        });
-        $(".tabs li").click(function(){
-            if(!$(this).hasClass("active")){
-                var oldid=$(this).parent().find(".active").removeClass("active").attr("data-id");
-                $(this).addClass("active");
-                $("#"+oldid).hide();
-                var id=$(this).attr("data-id");
-                $("#"+id).show();
-            }
-        });
-	});
-
-    function showImg(input) {
-        if (input.files && input.files[0]) {
-            if(isImage(input.files[0].name)){
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                   $(".boxupload .showimg").attr("src",e.target.result);
-                }
-                $(".boxupload span.filename").html(input.files[0].name+".").parent().find(".showimage").show();
-                $("#frm input[name='image']").removeClass("error").next(".errortext").hide();
-                reader.readAsDataURL(input.files[0]);
-            }else{
-                alert("vui lòng chọn 1 hình ảnh");
-            }
+            return false;
         }
     }
+    return true;
+});
+
+$(".newimage").click(function(){
+    var size=$("#imagescls").find(".itemimages").size();
+   $("#imagescls").append('<div class="col-md-3 text-center itemimages"><img src="'+(asset_path+"image/uploadimg.png")+'" class="img-thumbnail showupload uploadimg" href="#imageschooseval'+size+'" id="imgchoose" width="50%" /><br /><b class="removeimgsss">Xóa</b><br /><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br /><input type="text" value="" class="form-control " name="images[]" id="imageschooseval'+size+'" />Hoặc upload ảnh khác.</div></div>');
+    return false;
+});
+$(".newimageslide").click(function(){
+    var size=$("#imagesclss").find(".itemimages").size();
+   $("#imagesclss").append('<div class="col-md-3 text-center itemimages"><img src="'+(asset_path+"image/uploadimg.png")+'" class="img-thumbnail showupload uploadimg" href="#imagesschooseval'+size+'" id="imgchoose" width="50%" /><br /><b class="removeimgsss">Xóa</b><br /><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br /><input type="text" value="" class="form-control " name="silebar_images[]" id="imagesschooseval'+size+'" />Hoặc upload ảnh khác.</div></div>');
+    return false;
+});
+$("#imagescls").on("click",".removeimgsss",function(){
+    if($(this).parent().find('input[type="text"]').val()!=""){
+        if(confirm("Bạn có chắc muốn xóa?")){
+            $(this).parent().remove();
+
+        }
+        return false;
+    }
+    $(this).parent().remove();
+    return false;
+});
+$(".boxupload .showimage").click(function(){
+    if($(this).html()==" Xem hình ảnh"){
+        $(this).parent().find(".showimg").show();
+        $(this).html(" Ẩn hình ảnh");
+    }else{
+        $(this).parent().find(".showimg").hide();
+        $(this).html(" Xem hình ảnh");
+    }
+});
+$(".tabs li").click(function(){
+    if(!$(this).hasClass("active")){
+        var oldid=$(this).parent().find(".active").removeClass("active").attr("data-id");
+        $(this).addClass("active");
+        $("#"+oldid).hide();
+        var id=$(this).attr("data-id");
+        $("#"+id).show();
+    }
+});
+});
+
+function showImg(input) {
+    if (input.files && input.files[0]) {
+        if(isImage(input.files[0].name)){
+            var reader = new FileReader();
+            reader.onload = function (e) {
+             $(".boxupload .showimg").attr("src",e.target.result);
+         }
+         $(".boxupload span.filename").html(input.files[0].name+".").parent().find(".showimage").show();
+         $("#frm input[name='image']").removeClass("error").next(".errortext").hide();
+         reader.readAsDataURL(input.files[0]);
+     }else{
+        alert("vui lòng chọn 1 hình ảnh");
+    }
+}
+}
 </script>
 <script type="text/javascript" src="{{Asset('')}}public/admin/js/jsupload.js"></script>
 @endsection
@@ -186,19 +220,19 @@ var base_url_admin="{{Asset('admin')}}/";
 </div>
 <!--Infotab-->
 <div id="infoproduct">
-@if(Session::has('message'))
-        <p class="message hidemessage"> {{ Session::get('message') }}
+    @if(Session::has('message'))
+    <p class="message hidemessage"> {{ Session::get('message') }}
         <i class="pull-right fa fa-times-circle"></i>
-        </p>
-@endif
+    </p>
+    @endif
 
-<?php 
-function showImage($path){
-    if(strpos($path, "http")===0)
-        return $path;
-    return Asset('public/image/').'/'.$path;
-}
-?>
+    <?php 
+    function showImage($path){
+        if(strpos($path, "http")===0)
+            return $path;
+        return Asset('public/image/').'/'.$path;
+    }
+    ?>
 
     <form method="post" action="" id="frm" name="frm">
     	<div class="row">
@@ -232,7 +266,7 @@ function showImage($path){
                     </div>
                     <div class="col-md-8 require">
                         <div class="red">*</div>
-                
+
                         <input type="text" name="price" value="{{number_format($data->price,0,',','.')}}" class="form-control" />
                         <span class="desc">Giá bán hiện tại của sản phẩm này.</span>
                     </div>
@@ -274,7 +308,7 @@ function showImage($path){
                         <div class="addon addon-right">
                             <input type="text" name="image" class="form-control" id="imageproduct" value="<?php echo $data->image ?>"  />
                             <i class="fa fa-upload addon-icon showupload" href="#imageproduct" title="upload image"></i>
-                           
+
                         </div>
                         <div class="boxupload">
                             <span class="showimage"> Xem hình ảnh</span>
@@ -291,7 +325,7 @@ function showImage($path){
                     </div>
                     <div class="col-md-8 require">
                         <div class="red">*</div>
-                       <input type="text" name="quantity" class="form-control" value="{{$data->quantity}}" />
+                        <input type="text" name="quantity" class="form-control" value="{{$data->quantity}}" />
                         <span class="desc">Số lượng hiện có của sản phẩm. Nếu chưa có hàng thì điền là 0</span>
                     </div>
                 </div><br />
@@ -308,134 +342,198 @@ function showImage($path){
                         <div class="red">*</div>
                         <select name="menuID" class="form-control">
                             <option value="-1">--Lựa Chọn--</option>
-                           <?php 
-                           function getMinRoot($data){
-                            $length=count($data);
-                            if($length>0){
-                                $min=$data[0]->root;
-                                for ($i=1; $i <$length ; $i++) { 
-                                    if($data[$i]->root<$min)
-                                        $min=$data[$i]->root;
+                            <?php 
+                            function getMinRoot($data){
+                                $length=count($data);
+                                if($length>0){
+                                    $min=$data[0]->root;
+                                    for ($i=1; $i <$length ; $i++) { 
+                                        if($data[$i]->root<$min)
+                                            $min=$data[$i]->root;
+                                    }
+                                    return $min;
                                 }
-                                return $min;
+                                return 0;
                             }
-                            return 0;
-                        }
-                           function dequy($parentid,$arr,$text = ''){
+                            function dequy($parentid,$arr,$text = ''){
                                 foreach ($arr as $key => $value) {
                                     if($value->root==$parentid){?>
-                                        <option value="{{$value->id}}">{{$text.$value->name}}</option>
-                                        <?php 
-                                        dequy($value->id,$arr,$text.'--');
-                                    }
+                                    <option value="{{$value->id}}">{{$text.$value->name}}</option>
+                                    <?php 
+                                    dequy($value->id,$arr,$text.'--');
                                 }
                             }
-                       dequy(getMinRoot($datamenu),$datamenu);
-                            ?>
-                           
-                        </select>
-                        <span class="desc">Chọn menu hiển thị sản phẩm.</span>
-                    </div>
-                </div><br />
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        Loại Sản Phẩm:
-                    </div>
-                    <div class="col-md-8 require">
-                        <div class="red">*</div>
-                      <select name="categoryID" class="form-control">
-                            <option value="-1">--Lựa Chọn--</option>
-                            @foreach($datacategory as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
-                        </select>
-                    </div>
-                </div><br />
-            </div>
+                        }
+                        dequy(getMinRoot($datamenu),$datamenu);
+                        ?>
+
+                    </select>
+                    <span class="desc">Chọn menu hiển thị sản phẩm.</span>
+                </div>
+            </div><br />
         </div>
-        <br />
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        Tab:
-                    </div>
-                    <div class="col-md-8">
-                        <select name="tab_categoryID" class="form-control">
-                            <option value="0">--Lựa Chọn--</option>
-                            @foreach($datatabcategory as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
-                        </select>
-                      
-                    </div>
-                </div><br />
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        Trạng Thái:
-                    </div>
-                    <div class="col-md-8">
-                       <select name="status" class="form-control">
-                            <option value="new">Mới</option>
-                            <option value="sale">Giảm Giá</option>
-                            <option value="hot">Hot</option>
-                            <option value="promotion">Khuyến Mãi</option>
-                            <option value="sell">Bán Chạy</option>
-                            <option value="over">Hết Hàng</option>
-                            <option value="Ngừng Kinh Doanh">Ngừng Kinh Doanh</option>
-                            <option value="Không Kinh Doanh">Không Kinh Doanh</option>
-                            <option value="">Không Có</option>
-                       </select>
-                    </div>
-                </div><br />
-            </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    Loại Sản Phẩm:
+                </div>
+                <div class="col-md-8 require">
+                    <div class="red">*</div>
+                    <select name="categoryID" class="form-control">
+                        <option value="-1">--Lựa Chọn--</option>
+                        @foreach($datacategory as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
+                    </select>
+                </div>
+            </div><br />
         </div>
-        <br />
-        <div class="row">
-            <div class="col-md-6">
-             <div class="row">
-                    <div class="col-md-4">
-                       Tag:
-                    </div>
-                    <div class="col-md-8">
-                        <input name="tagID" type="text" class="form-control" value="{{$data->tagID}}" />
-               
-                <span class="desc">Mỗi tag cách nhau 1 dấu ','</span>
-                    </div>
-                </div><br />
-               
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                       Ngày Tạo:
-                    </div>
-                    <div class="col-md-8">
-                       {{date('d/m/Y H:i',strtotime($data->created_at))}}
-                    </div>
-                </div><br />
-            </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    Tab:
+                </div>
+                <div class="col-md-8">
+                    <select name="tab_categoryID" class="form-control">
+                        <option value="0">--Lựa Chọn--</option>
+                        @foreach($datatabcategory as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
+                    </select>
+
+                </div>
+            </div><br />
         </div>
-    	<div class="row">
-    		<div class="col-md-12 text-right">
-    			<input type="submit" class="btn btn-success" value="Lưu Lại" />
-    			<input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
-    		</div>
-    	</div><br />
-    	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
-        <input type="hidden" name="idedit" value="{{$data->id}}"/>
-    </form>
-    <script type="text/javascript">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    Trạng Thái:
+                </div>
+                <div class="col-md-8">
+                 <select name="status" class="form-control">
+                    <option value="new">Mới</option>
+                    <option value="sale">Giảm Giá</option>
+                    <option value="hot">Hot</option>
+                    <option value="promotion">Khuyến Mãi</option>
+                    <option value="sell">Bán Chạy</option>
+                    <option value="over">Hết Hàng</option>
+                    <option value="Ngừng Kinh Doanh">Ngừng Kinh Doanh</option>
+                    <option value="Không Kinh Doanh">Không Kinh Doanh</option>
+                    <option value="">Không Có</option>
+                </select>
+            </div>
+        </div><br />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+       <div class="row">
+        <div class="col-md-4">
+         Tag:
+     </div>
+     <div class="col-md-8">
+        <input name="tagID" type="text" class="form-control" value="{{$data->tagID}}" />
+
+        <span class="desc">Mỗi tag cách nhau 1 dấu ','</span>
+    </div>
+</div><br />
+
+</div>
+<div class="col-md-6">
+    <div class="row">
+        <div class="col-md-4">
+         Ngày Tạo:
+     </div>
+     <div class="col-md-8">
+         {{date('d/m/Y H:i',strtotime($data->created_at))}}
+     </div>
+ </div><br />
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12 text-right">
+     <input type="submit" class="btn btn-success" value="Lưu Lại" />
+     <input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
+ </div>
+</div><br />
+<input type="hidden" name="_token" value="{{csrf_token()}}"/>
+<input type="hidden" name="idedit" value="{{$data->id}}"/>
+</form>
+<script type="text/javascript">
     document.frm.menuID.value="{{$data->menuID}}";
     document.frm.categoryID.value="{{$data->categoryID}}";
     document.frm.tab_categoryID.value="{{$data->tab_categoryID}}";
-     document.frm.status.value="{{$data->status}}";
-    </script>
+    document.frm.status.value="{{$data->status}}";
+</script>
 </div><!--//Infotab-->
 <!--DetailTab-->
 <div id="detailproduct">
-    detail
-</div>
-<!--//DetailTab-->
-@include('upload')
-@endsection
+    <form method="post" id="frm2" action="{{Asset('admin/product/detail')}}">
+        <div class="row">
+            <div class="col-md-12">
+            <div style="border-bottom:1px solid #ddd;padding-bottom:7px">
+               <b> Hình Ảnh Khác:</b> 
+               <a href='' class="newimage btn btn-xs btn-primary pull-right">
+                            <i class="fa fa-plus"></i> Thêm Ảnh Khác
+
+                        </a>
+                        </div>
+            </div><br /><br />
+            <div class="col-md-12">
+                <div class="row" id="imagescls" style="min-height:200px">
+                 <?php 
+                 $images=explode(",", $detail->images);
+                 foreach ($images as $key => $value) {
+                    if($value!=""){
+                    ?>
+                    <div class="col-md-3 text-center itemimages"><img src="{{showImage($value)}}" class="img-thumbnail showupload uploadimg" href="#imageschooseval{{$key}}" id="imgchoose" width="50%"><br><b class="removeimgsss">Xóa</b><br><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br><input type="text" value="{{$value}}" class="form-control " name="images[]" id="imageschooseval{{$key}}" />Hoặc upload ảnh khác.</div></div>
+                    <?php }} ?>
+                </div>
+            </div>
+        </div><br />
+         <div class="row">
+            <div class="col-md-12" >
+                <div style="border-bottom:1px solid #ddd;padding-bottom:7px">
+                <b>Hình Ảnh Khác(Ảnh nhỏ kích thước 100x100):</b>
+                 <a href='' class="newimageslide btn btn-xs btn-primary pull-right">
+                            <i class="fa fa-plus" ></i> Thêm Ảnh Khác
+
+                        </a>
+                        </div>
+            </div><br /><br />
+            <div class="col-md-12">
+                <div class="row" id="imagesclss" style="min-height:200px">
+                 <?php 
+                 $silebar_images=explode(",", $detail->silebar_images);
+                 foreach ($silebar_images as $key => $value) {
+                    if($value!=""){
+                    ?>
+                    <div class="col-md-3 text-center itemimages"><img src="{{showImage($value)}}" class="img-thumbnail showupload uploadimg" href="#imagesschooseval{{$key}}" id="imgchoose" width="50%"><br><b class="removeimgsss">Xóa</b><br><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br><input type="text" value="{{$value}}" class="form-control " name="images[]" id="imagesschooseval{{$key}}" />Hoặc upload ảnh khác.</div></div>
+                    <?php }} ?>
+                   <!--  <div class="col-md-3 text-center">
+                        <a href='' class="newimageslide">
+                            <i class="fa fa-plus" style="font-size:30px"></i>
+                            <br />Thêm Ảnh Khác
+
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <input type="submit" class="btn btn-success" value="Lưu Lại" />
+                        <input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
+                    </div>
+                </div><br />
+                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                <input type="hidden" name="idedit" value="{{$detail->id}}"/>
+                <input type="hidden" name="idproductedit" value="{{$data->id}}"/>
+                <input type="hidden" name="nameproductedit" value="{{$data->name}}"/>
+            </div>
+
+        </form>
+    </div>
+    <!--//DetailTab-->
+    @include('upload')
+    @endsection
