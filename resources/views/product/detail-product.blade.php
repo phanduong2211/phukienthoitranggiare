@@ -82,7 +82,7 @@
 										<?php $images = explode(",",$detailproduct[0]->silebar_images); 
 										for($i=0;$i<count($images); $i++){?>
 										<li class="<?php if($i==0) echo 'active';?>">
-											<a href="#thumbnail_<?php echo $i+1?>" data-toggle="tab"><img src="{{Asset('')}}<?php echo $images[$i];?>" alt="Không thể hiển thị hình ảnh" /></a>
+											<a href="#thumbnail_<?php echo $i+1?>" data-toggle="tab"><img src="{{$convert->showImage($images[$i])}}" alt="Không thể hiển thị hình ảnh" /></a>
 										</li>
 										<?php }?>
 										<!-- <li>

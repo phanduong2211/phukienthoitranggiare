@@ -22,7 +22,7 @@ class ViewController extends Controller
 		$news = NewsController::getNews();
 		$categorys = CategoryController::getCategory();
 		$wishlist =array();		
-		$header = array("title","keyword","description");
+		$header = array("title"=>"","keyword"=>"","description"=>"");
 		foreach($info as $values)
 		{
 			if($values->name == "keyword" && $values->contents!="")
@@ -561,25 +561,29 @@ class ViewController extends Controller
 		else 
 			return "không tìm thấy trang";
 	}
-	public function getMenuSecond($name) /////////////làm tiếp
+	public function getMenuSecond($name,$name2) /////////////làm tiếp
 	{
 		$info = InfoController::getInfo();
 		$menu = MenuController::getMenu();
 		$convert = new convertString();
 		$categorys = CategoryController::getCategory();
 		$ID = 0;
-		$Name ="";
+		$Name = array("name1"=>"","name2"=>"");
 		$tag = TagController::getTag();
 		foreach($menu as $values)
 		{
-			if($convert->convertString($values->name)==$name)
+			if($convert->convertString($values->name)==$name2)
 			{
 				$ID = $values->id;
-				$Name = $values->name;
+				$Name["name2"] = $values->name;
+			}
+			if($convert->convertString($values->name)==$name)
+			{
+				$Name["name1"] = $values->name;
 			}
 		}
-		$header = array("title"=>$Name." - Phụ kiện thời trang","keyword"=>$Name,"description"=>$Name);
-		
+		$header = array("title"=>$Name["name2"]." - Phụ kiện thời trang","keyword"=>$Name["name2"],"description"=>$Name["name2"]);
+		//return $Name["name1"];
 		$product = ProductController::getAllProductWhereMenuID($ID);		
 		if(count($menu)>0)
 		{
@@ -591,24 +595,34 @@ class ViewController extends Controller
 		else 
 			return "không tìm thấy trang";
 	}
-	public function getMenuThree($name)
+	public function getMenuThree($name,$name1,$name2)
 	{
 		$info = InfoController::getInfo();
 		$menu = MenuController::getMenu();
 		$convert = new convertString();
 		$categorys = CategoryController::getCategory();
 		$ID = 0;
-		$Name ="";
+		$Name =array("name"=>"","name1"=>"","name2"=>"");
 		$tag = TagController::getTag();
 		foreach($menu as $values)
 		{
 			if($convert->convertString($values->name)==$name)
 			{
+				//$ID = $values->id;
+				$Name["name"] = $values->name;
+			}
+			if($convert->convertString($values->name)==$name1)
+			{
+				//$ID = $values->id;
+				$Name["name1"] = $values->name;
+			}
+			if($convert->convertString($values->name)==$name2)
+			{
 				$ID = $values->id;
-				$Name = $values->name;
+				$Name["name2"] = $values->name;
 			}
 		}
-		$header = array("title"=>$Name." - Phụ kiện thời trang","keyword"=>$Name,"description"=>$Name);
+		$header = array("title"=>$Name["name2"]." - Phụ kiện thời trang","keyword"=>$Name["name2"],"description"=>$Name["name2"]);
 		
 		$product = ProductController::getAllProductWhereMenuID($ID);		
 		if(count($menu)>0)
@@ -616,10 +630,75 @@ class ViewController extends Controller
 			$menu = $this->ConvertMenuToArray($menu);
 		}
 		if(count($product)>0)
+		{
+			
 			return View::make("product.menuproductThree",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
 				,"tag"=>$tag,"Name"=>$Name));
+		}
 		else 
 			return "không tìm thấy trang";
+	}
+	public function checksignin()
+	{
+		$info = InfoController::getInfo();
+		$menu = MenuController::getMenu();
+		$convert = new convertString();
+		$categorys = CategoryController::getCategory();
+		$header = array("title"=>""." - Phụ kiện thời trang","keyword"=>"","description"=>"");
+		
+		//$product = ProductController::getAllProductWhereTagID($ID);		
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}			
+		return view::make("checkout-signin",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header));
+	}
+
+	public function checkaddress()
+	{
+		$info = InfoController::getInfo();
+		$menu = MenuController::getMenu();
+		$convert = new convertString();
+		$categorys = CategoryController::getCategory();
+		$header = array("title"=>""." - Phụ kiện thời trang","keyword"=>"","description"=>"");
+		
+		//$product = ProductController::getAllProductWhereTagID($ID);		
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}			
+		return view::make("checkout-address",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header));
+	}
+
+	public function checkoutshipping()
+	{
+		$info = InfoController::getInfo();
+		$menu = MenuController::getMenu();
+		$convert = new convertString();
+		$categorys = CategoryController::getCategory();
+		$header = array("title"=>""." - Phụ kiện thời trang","keyword"=>"","description"=>"");
+		
+		//$product = ProductController::getAllProductWhereTagID($ID);		
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}			
+		return view::make("checkout-shipping",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header));
+	}
+public function payment()
+	{
+		$info = InfoController::getInfo();
+		$menu = MenuController::getMenu();
+		$convert = new convertString();
+		$categorys = CategoryController::getCategory();
+		$header = array("title"=>""." - Phụ kiện thời trang","keyword"=>"","description"=>"");
+		
+		//$product = ProductController::getAllProductWhereTagID($ID);		
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}			
+		return view::make("checkout",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header));
 	}
 	public function test()
 	{

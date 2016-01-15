@@ -12,11 +12,13 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="index.html">Trang chủ</a>
-							<span><i class="fa fa-caret-right"></i></span>
-							<span>{{$Name}}</span>
-							<span><i class="fa fa-caret-right"></i></span>
-							<span>{{$Name}}</span>
+							<a href="{{Asset('')}}">Trang chủ ></a>
+							<a href="{{Asset('')}}{{$convert->convertString($Name['name1'])}}">{{$Name["name1"]}} ></a>
+													
+							<!-- <a href="" ></a>	 -->
+							
+
+							<span>{{$Name["name2"]}}</span>
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->
 					</div>
@@ -121,7 +123,7 @@
 							<div class="product-category-title">
 								<!-- PRODUCT-CATEGORY-TITLE START -->
 								<h1>
-									<span class="cat-name">{{$Name}}</span>
+									<span class="cat-name">{{$Name["name2"]}}</span>
 									<span class="count-product">Có {{count($product)}} sản phẩm.</span>
 								</h1>
 								<!-- PRODUCT-CATEGORY-TITLE END -->
@@ -188,7 +190,7 @@
 									<li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
 										<div class="single-product-item">
 											<div class="product-image">
-												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" src="{{Asset('')}}{{$values->image}}" alt="{{$values->name}}" /></a>
+												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" src="{{$convert->showImage($values->image)}}" alt="{{$values->name}}" /></a>
 												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 												<div class="overlay-content">
 													<ul id="{{$values->id}}">

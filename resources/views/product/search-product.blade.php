@@ -226,7 +226,7 @@
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 											<div class="single-product-item">
 												<div class="product-image">
-													<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{Asset('')}}{{$values->image}}" alt="{{$values->name}}" title="{{$values->name}}"/></a>
+													<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img src="{{$convert->showImage($values->image)}}" alt="{{$values->name}}" title="{{$values->name}}"/></a>
 													<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 												</div>
 											</div>

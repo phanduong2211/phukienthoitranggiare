@@ -12,9 +12,9 @@ class AddColumnTagInProduct extends Migration
      */
     public function up()
     {
-         Schema::table('product', function (Blueprint $table) {
+         /*Schema::table('product', function (Blueprint $table) {
             $table->integer('tagID');
-        });
+        });*/
     }
 
     /**

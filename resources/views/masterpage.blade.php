@@ -167,7 +167,7 @@
 						@foreach($info as $values)
 							@if($values->name == "logo")
 							<div class="logo">
-								<a href="{{Asset('')}}"><img src="{{Asset('')}}{{$values->contents}}" alt="bstore logo" /></a>
+								<a href="{{Asset('')}}"><img src="{{$convert->showImage($values->contents)}}" alt="bstore logo" /></a>
 							</div>
 							@endif
 						<!-- LOGO END -->
@@ -355,7 +355,7 @@
 										<div class="item">
 											<div class="single-client">
 												<a href="#">
-													<img src="{{Asset('')}}<?php echo $vl;?>" alt="brand-client" />
+													<img src="{{$convert->showImage($vl)}}" alt="brand-client" />
 												</a>
 											</div>									
 										</div>

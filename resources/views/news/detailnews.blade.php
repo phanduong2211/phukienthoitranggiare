@@ -91,7 +91,7 @@
                          <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4" style="padding-right:0">
                             <a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}" >
-                            <img src="{{Asset('')}}{{$values->image}}" alt="{{$values->name}}" title="{{$values->name}}"></a>
+                            <img src="{{$convert->showImage($values->image)}}" alt="{{$values->name}}" title="{{$values->name}}"></a>
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8" style="margin-top:-5px">
                             <a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">
@@ -113,7 +113,7 @@
                                  <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-4" style="padding-right:0">
                                     <a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">
-                                    <img src="{{Asset('')}}{{$values->image}}"></a>
+                                    <img src="{{$convert->showImage($values->image)}}"></a>
                                 </div>
                                 <div class="col-md-8 col-sm-8 col-xs-8" style="margin-top:-5px">
                                     <a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html" title="{{$values->name}}">
