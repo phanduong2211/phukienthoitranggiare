@@ -127,15 +127,11 @@ Route::get('shop-gird.html', function () {
     return view('shop-gird');
 });
 
-Route::get('products/{id}/{name}.html','ViewController@productDetail');
 
-Route::get("tin-tuc/{id}/{name}.html",'ViewController@detailnews');
-Route::get("tin-tuc",'ViewController@news');
 
 Route::get('products/{id}/{name}.html','ViewController@productDetail');
 Route::get("tin-tuc/{id}/{name}.html",'ViewController@detailnews');
 Route::get("tin-tuc",'ViewController@news');
-
 Route::get("san-pham/gird/{category}",'ViewController@productsgird');
 Route::get("san-pham/list/{category}",'ViewController@productslist');
 Route::post("add-cart","ViewController@addcart");
@@ -146,28 +142,12 @@ Route::get("tag/{tag}","ViewController@tag");
 Route::get("signout","ViewController@signout");
 
 
-Route::get("{menu}","ViewController@getMenu");
-Route::get("{menu1}/{menu2}","ViewController@getMenuSecond");
-Route::get("{menu1}/{menu2}/{menu3}","ViewController@getMenuThree");
-
-
-Route::get('contact-us.html', function () {
-    return view('contact-us');
-});
-
-Route::get('about-us.html', function () {
-    return view('about-us');
-});
-
 Route::get('cart.html',"ViewController@cart");
 
 Route::get('checkout-signin.html',"ViewController@checksignin");
 
 Route::get('checkout-address.html',"ViewController@checkaddress");
 
-Route::get('checkout-registration.html', function () {
-    return view('checkout-registration');
-});
 
 Route::get('checkout-shipping.html',"ViewController@checkoutshipping");
 
@@ -176,38 +156,17 @@ Route::get('checkout.html',"ViewController@payment");
 Route::get('my-account.html',"ViewController@myacount");
 Route::get('registration.html','ViewController@registration');
 
-Route::get('shop-list.html', function () {
-    return view('shop-list');
-});
 
 
 
 Route::get('wishlist.html',"ViewController@wishlist");
 Route::get('wishlist',"ViewController@postwishlist");
 Route::post('deletewishlist',"ViewController@deletewishlist");
-
-Route::get('my-cart-step-2-info.html', function () {
-    return view('my-cart-step-2-info');
-});
-
 Route::post('signinCreate',"UserController@login");
-
-Route::post('',"UserController@login");
 Route::post('AccountCreate',"UserController@register");
-
-Route::get("test","ViewController@test");
-
 Route::get("upload",function(){
     return view("upload");
 });
-
-
-
-
-/*Route::get("test1",function(){
-    return Session::get("name_test");
-});*/
-
 Route::get("{menu}","ViewController@getMenu");
 Route::get("{menu1}/{menu2}","ViewController@getMenuSecond");
 Route::get("{menu1}/{menu2}/{menu3}","ViewController@getMenuThree");
@@ -217,36 +176,9 @@ Route::get('contact-us.html', function () {
 Route::get('about-us.html', function () {
     return view('about-us');
 });
-Route::get('cart.html',"ViewController@cart");
-Route::get('checkout-signin.html', function () {
-    return view('checkout-signin');
-});
-Route::get('checkout-address.html', function () {
-    return view('checkout-address');
-});
-Route::get('checkout-registration.html', function () {
-    return view('checkout-registration');
-});
-Route::get('checkout-shipping.html', function () {
-    return view('checkout-shipping');
-});
-Route::get('checkout.html', function () {
-    return view('checkout');
-});
-Route::get('my-account.html',"ViewController@myacount");
-Route::get('registration.html','ViewController@registration');
-Route::get('shop-list.html', function () {
-    return view('shop-list');
-});
-Route::get('wishlist.html',"ViewController@wishlist");
-Route::get('wishlist',"ViewController@postwishlist");
-Route::post('deletewishlist',"ViewController@deletewishlist");
 Route::get('my-cart-step-2-info.html', function () {
     return view('my-cart-step-2-info');
 });
-Route::post('signinCreate',"UserController@login");
-Route::post('',"UserController@login");
-Route::post('AccountCreate',"UserController@register");
 Route::get("test","ViewController@test");
 /*Route::get("test1",function(){
     return Session::get("name_test");
