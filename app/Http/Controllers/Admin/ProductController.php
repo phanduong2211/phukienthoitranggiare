@@ -18,9 +18,27 @@ class ProductController extends BaseController
 {
 
 	public function index(){
-
-
-		return View::make("admin.product.index");
+		if(!Input::exists('s') && !Input::exists('f') && !Input::exists('q')){
+			$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',0)->paginate(2);
+		}else{
+			if(Input::exists('q')){
+				$query=trim(Input::get('q'));
+				if($query!=""){
+					$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',0)->where(function($q) use ($query){
+						$q->where('product.name','like','%'.$query.'%');
+						$q->orWhere('promotion_price',$query);
+						$q->orWhere('original_price',$query);
+						$q->orWhere('price',$query);
+						$q->orWhere('quantity',$query);
+						$q->orWhere('admin.name',$query);
+						$q->orWhere('category.name','like','%'.$query.'%');
+					})->paginate(2);
+				}else{
+					$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',0)->paginate(2);
+				}
+			}
+		}
+		return View::make("admin.product.index",array('data'=>$data));
 	}
 
 	public function add()
@@ -62,7 +80,7 @@ class ProductController extends BaseController
 			$productdetail=new detailproduct();
 			$productdetail->fill(array('productID'=>$product->id));
 			$productdetail->save();
-			return Redirect::to('admin/product/edit?id='.$product->id)->with(['message'=>'Thêm thành công sản phẩm "'.$product->name.'"']);
+			return Redirect::to('admin/product/edit?id='.$product->id."#detail")->with(['message'=>'Thêm thành công sản phẩm "'.$product->name.'". Vui lòng nhập chi tiết cho sản phẩm.']);
 		}else{
 			return Redirect::to('admin/product/add')->with(['message'=>'Thêm sản phẩm thất bại.','dataold'=>$data]);
 		}
@@ -114,26 +132,34 @@ class ProductController extends BaseController
 		$images="";
 		foreach (Input::get('images') as $key => $value) {
 			if($value!=""){
-				$images.=$value."   ";
+				$images.=$value.",";
 			}
 		}
-		$images=trim($images);
-		$images=str_replace("   ", ",", $images);
+		$length=strlen($images);
+		$images=substr($images, 0,$length-1);
+		
 
 		$productdetail->images=$images;
 
 		$silebar_images="";
 		foreach (Input::get('silebar_images') as $key => $value) {
 			if($value!=""){
-				$silebar_images.=$value."   ";
+				$silebar_images.=$value.",";
 			}
 		}
-		$silebar_images=trim($silebar_images);
-		$silebar_images=str_replace("   ", ",", $silebar_images);
+		$length=strlen($silebar_images);
+		$silebar_images=substr($silebar_images, 0,$length-1);
 		$productdetail->silebar_images=$silebar_images;
 
+		$productdetail->infomation=Input::get('infomation');
+		$productdetail->size=Input::get('size');
+		$productdetail->color=Input::get('color');
+		$productdetail->data_sheet=Input::get('data_sheet');
+		
 		if($productdetail->update()){
-			return Redirect::to('admin/product/edit?id='.Input::get('idproductedit'))->with(['message'=>'Cập nhật thành công chi tiết sản phẩm "'.Input::get('nameproductedit').'"']);
+			return Redirect::to('admin/product/edit?id='.Input::get('idproductedit').'#detail')->with(['message'=>'Cập nhật thành công chi tiết sản phẩm "'.Input::get('nameproductedit').'"']);
+		}else{
+			return Redirect::to('admin/product/edit?id='.Input::get('idproductedit').'#detail')->with(['message'=>'Cập nhật chi tiết sản phẩm "'.Input::get('nameproductedit').'" thất bại. Vui lòng thử lại']);
 		}
 	}
 

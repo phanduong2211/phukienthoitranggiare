@@ -34,7 +34,7 @@
 											<div class="single-product-image">
 												<img src="{{$convert->showImage($images[$i])}}" alt="single-product-image" />
 												<a class="new-mark-box" href="#">new</a>
-												<a class="fancybox" href="{{Asset('')}}<?php echo $images[$i];?>" alt="single-product-image" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+												<a class="fancybox" href="{{$convert->showImage($images[$i])}}" alt="single-product-image" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
 											</div>
 
 										</div>
