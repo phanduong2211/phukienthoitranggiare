@@ -49,6 +49,10 @@
 										<input type="email" value="" name="email" id="email" class="form-control input-feild" required>
 									</div>
 									<div class="form-group primary-form-group p-info-group">
+										<label for="email">Phone<sup>*</sup></label>
+										<input type="phone" value="" name="phone" id="phone" class="form-control input-feild" required>
+									</div>									
+									<div class="form-group primary-form-group p-info-group">
 										<label for="password">Mật khẩu <sup>*</sup></label>
 										<input type="password" value="" name="password" id="password" class="form-control input-feild" required>
 										<span class="min-pass">(mật khẩu tối thiểu 5 ký tự)</span>

@@ -9,6 +9,6 @@
 	class category extends Model
 	{		
 		public $table = "category";
-		public $fillable=['name'];		
+		public $fillable=['name','image'];		
 	}
  ?>

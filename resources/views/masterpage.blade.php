@@ -241,7 +241,7 @@
 									@for($i=0;$i< count($menu["root_menu"]);$i++)
 									<li>
 										@if($menu['root_menu'][$i]['url']!="")
-											<a title="{{$menu['root_menu'][$i]['name']}}" href="{{Asset('')}}{{$menu['root_menu'][$i]['url']}}" >{{$menu["root_menu"][$i]["name"]}}</a>
+											<a title="{{$menu['root_menu'][$i]['name']}}" href="{{$menu['root_menu'][$i]['url']}}" >{{$menu["root_menu"][$i]["name"]}}</a>
 											@else
 											<a title="{{$menu['root_menu'][$i]['name']}}" href="{{Asset('')}}{{$convert->convertString($menu['root_menu'][$i]['name'])}}" >{{$menu["root_menu"][$i]["name"]}}</a>
 										@endif

@@ -6,7 +6,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="index.html">Home</a>
+							<a href="index.html">Trang chủ</a>
 							<span><i class="fa fa-caret-right	"></i></span>
 							<span>Giỏ hàng</span>
 						</div>
@@ -132,48 +132,25 @@
 						<?php }else echo '<h1 style="text-align:center">Giỏ hàng trống</h1><br>'?>
 						<!-- CART TABLE_BLOCK END -->
 					</div>
+					@if(Session::has("login_name") && Session::has('login'))
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<div class="first_item primari-box mycartaddress-info">
 							<!-- SINGLE ADDRESS START -->
 							<ul class="address">
 								<li>
 									<h3 class="page-subheading box-subheading">
-										Delivery address (BootExperts Office)
+										Thông tin địa chỉ của bạn
 									</h3>
 								</li>
-								<li><span class="address_name">BootExperts</span></li>
-								<li><span class="address_company">Web development Company</span></li>
-								<li><span class="address_address1">Bonossri</span></li>
-								<li><span class="address_address2">D-Block</span></li>
-								<li><span class="">Rampura</span></li>
-								<li><span class="">Dhaka</span></li>
-								<li><span class="address_phone">+880 1735161598</span></li>
-								<li><span class="address_phone_mobile">+880 1975161598</span></li>
+								<li><span class="address_name">Tên: {{$user->name}}</span></li> 
+								<li><span class="address_company">Số Điện thoại: {{$user->phone}}</span></li>
+								<li><span class="address_address1">Email: {{$user->email}}</span></li>
+								<li><span class="address_address2">Địa chỉ: {{$user->address}}</span></li>
 							</ul>	
 							<!-- SINGLE ADDRESS END -->
 						</div>						
 					</div>
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-						<div class="second_item primari-box mycartaddress-info">
-							<!-- SINGLE ADDRESS START -->
-							<ul class="address">
-								<li>
-									<h3 class="page-subheading box-subheading">
-										Invoice address (BootExperts Home)
-									</h3>
-								</li>
-								<li><span class="address_name">BootExperts</span></li>
-								<li><span class="address_company">Web development Company</span></li>
-								<li><span class="address_address1">Dhaka</span></li>
-								<li><span class="address_address2">Bonossri</span></li>
-								<li><span class="">Dhaka-1205</span></li>
-								<li><span class="">Rampura</span></li>
-								<li><span class="address_phone">+880 1735161598</span></li>
-								<li><span class="address_phone_mobile">+880 1975161598</span></li>
-							</ul>	
-							<!-- SINGLE ADDRESS END -->
-						</div>
-					</div>
+					@endif
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- RETURNE-CONTINUE-SHOP START -->
 						<div class="returne-continue-shop">

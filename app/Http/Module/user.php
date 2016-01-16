@@ -9,7 +9,7 @@
 	class user extends Model
 	{		
 		public $table = "users";
-		public $fillable=['name','sex','date','email','password','remember_token'];
+		public $fillable=['name','sex','date','email','phone','address','password','remember_token'];
 		public static function check_user($email)
 		{
 			$data=DB::table("users")->where('email','=',$email)->get();

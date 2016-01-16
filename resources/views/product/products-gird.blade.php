@@ -27,28 +27,14 @@
 							
 							<!-- SINGLE SIDEBAR CATEGORIES START -->
 							<div class="product-single-sidebar">
-								<span class="sidebar-title">Categories</span>
-								<ul>
-									<li>
-										<label class="cheker">
-											<input type="checkbox" name="categories"/>
-											<span></span>
-										</label>
-										<a href="#">Tops<span> (12)</span></a>
-									</li>
-									<li>
-										<label class="cheker">
-											<input type="checkbox" name="categories"/>
-											<span></span>
-										</label>
-										<a href="#">Dresses<span> (13)</span></a>
-									</li>
-								</ul>
+								@foreach($categorys as $values)
+								<li><a href="{{Asset('')}}danh-muc/{{$convert->convertString($values->name)}}">{{$values->name}} </a></li>
+								@endforeach
 							</div>
 							<!-- SINGLE SIDEBAR CATEGORIES END -->
 							
 							<!-- SINGLE SIDEBAR PROPERTIES START -->
-							<div class="product-single-sidebar">
+							<!-- <div class="product-single-sidebar">
 								<span class="sidebar-title">Properties</span>
 								<ul>
 									<li>
@@ -87,7 +73,7 @@
 										<a href="#"> Short Sleeve<span>(4)</span></a>
 									</li>
 								</ul>
-							</div>	
+							</div>	 -->
 							<!-- SINGLE SIDEBAR PROPERTIES END -->
 						</div>
 						<!-- PRODUCT-LEFT-SIDEBAR END -->
@@ -186,7 +172,7 @@
 									<li class="gategory-product-list col-lg-3 col-md-4 col-sm-6 col-xs-12">
 										<div class="single-product-item">
 											<div class="product-image">
-												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" src="{{Asset('')}}{{$values->image}}" alt="{{$values->name}}" /></a>
+												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" src="{{$convert->showImage($values->image)}}" alt="{{$values->name}}" /></a>
 												<a href="{{Asset('products')}}/{{$values->id}}/{{$convert->convertString($values->name)}}.html" class="new-mark-box">{{$values->icon_status}}</a>
 												<div class="overlay-content">
 													<ul id="{{$values->id}}">

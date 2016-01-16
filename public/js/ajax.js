@@ -2,22 +2,22 @@ $(function(){
 
 //////////////click add wishlist
 	$('.fa-heart-o').parent().click(function() {		
-			ajaxget("wishlist",$(this).parent().parent().attr('id'),"Thêm thành công sản phẩm vào wishlist");
+			ajaxget("/wishlist",$(this).parent().parent().attr('id'),"Thêm thành công sản phẩm vào wishlist");
 	});
 	$(".fa-wishlist").parent().click(function() {
 		//alert()
-		ajaxget("../../wishlist",$(this).parent().parent().attr('data-productID'),"Thêm thành công sản phẩm vào wishlist");
+		ajaxget("/wishlist",$(this).parent().parent().attr('data-productID'),"Thêm thành công sản phẩm vào wishlist");
 	});
 	deletewishlist();
 ///////////////// click add cart
 	$(".add-cart").parent().click(function() {
 		//alert($(this).parent().parent().attr('id'));
-		ajaxpost("add-cart",$(this).parent().parent().attr('id'));
+		ajaxpost("/add-cart",$(this).parent().parent().attr('id'));
 		
 	});
 	$(".single-product-add-cart").on("click",function(){
 
-		ajaxpost("../../add-cart",$(this).attr("data-productID"));
+		ajaxpost("/add-cart",$(this).attr("data-productID"));
 		//alert($(this).attr("data-productID"));
 	});
 

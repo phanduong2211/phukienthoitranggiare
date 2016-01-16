@@ -307,6 +307,7 @@ class ViewController extends Controller
 		$categorys = CategoryController::getCategory();
 		$convert = new convertString();
 		$header = array("title"=>"Giỏ hàng","keyword","description");
+		$user = UserController::getuser(Session::get("login_userID"));
 		foreach($info as $values)
 		{
 			if($values->name == "keyword" && $values->contents!="")
@@ -332,7 +333,7 @@ class ViewController extends Controller
 			
 		}		
 		return View::make("cart",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,"convert"=>$convert,"info"=>$info
-			,"header"=>$header));
+			,"header"=>$header,"user"=>$user));
 	}
 	public function wishlist()
 	{
@@ -490,7 +491,7 @@ class ViewController extends Controller
 			return View::make("product.products-gird",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
 				,"tag"=>$tag,"Name"=>$categoryName));
 		else 
-			return "không tìm thấy trang";
+			return View::make("errors.404");
 	}
 	public function tag($name)
 	{
@@ -521,7 +522,7 @@ class ViewController extends Controller
 			return View::make("product.products-gird",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
 				,"tag"=>$tag,"Name"=>$Name));
 		else 
-			return "không tìm thấy trang";
+			return View::make("errors.404");
 	}
 	public function signout()
 	{
@@ -559,7 +560,7 @@ class ViewController extends Controller
 			return View::make("product.products-gird",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
 				,"tag"=>$tag,"Name"=>$Name));
 		else 
-			return "không tìm thấy trang";
+			return View::make("errors.404");
 	}
 	public function getMenuSecond($name,$name2) /////////////làm tiếp
 	{
@@ -593,7 +594,7 @@ class ViewController extends Controller
 			return View::make("product.menuproductSecond",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header,"product"=>$product
 				,"tag"=>$tag,"Name"=>$Name));
 		else 
-			return "không tìm thấy trang";
+			return View::make("errors.404");
 	}
 	public function getMenuThree($name,$name1,$name2)
 	{
@@ -636,7 +637,7 @@ class ViewController extends Controller
 				,"tag"=>$tag,"Name"=>$Name));
 		}
 		else 
-			return "không tìm thấy trang";
+			return View::make("errors.404");
 	}
 	public function checksignin()
 	{

@@ -14,9 +14,10 @@ use View;
 
 class UserController extends Controller
 {
-    public function getuser()
+    public static function getuser($id)
     {
-    	
+    	return user::find($id);
+        //user::find($id);
     }
     // đăng nhập tài khoản
     public function login()
