@@ -148,7 +148,7 @@ Route::get('checkout-signin.html',"ViewController@checksignin");
 
 Route::get('checkout-address.html',"ViewController@checkaddress");
 
-
+Route::get("dat-hang-thanh-cong.html","ViewController@orderSuccess");
 Route::get('checkout-shipping.html',"ViewController@checkoutshipping");
 
 Route::get('checkout.html',"ViewController@payment");
@@ -156,8 +156,8 @@ Route::get('checkout.html',"ViewController@payment");
 Route::get('my-account.html',"ViewController@myacount");
 Route::get('registration.html','ViewController@registration');
 
-
-
+Route::post("order","ViewController@order");
+Route::get("order","ViewController@orderget");
 
 Route::get('wishlist.html',"ViewController@wishlist");
 Route::get('wishlist',"ViewController@postwishlist");

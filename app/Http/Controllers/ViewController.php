@@ -159,7 +159,7 @@ class ViewController extends Controller
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
 		$info = InfoController::getInfo();
-		$header = array("title"=>"Thông tin tài khoản","keyword","description");
+		$header = array("title"=>"Thông tin tài khoản","keyword"=>"","description"=>"");
 		$convert = new convertString();
 		foreach($info as $values)
 		{
@@ -285,7 +285,7 @@ class ViewController extends Controller
 		$categorys = CategoryController::getCategory();
 		$info = InfoController::getInfo();
 		$convert = new convertString();
-		$header = array("title"=>"Đăng ký hoặc đăng nhập","keyword","description");
+		$header = array("title"=>"Đăng ký hoặc đăng nhập","keyword"=>"","description"=>"");
 		foreach($info as $values)
 		{
 			if($values->name == "keyword" && $values->contents!="")
@@ -302,11 +302,12 @@ class ViewController extends Controller
 	}
 	public function cart()
 	{
+
 		$info = InfoController::getInfo();
 		$menu = MenuController::getMenu();
 		$categorys = CategoryController::getCategory();
 		$convert = new convertString();
-		$header = array("title"=>"Giỏ hàng","keyword","description");
+		$header = array("title"=>"Giỏ hàng","keyword"=>"","description"=>"");
 		$user = UserController::getuser(Session::get("login_userID"));
 		foreach($info as $values)
 		{
@@ -657,18 +658,24 @@ class ViewController extends Controller
 
 	public function checkaddress()
 	{
-		$info = InfoController::getInfo();
-		$menu = MenuController::getMenu();
-		$convert = new convertString();
-		$categorys = CategoryController::getCategory();
-		$header = array("title"=>""." - Phụ kiện thời trang","keyword"=>"","description"=>"");
-		
-		//$product = ProductController::getAllProductWhereTagID($ID);		
-		if(count($menu)>0)
+		if(Session::has("login_name") && Session::has("login_userID"))
+			return "thành công";
+		else
 		{
-			$menu = $this->ConvertMenuToArray($menu);
-		}			
-		return view::make("checkout-address",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header));
+			$info = InfoController::getInfo();
+			$menu = MenuController::getMenu();
+			$convert = new convertString();
+			$categorys = CategoryController::getCategory();
+			$header = array("title"=>""." - Phụ kiện thời trang","keyword"=>"","description"=>"");
+			
+
+			//$product = ProductController::getAllProductWhereTagID($ID);		
+			if(count($menu)>0)
+			{
+				$menu = $this->ConvertMenuToArray($menu);
+			}			
+			return view::make("checkout-address",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header));
+		}
 	}
 
 	public function checkoutshipping()
@@ -700,6 +707,81 @@ public function payment()
 			$menu = $this->ConvertMenuToArray($menu);
 		}			
 		return view::make("checkout",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header));
+	}
+	public function order()
+	{
+		$userID=0;
+		$productID=0;
+		$color="";
+		$size="";
+		$address="";
+		$quantity=0;
+		$address = Input::all();
+		if(isset($address["email"]))
+			Session::put("address",$address["email"]);
+		else
+			Session::put("order",$_POST["contents"]);
+		if(Session::has("cart") && Session::has("order"))
+		{
+			$cartArr = Session::get("cart");
+			$infoProductArr = Session::get("order");
+
+			if(Session::has("login_name") && Session::has("login_userID"))
+			{
+				$userID  = Session::get("login_userID");
+			}
+			else
+			{
+				if(Session::has("address"))
+				{
+					$address=Session::get("address");
+
+				}
+				else
+					return 	-3;
+			}
+
+			$order = array("userID"=>$userID,"address"=>$address);
+			OrderController::insert($order);
+			for($i=1;$i< count($cartArr);$i++)
+				{
+					$quantity = $infoProductArr["2"][($i-1)];
+					$size = $infoProductArr["0"][($i-1)];
+					$color = $infoProductArr["1"][($i-1)];
+					$productID = $cartArr[$i][0]['id'];
+					$detailproduct = array("userID"=>$userID,"productID"=>$productID,"quantity"=>$quantity,"color"=>$color,"size"=>$size);
+					DetailOrderController::insert($detailproduct);
+				}
+				return 3;
+		}
+		return -2;
+	}
+	public function orderSuccess()
+	{
+		$info = InfoController::getInfo();
+			$menu = MenuController::getMenu();
+			$convert = new convertString();
+			$categorys = CategoryController::getCategory();
+			$header = array("title"=>""." - Phụ kiện thời trang","keyword"=>"","description"=>"");
+			
+
+			//$product = ProductController::getAllProductWhereTagID($ID);		
+			if(count($menu)>0)
+			{
+				$menu = $this->ConvertMenuToArray($menu);
+			}			
+			return view::make("ordersuccess",array('menu'=>$menu,"categorys"=>$categorys,"convert"=>$convert,"info"=>$info,"header"=>$header));
+	}
+	public function orderget()
+	{
+		$cartArr = Session::get("cart");
+		$infoProductArr = Session::get("order");
+		for($i=1;$i< count($cartArr);$i++)
+		{
+			//return $infoProductArr[2][0];
+			echo $cartArr[$i][0]['id'].$infoProductArr["2"][($i-1)];
+		}
+		//return Session::get("cart");
 	}
 	public function test()
 	{

@@ -2,22 +2,22 @@ $(function(){
 
 //////////////click add wishlist
 	$('.fa-heart-o').parent().click(function() {		
-			ajaxget("/wishlist",$(this).parent().parent().attr('id'),"Thêm thành công sản phẩm vào wishlist");
+			ajaxget(url+"wishlist",$(this).parent().parent().attr('id'),"Thêm thành công sản phẩm vào wishlist");
 	});
 	$(".fa-wishlist").parent().click(function() {
 		//alert()
-		ajaxget("/wishlist",$(this).parent().parent().attr('data-productID'),"Thêm thành công sản phẩm vào wishlist");
+		ajaxget(url+"wishlist",$(this).parent().parent().attr('data-productID'),"Thêm thành công sản phẩm vào wishlist");
 	});
 	deletewishlist();
 ///////////////// click add cart
 	$(".add-cart").parent().click(function() {
 		//alert($(this).parent().parent().attr('id'));
-		ajaxpost("/add-cart",$(this).parent().parent().attr('id'));
+		ajaxpost(url+"add-cart",$(this).parent().parent().attr('id'));
 		
 	});
 	$(".single-product-add-cart").on("click",function(){
 
-		ajaxpost("/add-cart",$(this).attr("data-productID"));
+		ajaxpost(url+"add-cart",$(this).attr("data-productID"));
 		//alert($(this).attr("data-productID"));
 	});
 
@@ -40,6 +40,27 @@ $(function(){
 			  	}
 			}); 
 		
+	});
+
+	/////////////////////////////////ord prodcut
+	$("#ord").click(function(){
+		var size = [];
+		var color = [];
+		var quantity = [];
+		$(".size").each(function(){
+			size[size.length]=$(this).val();
+		});
+		$(".color").each(function(){
+			color[color.length]=$(this).val();
+		});
+		$(".quantity-product").each(function(){
+			quantity[quantity.length]=$(this).val();
+		});
+		var data = [];
+		data[0]=size;
+		data[1]=color;
+		data[2]=quantity;
+		ajaxpost(url+"order",data);
 	});
 	////////////////////////////////////////--------------------////////////////////////////////
 
@@ -83,6 +104,24 @@ $(function(){
 					  //$(".count-cart").text(parseInt($(".count-cart").text())+1);	
 					  window.location.reload();				  
 					});
+			}
+			else if(data==3)
+			{
+				bootbox.alert("đặt hàng thafh công", function() {
+					  //$(".count-cart").text(parseInt($(".count-cart").text())+1);	
+					 // window.location.reload();				  
+					});
+			}
+			else if(data==-2)
+			{
+				bootbox.alert("Thất bại", function() {
+					  //$(".count-cart").text(parseInt($(".count-cart").text())+1);	
+					 // window.location.reload();				  
+					});
+			}
+			else if(data==-3)
+			{
+				window.location = "checkout-address.html";
 			}
 			//return true;
 		},

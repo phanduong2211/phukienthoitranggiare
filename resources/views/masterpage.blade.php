@@ -84,6 +84,9 @@
 		<!-- MODERNIZR JS 
 		============================================ -->
         <script src="{{Asset('')}}public/js/vendor/modernizr-2.6.2.min.js"></script>
+        <script>
+        	var url = "{{Asset('')}}";
+        </script>
     </head>
     <body>
         <!--[if lt IE 8]>

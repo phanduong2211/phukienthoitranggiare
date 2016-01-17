@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Http\Module\detailproduct;
  class convertString extends Controller
 {
     public function convertString($str)
@@ -49,5 +50,13 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
         if(strpos($path, "http")===0)
             return $path;
         return Asset('public/image/').'/'.$path;
+    }
+    public function getSize($id)
+    {
+        return detailproduct::select("size")->where('id','=',$id)->get();
+    }
+    public function getColor($id)
+    {
+        return detailproduct::select("color")->where('id','=',$id)->get();
     }
 }
