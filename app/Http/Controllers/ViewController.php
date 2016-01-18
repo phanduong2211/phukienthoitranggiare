@@ -843,6 +843,12 @@ public function payment()
 	{
 
 	}
+	public function Sendcontact()
+	{
+		ContactController::insert(Input::all());
+		Session::put("contactSend","true");
+		return Redirect::to("contact-us.html");
+	}
 	public function contact()
 	{
 		$menu = MenuController::getMenu();

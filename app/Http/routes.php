@@ -165,6 +165,7 @@ Route::get('wishlist',"ViewController@postwishlist");
 Route::post('deletewishlist',"ViewController@deletewishlist");
 Route::post('signinCreate',"UserController@login");
 Route::post('AccountCreate',"UserController@register");
+Route::post("insertcontact","ViewController@Sendcontact");
 Route::post("AccountUpdate","UserController@updateUser");
 Route::get("upload",function(){
     return view("upload");

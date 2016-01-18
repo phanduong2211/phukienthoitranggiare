@@ -23,7 +23,10 @@
 							<div class="contact-form-center">
 								<h3 class="contact-subheading"></h3>
 								<!-- CONTACT-FORM START -->
-								<form class="contact-form" id="contactForm" method="post" action="#">
+								<form class="contact-form" id="contactForm" method="post" action="insertcontact">
+									<?php if(Session::has("contactSend")) { echo '<div class="alert alert-info">
+										  <strong>Thành công!</strong> Cám ơn bạn đã gửi thông tin phản hồi cho chúng tôi, chúng tôi sẽ liên hệ với bạn sớm nhất có thể.
+										</div>'; Session::forget("contactSend");}?>
 									<div class="row">
 										<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
 											<div class="form-group primary-form-group">
@@ -42,10 +45,11 @@
 											<div class="type-of-text">
 												<div class="form-group primary-form-group">
 													<label>Nội dung</label>
-													<textarea class="contact-text" required name="ContactMessage"></textarea>
+													<textarea class="contact-text" required name="content"></textarea>
 												</div>													
 											</div>
 										</div>
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
 										<button type="submit" name="submit" id="sendMessage" class="send-message main-btn">Gửi <i class="fa fa-chevron-right"></i></button>
 									</div>
 								</form>

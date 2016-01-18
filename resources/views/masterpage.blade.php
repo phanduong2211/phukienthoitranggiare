@@ -450,9 +450,9 @@
 								<div class="newsletter-area">
 									<h2>Nhận Tin</h2>
 									<p>Nhập thông tin email của bạn vào khung texbox dưới để nhận những tin tức khuyến mãi từ chúng tôi</p>
-									<form action="#">
+									<form action="{{Asset('')}}/php/mail.php">
 										<div class="form-group newsletter-form-group">
-										  <input type="text" class="form-control newsletter-form" placeholder="Email của bạn">
+										  <input type="email" name="email" class="form-control newsletter-form" placeholder="Email của bạn">
 										  <input type="submit" class="newsletter-btn" name="submit" value="Gửi" />
 										</div>
 									</form>

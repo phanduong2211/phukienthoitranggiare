@@ -66,5 +66,47 @@ $(".promotion-price-match").each(function(){
 	var setPromotion = 100 - (promotion*100)/price;
 	$(this).text(setPromotion);
 });
-	
+	 /*
+Sand mail
+**********************************************************************/
+$("#send-mail").click(function () {
+
+        var name = $('input#name').val(); // get the value of the input field
+        var error = false;
+        
+
+        var emailCompare = /^([a-z0-9_.-]+)@([da-z.-]+).([a-z.]{2,6})$/; // Syntax to compare against input
+        var email = $('input#email').val().toLowerCase(); // get the value of the input field
+        if (email == "" || email == " " || !emailCompare.test(email)) {
+           
+            error = true; // change the error state to true
+        }
+        
+        if (error == false) {
+            var dataString = $('#contact-form').serialize(); // Collect data from form
+            $.ajax({
+                type: "POST",
+                url: $('#contact-form').attr('action'),
+                data: dataString,
+                timeout: 6000,
+                error: function (request, error) {
+                	alert("ldfk");
+                },
+                success: function (response) {
+                    response = $.parseJSON(response);
+                    if (response.success) {
+                        $('#successSend').show();
+                        $("#email").val('');
+                    } else {
+                        $('#errorSend').show();
+                    }
+                }
+            });
+            return false;
+        }
+
+        return false; // stops user browser being directed to the php file
+    });
+
+
 });

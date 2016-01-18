@@ -9,7 +9,7 @@
 	class wishlist extends Model
 	{		
 		public $table = "wishlist";
-		public $fillable=['id','userID','productID'];
+		public $fillable=['userID','productID'];
 		public static function getwishlistWhereUserIDandProductID($userID,$productID)
 		{
 			return DB::table('wishlist')->where('userID','=',$userID)->where('productID','=',$productID)->get();
