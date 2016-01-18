@@ -156,27 +156,32 @@ class ViewController extends Controller
 	}
 	public function myacount()
 	{
-		$menu = MenuController::getMenu();
-		$categorys = CategoryController::getCategory();
-		$info = InfoController::getInfo();
-		$header = array("title"=>"Thông tin tài khoản","keyword"=>"","description"=>"");
-		$convert = new convertString();
-		foreach($info as $values)
+		if(Session::has("login_userID"))
 		{
-			if($values->name == "keyword" && $values->contents!="")
-				$header["keyword"] = $values->contents;
-			if($values->name == "description" && $values->contents!="")
-				$header["description"] = $values->contents;
+			$menu = MenuController::getMenu();
+			$categorys = CategoryController::getCategory();
+			$info = InfoController::getInfo();
+			$header = array("title"=>"Thông tin tài khoản","keyword"=>"","description"=>"");
+			$convert = new convertString();
+			foreach($info as $values)
+			{
+				if($values->name == "keyword" && $values->contents!="")
+					$header["keyword"] = $values->contents;
+				if($values->name == "description" && $values->contents!="")
+					$header["description"] = $values->contents;
+			}
+			if(count($menu)>0)
+			{
+				$menu = $this->ConvertMenuToArray($menu);
+			}
+			else
+			{
+				$menu = array();
+			}
+			return view::make('my-account',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert,"header"=>$header));
 		}
-		if(count($menu)>0)
-		{
-			$menu = $this->ConvertMenuToArray($menu);
-		}
-		else
-		{
-			$menu = array();
-		}
-		return view::make('my-account',array("menu"=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert,"header"=>$header));
+        else 
+            return Redirect::to("registration.html");
 	}
 	public function news()
 	{
@@ -285,7 +290,7 @@ class ViewController extends Controller
 		$categorys = CategoryController::getCategory();
 		$info = InfoController::getInfo();
 		$convert = new convertString();
-		$header = array("title"=>"Đăng ký hoặc đăng nhập","keyword"=>"","description"=>"");
+		$header = array("title"=>"Đăng ký hoặc đăng nhập","keyword"=>"Đăng ký-phụ kiện thời trang","description"=>"Đăng ký-phụ kiện thời trang");
 		foreach($info as $values)
 		{
 			if($values->name == "keyword" && $values->contents!="")
@@ -714,11 +719,18 @@ public function payment()
 		$productID=0;
 		$color="";
 		$size="";
-		$address="";
+		//$address="";
+		Session::forget("address");
+
 		$quantity=0;
 		$address = Input::all();
 		if(isset($address["email"]))
-			Session::put("address",$address["email"]);
+		{
+			Session::put("name",$address["name"]);
+			$address = serialize($address);
+			Session::put("address",$address);
+
+		}
 		else
 			Session::put("order",$_POST["contents"]);
 		if(Session::has("cart") && Session::has("order"))
@@ -729,6 +741,7 @@ public function payment()
 			if(Session::has("login_name") && Session::has("login_userID"))
 			{
 				$userID  = Session::get("login_userID");
+				$address ="";
 			}
 			else
 			{
@@ -752,6 +765,17 @@ public function payment()
 					$detailproduct = array("userID"=>$userID,"productID"=>$productID,"quantity"=>$quantity,"color"=>$color,"size"=>$size);
 					DetailOrderController::insert($detailproduct);
 				}
+				if(Session::has("address"))
+					return $this->orderSuccess();
+				$userID=0;
+				$productID=0;
+				$color="";
+				$size="";
+				//$address="";
+				Session::forget("address");
+				Session::forget("cart");
+				Session::forget("order");
+				$quantity=0;
 				return 3;
 		}
 		return -2;
@@ -762,7 +786,7 @@ public function payment()
 			$menu = MenuController::getMenu();
 			$convert = new convertString();
 			$categorys = CategoryController::getCategory();
-			$header = array("title"=>""." - Phụ kiện thời trang","keyword"=>"","description"=>"");
+			$header = array("title"=>"Đặt hàng thành công"." - Phụ kiện thời trang","keyword"=>"phụ kiện thời trang","description"=>"phụ kiện thời trang");
 			
 
 			//$product = ProductController::getAllProductWhereTagID($ID);		
@@ -782,6 +806,63 @@ public function payment()
 			echo $cartArr[$i][0]['id'].$infoProductArr["2"][($i-1)];
 		}
 		//return Session::get("cart");
+	}
+	public function infoaccount()
+	{
+		if(Session::has("login_userID"))
+		{
+			$menu = MenuController::getMenu();
+			$categorys = CategoryController::getCategory();
+			$info = InfoController::getInfo();
+			$convert = new convertString();
+			//if(Session::has("login_userID")){
+				//Session::get("login_userID")
+				$user = UserController::getuser(Session::get("login_userID"));
+				$header = array("title"=>"Thông tin tài khoản - phụ kiện thời trang","keyword"=>"Thông tin tài khoản-phụ kiện thời trang","description"=>"Thông tin tài khoản-phụ kiện thời trang");
+				foreach($info as $values)
+				{
+					if($values->name == "keyword" && $values->contents!="")
+						$header["keyword"] = $values->contents;
+					if($values->name == "description" && $values->contents!="")
+						$header["description"] = $values->contents;
+				}
+				if(count($menu)>0)
+				{
+					$menu = $this->ConvertMenuToArray($menu);
+				}
+				return view::make("info-account",array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert
+					,"header"=>$header,"user"=>$user));
+		}
+		else 
+			return Redirect::to("registration.html");
+		//}
+		//else
+			//return $this->registration();
+	}
+	public function infoorder()
+	{
+
+	}
+	public function contact()
+	{
+		$menu = MenuController::getMenu();
+		$categorys = CategoryController::getCategory();
+		$info = InfoController::getInfo();
+		$convert = new convertString();
+		$header = array("title"=>"Liên hệ - phụ kiện thời trang","keyword"=>"Liên hệ-phụ kiện thời trang","description"=>"Liên hệ-phụ kiện thời trang");
+		foreach($info as $values)
+		{
+		if($values->name == "keyword" && $values->contents!="")
+		$header["keyword"] = $values->contents;
+		if($values->name == "description" && $values->contents!="")
+		$header["description"] = $values->contents;
+		}
+		if(count($menu)>0)
+		{
+		$menu = $this->ConvertMenuToArray($menu);
+		}
+		return view::make("contact-us",array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert
+		,"header"=>$header));
 	}
 	public function test()
 	{

@@ -68,7 +68,7 @@
 									@foreach($product as $values)
 									<tr>
 										<td class="cart-product">
-											<a href="#"><img alt="{{$values[0]->name}}" title="{{$values[0]->name}}" src="{{Asset('')}}{{$values[0]->image}}"></a>
+											<a href="#"><img alt="{{$values[0]->name}}" title="{{$values[0]->name}}" src="{{$convert->showImage($values[0]->image)}}"></a>
 										</td>
 										<td class="cart-description">
 											<p class="product-name"><a href="{{Asset('products')}}/{{$values[0]->id}}/{{$convert->convertString($values[0]->name)}}.html">{{$values[0]->name}}</a></p>

@@ -6,66 +6,47 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="index.html">HOMe</a>
+							<a href="index.html">Trang chủ</a>
 							<span><i class="fa fa-caret-right	"></i></span>
-							<span>Contact</span>
+							<span>Liên hệ</span>
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<h2 class="page-title contant-page-title">Customer service - Contact us</h2>
+						<h2 class="page-title contant-page-title">Nhập vào thông tin liên hệ</h2>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- CONTACT-US-FORM START -->
 						<div class="contact-us-form">
 							<div class="contact-form-center">
-								<h3 class="contact-subheading">send a message</h3>
+								<h3 class="contact-subheading"></h3>
 								<!-- CONTACT-FORM START -->
 								<form class="contact-form" id="contactForm" method="post" action="#">
 									<div class="row">
 										<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
 											<div class="form-group primary-form-group">
-												<label>Subject Heading</label>
-												<div class="con-form-select">
-													<select id="conForm" name="conform">
-														<option value="">Customar Service</option>
-														<option value="">Webmaster</option>
-													</select>												
-												</div>
-											</div>		
-											<div class="form-group primary-form-group">
-												<label>Email address</label>
-												<input type="text" class="form-control input-feild" id="contactEmail" name="contactemail" value="">
+												<label>Chủ đề</label>
+												<input type="text" class="form-control input-feild" id="subject" name="subject" value="" required>
 											</div>	
 											<div class="form-group primary-form-group">
-												<label>Order reference</label>
-												<div class="con-form-select">
-													<select id="orderRef" name="orderref">
-														<option value="">Bootexpert</option>
-														<option value="">Ohter</option>
-													</select>												
-												</div>
+												<label>Email</label>
+												<input type="email" class="form-control input-feild" id="email" name="email" value="" required>
 											</div>	
-											<div class="form-group primary-form-group">
-												<div class="file-uploader">
-													<label>Attach File</label>
-													<input type="file" class="form-control" name="fileUpload">
-													<span class="filename">No file selected</span>
-													<span class="action">Choose File</span>
-												</div>
-											</div>	
-											<button type="submit" name="submit" id="sendMessage" class="send-message main-btn">Send <i class="fa fa-chevron-right"></i></button>
+											
+											<br>
+											
 										</div>
 										<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
 											<div class="type-of-text">
 												<div class="form-group primary-form-group">
-													<label>Message</label>
-													<textarea class="contact-text" name="ContactMessage"></textarea>
+													<label>Nội dung</label>
+													<textarea class="contact-text" required name="ContactMessage"></textarea>
 												</div>													
 											</div>
 										</div>
+										<button type="submit" name="submit" id="sendMessage" class="send-message main-btn">Gửi <i class="fa fa-chevron-right"></i></button>
 									</div>
 								</form>
 								<!-- CONTACT-FORM END -->

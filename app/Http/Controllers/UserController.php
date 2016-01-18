@@ -42,7 +42,13 @@ class UserController extends Controller
     		$user = new user();
     		$user->fill($data);
     		$user->save();
-    		return view::make('checkout-registration');
+            $email=$data["email"];
+            $password=$data["password"];
+    		if(user::check_login($email,$password))
+            {
+                Session::put('login',true);         
+                return Redirect::to("my-account.html");
+            }
     	}
     	Session::put('email_register',false);
     	return Redirect::to('registration.html');
@@ -55,5 +61,43 @@ class UserController extends Controller
             return true;
         }
         return false;
+    }
+    public static function updateUser()
+    {
+        //
+        if(Session::has("login_userID"))
+        {
+            $user = user::find(Session::get("login_userID"));
+            $user->fill(Input::all());
+            $user->save();
+            Session::put("updateSuccess",true);
+            return Redirect::to("info-account.html");
+        }
+        else 
+            return Redirect::to("registration.html");
+    }
+    public static function updatePass()
+    {
+        //
+        if(Session::has("login_userID"))
+        {
+            if(Input::get("password") != Input::get("confirm_password"))
+                Session::put("updateNotMath","false");
+            else
+            {
+                $user = user::find(Session::get("login_userID"));
+                if($user->password == Input::get("password_old"))
+                    {
+                        $user->fill(Input::all());
+                        $user->save();
+                        Session::put("updateSuccessPass","true");
+                    }
+                    else
+                        Session::put("updateSuccessPass","false");
+            }
+            return Redirect::to("info-account.html");
+        }
+        else 
+            return Redirect::to("registration.html");
     }
 }

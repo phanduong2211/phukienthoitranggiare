@@ -6,7 +6,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="index.html">Trang chủ</a>
+							<a href="{{Asset('')}}">Trang chủ</a>
 							<span><i class="fa fa-caret-right"></i></span>
 							<span>Đăng Nhập / Đăng Ký</span>
 						</div>

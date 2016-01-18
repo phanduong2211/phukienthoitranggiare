@@ -63,7 +63,6 @@
     }
     .cart-detail .order-thanks .order-thanks-content {
         display: block;
-        width: 600px;
         margin: 0 auto;
         float: left;
     }
@@ -79,7 +78,6 @@
     ul {list-style: none;}
     .cart-detail .order-thanks .order-thanks-content {
         display: block;
-        width: 600px;
         margin: 0 auto;
         float: left;
     }
@@ -121,14 +119,12 @@
     #groupRegister, .groupRegister {
         background: #f6f6f6;
         border: 1px solid #fafafa;
-        float: left;
-        width: 50%;
+        
         border-radius: 2px;
         text-align: center;
-        padding: 21px 21px 41px;
     }
     .loginForm #formLogin {
-        float: right;
+        padding-left:10%;
         width: 42%;
         color: #1f261f;
         font-size: 13px;
@@ -180,11 +176,20 @@ li {
     width: 84%;
     margin: 0 auto;
 }
+.footter-order
+{
+    list-style: none;
+}
+.footter-order li
+{
+    float:left;
+    padding-left:10px;
+}
 </style>
 <div class="pcontainer">        
     
-<div class="bread-crumb-trail clearfix">
-    <ol class="breadcrumb clearfix">
+<div class="bread-crumb-trail clearfix row">
+    <ol class="breadcrumb clearfix col-md-12">
         <li><a href="/">Trang chủ</a></li>
         
         <li class="active">
@@ -193,27 +198,32 @@ li {
     </ol>
 </div>
 
-    <div class="pcol-0 cart-detail">
+    <div class="pcol-0 cart-detail row">
         
-        <div class="pcol-0">
+        <div class="pcol-0 col-md-12">
             <div class="box-cart row">
                 <div class="box-cart-content col-md-12">
                     <div class="block-full">
                         <div class="order-thanks clearfix row">
-                            <div class="order-thanks-icon col-md-4">
-                                <img src="http://vitinhtienhung.com/public/content/ThemeV6/images/finishcart_img.jpg" alt="dat hang thanh cong">
+                            <div class="order-thanks-icon col-md-5">
+                                <img class="img-thumbnail" src="{{Asset('')}}public/image/finishcart_img.jpg" alt="dat hang thanh cong">
                             </div>
-                            <div class="order-thanks-content col-md-6">
-                                <div class="success-title">
-                                    Đặt hàng thành công !
+                            <div class="order-thanks-content col-md-7">
+                                <div class="success-title row">
+                                    Đặt hàng thành công!
                                 </div>
-                                <ul>
+                                <ul class="row">
                                     <li>Cảm ơn bạn <b>
-                                        à</b> đã tin tưởng sản phẩm của chúng tôi!</li>
+                                        <?php if(Session::has("login_name")) echo Session::get("login_name"); else{ echo Session::get("name"); Session::forget("name");} ?></b> đã tin tưởng sản phẩm của chúng tôi!</li>
                                     
                                     <li style="color: #ff0000; font-size: 15px"><b>Chúng tôi sẽ liên hệ với bạn trong vòng
                                         24h để hoàn tất đơn hàng</b> </li>
-                                    <li>Mọi chi tiết xin vui lòng liên hệ qua Tổng Đài: <span class="order-code">0908927953</span>
+                                    <li>Mọi chi tiết xin vui lòng liên hệ: <span class="order-code">
+                                    @foreach($info as $values)
+                                    @if($values->name == "phone" && $values->contents!="")
+                                        <span style="font-size:15px;font-weight:bold;color:red">{{$values->contents}}</span>
+                                     @endif
+                                    @endforeach</span>
                                     </li>
                                 </ul>
                             </div>
@@ -225,11 +235,8 @@ li {
                 <div class="loginForm clearfix col-md-12">
                     <h3>
                         Vui lòng đăng ký tài khoản để</h3>
-                    <div class="messages">
-                        <div class="content">
-                        </div>
-                    </div>
-                    <div id="groupRegister" class="box-cart">
+                   
+                    <div id="groupRegister" class="box-cart col-md-6">
                         <div class="list-note">
                             <ul style="list-style:inherit;text-align:left">
                                 <li>Theo dõi và nhận thông báo về đơn hàng của bạn</li>
@@ -237,9 +244,9 @@ li {
                             </ul>
                         </div>
                     </div>
-                    <div id="formLogin">
+                    <div id="formLogin" class="col-md-6">
                         
-                        <a href="dang-ky" style="text-decoration:none"><input type="submit" value="đăng kí" class="submit_btn" id="btnx-reg"></a>
+                        <a href="{{Asset('')}}registration.html" style="text-decoration:none"><input type="" value="đăng kí" class="submit_btn" id="btnx-reg"></a>
                         <div class="form_loading">
                         </div>
                         <iframe id="if_form_submit_register" name="if_form_submit_register" src="" class="hide" style="display: none;"></iframe>
@@ -247,19 +254,23 @@ li {
                 </div>
                 
             </div>
-                        <div class="back-link">
-                <ul>
-                    <li><a href="/">Về trang chủ</a> </li>
-                    <li><a href="san-pham-moi">Sản phẩm mới</a> </li>
-                    <li><a href="san-pham-ban-chay">Sản phẩm bán chạy</a> </li>
-                </ul>
-                <div class="clear">
+                <div class="back-link row">
+                    <ul style="" class="footter-order col-md-12">
+                        <li><a href="/">Về trang chủ</a> </li>
+                        <li><a href="san-pham-moi">Sản phẩm mới</a> </li>
+                        <li><a href="san-pham-ban-chay">Sản phẩm bán chạy</a> </li>
+                    </ul>
+                    <div class="clear">
                 </div>
             </div>
             
-<div class="order-steps-hotline">
-    <div class="hotline">
-        <label>Hotline hỗ trợ đặt hàng online: </label><span>0908927953</span>
+<div class="order-steps-hotline row">
+    <div class="hotline col-md-12">
+        <label>Hotline hỗ trợ đặt hàng online: </label><span>@foreach($info as $values)
+                                    @if($values->name == "phone" && $values->contents!="")
+                                        <span style="font-size:25px;font-weight:bold;color:red">{{$values->contents}}</span>
+                                     @endif
+                                    @endforeach</span>
     </div>
 </div>
 

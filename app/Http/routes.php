@@ -152,27 +152,27 @@ Route::get("dat-hang-thanh-cong.html","ViewController@orderSuccess");
 Route::get('checkout-shipping.html',"ViewController@checkoutshipping");
 
 Route::get('checkout.html',"ViewController@payment");
-
+Route::get("contact-us.html","ViewController@contact");
 Route::get('my-account.html',"ViewController@myacount");
 Route::get('registration.html','ViewController@registration');
-
+Route::post("changepass","UserController@updatePass");
 Route::post("order","ViewController@order");
 Route::get("order","ViewController@orderget");
-
+Route::get("info-account.html","ViewController@infoaccount");
+Route::get("info-order.html","ViewController@infoorder");
 Route::get('wishlist.html',"ViewController@wishlist");
 Route::get('wishlist',"ViewController@postwishlist");
 Route::post('deletewishlist',"ViewController@deletewishlist");
 Route::post('signinCreate',"UserController@login");
 Route::post('AccountCreate',"UserController@register");
+Route::post("AccountUpdate","UserController@updateUser");
 Route::get("upload",function(){
     return view("upload");
 });
 Route::get("{menu}","ViewController@getMenu");
 Route::get("{menu1}/{menu2}","ViewController@getMenuSecond");
 Route::get("{menu1}/{menu2}/{menu3}","ViewController@getMenuThree");
-Route::get('contact-us.html', function () {
-    return view('contact-us');
-});
+
 Route::get('about-us.html', function () {
     return view('about-us');
 });

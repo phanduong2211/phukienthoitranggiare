@@ -108,8 +108,7 @@ $(function(){
 			else if(data==3)
 			{
 				bootbox.alert("đặt hàng thafh công", function() {
-					  //$(".count-cart").text(parseInt($(".count-cart").text())+1);	
-					 // window.location.reload();				  
+					   window.location = "dat-hang-thanh-cong.html";			  
 					});
 			}
 			else if(data==-2)
