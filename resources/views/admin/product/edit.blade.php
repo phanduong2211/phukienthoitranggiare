@@ -125,7 +125,7 @@
    }
 }
 $(function(){
-  $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
+  $("#nav-accordion>li:eq(1)>a").addClass("active");
   $("#frm").kiemtra([
   {
      'name':'name',

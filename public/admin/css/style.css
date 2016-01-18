@@ -6368,3 +6368,12 @@ header.blue-bg .search:focus {
     margin-top: 0;
     padding-top: 0;
 }
+.table tr.noaction{
+    opacity: 0.5;
+}
+.table tr.opahi{
+    opacity: 0.5;
+}
+.table tr.noaction .groupaction{
+    display: none;
+}

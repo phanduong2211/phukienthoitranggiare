@@ -24,6 +24,12 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::get("website/menu/edit","Admin\WebsiteController@editmenu");
     Route::post("website/menu/edit","Admin\WebsiteController@saveeditmenu");
     Route::post("website/menu/delete","Admin\WebsiteController@deletemenu");
+    Route::get("website/info","Admin\WebsiteController@info");
+    Route::post("info/changelogo","Admin\WebsiteController@changelogo");
+    Route::post("info/changefavicon","Admin\WebsiteController@changefavicon");
+    Route::post("info/postinfoall","Admin\WebsiteController@postinfoall");
+    Route::post("info/postinfcontact","Admin\WebsiteController@postinfcontact");
+    Route::post("info/changebrand","Admin\WebsiteController@changebrand");
 
 
     Route::get("category","Admin\CategoryAdminController@index");
@@ -45,74 +51,11 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::post("product/add","Admin\ProductController@save");
     Route::get("product/edit","Admin\ProductController@edit");
     Route::post("product/edit","Admin\ProductController@saveedit");
-
-
-    Route::post("ajax/loadfolder",function(){
-    $path=public_path()."\\image\\";
-                switch ($_POST['folder']) {
-                    case 'folderupload':
-                    $path.="upload";
-                    break;
-                    case 'foldersanpham':
-                    $path.="product";
-                    break;
-                    
-                    case 'foldernews':
-                    $path.="news";
-                    break;
-                   
-                    case 'folderslide':
-                    $path.="slide";
-                    break;
-                  
-                    
-                    default:
-                    return -1;
-                    break;
-                }
-
-                $dir=scandir($path);
-
-                unset($dir[0]);
-                unset($dir[1]);
-
-
-                $arr=array();
-                
-
-                foreach ($dir as $key) {
-                    $time=filemtime($path."/".$key);
-                    $size=filesize($path."/".$key);
-                    list($width,$height)=getimagesize($path."/".$key);
-                    array_push($arr, array("name"=>$key,"time"=>$time,"size"=>$size,"width"=>$width,"height"=>$height));
-                }
-
-                $leng=count($arr);
-
-                for($i=0;$i<$leng;$i++){
-                    for($j=$i+1;$j<$leng;$j++){
-                        if($arr[$i]["time"]<$arr[$j]["time"]){
-                            $temp=$arr[$i];
-                            $arr[$i]=$arr[$j];
-                            $arr[$j]=$temp;
-                        }
-                    }
-                }
-
-                foreach ($arr as &$value) {
-                    $value['time']=date("d/m/Y H:i",$value['time']);
-                }
-
-                return json_encode($arr);
-});
-//Admin//
-
-
-
-
-
-
-});
+    Route::get("product/recyclebin","Admin\ProductController@recyclebin");
+    Route::post("product/addbin","Admin\ProductController@addbin");
+    Route::post("product/restore","Admin\ProductController@restore");
+    Route::post("product/delete","Admin\ProductController@delete");
+    Route::post("product/hidden","Admin\ProductController@hidden");
 
     Route::post("product/detail","Admin\ProductController@detail");
     Route::get("uploadimage","Admin\UploadController@upload");
@@ -120,6 +63,10 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::post("ajax/loadfolder","Admin\UploadController@loadfolder");
     Route::post("upload/checkfile","Admin\UploadController@checkfile");
     Route::post("ajax/removeimg","Admin\UploadController@removeimg");
+});
+
+//Admin//
+  
 
 /////////////////////////////////////////////////////////view
 Route::get('/',"ViewController@index");

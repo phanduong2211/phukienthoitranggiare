@@ -39,6 +39,33 @@
 .boxupload .showimg{
     width: 100px;
 }
+ .coloritem{
+        width: 20px;
+        height: 20px;
+        border:1px solid #ccc;
+    }
+    #tablecolors tr{
+        border-bottom:1px solid #ccc;
+
+    }
+     #tablecolors tr td{
+        padding: 5px;
+     }
+     #dialog3 .header{
+        position: relative;
+     }
+     #dialog3 .header #removefindcolor{
+        position: absolute;
+            top: 16px;
+    left: 203px;
+    color:#888;
+    display: none;
+     }
+     #dialog3 .header #removefindcolor:hover{
+        
+    color:#333;
+    cursor: pointer;
+     }
 </style>
 @endsection
 @section('script')
@@ -50,6 +77,7 @@
  var base_url_admin="{{Asset('admin')}}/";
         var asset_path="{{Asset('public')}}/";
         var __token="{{csrf_token()}}";
+         var dialogChooseColor=null;
         function callBackUpload(idobjclick,path){
             $(idobjclick).val(path);
             $(".boxupload .showimg").attr("src",asset_path+"image/"+path);
@@ -93,6 +121,15 @@
             {
                 'name':'categoryID',
                 'select':true
+            },
+            {
+                'name':'color',
+                'trong':true
+            },
+            {
+                'name':'size',
+                'trong':true,
+                'message':'VD: M,S,...'
             }
     	],function(){
             if($("#frm input[name='image_upload']").val().length>0){
@@ -124,6 +161,82 @@
                 $(this).html(" Xem hình ảnh");
             }
         });
+
+        $("#colors").focus(function(){
+   if(dialogChooseColor==null){
+        dialogChooseColor=new dialog($("#dialog3"),{
+            "width":300,
+            "height":500,
+            'ttop':50
+        });
+        dialogChooseColor.init();
+        if($(this).val()!=""){
+            var arrcolor=$(this).val().split(",");
+            
+                $("#tablecolors tr").each(function(){
+                    var color=$(this).find("td:eq(0) input").val();
+                    for (var i = 0; i < arrcolor.length; i++) {
+                        if(color==arrcolor[i]){
+                            $(this).find("td:eq(0) input").prop("checked",true);
+                            break;
+                        }
+                    }
+                });
+            
+        }
+        $("#findcolor").click(function(){
+            var text=$("#valuefindcolor").val().trim();
+            if(text==""){
+                $("#removefindcolor").hide();
+                $("#tablecolors tr").show();
+            }else{
+                text=text.toLowerCase();
+                 $("#tablecolors tr").hide();
+                 $("#removefindcolor").show();
+                $("#tablecolors tr").each(function(){
+
+                    if($(this).find("td:eq(1)").attr("data-search").indexOf(text)!=-1){
+                       $(this).show(); 
+                    }
+                });
+            }
+        });
+        $("#removefindcolor").click(function(){
+            $("#valuefindcolor").val("");
+            $(this).hide();
+                $("#tablecolors tr").show();
+        });
+
+         $("#tablecolors tr td input").change(function(){
+            if(this.checked){
+                var text=$("#colors").val();
+                if(text=="")
+                    text=$(this).val();
+                else
+                    text+=","+$(this).val();
+                $("#colors").val(text);
+            }else{
+                var color=$(this).val();
+                var arrtext=$("#colors").val().split(",");
+                var text="";
+                for (var i = 0; i < arrtext.length; i++) {
+                   if(arrtext[i]!=color)
+                   {
+                        if(text=="")
+                            text=arrtext[i];
+                        else
+                            text+=","+arrtext[i];
+                   }
+                }
+                 $("#colors").val(text);
+            }
+         });
+    }
+    dialogChooseColor.show();
+}).keypress(function(){
+    return false;
+});
+
 	});
 
     function showImg(input) {
@@ -387,6 +500,33 @@
                 </div><br />
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        Màu Sắc Sản Phẩm:
+                    </div>
+                    <div class="col-md-8 require">
+                        <span class="red">*</span>
+                        <input type="text" name="color" id="colors" class="form-control" />
+                        <span class="desc">Màu của sản phẩm. Click vào textbox để chọn màu</span>
+                       
+                    </div>
+                </div><br />
+            </div>
+            <div class="col-md-6">
+                 <div class="row">
+                    <div class="col-md-4">
+                        Kích Thước:
+                    </div>
+                    <div class="col-md-8 require">
+                        <span class="red">*</span>
+                        <input type="text" name="size" class="form-control" />
+                        <span class="desc">Mỗi kích thước cách nhau 1 dấu ','. VD: S,M,L,XL</span>
+                    </div>
+                </div><br />
+            </div>
+        </div>
     	<div class="row">
     		<div class="col-md-12 text-right">
     			<input type="submit" class="btn btn-success" value="Lưu Lại" />
@@ -396,5 +536,496 @@
     	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
     </form>
 @include('upload')
+
+
+ <div id="dialog3">
+        <div class='header'>
+            Chọn Màu <input type="text" id="valuefindcolor" style="font-size:12px;width:50%" placeholder="Nhập tên màu..." /><input type="button"  id="findcolor" value="Tìm" /> <i title="close" class="fa fa-times closedialog"></i>
+            <i class="fa fa-times-circle" id="removefindcolor"></i>
+        </div>
+        <div class="ct">
+            <table border="0" id="tablecolors" style="width:100%">
+            <tr>
+                <td>
+                <input type="checkbox" value="white" />
+                </td>
+                <td data-search="trang trắng">
+                 Trắng
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:white" ></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <input type="checkbox" value="blue" />
+                </td>
+                <td data-search="xanh lam">
+                  Xanh Lam
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:blue" ></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <input type="checkbox" value="skyblue" />
+                </td>
+                <td data-search="xanh da troi xanh da trời">
+                  Xanh Da Trời
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:skyblue" ></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <input type="checkbox" value="red" />
+                </td>
+                <td data-search="do đỏ">
+                Đỏ
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:red" ></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <input type="checkbox" value="yellow" />
+                </td>
+                <td data-search="vang vàng">
+                Vàng
+                    
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:yellow" ></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <input type="checkbox" value="black" />
+                </td>
+                <td data-search="den đen">
+                  Đen
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:black" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="green" />
+                </td>
+                <td data-search="luc lục">
+                  Lục
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:green" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="pink" />
+                </td>
+                <td data-search="hong hồng">
+                 Hồng
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:pink" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="purple" />
+                </td>
+                <td data-search="tim tím">
+                 Tím
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:purple" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="brown" />
+                </td>
+                <td data-search="nau nâu">
+                 Nâu
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:brown" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="tomato" />
+                </td>
+                <td data-search="da cam">
+                 Da Cam
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:tomato" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="tan" />
+                </td>
+                <td data-search="da">
+                 Da
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:tan" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="silver" />
+                </td>
+                <td data-search="bac bạc">
+                 Bạc
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:silver" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="gray" />
+                </td>
+                <td data-search="xam xám">
+                 Xám
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:gray" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="khaki" />
+                </td>
+                <td data-search="kaki">
+                 Kaki
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:khaki" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="olive" />
+                </td>
+                <td data-search="oliu">
+                 Ô liu
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:olive" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#F0DC82" />
+                </td>
+                <td data-search="da bo da bò">
+                 Da bò
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#F0DC82" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#C41E3A" />
+                </td>
+                <td data-search="hong y hồng y">
+                 Hồng y
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#C41E3A" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#007BA7" />
+                </td>
+                <td data-search="thien thanh thiên thanh">
+                 Thiên thanh
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#007BA7" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#B87333" />
+                </td>
+                <td data-search="dong đồng">
+                 Đồng
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#B87333" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#FF7F50" />
+                </td>
+                <td data-search="san ho san hô">
+                 San hô
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#FF7F50" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#FFFDD0" />
+                </td>
+                <td data-search="kem">
+                 Kem
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#FFFDD0" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#00FFFF" />
+                </td>
+                <td data-search="xanh lo xanh lơ ">
+                 Xanh lơ 
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#00FFFF" ></div>
+                </td>
+            </tr>
+
+             <tr>
+                <td>
+                <input type="checkbox" value="#4B0082" />
+                </td>
+                <td data-search="cham chàm">
+                 Chàm
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#4B0082" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#00A86B" />
+                </td>
+                <td data-search="ngoc thach ngọc thạch">
+                 Ngọc thạch
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#00A86B" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#CCFF00" />
+                </td>
+                <td data-search="vang chanh vàng chanh">
+                 Vàng chanh
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#00A86B" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#E6E6FA" />
+                </td>
+                <td data-search="oai huong oải hương">
+                Oải hương
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#E6E6FA" ></div>
+                </td>
+            </tr>
+
+             <tr>
+                <td>
+                <input type="checkbox" value="#800000" />
+                </td>
+                <td data-search="hat de hạt dẻ">
+                Hạt dẻ
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#800000" ></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#660099" />
+                </td>
+                <td data-search="tia tía">
+                Tía
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#660099" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#FF2400" />
+                </td>
+                <td data-search="do tuoi đỏ tươi">
+                Đỏ tươi
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#FF2400" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#FF4D00" />
+                </td>
+                <td data-search="do son đỏ son">
+               Đỏ son
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#FF4D00" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#ACE1AF" />
+                </td>
+                <td data-search="men ngoc men ngọc">
+               Men ngọc
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#ACE1AF" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#DE3163" />
+                </td>
+                <td data-search="anh dao anh đào">
+               Anh đào
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#DE3163" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#7FFF00" />
+                </td>
+                <td data-search="xanh non chuoi xanh nõn chuối">
+               Xanh nõn chuối
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#7FFF00" ></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                <input type="checkbox" value="#704214" />
+                </td>
+                <td data-search="nau den nâu đen">
+                Nâu đen
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:#704214" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="beige" />
+                </td>
+                <td data-search="be">
+                 Be
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:beige" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="darkblue " />
+                </td>
+                <td data-search="xanh dam xanh đậm">
+                 Xanh Đậm
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:darkblue" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="aqua" />
+                </td>
+                <td data-search="xanh nhat xanh nhạt">
+                 Xanh Nhạt
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:aqua" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="blueviolet" />
+                </td>
+                <td data-search="xanh tim  xanh tím">
+                 Xanh Tím
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:blueviolet" ></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <input type="checkbox" value="darkmagenta" />
+                </td>
+                <td data-search="tim dam tím đậm">
+                 Tím Đậm
+                </td>
+                <td>
+                    <div class='coloritem' style="background-color:darkmagenta" ></div>
+                </td>
+            </tr>
+
+            </table>
+        </div>
+    </div>
+    <!--//DetailTab-->
 
 @endsection

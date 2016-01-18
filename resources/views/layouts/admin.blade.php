@@ -303,7 +303,7 @@
                           <li><a  href="{{Asset('admin/product/add')}}">Thêm Sản Phẩm</a></li>
                           <li><a  href="{{Asset('admin/category')}}">Loại Sản Phẩm</a></li>
                           <li><a  href="{{Asset('admin/tab')}}">Tab</a></li>
-                          <li><a  href="email_template.html" target="_blank">Email Template</a></li>
+                          <li><a  href="{{Asset('admin/product/recyclebin')}}">Thùng Rác</a></li>
                       </ul>
                   </li>
 
@@ -315,7 +315,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="{{Asset('admin/website/menu')}}">Menu</a></li>
-                          <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
+                          <li><a  href="{{Asset('admin/website/info')}}">Thông Tin Website</a></li>
                           <li><a  href="header-color.html">Different Color Top bar</a></li>
                           <li><a  href="mega_menu.html">Mega Menu</a></li>
                           <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
@@ -416,7 +416,15 @@
           $('select.styled').customSelect();
 
           $("form.remove").submit(function(){
-            return confirm("Bạn có chắc muốn xóa?");
+            if($(this).attr("nocomfirm")){
+                return true;
+            }
+            var msg="Bạn có chắc muốn xóa?";
+            if($(this).attr('msg')){
+                msg=$(this).attr('msg');
+            }
+            ;
+            return confirm(msg);
           });
 
 

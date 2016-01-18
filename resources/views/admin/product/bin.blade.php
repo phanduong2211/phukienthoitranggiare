@@ -1,70 +1,46 @@
 @extends('layouts.admin')
 
-@section('title', 'Quản Lý Sản Phẩm')
+@section('title', 'Thùng Rác Sản Phẩm')
+
 @section('script')
 <script type="text/javascript">
   function LoadJson(url,dt,callback) {
-    $.ajax({
-      type: "POST",
-      url: url,
-      dataType: 'json',
-      data:dt,
-      beforeSend: function(){
-      },
-      success: callback,
-      error: function (e, e2, e3) {
-      }
-    });
-  }
-  var base_url="{{Asset('admin')}}/";
-  var __token="{{csrf_token()}}";
-  $(function(){
-    $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
-    $("form.remove").submit(function(){
-      if(confirm("Bạn có chắc muốn thêm sản phẩm này vào thùng rác?")){
-       var th=$(this);
-       var id=th.find("input[name='id']").val();
-       th=th.parents("tr");
-       th.addClass("noaction");
-       LoadJson(base_url+'product/addbin',{"id":id,"_token":__token},function(result){
-        if(result=="1"){
-          th.fadeOut();
-        }else{
-          th.removeClass("noaction");
-          alert("có lỗi. không thể thêm sản phẩm vào thùng rác");
-        }
-      });
-     }
-     return false;
-   });
-
-    $(".displayitem").click(function(){
-      var th=$(this);
-      var id=th.attr("data-id");
-      var flag=(th.html()=="Ẩn")?0:1;
-      th.parents("tr").addClass("noaction");
-
-
-      LoadJson(base_url+'product/hidden',{"id":id,"_token":__token,"flag":flag},function(result){
-        if(result=="1"){
-          if(flag==0){
-            th.html("Hiện");
-            th.parents("tr").addClass("opahi");
-          }else{
-            th.html("Ẩn");
-            th.parents("tr").removeClass("opahi");
-          }
-        }else{
-          
-          alert("có lỗi.");
-        }
-        th.parents("tr").removeClass("noaction");
-      });
-
-      return false;
-    });
-
+  $.ajax({
+    type: "POST",
+    url: url,
+    dataType: 'json',
+    data:dt,
+    beforeSend: function(){
+    },
+    success: callback,
+    error: function (e, e2, e3) {
+    }
   });
+}
+var base_url="{{Asset('admin')}}/";
+    $(function(){
+        $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(4)").addClass("active");
+        
+        $("form.remove1").submit(function(){
+        if(confirm("Bạn có chắc muốn khôi phục sản phẩm này?")){
+             var th=$(this);
+          var id=th.find("input[name='id']").val();
+          var __token=th.find("input[name='_token']").val();
+        th=th.parents("tr");
+        th.addClass("noaction");
+          LoadJson(base_url+'product/restore',{"id":id,"_token":__token},function(result){
+            if(result=="1"){
+              th.fadeOut();
+            }else{
+              th.removeClass("noaction");
+              alert("có lỗi. không thể khôi phục sản phẩm");
+            }
+          });
+        }
+        return false;
+      });
+
+    });
 </script>
 @endsection
 @section('content')
@@ -76,26 +52,10 @@
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:5px">
        <div class="group-button clearfix">
-           <a href="{{Asset('admin/product/add')}}" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
+           <a href="{{Asset('admin/product')}}" class="pull-left btn btn-success btn-sm">Danh Sách Sản Phẩm</a>
        </div>
    </div>
    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
-    <form method="get" action="" class="pull-right">
-                <select class="sfilter" name="f">
-                    <option value="0">-Lọc-</option>
-                    <option value="1">Sản Phẩm Của Bạn</option>
-                    <option value="2">Giảm Giá</option>
-                    <option value="3">Không Giảm Giá</option>
-                    <option value="4">Mới</option>
-                    <option value="5">Hot</option>
-                    <option value="6">Hết Hàng</option>
-                    <option value="7">Bán Chạy</option>
-                    <option value="8">Khuyến Mãi</option>
-                    <option value="9">Ngừng Kinh Doanh</option>
-                    <option value="10">Hiện</option>
-                    <option value="11">Ẩn</option>
-                </select>
-            </form>
     <form method="get" action="" class="pull-right">
 
         <select class="sfilter" name="s">
@@ -144,7 +104,7 @@
         </tr>
         <?php $count=0; ?>
        <?php foreach ($data as $item): ?>
-       		<tr <?php if($item->display==0) echo "class='opahi'" ?>>
+       		<tr <?php if($item->display==0) echo "class='hidden'" ?>>
        			<td>{{$item->name}}
 
        				<div class="groupaction">
@@ -182,17 +142,19 @@
                           } ?></span>
 
                           <br />
-                          <a class="edit" href='{{Asset('admin/product/edit?id='.$item->id)}}'>Sửa</a>
-                        <form method="post" action="{{Asset('admin/product/addbin')}}" class="remove" msg="Bạn có chắc muốn đưa sản phẩm này vào thùng rác?" nocomfirm="true">
+                         
+                        <form method="post" action="{{Asset('admin/product/delete')}}" class="remove" msg="Bạn có chắc muốn xóa vĩnh viễn sản phẩm này?. Một khi xóa đi bạn sẽ không thể khôi phục.">
                                 <input type="hidden" name="id" value="{{$item->id}}">
-                               
-                                <input type="submit" value="Thùng rác">
+                                <input type="hidden" name="title" value="{{$item->name}}">
+                                <input type="submit" value="Xóa Vĩnh Viễn">
+                                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                             </form>
-                           <?php if($item->display==0){
-                           	echo "<a class='edit displayitem' href='#' data-id='".$item->id."'>Hiện</a>";
-                           	}else{
-                           		echo "<a class='edit displayitem' href='#' data-id='".$item->id."'>Ẩn</a>";
-                           		} ?>
+                           <form method="post" action="{{Asset('admin/product/restore')}}" class="remove remove1" nocomfirm="true">
+                                <input type="hidden" name="id" value="{{$item->id}}">
+                                <input type="hidden" name="title" value="{{$item->name}}">
+                                <input type="submit" value="Khôi Phục">
+                                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                            </form>
                     </div>
        			</td>
        			<td><img src="{{showImage($item->image)}}" style="width:50px" />
@@ -218,4 +180,9 @@
     </table>
      <?php echo $data->render(); ?>
 </div>
+<style type="text/css">
+  .remove.remove1 input[type='submit']{
+    color:blue !important;
+  }
+</style>
     @endsection

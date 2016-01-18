@@ -18,7 +18,7 @@
             <div class="tabuploaditem active" id="tabchooseimg">
                 <div id="groupbutton" class="clearfix">
                     <div id="chooseImg" title="Chọn" class="fa fa-check"></div>
-                    <div id="downloadimg" title="Tải về" class="fa fa-download"></div>
+                  
                     <div id="removeupload" title="Xóa ảnh" class="fa fa-times"></div>
                     <div id="zoomimage" title="Xem ảnh với kích thước lớn" class="fa fa-search-plus"></div>
                     <div id="refreshupload" title="làm mới" class="fa fa-refresh"></div>

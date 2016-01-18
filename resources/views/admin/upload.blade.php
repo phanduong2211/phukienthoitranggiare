@@ -153,6 +153,13 @@ if(isset($_POST['submit'])){
 			foldername1=$(this).val();
 		});
 		$("#uploadimg").click(function(){
+			var objth=$(this);
+			if(objth.hasClass("disabled")){
+				return false;
+			}
+			objth.addClass("disabled");
+			objth.attr("disabled","disabled");
+
 			var image=document.getElementById("image");
 			if(image.files && image.files[0]){
 				var filename=foldername1+"/"+image.files[0].name;
@@ -160,7 +167,8 @@ if(isset($_POST['submit'])){
 
 
 				LoadJson("{{Asset('admin/upload/checkfile')}}",{"filename":filename,"_token":"{{csrf_token()}}"},function(result){
-					window.console.log(result);
+					objth.removeClass("disabled");
+					objth.removeAttr("disabled");
 					if(result==1){
 						if(dialogtrung==null){
 							dialogtrung=new dialog($("#dialog3"),{

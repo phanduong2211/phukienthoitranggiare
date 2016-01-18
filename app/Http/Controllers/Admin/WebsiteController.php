@@ -9,6 +9,7 @@ use Redirect;
 use View;
 use App\Http\Module\menu;
 use App\Http\Module\product;
+use App\Http\Module\info;
 
 class WebsiteController extends BaseController
 {
@@ -136,7 +137,75 @@ class WebsiteController extends BaseController
 			return Redirect::to('admin/website/menu')->with(['message'=>'Có lỗi xóa menu "'.Input::get('title').'" thất bại. Vui lòng thử lại.']);
 		}
 		
+	}
+
+	public function info(){
+		$info=info::get();
+		$data=array();
+		foreach ($info as $key => $value) {
+			$data[$value->name]=$value->contents;
+		}
+		
+		return View::make("admin.website.info",array('data'=>$data));
 	}	
+
+	public function changelogo(){
+		if(Input::file()) {
+			$image = Input::file('logo');
+			if($image->move(public_path('img/'),"logo.png")){
+				return Redirect::to('admin/website/info')->with(['message'=>'Cập nhật thành công logo. Do cơ chế save cache của trình duyệt, có thể phải mất vài phút logo mới được cập nhật.']);
+			}else{
+				return Redirect::to('admin/website/info')->with(['message'=>'Cập nhật logo thất bại.']);
+			}
+		}
+	}
+
+	public function changefavicon(){
+		if(Input::file()) {
+			$image = Input::file('favicon');
+			if($image->move(public_path('img/'),"favicon.png")){
+				return Redirect::to('admin/website/info')->with(['message'=>'Cập nhật thành công favicon. Do cơ chế save cache của trình duyệt, có thể phải mất vài phút favicon mới được cập nhật.']);
+			}else{
+				return Redirect::to('admin/website/info')->with(['message'=>'Cập nhật favicon thất bại.']);
+			}
+		}
+	}
+
+	public function postinfoall(){
+		$info=new info();
+		$info->where('name','title')->update(array('contents'=>Input::get('title')));
+		$info->where('name','description')->update(array('contents'=>Input::get('description')));
+		$info->where('name','keyword')->update(array('contents'=>Input::get('keyword')));
+		$info->where('name','maps')->update(array('contents'=>Input::get('maps')));
+		return Redirect::to('admin/website/info')->with(['message'=>'Cập nhật thành công thông tin chung.']);
+	}
+
+	public function postinfcontact(){
+		$info=new info();
+		$info->where('name','address')->update(array('contents'=>Input::get('address')));
+		$info->where('name','phone')->update(array('contents'=>Input::get('phone')));
+		$info->where('name','email')->update(array('contents'=>Input::get('email')));
+		$info->where('name','skype')->update(array('contents'=>Input::get('skype')));
+		$info->where('name','facebook')->update(array('contents'=>Input::get('facebook')));
+		$info->where('name','google')->update(array('contents'=>Input::get('google')));
+		$info->where('name','twitter')->update(array('contents'=>Input::get('twitter')));
+		return Redirect::to('admin/website/info')->with(['message'=>'Cập nhật thành công thông tin liên hệ.']);
+	}
+
+	public function changebrand(){
+		$silebar_images="";
+		foreach (Input::get('silebar_images') as $key => $value) {
+			if($value!=""){
+				$silebar_images.=$value.",";
+			}
+		}
+		$length=strlen($silebar_images);
+		$silebar_images=substr($silebar_images, 0,$length-1);
+		
+		$info=new info();
+		$info->where('name','brand')->update(array('contents'=>$silebar_images));
+		return Redirect::to('admin/website/info')->with(['message'=>'Cập nhật đối tác thành công.']);
+	}
 	
 }
 
