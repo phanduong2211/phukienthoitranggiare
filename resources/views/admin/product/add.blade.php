@@ -125,11 +125,6 @@
             {
                 'name':'color',
                 'trong':true
-            },
-            {
-                'name':'size',
-                'trong':true,
-                'message':'VD: M,S,...'
             }
     	],function(){
             if($("#frm input[name='image_upload']").val().length>0){
@@ -519,8 +514,7 @@
                     <div class="col-md-4">
                         Kích Thước:
                     </div>
-                    <div class="col-md-8 require">
-                        <span class="red">*</span>
+                    <div class="col-md-8">
                         <input type="text" name="size" class="form-control" />
                         <span class="desc">Mỗi kích thước cách nhau 1 dấu ','. VD: S,M,L,XL</span>
                     </div>

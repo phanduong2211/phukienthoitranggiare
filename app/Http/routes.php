@@ -64,7 +64,8 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::post("upload/checkfile","Admin\UploadController@checkfile");
     Route::post("ajax/removeimg","Admin\UploadController@removeimg");
 
-    Route::get("ajax/loadfile","Admin\UploadController@loadfolder");
+    Route::controller("slide","Admin\SlideController");
+    Route::controller("news","Admin\NewsController");
 });
 
 //Admin//

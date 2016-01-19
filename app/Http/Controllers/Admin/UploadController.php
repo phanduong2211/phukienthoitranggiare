@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Routing\Controller as BaseController;
-use File;
 
 class UploadController extends BaseController
 {

@@ -7,6 +7,7 @@ use Input;
 use Redirect;
 use View;
 use App\Http\Module\category;
+use App\Http\Module\product;
 
 class CategoryAdminController extends BaseController
 {
@@ -92,6 +93,10 @@ class CategoryAdminController extends BaseController
 
 	public function delete()
 	{
+		$product=product::where('categoryID',Input::get('id'))->get();
+		if(count($product)>0){
+			return Redirect::to('admin/category')->with(['message'=>'Loại sản phẩm "'.Input::get('title').'" đã có sản phẩm. Không thể xóa']);
+		}
 		$category=category::find(Input::get('id'));
 		if($category->delete()){
 			return Redirect::to('admin/category')->with(['message'=>'Xóa thành công loại sản phẩm "'.Input::get('title').'"']);

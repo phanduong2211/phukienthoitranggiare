@@ -104,7 +104,7 @@ var base_url="{{Asset('admin')}}/";
         </tr>
         <?php $count=0; ?>
        <?php foreach ($data as $item): ?>
-       		<tr <?php if($item->display==0) echo "class='hidden'" ?>>
+       		<tr <?php if($item->display==0) echo "class='opahi'" ?>>
        			<td>{{$item->name}}
 
        				<div class="groupaction">

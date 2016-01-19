@@ -44,7 +44,7 @@ function LoadDataFolder(clickfirst){
         
               case "foldernews":
               asset+="image/news/";
-        
+              break;
               case "folderslide":
               asset+="image/slide/";
               break;

@@ -307,6 +307,13 @@
                       </ul>
                   </li>
 
+                  <li>
+                      <a href="{{Asset('admin/slide')}}">
+                          <i class="fa fa-picture-o"></i>
+                          <span>SlideShow</span>
+                      </a>
+                  </li>
+
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -325,18 +332,20 @@
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-list-alt"></i>
+                         <i class="fa fa-list-alt"></i>
                           <span>Tin Tức</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="boxed_page.html">Boxed Page</a></li>
-                          <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
-                          <li><a  href="header-color.html">Different Color Top bar</a></li>
-                          <li><a  href="mega_menu.html">Mega Menu</a></li>
-                          <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
-                          <li><a  href="email_template.html" target="_blank">Email Template</a></li>
+                          <li><a  href="{{Asset('admin/news')}}">Danh Sách Tin Tức</a></li>
+                          <li><a  href="{{Asset('admin/news/add')}}">Thêm Mới Tin Tức</a></li>
+                          <li><a  href="{{Asset('admin/news/category')}}">Loại Tin Tức</a></li>
+                        
                       </ul>
                   </li>
+
+                
+
+                 
                   <!--multi level menu end-->
 
               </ul>
@@ -383,6 +392,26 @@
     <script src="{{Asset('public/admin')}}/js/common-scripts.js"></script>
 
     <!--script for this page-->
+
+    <div class="modal fade" id="confirmbox" role="dialog">
+         <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+             
+              <h4 class="modal-title">Thông Báo</h4>
+        </div>
+        <div class="modal-body">
+            <p id="confirmMessage">Any confirmation message?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" id="confirmFalse">Cancel</button>
+            <button class="btn btn-primary" id="confirmTrue">OK</button>
+        </div>
+        </div>
+        </div>
+    </div>
    
 
   <script>
@@ -401,6 +430,26 @@
       });
 
       //custom select box
+
+      function getConfirm(confirmMessage,callback){
+            confirmMessage = confirmMessage || '';
+
+            $('#confirmbox').modal({show:true,
+                                    backdrop:false,
+                                    keyboard: false,
+            });
+
+            $('#confirmMessage').html(confirmMessage);
+            $('#confirmFalse').click(function(){
+                $('#confirmbox').modal('hide');
+                if (callback) callback(false);
+
+            });
+            $('#confirmTrue').click(function(){
+                $('#confirmbox').modal('hide');
+                if (callback) callback(true);
+            });
+        }  
 
       $(function(){
         $(".sfilter").change(function(){
@@ -423,8 +472,19 @@
             if($(this).attr('msg')){
                 msg=$(this).attr('msg');
             }
-            ;
-            return confirm(msg);
+
+            if(!$(this).hasClass("submitform")){
+                var thhhs=$(this);
+                getConfirm(msg,function(result) {
+                    if(result){
+                        thhhs.addClass("submitform");
+                        thhhs.submit();
+                    }
+                });
+                return false;
+            }
+            else
+                return true;
           });
 
 

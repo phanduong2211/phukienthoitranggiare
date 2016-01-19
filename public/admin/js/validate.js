@@ -411,7 +411,7 @@ function check(th,options,callback){
 			var wheight=wtop.height();
 			wtop=wtop.scrollTop();
 			if(top<wtop || top>wtop+wheight)
-			$('html, body').animate({ scrollTop:  top-50}, 'slow');
+			$('html, body').animate({ scrollTop:  top-70}, 'slow');
 		}
 
 		if(flag && callback!=null){

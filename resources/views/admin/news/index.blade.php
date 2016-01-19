@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Quản Lý Sản Phẩm')
+@section('title', 'Tin Tức')
 @section('script')
 <script type="text/javascript">
   function LoadJson(url,dt,callback) {
@@ -19,28 +19,8 @@
   var base_url="{{Asset('admin')}}/";
   var __token="{{csrf_token()}}";
   $(function(){
-    $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
-    $("form.remove").submit(function(){
- var th=$(this);
-      getConfirm('Bạn có chắc muốn đưa sản phẩm này vào thùng rác?',function(result) {
-        if(result){
-         
-          var id=th.find("input[name='id']").val();
-          th=th.parents("tr");
-          th.addClass("noaction");
-          LoadJson(base_url+'product/addbin',{"id":id,"_token":__token},function(result){
-            if(result=="1"){
-              th.fadeOut();
-            }else{
-              th.removeClass("noaction");
-              alert("có lỗi. không thể thêm sản phẩm vào thùng rác");
-            }
-          });
-        }
-      });
-
-      return false;
-    });
+    $("#nav-accordion>li:eq(4)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
+   
 
     $(".displayitem").click(function(){
       var th=$(this);
@@ -49,7 +29,7 @@
       th.parents("tr").addClass("noaction");
 
 
-      LoadJson(base_url+'product/hidden',{"id":id,"_token":__token,"flag":flag},function(result){
+      LoadJson(base_url+'news/hidden',{"id":id,"_token":__token,"flag":flag},function(result){
         if(result=="1"){
           if(flag==0){
             th.html("Hiện");
@@ -80,24 +60,16 @@
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:5px">
    <div class="group-button clearfix">
-     <a href="{{Asset('admin/product/add')}}" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
+     <a href="{{Asset('admin/news/add')}}" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
    </div>
  </div>
  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
   <form method="get" action="" class="pull-right">
     <select class="sfilter" name="f">
       <option value="0">-Lọc-</option>
-      <option value="1">Sản Phẩm Của Bạn</option>
-      <option value="2">Giảm Giá</option>
-      <option value="3">Không Giảm Giá</option>
-      <option value="4">Mới</option>
-      <option value="5">Hot</option>
-      <option value="6">Hết Hàng</option>
-      <option value="7">Bán Chạy</option>
-      <option value="8">Khuyến Mãi</option>
-      <option value="9">Ngừng Kinh Doanh</option>
-      <option value="10">Hiện</option>
-      <option value="11">Ẩn</option>
+      <option value="1">Tin Của Bạn</option>
+      <option value="2">Hiện</option>
+      <option value="3">Ẩn</option>
     </select>
   </form>
   <form method="get" action="" class="pull-right">
@@ -136,13 +108,11 @@ function showImage($path){
 <div class="table-responsive">
  <table class="table table-hover">
    <tr>
-    <th>Sản Phẩm</th>
+    <th width="20%">Tiêu Đề</th>
     <th>Image</th>
-    <th width="10%">Loại SP</th>
-    <th>Giá Sỉ</th>
-    <th>Giá Gốc</th>
-    <th>Giá Bán</th>
-    <th>SL</th>
+    <th width="25%">Mô Tả</th>
+    <th>Loại</th>
+    <th>Xem</th>
     <th>Người Tạo</th>
     <th>Date</th>
   </tr>
@@ -152,45 +122,13 @@ function showImage($path){
     <td>{{$item->name}}
 
      <div class="groupaction">
-      <span>Xem: {{$item->view}}</span>
-      <span>|</span>
-      <span>Status: <?php switch ($item->status) {
-       case 'new':
-       echo "Mới";
-       break;
-
-       case 'sale':
-       echo "Giảm Giá";
-       break;
-       case 'hot':
-       echo "Hot";
-       break;
-       case 'promotion':
-       echo "Khuyến Mãi";
-       break;
-       case 'sell':
-       echo "Bán Chạy";
-       break;
-       case 'over':
-       echo "Hết Hàng";
-       break;
-       case 'Ngừng Kinh Doanh':
-       echo "Ngừng Kinh Doanh";
-       break;
-       case 'Không Kinh Doanh':
-       echo "Không Kinh Doanh";
-       break;
-       case '':
-       echo "";
-       break;
-     } ?></span>
-
-     <br />
-     <a class="edit" href='{{Asset('admin/product/edit?id='.$item->id)}}'>Sửa</a>
-     <form method="post" action="{{Asset('admin/product/addbin')}}" class="remove" msg="Bạn có chắc muốn đưa sản phẩm này vào thùng rác?" nocomfirm="true">
+    
+     <a class="edit" href='{{Asset('admin/news/edit?id='.$item->id)}}'>Sửa</a>
+     <form method="post" action="{{Asset('admin/news/delete')}}" class="remove">
       <input type="hidden" name="id" value="{{$item->id}}">
-
-      <input type="submit" value="Thùng rác">
+      <input type="hidden" name="title" value="{{$item->name}}">
+       <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+      <input type="submit" value="Xóa">
     </form>
     <?php if($item->display==0){
       echo "<a class='edit displayitem' href='#' data-id='".$item->id."'>Hiện</a>";
@@ -202,12 +140,10 @@ function showImage($path){
 <td><img src="{{showImage($item->image)}}" style="width:50px" />
 </td>
 <td>
- {{$item->namec}}
+ {{$item->description}}
 </td>
-<td>{{number_format($item->original_price,0,',','.')}}</td>
-<td>{{number_format($item->promotion_price,0,',','.')}}</td>
-<td>{{number_format($item->price,0,',','.')}}</td>
-<td>{{$item->quantity}}</td>
+<td>{{$item->namec}}</td>
+<td>{{$item->view}}</td>
 <td>{{$item->nameuser}}</td>
 <td>
   Tạo: 
