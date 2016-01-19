@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Routing\Controller as BaseController;
+use File;
 
 class UploadController extends BaseController
 {
@@ -12,7 +13,7 @@ class UploadController extends BaseController
 	}
 
 	public function loadfolder(){
-		 $path=public_path()."\\image\\";
+		$path=public_path()."/image/";
         switch ($_POST['folder']) {
             case 'folderupload':
             $path.="upload";
@@ -29,7 +30,6 @@ class UploadController extends BaseController
             $path.="slide";
             break;
 
-
             default:
             return -1;
             break;
@@ -40,49 +40,32 @@ class UploadController extends BaseController
         unset($dir[0]);
         unset($dir[1]);
 
-
         $arr=array();
-
 
         foreach ($dir as $key) {
             $time=filemtime($path."/".$key);
             $size=filesize($path."/".$key);
             list($width,$height)=getimagesize($path."/".$key);
-            array_push($arr, array("name"=>$key,"time"=>$time,"size"=>$size,"width"=>$width,"height"=>$height));
-        }
-
-        $leng=count($arr);
-
-        for($i=0;$i<$leng;$i++){
-            for($j=$i+1;$j<$leng;$j++){
-                if($arr[$i]["time"]<$arr[$j]["time"]){
-                    $temp=$arr[$i];
-                    $arr[$i]=$arr[$j];
-                    $arr[$j]=$temp;
-                }
-            }
-        }
-
-        foreach ($arr as &$value) {
-            $value['time']=date("d/m/Y H:i",$value['time']);
+            $date=date("d/m/Y H:i",$time);
+            array_push($arr, array("name"=>$key,"time"=>$date,"size"=>$size,"width"=>$width,"height"=>$height));
         }
 
         return json_encode($arr);
 	}
 
 	public function checkfile(){
-		$path=public_path()."\\image\\".$_POST['filename'];
+		$path=public_path()."/image/".$_POST['filename'];
         if(file_exists($path))
             return 1;
         return 2;
 	}
 
 	public function removeimg(){
-		 $path=public_path()."\\image\\".$_POST['file'];
+		$path=public_path()."/image/".$_POST['file'];
 
-            $result=unlink($path);
+        $result=unlink($path);
 
-            return json_encode($result);
+        return json_encode($result);
 	}
 }
 

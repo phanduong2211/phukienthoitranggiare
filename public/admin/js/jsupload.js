@@ -23,6 +23,16 @@ function LoadDataFolder(clickfirst){
         }else{
 
           if(typeof result==="object"){
+            var leg=result.length;
+            for (var i=0;i<leg;i++) {
+              for (var j=i+1;j<leg;j++) {
+                if(result[i].time<result[j].time){
+                  var temp=result[i];
+                  result[i]=result[j];
+                  result[j]=temp;
+                }
+              }
+            }
             var asset=asset_path;
             switch(foldername){
               case "folderupload":
