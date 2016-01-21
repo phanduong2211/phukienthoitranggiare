@@ -12,26 +12,10 @@ class UploadController extends BaseController
 	}
 
 	public function loadfolder(){
-		$path=public_path()."/image/";
-        switch ($_POST['folder']) {
-            case 'folderupload':
-            $path.="upload";
-            break;
-            case 'foldersanpham':
-            $path.="product";
-            break;
-
-            case 'foldernews':
-            $path.="news";
-            break;
-
-            case 'folderslide':
-            $path.="slide";
-            break;
-
-            default:
+		$path=public_path()."/image/".$_POST['folder'];
+        
+        if(!file_exists($path)){
             return -1;
-            break;
         }
 
         $dir=scandir($path);

@@ -22,25 +22,24 @@
    </div>
    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
     
-    <form method="get" action="" class="pull-right">
-        <select class="sfilter" name="s">
-            <option value="0">-Sắp xếp-</option>
-            <option value="1">Mới nhất</option>
-            <option value="2">Cũ nhất</option>
-            <option value="3">Tiêu Đề</option>
-            <option value="4">Ngày Tạo</option>
-            <option value="5">Ngày Cập Nhật</option>
+    <div class="pull-right">
+        <select class="sfilter noautosubmit" name="s">
+            <option value="0" data-sort="desc" data-column="-1">-Sắp xếp-</option>
+            <option value="1" data-sort="desc" data-column="-1">Mới nhất</option>
+            <option value="2" data-sort="asc" data-column="-1">Cũ nhất</option>
+            <option value="3" data-sort="asc" data-column="0">Tiêu Đề</option>
+            <option value="3" data-sort="asc" data-column="2">Nội Dung</option>
+            <option value="3" data-sort="asc" data-column="3">Url</option>
+            <option value="3" data-sort="asc" data-column="4">Trang</option>
         </select>
-    </form>
-    <form method="get" action="" class="pull-right">
-        <div class="frmsearch clearfix">
+    </div>
+    <div class="pull-right">
+        <div class="frmsearch clearfix" id="searchtable">
             <input title="" type="text" class="textboxsearch" value="<?php if(isset($_GET['q'])) echo $_GET['q']; ?>"  placeholder="Nhập nội dung tìm kiếm..." name="q" />
             <input type="submit" class="buttonsearch" value="" />
         </div>
-        <?php if(isset($_GET["sort"])){ ?>
-        <input type="hidden" name="sort" value="<?php echo $_GET["sort"] ?>" />
-        <?php } ?>
-    </form>
+    
+    </div>
 
 
 </div>
@@ -58,12 +57,13 @@ function showImage($path){
        <tr>
             <th>Tiêu Đề</th>
             <th>Hình Ảnh</th>
-            <th>Nội Dung</th>
+            <th width="10%">Nội Dung</th>
             <th>Url</th>
+            <th>Trang</th>
             <th>Date</th>
         </tr>
-        @foreach ($data as $key => $value)
-            <tr>
+        @foreach ($data as $value)
+            <tr data-column="{{$value->id}}">
             <td>
                 {{$value->name}}
                  <div class="groupaction">
@@ -84,10 +84,13 @@ function showImage($path){
                  {{$value->url}}
             </td>
             <td>
+                 {{$value->namepage}}
+            </td>
+            <td>
                 Tạo: {{date('d/m/Y H:i',strtotime($value->created_at))}}<br />
             	Cập Nhật:  {{date('d/m/Y H:i',strtotime($value->updated_at))}}
             </td>
-            <td>
+            
         </tr>
        
         @endforeach

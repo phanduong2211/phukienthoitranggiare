@@ -3,7 +3,7 @@
 <div id="refreshuploadend"></div>
 <div id="dialogupload">
     <div class='header'>
-        Upload Image <i title="close" class="fa fa-times closedialog"></i>
+        Chọn Hình Ảnh <i title="close" class="fa fa-times closedialog"></i>
     </div>
     <div class="tabupload">
         <div class="tabitem clearfix">
@@ -11,44 +11,40 @@
             <li data-value="tabuploadimg">Upload Hình Mới</li>
             
         </div>
-        
         <div class="ct">
-
-
             <div class="tabuploaditem active" id="tabchooseimg">
                 <div id="groupbutton" class="clearfix">
-                    <div id="chooseImg" title="Chọn" class="fa fa-check"></div>
-                  
-                    <div id="removeupload" title="Xóa ảnh" class="fa fa-times"></div>
-                    <div id="zoomimage" title="Xem ảnh với kích thước lớn" class="fa fa-search-plus"></div>
-                    <div id="refreshupload" title="làm mới" class="fa fa-refresh"></div>
+                    <div id="chooseImg" title="Chọn" class="fa fa-check"> Chọn</div>
+                    <div id="removeupload" title="Xóa ảnh" class="fa fa-times"> Xóa</div>
+                    <div id="zoomimage" title="Xem ảnh với kích thước lớn" class="fa fa-search-plus"> Xem</div>
+                    <div id="refreshupload" title="làm mới" class="fa fa-refresh"> Tải Lại</div>
 
                 </div>
                 <div class="row">
                     <div class="col-md-2 col-sm-4 col-xs-4">
                        <b style="display:block;margin-bottom:8px">Chọn Folder:</b>
                        <div class='tabfolder'>
-                        <li id="fffupload" class="active" data-value="folderupload">Upload</li>
-                        <li id="fffproduct" data-value="foldersanpham">Sản Phẩm</li>
-                        
-                        <li id="fffnews" data-value="foldernews">Tin Tức</li>
-                        <li id="fffslide" data-value="folderslide">Slide</li>
+                        <li id="fffupload" class="active" data-value="upload">Upload</li>
+                        <li id="fffproduct" data-value="product">Sản Phẩm</li>
+                        <li id="fffnews" data-value="news">Tin Tức</li>
+                        <li id="fffslide" data-value="slide">Slide</li>
                     </div>
                 </div>
                 <div class="col-md-10 col-sm-8 col-xs-8" id="folderitems">
-                    <div id="folderupload" data-value='{"folder":"upload"}' class="folderitem active">
-                        Đang Tải...
+                    <div id="uploadfolder" data-value='{"folder":"upload"}' class="folderitem active">
+                        Đang Tải...<br />
+                        <small>Nếu không tải được vui lòng click vào nút tải lại.</small>
                     </div>
 
-                   <div id="foldersanpham" data-value='{"folder":"product"}' class="folderitem">
+                   <div id="productfolder" data-value='{"folder":"product"}' class="folderitem">
                         Đang Tải...
                     </div> 
 
-                    <div id="foldernews" data-value='{"folder":"news"}' class="folderitem">
+                    <div id="newsfolder" data-value='{"folder":"news"}' class="folderitem">
                         Đang Tải...
                     </div>
 
-                    <div id="folderslide" data-value='{"folder":"slide"}' class="folderitem">
+                    <div id="slidefolder" data-value='{"folder":"slide"}' class="folderitem">
                         Đang Tải...
                     </div>
                 </div>

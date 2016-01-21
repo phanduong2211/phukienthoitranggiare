@@ -343,9 +343,14 @@
                       </ul>
                   </li>
 
-                
+                  <li>
+                      <a href="{{Asset('admin/ad')}}">
+                          <i class="fa  fa-sitemap"></i>
+                          <span>Quản Trị Viên</span>
+                      </a>
+                  </li>
 
-                 
+
                   <!--multi level menu end-->
 
               </ul>
@@ -452,8 +457,99 @@
         }  
 
       $(function(){
-        $(".sfilter").change(function(){
-                $(this).parent().submit();
+            $("#searchtable .buttonsearch").click(function(){
+                var key=$(this).parent().find(".textboxsearch").val();
+                if(key.trim()!=""){
+                    var table=$(".table-responsive .table tr");
+                    var size=table.size();
+                        if(size==1)
+                            return false;
+                    key=key.toLowerCase();
+                    for (var i = 1; i < size; i++) {
+                        table.eq(i).hide().find("td").each(function(){
+                            if($(this).text().trim().toLowerCase().indexOf(key)!=-1){
+                                $(this).parent().show();
+                            }
+                        });
+                    }
+                }else{
+                    $(".table-responsive .table tr").show();
+                }
+            });
+            $("#searchtable .textboxsearch").keyup(function(e){
+                if($(this).val()==""){
+                    $(".table-responsive .table tr").show();
+                }else{
+                    if(e.keyCode==13){
+                        $("#searchtable .buttonsearch").click();
+                    }
+                }
+            });
+            $(".sfilter").change(function(){
+                var thf=$(this);
+                if(!thf.hasClass("noautosubmit")){
+                    thf.parent().submit();
+                }else{
+                    if(thf.attr("name")=="s"){
+                        var table=$(".table-responsive .table tr");
+                        var size=table.size();
+                        if(size==1)
+                            return false;
+                        var s=thf.find(":selected").attr("data-sort")=="asc";
+                        var c=thf.find(":selected").attr("data-column");
+                        if(c=="-1"){
+                            for (var i = 1; i < size; i++) {
+                                for (var j = i+1; j < size; j++) {
+                                    if(s){
+                                        if(parseInt(table.eq(i).attr("data-column"))>parseInt(table.eq(j).attr("data-column"))){
+                                            table.eq(i).before(table.eq(j));
+                                        }
+                                    }else{
+                                        if(parseInt(table.eq(i).attr("data-column"))<parseInt(table.eq(j).attr("data-column"))){
+                                            table.eq(i).before(table.eq(j));
+                                        }
+                                    }
+                                }    
+                            }
+                        }else{
+                            for (var i = 1; i < size; i++) {
+                                for (var j = i+1; j < size; j++) {
+                                    if(s){
+                                        if(table.eq(i).find("td:eq("+c+")").text().trim().localeCompare(table.eq(j).find("td:eq("+c+")").text().trim())==1){
+                                            table.eq(i).before(table.eq(j));
+                                        }
+                                    }else{
+                                        if(table.eq(i).find("td:eq("+c+")").text().trim().localeCompare(table.eq(j).find("td:eq("+c+")").text().trim())==-1){
+                                            table.eq(i).before(table.eq(j));
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    }else{
+                        if(thf.attr("name")=="f"){
+                            var table=$(".table-responsive .table tr");
+                            var size=table.size();
+                            if(size==1)
+                                return false;
+                            var c=thf.find(":selected").attr("data-column");
+                            var k=thf.find(":selected").attr("data-key");
+                            table.show();
+                            if(k==""){
+                                return false;
+                            }else{
+
+                                for (var i = 1; i < size; i++) {
+                                    var key=(c=="-1")?table.eq(i).attr("data-key"):table.eq(i).find("td:eq("+c+")").text().trim().toLowerCase();
+                                    
+                                    if(key!=k){
+                                        table.eq(i).hide();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             });
             var sort="<?php if(isset($_GET['s'])) echo $_GET['s']; else echo '0' ?>";
 

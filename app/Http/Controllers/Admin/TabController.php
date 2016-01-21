@@ -14,39 +14,7 @@ class TabController extends BaseController
 	public function index(){
 
 		$tab_category=new tab_category();
-		$order='id';
-		$typeorder='desc';
-		if(Input::exists('s')){
-			switch (Input::get('s')) {
-				case '1':
-					$order='id';
-					$typeorder='desc';
-					break;
-				case '3':
-					$order='name';
-					$typeorder='asc';
-					break;
-				case '4':
-					$order='created_at';
-					$typeorder='desc';
-					break;
-				case '5':
-					$order='updated_at';
-					$typeorder='desc';
-					break;
-				default:
-					$order='id';
-					$typeorder='desc';
-					break;
-			}
-		}
-		if(Input::exists('q')){
-			$query=Input::get('q');
-			$data=$tab_category->where('name','like','%'.$query.'%')->orderBy($order,$typeorder)->get();	
-		}else{
-			$data=$tab_category->orderBy($order,$typeorder)->get();	
-		}
-
+		$data=$tab_category->orderBy('id','desc')->get();	
 		return View::make("admin.tab.index",array('data'=>$data));
 	}
 

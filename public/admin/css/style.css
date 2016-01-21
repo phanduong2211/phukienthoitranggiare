@@ -2132,6 +2132,22 @@ ul.inbox-pagination li {
     float: left;
 }
 
+.table-responsive .table{
+    border:1px solid #ddd;
+}
+.table-responsive .table tr th{
+    background-color: #2a3542;
+    color: #ECF0F1;
+    border-top:1px solid #ddd;
+}
+.table-hover > tbody > tr:hover > th{
+    background-color: #2a3542 !important;
+    color: #ECF0F1 !important;
+}
+.table-responsive .table tr:first-child{
+    border:1px solid #2a3542;
+}
+
 .mail-option {
     display: inline-block;
     margin-bottom: 10px;

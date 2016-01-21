@@ -74,9 +74,11 @@ function dialog(obj,options){
 
 		if(!$(".dimb").length){
 			$("body").append("<div class='dimb'></div>");
-			$(".dimb").click(function(){
-				th.hide();
-			});
+			if(options.outside==null){
+				$(".dimb").click(function(){
+					th.hide();
+				});
+			}
 		}
 		obj.find(".closedialog").click(function(){
 			th.hide();
@@ -92,6 +94,7 @@ function dialog(obj,options){
 	};
 	this.show=function(){
 		obj.fadeIn();
+		if(options.hidedim==null)
 		$(".dimb").fadeIn();
 	};
 	this.hide=function(){
@@ -99,15 +102,15 @@ function dialog(obj,options){
 		if($(".dialog:visible").size()>1){
 			var maxZindex=0;
 			var thmax=null;
-			$(".dialog").each(function(){
-				if(this.style.zIndex>maxZindex){
-					maxZindex=this.style.zIndex;
-					thmax=this;
-				}
+			$(".dialog:visible").each(function(){
+					if(this.style.zIndex>maxZindex){
+						maxZindex=this.style.zIndex;
+						thmax=this;
+					}
 			});
 			$(thmax).fadeOut();
 		}else{
-			obj.fadeOut();
+			$(".dialog").fadeOut();
 			$(".dimb").fadeOut();
 		}
 		

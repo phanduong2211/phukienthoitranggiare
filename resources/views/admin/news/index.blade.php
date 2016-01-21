@@ -88,9 +88,7 @@
       <input title="" type="text" class="textboxsearch" value="<?php if(isset($_GET['q'])) echo $_GET['q']; ?>"  placeholder="Nhập nội dung tìm kiếm..." name="q" />
       <input type="submit" class="buttonsearch" value="" />
     </div>
-    <?php if(isset($_GET["sort"])){ ?>
-    <input type="hidden" name="sort" value="<?php echo $_GET["sort"] ?>" />
-    <?php } ?>
+    
   </form>
 
 

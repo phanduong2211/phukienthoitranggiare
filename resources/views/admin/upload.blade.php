@@ -49,33 +49,24 @@ function createFileName($name,$basename,$i,$root,$duoi){
 }
 if(isset($_POST['submit'])){
 	$flag=false;
-	if(isset($_FILES['image']) && $_FILES['image']['size']>0){
-		if(strpos($_FILES['image']['type'],"image")===0){
-			if($_POST['action']==1){
-				$arr=explode(".", $_FILES['image']['name']);
-
-				$length=count($arr)-1;
-				$name='';
-				for($i=0;$i<$length;$i++)
-					$name.=$arr[$i];
-				$name=formatToUrl($name);
-				if(move_uploaded_file($_FILES['image']['tmp_name'],createFileName($name,$name,1,dirname($_SERVER['SCRIPT_FILENAME'])."/public/image/".$_POST['folder'],$arr[$length]))){
-					$message="Upload Thành Công";
-					$flag=true;
-				}else{
-					$message="Upload ảnh thất bại";
-				}
-			}else{
-				if(move_uploaded_file($_FILES['image']['tmp_name'],dirname($_SERVER['SCRIPT_FILENAME'])."/public/image/".$_POST['folder']."/".$_FILES['image']['name'])){
-					$message="Upload Thành Công";
-					$flag=true;
-				}else{
-					$message="Upload ảnh thất bại";
-				}
+	if(isset($_FILES['image'])){
+		$message=0;
+		$fileleg=count($_FILES['image']['name']);
+		for ($i=0; $i <$fileleg ; $i++) { 
+			if($_FILES['image']['size'][$i]>0 && strpos($_FILES['image']['type'][$i],"image")===0){
+					$arr=explode(".", $_FILES['image']['name'][$i]);
+					$length=count($arr)-1;
+					$name='';
+					for($j=0;$j<$length;$j++)
+						$name.=$arr[$j];
+					$name=formatToUrl($name);
+					if(move_uploaded_file($_FILES['image']['tmp_name'][$i],createFileName($name,$name,1,dirname($_SERVER['SCRIPT_FILENAME'])."/public/image/".$_POST['folder'],$arr[$length]))){
+						$message++;
+						$flag=true;
+					}
 			}
-		}else{
-			$message="Vui lòng chọn file hình ảnh.";
 		}
+		$message="Upload thành công ".$message."/".$fileleg." hình ảnh";
 	}else{
 		$message="Vui lòng chọn hình ảnh để upload.";
 	}
@@ -87,46 +78,84 @@ if(isset($_POST['submit'])){
 <div style="text-align:center;margin-top:3%">
 	<?php if(isset($message)){echo "<div style='margin-bottom:10px;text-align:center;color:red'>".$message."</div>";} ?>
 		<form method="post"  action="" enctype="multipart/form-data">
-			Chọn Hình Ảnh Từ Máy Tính Của Bạn(<2MB)<br /><br />
-			<input type="file" name="image" id="image" /><br /><br />
+			Chọn Hình Ảnh Từ Máy Tính Của Bạn(<2MB). <br /><span style="color:#888;font-size:13px">( Có thể chọn nhiều ảnh 1 lúc )</span><br /><br />
+			<label style="padding:10px 0px;cursor:pointer;display:block;width:300px;margin:10px auto;border:1px solid #ddd" id="areauploadfile">
+			<input type="file" name="image[]" multiple="multiple" id="image" /><br /><br />
+			</label>
 			Lưu Hình Ảnh Vào Thư Mục:
-			<br /><br />
-			<label><input checked="check" type="radio" name="folder" value="upload" /> Upload</label>
-			<label><input type="radio" name="folder" value="product" /> Sản Phẩm</label> 
-			
-			<label><input type="radio" name="folder" value="news" /> Tin Tức</label><br />
-			
-			<label><input type="radio" name="folder" value="slide" /> Slide</label>
+			<div style="height:7px"></div>
+			<input style="padding:4px;border:1px solid #ccc;outline:none" onkeydown="return false;" type="text" value="upload" name="folder" id="foldersave" /><input type="button" id="choosefolder" style="padding:3px 6px" value="..." />
 			
 			<br /><br /><br />
-			<input type="button" id="uploadimg" value="Upload Hình Ảnh" />
+			<input type="submit" id="submitform" value="Upload Hình Ảnh" name="submit" />
 			<input type="button" value="Hủy Bỏ" onclick="window.location.reload()" />
-			<input type="submit" id="submitform" style="display:none" name="submit" />
-			<input type="hidden" id="actionform" name="action" value="0" />
+			
+			
 			<input type="hidden" name="_token" value="{{csrf_token()}}"/>
 		</form>
 	</div>
 
 
-	<div id="dialog3">
+<style type="text/css">
+#dialog4 .ct li{
+	border:1px solid #fff;
+	display: block;
+	padding: 3px 7px;
+	list-style: none;
+	margin-bottom: 2px;
+}
+#dialog4 .ct li.active,#dialog4 .ct li:hover{
+	border:1px solid #C1C1FF;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    background-color: rgba(237, 245, 253,0.6);
+    cursor: pointer;
+}
+#dialog4 #footerchoose{
+	padding: 10px 20px;
+	background-color: #eee;
+	height: 45px;
+}
+#areauploadfile{
+	border-radius: 3px;
+}
+#areauploadfile:hover{
+	border:1px solid #AFAEAE !important;
+}
+#dialog4{
+	-moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+</style>
+
+<div id="dialog4">
 		<div class='header'>
-			Thông Báo <i title="close" class="fa fa-remove closedialog"></i>
+			Chọn Folder <i title="close" class="fa fa-times closedialog"></i>
 		</div>
 		<div class='ct'>
-			Hình ảnh <b></b> đã tồn tại. Bạn muốn?
-			<br /><br /><br />
-			<input type="button" onclick="XoaAnh();" value="Ghi đè lên ảnh cũ" />
-
-			<input type="button" onclick="GiuAnh();" value="Giữ ảnh cũ" />
-
-			<input type="button" onclick="dialogtrung.hide()" value="Upload ảnh khác" />
-
-	</div>
+			<div id="areachoosefolder">
+				<li data-value="upload">Upload</li>
+				<li data-value="product">Sản Phẩm</li>
+				<li data-value="news">Tin Tức</li>
+				<li data-value="slide">Slide</li>
+			</div>
+			
+		</div>
+		<div id="footerchoose">
+				Folder Name: <input type="text" onkeydown="return false" id="foldercurrentname" style="padding:2px;border:1px solid #ccc;width:60%;outline:none" /><br />
+				<div style="float:right;margin-top:7px">
+				<input type="button" id="selectedfolder" value="Chọn" />
+				<input type="button" value="Đóng" onclick="dialogchoosefolder.hide()" />
+				</div>
+			</div>
 </div>
 
 <script type="text/javascript">
 	var foldername1="upload";
-	var dialogtrung=null;
+	var dialogchoosefolder=null;
 	function LoadJson(url,dt,callback) {
 		$.ajax({
 			type: "POST",
@@ -152,38 +181,40 @@ if(isset($_POST['submit'])){
 		$("form input[name='folder']").change(function(){
 			foldername1=$(this).val();
 		});
-		$("#uploadimg").click(function(){
-			var objth=$(this);
-			if(objth.hasClass("disabled")){
-				return false;
+
+		$("#choosefolder").click(function(){
+			if(dialogchoosefolder==null){
+				dialogchoosefolder=new dialog($("#dialog4"),{
+				"width":300,
+				"height":250,
+				"ttop":125,
+				"outside":false,
+				"hidedim":true
+				});
+				dialogchoosefolder.init();
+				$("#selectedfolder").click(function(){
+					$("#foldersave").val($("#foldercurrentname").val());
+					dialogchoosefolder.hide();
+				});
 			}
-			objth.addClass("disabled");
-			objth.attr("disabled","disabled");
-
-			var image=document.getElementById("image");
-			if(image.files && image.files[0]){
-				var filename=foldername1+"/"+image.files[0].name;
-
-
-
-				LoadJson("{{Asset('admin/upload/checkfile')}}",{"filename":filename,"_token":"{{csrf_token()}}"},function(result){
-					objth.removeClass("disabled");
-					objth.removeAttr("disabled");
-					if(result==1){
-						if(dialogtrung==null){
-							dialogtrung=new dialog($("#dialog3"),{
-								"width":400,
-								"height":150
-							});
-							dialogtrung.init();
-						}
-						dialogtrung.getObj().find(".ct b").html(image.files[0].name);
-						dialogtrung.show();
-					}else{
-						$("#submitform").click();
-					}
-				});	
-			}
+			var value=$("#foldersave").val();
+			dialogchoosefolder.getObj().find("#foldercurrentname").val(value);
+			
+			dialogchoosefolder.getObj().find("#areachoosefolder li").each(function(){
+				if($(this).attr("data-value")==value){
+					$(this).addClass("active");
+				}
+			}).click(function(){
+				if(!$(this).hasClass("active")){
+					$(this).parent().find(".active").removeClass("active");
+					$(this).addClass("active");
+					dialogchoosefolder.getObj().find("#foldercurrentname").val($(this).attr("data-value"));
+				}
+			}).dblclick(function(){
+				$("#foldersave").val($(this).attr("data-value"));
+				dialogchoosefolder.hide();
+			});
+			dialogchoosefolder.show();
 		});
 	});
 </script>

@@ -4,7 +4,7 @@
 @section('script')
 <script type="text/javascript">
     $(function(){
-        $("#nav-accordion>li:eq(2)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
+        $("#nav-accordion>li:eq(3)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
     });
 </script>
 @endsection

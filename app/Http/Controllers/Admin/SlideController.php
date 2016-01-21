@@ -5,43 +5,12 @@ use Illuminate\Routing\Controller;
 use App\Http\Module\slideshow;
 use App\Http\Module\category;
 use Input;
+use DB;
 class SlideController extends Controller
 {
 	public function getIndex(){
 		$slide=new slideshow();
-		$order='id';
-		$typeorder='desc';
-		if(Input::exists('s')){
-			switch (Input::get('s')) {
-				case '1':
-					$order='id';
-					$typeorder='desc';
-					break;
-				case '3':
-					$order='name';
-					$typeorder='asc';
-					break;
-				case '4':
-					$order='created_at';
-					$typeorder='desc';
-					break;
-				case '5':
-					$order='updated_at';
-					$typeorder='desc';
-					break;
-				default:
-					$order='id';
-					$typeorder='desc';
-					break;
-			}
-		}
-		if(Input::exists('q')){
-			$query=Input::get('q');
-			$data=$slide->where('name','like','%'.$query.'%')->orWhere('content','like','%'.$query.'%')->orderBy($order,$typeorder)->get();	
-		}else{
-			$data=$slide->orderBy($order,$typeorder)->get();	
-		}
-
+		$data=$slide->select('slideshow.*',DB::raw("(case when page=0 then 'Trang Chu' else (select name from category where slideshow.page=category.id) end) as namepage"))->orderBy('id','desc')->get();	
 		return view("admin.slide.index",array('data'=>$data));
 	}
 

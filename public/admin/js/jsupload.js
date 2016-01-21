@@ -13,8 +13,8 @@ function LoadDataFolder(clickfirst){
   if(!$("#dialogupload .tabfolder li.active").hasClass("success")){
 
     var foldername=$("#dialogupload .tabfolder li.active").attr("data-value");
-    var area=$("#dialogupload #"+foldername);
-    area.html("Đang Tải...");
+    var area=$("#dialogupload #"+foldername+"folder");
+    area.html("Đang Tải...<br /><small>Nếu không tải được vui lòng click vào nút tải lại.</small>");
         LoadJson(base_url_admin+"ajax/loadfolder",{"folder":foldername,"_token":__token},function(result){
         
         if(typeof result==="undefined" || typeof result==="number"){
@@ -33,24 +33,8 @@ function LoadDataFolder(clickfirst){
                 }
               }
             }
-            var asset=asset_path;
-            switch(foldername){
-              case "folderupload":
-              asset+="image/upload/";
-              break;
-              case "foldersanpham":
-              asset+="image/product/";
-              break;
-        
-              case "foldernews":
-              asset+="image/news/";
-              break;
-              case "folderslide":
-              asset+="image/slide/";
-              break;
+            var asset=asset_path+"image/"+foldername+"/";
           
-
-            }
             area.html("<div class='item col-md-2 col-sm-3 col-xs-6'>success</div>");
             var maxwidth=area.find(".item:eq(0)").width()+10;
 
@@ -144,10 +128,10 @@ $(document).ready(function(){
    	 	$("#dialogupload .tabfolder li").click(function(){
    	 		if(!$(this).hasClass("active")){
    	 			var parenttab=$(this).parent().find(".active").removeClass("active");
-   	 			$("#dialogupload .ct #folderitems #"+parenttab.attr("data-value")).removeClass("active");
+   	 			$("#dialogupload .ct #folderitems #"+parenttab.attr("data-value")+"folder").removeClass("active");
 
 				$(this).addClass("active");   
-				$("#dialogupload .ct #folderitems #"+$(this).attr("data-value")).addClass("active");	 			
+				$("#dialogupload .ct #folderitems #"+$(this).attr("data-value")+"folder").addClass("active");	 			
    	 		 LoadDataFolder();
         }
    	 	});

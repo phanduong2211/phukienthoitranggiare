@@ -66,6 +66,7 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
 
     Route::controller("slide","Admin\SlideController");
     Route::controller("news","Admin\NewsController");
+    Route::controller("ad","Admin\AdminController");
 });
 
 //Admin//
