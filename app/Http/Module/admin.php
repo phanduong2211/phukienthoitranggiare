@@ -18,5 +18,9 @@
 			return $data;
 		}
 
+		public static function get_userid($id){
+			return DB::table("admin")->select('id','name','active')->where('id',(int)$id)->first();
+		}
+
 	}
 	?>

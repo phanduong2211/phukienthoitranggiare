@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Routing\Controller;
 use App\Http\Module\slideshow;
+use App\Http\Module\category;
 use Input;
 class SlideController extends Controller
 {
@@ -45,11 +46,14 @@ class SlideController extends Controller
 	}
 
 	public function getAdd(){
-		return view('admin.slide.add');
+		$datac=category::get();
+		return view('admin.slide.add',array('datac'=>$datac));
 	}
 
 	public function postAdd(){
 		$slide=new slideshow();
+		Input::merge(array('name' => str_replace("\"","'",trim(Input::get('name')))));
+		Input::merge(array('content' => str_replace("\"","'",trim(Input::get('content')))));
 		$slide->fill(Input::get());
 		if($slide->save()){
 			return redirect('admin/slide')->with(['message'=>'Thêm thành công slide '.Input::get('name')]);
@@ -65,12 +69,16 @@ class SlideController extends Controller
 		$data=$slide->where('id',Input::get('id'))->first();
 		if($data==null)
 			return redirect('admin/slide')->with(['message'=>'Slide không tồn tại.']);
-		
-		return view("admin.slide.edit",array('data'=>$data));
+		$datac=category::get();
+		return view("admin.slide.edit",array('data'=>$data,'datac'=>$datac));
 	}
 
 	public function postEdit(){
 		$slide=slideshow::find(Input::get('idedit'));
+
+		Input::merge(array('name' => str_replace("\"","'",trim(Input::get('name')))));
+		Input::merge(array('content' => str_replace("\"","'",trim(Input::get('content')))));
+
 		$slide->fill(Input::get());
 
 		if($slide->update()){

@@ -62,7 +62,7 @@ class WebsiteController extends BaseController
 		$menu= new menu();
 
 		$data=array(
-			'name'=>trim(Input::get('name')),
+			'name'=>str_replace("\"", "'", trim(Input::get('name'))),
 			'root'=>Input::get('root'),
 			'url'=>trim(Input::get('url'))
 		);
@@ -98,7 +98,7 @@ class WebsiteController extends BaseController
 		$menu=menu::find(Input::get('idedit'));
 		
 		$data=array(
-			'name'=>trim(Input::get('name')),
+			'name'=>str_replace("\"", "'", trim(Input::get('name'))),
 			'root'=>Input::get('root'),
 			'url'=>trim(Input::get('url'))
 		);
@@ -173,16 +173,16 @@ class WebsiteController extends BaseController
 
 	public function postinfoall(){
 		$info=new info();
-		$info->where('name','title')->update(array('contents'=>Input::get('title')));
-		$info->where('name','description')->update(array('contents'=>Input::get('description')));
-		$info->where('name','keyword')->update(array('contents'=>Input::get('keyword')));
+		$info->where('name','title')->update(array('contents'=>str_replace("\"", "'", trim(Input::get('title')))));
+		$info->where('name','description')->update(array('contents'=>str_replace("\"", "'", trim(Input::get('description')))));
+		$info->where('name','keyword')->update(array('contents'=>str_replace("\"", "'", trim(Input::get('keyword')))));
 		$info->where('name','maps')->update(array('contents'=>Input::get('maps')));
 		return Redirect::to('admin/website/info')->with(['message'=>'Cập nhật thành công thông tin chung.']);
 	}
 
 	public function postinfcontact(){
 		$info=new info();
-		$info->where('name','address')->update(array('contents'=>Input::get('address')));
+		$info->where('name','address')->update(array('contents'=>str_replace("\"", "'", trim(Input::get('address')))));
 		$info->where('name','phone')->update(array('contents'=>Input::get('phone')));
 		$info->where('name','email')->update(array('contents'=>Input::get('email')));
 		$info->where('name','skype')->update(array('contents'=>Input::get('skype')));

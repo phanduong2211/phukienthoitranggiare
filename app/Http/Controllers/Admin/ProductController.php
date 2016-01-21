@@ -171,7 +171,7 @@ class ProductController extends BaseController
 
 	
 		$data=array(
-			'name'=>trim(Input::get('name')),
+			'name'=>str_replace("\"", "'", trim(Input::get('name'))),
 			'promotion_price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('promotion_price'))),
 			'price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('price'))),
 			'image'=>Input::get('image'),
@@ -185,7 +185,7 @@ class ProductController extends BaseController
 			'display'=>Input::get('display')=="on"?1:0,
 			'bin'=>0,
 			'original_price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('original_price'))),
-			'content'=>trim(Input::get('content')),
+			'content'=>str_replace("\"", "'", trim(Input::get('content'))),
 			'tagID'=>trim(Input::get('tagID'))
 		);
 		$product->fill($data);
@@ -223,7 +223,7 @@ class ProductController extends BaseController
 	{
 		$product=product::find(Input::get('idedit'));
 		$data=array(
-			'name'=>trim(Input::get('name')),
+			'name'=>str_replace("\"", "'", trim(Input::get('name'))),
 			'promotion_price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('promotion_price'))),
 			'price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('price'))),
 			'image'=>Input::get('image'),
@@ -233,7 +233,7 @@ class ProductController extends BaseController
 			'categoryID'=>Input::get('categoryID'),
 			'menuID'=>Input::get('menuID'),
 			'original_price'=>preg_replace("/(\.|-| |\,)*/", "", trim(Input::get('original_price'))),
-			'content'=>trim(Input::get('content')),
+			'content'=>str_replace("\"", "'", trim(Input::get('content'))),
 			'tagID'=>trim(Input::get('tagID'))
 		);
 		$product->fill($data);

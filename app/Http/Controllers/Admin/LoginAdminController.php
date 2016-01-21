@@ -10,6 +10,7 @@ use Input;
 use Session;
 use Redirect;
 use View;
+use Cookie;
 use App\Http\Module\Admin;
 
 class LoginAdminController extends BaseController
@@ -19,6 +20,24 @@ class LoginAdminController extends BaseController
 		if($this->isLogin()){
 			return redirect('admin/index');
 		}
+
+		$redirect=(Input::exists("redirect"))?('?redirect='.Input::get("redirect")):'';
+
+		if(Cookie::has('rem_login')){
+			$result=Admin::get_userid(Cookie::get('rem_login'));
+			if(is_object($result)){
+				if($result->active==1){
+					Session::put('logininfo',$result);
+					if(Input::exists('redirect')){
+						return Redirect::to(Input::get('redirect'));
+					}
+					return Redirect::to('admin');
+				}else{
+					return Redirect::to('admin/login'.$redirect)->with(['message'=>'Tài khoản '.$username.' đã bị khóa. Vui lòng liên hệ admin để biết thêm chi tiết.','username'=>$username]);
+				}
+			}
+		}
+
 		return View::make("admin.login");
 	}	
 
@@ -35,10 +54,10 @@ class LoginAdminController extends BaseController
 			return redirect('admin/index');
 		}
 
+		$redirect=(Input::exists("redirect"))?('?redirect='.Input::get("redirect")):'';
+
 		$username=trim(Input::get('username'));
 		$password=trim(Input::get('password'));
-
-		$redirect=(Input::exists("redirect"))?('?redirect='.Input::get("redirect")):'';
 
 		if(empty($username)){
 			return Redirect::to('admin/login'.$redirect)->with(['message'=>'Vui lòng nhập tài khoản.','username'=>$username]);
@@ -52,9 +71,12 @@ class LoginAdminController extends BaseController
 		if(is_object($result)){
 			if($result->active==1){
 				Session::put('logininfo',$result);
+				if(Input::get('rememberme')==='on'){
+					Cookie::queue('rem_login', $result->id,4800);
+				}
 				if(Input::exists('redirect')){
 					return Redirect::to(Input::get('redirect'));
-				}else
+				}
 				return Redirect::to('admin');
 			}else{
 				return Redirect::to('admin/login'.$redirect)->with(['message'=>'Tài khoản '.$username.' đã bị khóa. Vui lòng liên hệ admin để biết thêm chi tiết.','username'=>$username]);
@@ -67,6 +89,7 @@ class LoginAdminController extends BaseController
 	{
 		if($this->isLogin()){
 			Session::forget("logininfo");
+			Cookie::queue(Cookie::forget('rem_login'));
 		}
 		return Redirect::to('admin/login');
 	}	

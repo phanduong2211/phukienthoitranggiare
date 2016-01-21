@@ -74,9 +74,9 @@ class NewsController extends Controller
 	public function postAdd(){
 		$slide=new news();
 		$data=array(
-			'name'=>trim(Input::get('name')),
+			'name'=>str_replace("\"", "'", trim(Input::get('name'))),
 			'image'=>trim(Input::get('image')),
-			'description'=>trim(Input::get('description')),
+			'description'=>str_replace("\"", "'", trim(Input::get('description'))),
 			'content'=>Input::get('content'),
 			'view'=>0,
 			'user'=>Session::get('logininfo')->id,
@@ -106,9 +106,9 @@ class NewsController extends Controller
 		$news=news::find(Input::get('idedit'));
 		
 		$data=array(
-			'name'=>trim(Input::get('name')),
+			'name'=>str_replace("\"", "'", trim(Input::get('name'))),
 			'image'=>trim(Input::get('image')),
-			'description'=>trim(Input::get('description')),
+			'description'=>str_replace("\"", "'", trim(Input::get('description'))),
 			'content'=>Input::get('content'),
 			'categoryNewsID'=>Input::get('categoryNewsId')
 		);

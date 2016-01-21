@@ -32,6 +32,10 @@
                 'name':'url',
                 'url':true,
                 'isnull':true
+            },
+            {
+                'name':'page',
+                'select':true
             }
     	]);
 	});
@@ -47,26 +51,12 @@
 @endif
     <form method="post" action="" id="frm">
     	<div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        Tiêu Đề:
-                    </div>
-                    <div class="col-md-8 require">
-                        <div class="red">*</div>
-                        <textarea name="name" class="form-control">{{$_POST['name'] or ''}}</textarea>
-                    </div>
-                </div><br />
+            <div class="col-md-2">
+                Tiêu Đề:
             </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        Nội Dung:
-                    </div>
-                    <div class="col-md-8 ">
-                       <textarea name="content" class="form-control">{{$_POST['content'] or ''}}</textarea>
-                    </div>
-                </div><br />
+            <div class="col-md-10 require">
+                <div class="red">*</div>
+                <textarea name="name" class="form-control">{{$_POST['name'] or ''}}</textarea>
             </div>
         </div><br />
         <div class="row">
@@ -86,15 +76,48 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-4">
+                        Nội Dung:
+                    </div>
+                    <div class="col-md-8 ">
+                       <textarea name="content" rows="7" class="form-control">{{$_POST['content'] or ''}}</textarea>
+                    </div>
+                </div><br />
+            </div>
+          
+        </div><br />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        Hiển Thị Trong Trang:
+                    </div>
+                    <div class="col-md-8 require">
+                        <div class="red">*</div>
+                        <select name="page" class="form-control">
+                            <option value="-1">-- Lựa Chọn --</option>
+                            <option value="0">Trang Chủ</option>
+                            @foreach($datac as $value)
+                                <option value="{{$value->id}}">{{$value->name}}</option>
+                            @endforeach
+                        </select>
+                        <span class="desc">Slide này sẽ hiện thị trong trang nào?</span>
+                    </div>
+                </div><br />
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
                         Url:
                     </div>
                     <div class="col-md-8">
-                        <textarea name="url" class="form-control">{{$_POST['url'] or ''}}</textarea>
+                        <textarea name="url" rows="1" class="form-control">{{$_POST['url'] or ''}}</textarea>
                         <span class="desc">Copy url trên trình duyệt vào dán vào.</span>
                     </div>
                 </div><br />
             </div>
+          
         </div><br />
+          
     	<div class="row">
     		<div class="col-md-12 text-right">
     			<input type="submit" class="btn btn-success" value="Lưu Lại" />
@@ -103,5 +126,8 @@
     	</div><br />
     	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
     </form>
+
 @include('upload')
 @endsection
+
+ 
