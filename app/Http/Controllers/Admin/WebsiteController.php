@@ -42,12 +42,7 @@ class WebsiteController extends BaseController
 					break;
 			}
 		}
-		if(Input::exists('q')){
-			$query=Input::get('q');
-			$data=$menu->where('name','like','%'.$query.'%')->orWhere('url','like','%'.$query.'%')->orderBy($order,$typeorder)->get();	
-		}else{
-			$data=$menu->orderBy($order,$typeorder)->get();	
-		}
+		$data=$menu->orderBy($order,$typeorder)->get();	
 		
 		return View::make("admin.website.menu",array('data'=>$data));
 	}	
@@ -73,8 +68,22 @@ class WebsiteController extends BaseController
 
 		$menu->fill($data);
 		if($menu->save()){
+			if(Input::exists('json')){
+				$data=array(
+					'id'=>$menu->id,
+					'name'=>$menu->name,
+					'root'=>$menu->root,
+					'url'=>$menu->url,
+					'created_at'=>$menu->created_at,
+					'updated_at'=>$menu->updated_at
+				);
+				return json_encode(array('result'=>1,'message'=>'Thêm thành công menu '.$data['name'],'data'=>$data));
+			}
 			return Redirect::to('admin/website/menu')->with(['message'=>'Thêm thành công menu "'.$data['name'].'"']);
 		}else{
+			if(Input::exists('json')){
+				return json_encode(array('result'=>-1,'message'=>'Có lỗi. Vui lòng thử lại'));
+			}
 			return Redirect::to('admin/website/menu/add')->with(['message'=>'Có lỗi. Vui lòng thử lại']);
 		}
 	}
@@ -110,8 +119,14 @@ class WebsiteController extends BaseController
 		$menu->fill($data);
 
 		if($menu->update()){
+			if(Input::exists('json')){
+				return json_encode(array('result'=>1,'message'=>'Cập nhật thành công'));
+			}
 			return Redirect::to('admin/website/menu')->with(['message'=>'Cập nhật thành công menu "'.$data['name'].'"']);
 		}else{
+			if(Input::exists('json')){
+				return json_encode(array('result'=>-1,'message'=>'Cập nhật thất bại. Vui lòng thử lại'));
+			}
 			return Redirect::to('admin/website/menu/edit?id='.Input::get('idedit'))->with(['message'=>'Cập nhật thất bại. Vui lòng thử lại.']);
 		}
 	}	
@@ -121,19 +136,31 @@ class WebsiteController extends BaseController
 		if(Input::get("root")==="0"){
 			$menu=menu::where('root',Input::get('id'))->get();
 			if(count($menu)>0){
+				if(Input::exists('json')){
+					return json_encode(array('result'=>-1,'message'=>'Menu "'.Input::get('title').'" đã có menu con. Không thể xóa'));
+				}
 				return Redirect::to('admin/website/menu')->with(['message'=>'Menu "'.Input::get('title').'" đã có menu con. Không thể xóa']);
 			}
 		}
-		if(Input::get("url")==""){
+		if(Input::get("url2")==""){
 			$product=product::where('menuID',Input::get('id'))->get();
 			if(count($product)>0){
+				if(Input::exists('json')){
+					return json_encode(array('result'=>-1,'message'=>'Menu "'.Input::get('title').'" đã có sản phẩm. Không thể xóa'));
+				}
 				return Redirect::to('admin/website/menu')->with(['message'=>'Menu "'.Input::get('title').'" đã có sản phẩm. Không thể xóa']);
 			}
 		}
 		$menu=menu::find(Input::get('id'));
 		if($menu->delete()){
+			if(Input::exists('json')){
+				return json_encode(array('result'=>1));
+			}
 			return Redirect::to('admin/website/menu')->with(['message'=>'Xóa thành công menu "'.Input::get('title').'"']);
 		}else{
+			if(Input::exists('json')){
+				return json_encode(array('result'=>-1,'message'=>'Có lỗi. Xóa thất bại'));
+			}
 			return Redirect::to('admin/website/menu')->with(['message'=>'Có lỗi xóa menu "'.Input::get('title').'" thất bại. Vui lòng thử lại.']);
 		}
 		

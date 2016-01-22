@@ -24,86 +24,103 @@ class ProductController extends BaseController
 
 		$bin=0;
 
-		if(!Input::exists('s') && !Input::exists('f') && !Input::exists('q')){
-			$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('id','desc')->paginate(15);
-		}else{
-			if(Input::exists('q')){
-				$query=trim(Input::get('q'));
-				if($query!=""){
-					$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('id','desc')->where(function($q) use ($query){
+		$sortf="id";
+		$sorttype="desc";
+
+		if(Input::exists('s')){
+			switch (Input::get('s')) {
+				case '2':
+					$sorttype="asc";
+					break;
+				case '3':
+					$sortf="name";
+					$sorttype="asc";
+					break;
+				case '4':
+					$sortf="quantity";
+					$sorttype="desc";
+					break;
+				case '5':
+					$sortf="price";
+					$sorttype="desc";
+					break;
+				case '6':
+					$sortf="promotion_price";
+					$sorttype="desc";
+					break;
+				case '7':
+					$sortf="original_price";
+					$sorttype="desc";
+					break;
+				case '8':
+					$sortf="created_at";
+					$sorttype="desc";
+					break;
+				case '9':
+					$sortf="updated_at";
+					$sorttype="desc";
+					break;
+			}
+		}
+
+		$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->orderBy($sortf,$sorttype)->where('bin',$bin);
+
+		if(Input::exists('f')){
+			switch (Input::get('f')) {
+				case '1':
+					$data=$data->where('admin.id',Session::get('logininfo')->id);
+					break;
+				case '2':
+					$data=$data->where('price','<>',DB::raw('promotion_price'));
+					break;
+				case '3':
+					$data=$data->where('price',DB::raw('promotion_price'));
+					break;
+				case '4':
+					$data=$data->where('status','new');
+					break;
+				case '5':
+					$data=$data->where('status','hot');
+					break;
+				case '6':
+					$data=$data->where('status','over');
+					break;
+				case '7':
+					$data=$data->where('status','sell');
+					break;
+				case '8':
+					$data=$data->where('status','promotion');
+					break;
+				case '9':
+					$data=$data->where('status','Ngừng Kinh Doanh');
+					break;
+				case '10':
+					$data=$data->where('display',1);
+					break;
+				case '11':
+					$data=$data->where('display',0);
+					break;
+				
+			}
+		}
+
+		if(Input::exists('q')){
+			$query=trim(Input::get('q'));
+			if($query!=""){
+				$data=$data->where(function($q) use ($query){
 						$q->where('product.name','like','%'.$query.'%');
-						$q->orWhere('promotion_price',$query);
-						$q->orWhere('original_price',$query);
-						$q->orWhere('price',$query);
+						$q->orWhere('promotion_price',preg_replace("/(\.|-| |\,)*/", "",$query));
+						$q->orWhere('original_price',preg_replace("/(\.|-| |\,)*/", "",$query));
+						$q->orWhere('price',preg_replace("/(\.|-| |\,)*/", "",$query));
 						$q->orWhere('quantity',$query);
 						$q->orWhere('admin.name',$query);
 						$q->orWhere('category.name','like','%'.$query.'%');
-					})->paginate(15);
-				}else{
-					$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('id','desc')->paginate(15);
-				}
-			}else{
-				if(Input::exists('s')){
-					switch (Input::get('s')) {
-						case '2':
-							$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('id','asc')->paginate(15);
-							break;
-						case '3':
-							$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('name','asc')->paginate(15);
-							break;
-						case '4':
-							$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('created_at','desc')->paginate(15);
-							break;
-						case '5':
-							$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('updated_at','desc')->paginate(15);
-							break;
-						
-						default:
-							$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('id','desc')->paginate(15);
-							break;
-					}
-				}else{
-					switch (Input::get('f')) {
-						case '1':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('admin.id',Session::get('logininfo')->id)->orderBy('id','desc')->paginate(15);
-						break;
-						case '2':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('product.price','<>',DB::raw('product.promotion_price'))->where('bin',$bin)->orderBy('id','desc')->paginate(15);
-						break;
-						case '3':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('promotion_price',DB::raw('price'))->orderBy('id','desc')->paginate(15);
-						break;
-						case '4':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('status','new')->orderBy('id','desc')->paginate(15);
-						break;
-						case '5':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('status','hot')->orderBy('id','desc')->paginate(15);
-						break;
-						case '6':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('status','over')->orderBy('id','desc')->paginate(15);
-						break;
-						case '7':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('status','sell')->orderBy('id','desc')->paginate(15);
-						break;
-						case '8':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('status','promotion')->orderBy('id','desc')->paginate(15);
-						break;
-						case '9':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('status','Ngừng Kinh Doanh')->orderBy('id','desc')->paginate(15);
-						break;
-						case '10':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('display',1)->orderBy('id','desc')->paginate(15);
-						break;
-						case '11':
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->where('display',0)->orderBy('id','desc')->paginate(15);
-						break;
-						default:
-						$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('id','desc')->paginate(15);
-
-					}
-				}
+					});
 			}
 		}
+
+		
+		$data=$data->paginate(15);
 		return View::make("admin.product.index",array('data'=>$data));
 	}
 
@@ -116,11 +133,12 @@ class ProductController extends BaseController
 			if(Input::exists('q')){
 				$query=trim(Input::get('q'));
 				if($query!=""){
+					
 					$data=product::select('product.*','admin.name as nameuser','category.name as namec')->join('admin','product.user','=','admin.id')->join('category','product.categoryID','=','category.id')->where('bin',$bin)->orderBy('id','desc')->where(function($q) use ($query){
 						$q->where('product.name','like','%'.$query.'%');
-						$q->orWhere('promotion_price',$query);
-						$q->orWhere('original_price',$query);
-						$q->orWhere('price',$query);
+						$q->orWhere('promotion_price',preg_replace("/(\.|-| |\,)*/", "",$query));
+						$q->orWhere('original_price',preg_replace("/(\.|-| |\,)*/", "",$query));
+						$q->orWhere('price',preg_replace("/(\.|-| |\,)*/", "",$query));
 						$q->orWhere('quantity',$query);
 						$q->orWhere('admin.name',$query);
 						$q->orWhere('category.name','like','%'.$query.'%');

@@ -99,6 +99,12 @@
       <option value="10">Hiện</option>
       <option value="11">Ẩn</option>
     </select>
+    <?php if(isset($_GET["q"])){ ?>
+    <input type="hidden" name="q" value="<?php echo $_GET["q"] ?>" />
+    <?php } ?>
+    <?php if(isset($_GET["s"])){ ?>
+    <input type="hidden" name="s" value="<?php echo $_GET["s"] ?>" />
+    <?php } ?>
   </form>
   <form method="get" action="" class="pull-right">
 
@@ -107,17 +113,30 @@
       <option value="1">Mới nhất</option>
       <option value="2">Cũ nhất</option>
       <option value="3">Tên</option>
-      <option value="4">Ngày Tạo</option>
-      <option value="5">Ngày Cập Nhật</option>
+      <option value="4">Số lượng</option>
+      <option value="5">Giá bán</option>
+      <option value="6">Giá gốc</option>
+      <option value="7">Giá sỉ</option>
+      <option value="8">Ngày Tạo</option>
+      <option value="9">Ngày Cập Nhật</option>
     </select>
+    <?php if(isset($_GET["q"])){ ?>
+    <input type="hidden" name="q" value="<?php echo $_GET["q"] ?>" />
+    <?php } ?>
+    <?php if(isset($_GET["f"])){ ?>
+    <input type="hidden" name="f" value="<?php echo $_GET["f"] ?>" />
+    <?php } ?>
   </form>
   <form method="get" action="" class="pull-right">
     <div class="frmsearch clearfix">
       <input title="" type="text" class="textboxsearch" value="<?php if(isset($_GET['q'])) echo $_GET['q']; ?>"  placeholder="Nhập nội dung tìm kiếm..." name="q" />
       <input type="submit" class="buttonsearch" value="" />
     </div>
-    <?php if(isset($_GET["sort"])){ ?>
-    <input type="hidden" name="sort" value="<?php echo $_GET["sort"] ?>" />
+    <?php if(isset($_GET["s"])){ ?>
+    <input type="hidden" name="s" value="<?php echo $_GET["s"] ?>" />
+    <?php } ?>
+    <?php if(isset($_GET["f"])){ ?>
+    <input type="hidden" name="f" value="<?php echo $_GET["f"] ?>" />
     <?php } ?>
   </form>
 

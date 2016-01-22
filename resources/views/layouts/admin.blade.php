@@ -389,6 +389,7 @@
     <script src="{{Asset('public/admin')}}/js/owl.carousel.js" ></script>
     <script src="{{Asset('public/admin')}}/js/jquery.customSelect.min.js" ></script>
     <script src="{{Asset('public/admin')}}/js/respond.min.js" ></script>
+    
     @yield('script')
     <!--right slidebar-->
     <script src="{{Asset('public/admin')}}/js/slidebars.min.js"></script>
@@ -436,6 +437,20 @@
 
       //custom select box
 
+      function RunJson(url,dt,callback) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: 'json',
+                data:dt,
+                beforeSend: function(){
+                },
+                success: callback,
+                error: function (e, e2, e3) {
+                }
+            });
+        }
+
       function getConfirm(confirmMessage,callback){
             confirmMessage = confirmMessage || '';
 
@@ -456,6 +471,7 @@
             });
         }  
 
+    
       $(function(){
             $("#searchtable .buttonsearch").click(function(){
                 var key=$(this).parent().find(".textboxsearch").val();
@@ -476,6 +492,8 @@
                     $(".table-responsive .table tr").show();
                 }
             });
+
+
             $("#searchtable .textboxsearch").keyup(function(e){
                 if($(this).val()==""){
                     $(".table-responsive .table tr").show();
@@ -560,7 +578,7 @@
             $("select[name='f']").val(filter);
           $('select.styled').customSelect();
 
-          $("form.remove").submit(function(){
+          $(".table").on('submit','form.remove',function(){
             if($(this).attr("nocomfirm")){
                 return true;
             }
@@ -573,8 +591,23 @@
                 var thhhs=$(this);
                 getConfirm(msg,function(result) {
                     if(result){
-                        thhhs.addClass("submitform");
-                        thhhs.submit();
+                        if(!thhhs.attr("dataitem")){
+                            thhhs.addClass("submitform");
+                            thhhs.submit();
+                        }else{
+                           
+                            var dataremove=jQuery.parseJSON(thhhs.attr("dataitem"));
+                            thhhs=thhhs.parents("tr");
+                            thhhs.addClass("noaction");
+                            RunJson(dataremove.url,{"id":dataremove.id,"title":dataremove.name,"_token":__datatoken,"json":1},function(result){
+                                if(result.result==1){
+                                    thhhs.fadeOut();
+                                }else{
+                                      thhhs.removeClass("noaction");
+                                      alert(result.message);
+                                }
+                            });
+                        }
                     }
                 });
                 return false;

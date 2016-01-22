@@ -2,11 +2,49 @@
 
 @section('title', 'Quản Lý Tab')
 @section('script')
+<script src="{{Asset('public/admin')}}/js/validate.js" ></script>
 <script type="text/javascript">
+function callBackSuccessModal(data){
+         if(dataitem.action=="addnew"){
+            var html="<tr data-column='"+data.id+"'>";
+            html+="<td>"+data.id+"</td>";
+            html+='<td><span>'+data.name+'</span>';
+            html+='<div class="groupaction">';
+            html+='<a class="edit" data-toggle="modal" dataitem=\'{"action":"edit","title":"Sửa '+data.name+'","id":"'+data.id+'","url":"'+(dataitem.url.substr(0,dataitem.url.length-3)+"edit")+'","value":{"name":"'+data.name+'"}}\' data-target="#modaldialog" href="#">Sửa</a>';
+            html+='<form method="post" action="http://localhost/phukienthoitranggiare/admin/tab/delete" class="remove" dataitem=\'{"id":"'+data.id+'","title":"'+data.name+'","url":"'+(dataitem.url.substr(0,dataitem.url.length-3)+"delete")+'"}\'>';
+            html+='<input type="submit" value="Xóa">';
+            html+='</form>';
+            html+='</div>';
+            html+="</td>";
+            html+='<td>'+data.created_at.date+'</td>';
+            html+='<td>'+data.updated_at.date+'</td>';
+            html+='</tr>';
+            $(".table-responsive .table tr:eq(0)").after(html);
+        }else{
+            var obj=$(".table-responsive .table tr[data-column='"+data.idedit+"']");
+            obj.find("td:eq(1) span:eq(0)").html(data.name);
+            obj.find("td:eq(3)").html("Vừa xong");
+            dataitem.value.name=data.name;
+            dataitem.title="Sửa "+data.name;
+            obj.find("a.edit").attr("dataitem",JSON.stringify(dataitem));
+            $("#modaldialog").modal('hide');
+        }
+    }
     $(function(){
         $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(3)").addClass("active");
+    
+        $("#modaldialog form").kiemtra([
+            {
+                'name':'name',
+                'trong':true
+            }
+        ],function(){
+            callBackModal();
+            return false;
+        });
     });
 </script>
+@include('admin.script')
 @endsection
 @section('content')
 @if(Session::has('message'))
@@ -17,7 +55,7 @@
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:5px">
        <div class="group-button clearfix">
-           <a href="{{Asset('admin/tab/add')}}" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
+           <a href="#addnew" dataitem='{"action":"addnew","title":"Thêm Mới","url":"{{Asset('admin/tab/add')}}"}' data-toggle="modal" id="addnewitem" data-target="#modaldialog" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
        </div>
    </div>
    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
@@ -57,16 +95,13 @@
             <tr data-column="{{$value->id}}">
             <td>{{$count}}</td>
             <td>
-                {{$value->name}}
+                <span>{{$value->name}}</span>
                  <div class="groupaction">
-                        <a class="edit" href='{{Asset('admin/tab/edit?id='.$value->id)}}'>Sửa</a>
-                        <form method="post" action="{{Asset('admin/tab/delete')}}" class="remove">
-                                <input type="hidden" name="id" value="{{$value->id}}">
-                                <input type="hidden" name="title" value="{{$value->name}}">
+                        <a class="edit" data-toggle="modal" dataitem='{"action":"edit","title":"Sửa {{$value->name}}","id":"{{$value->id}}","url":"{{Asset('admin/tab/edit')}}","value":{"name":"{{$value->name}}"}}' data-target="#modaldialog" href='#'>Sửa</a>
+                        <form method="post" action="{{Asset('admin/tab/delete')}}" class="remove" dataitem='{"id":"{{$value->id}}","title":"{{$value->name}}","url":"{{Asset('admin/tab/delete')}}"}'>
                                 <input type="submit" value="Xóa">
-                                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-                            </form>
-                    </div>
+                        </form>
+                 </div>
             </td>
             <td>
                  {{date('d/m/Y H:i',strtotime($value->created_at))}}
@@ -80,4 +115,39 @@
         
     </table>
 </div>
+
+<link rel="stylesheet" type="text/css" href="{{Asset('public/admin')}}/css/validate.css" />
+<!--modal insert and edit-->
+<div id="modaldialog" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+            <p class="text-center"></p>
+            <form method="post" action="{{Asset('admin/category/add')}}">
+                <div class="row">
+                    <div class="col-xs-4">Tên Tab:</div>
+                    <div class="col-xs-8 require">
+                        <span class="red">*</span>
+                        <input type="text" name="name" class="form-control" />
+
+                    </div>
+                </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="savemodal" class="btn btn-primary">Lưu Lại</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--//modal insert and edit-->
+
     @endsection

@@ -16,7 +16,7 @@ class ViewController extends Controller
 		$info = InfoController::getInfo();
 		$menu = MenuController::getMenu();
 		$convert = new convertString();		
-		$slideshow = SlideShowController::getSlideShow('index');
+		$slideshow = SlideShowController::getSlideShow(0);
 		$product = ProductController::getProduct();
 		$tab_category = Tab_categoryController::getTab_category();
 		$news = NewsController::getNews();
