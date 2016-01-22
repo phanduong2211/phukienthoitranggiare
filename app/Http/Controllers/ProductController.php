@@ -16,8 +16,7 @@ class ProductController extends Controller
 {
 	public static function getProduct()
 	{
-		$product = new product();
-		return $product->get();
+		return product::where("display","=",1)->where("bin","=",0)->get();
 	}
 
 	public static function getProductWhereID($id)
@@ -28,24 +27,23 @@ class ProductController extends Controller
 
 	public static function getProductWhereStatus($status)
 	{
-		$product = new product();
-		return $product->where('status','=',$status)->get();
+		return product::where("display","=",1)->where("bin","=",0)->where('status','=',$status)->get();
 	}
 	public static function getProductWhereCategoryID($categoryID,$id)
 	{		
-		return product::where('categoryID','=',$categoryID)->where('id','!=',$id)->take(10)->get();
+		return product::where("display","=",1)->where("bin","=",0)->where('categoryID','=',$categoryID)->where('id','!=',$id)->take(10)->get();
 	}
 	public static function getAllProductWhereCategoryID($categoryID)
 	{		
-		return product::where('categoryID','=',$categoryID)->paginate(16);
+		return product::where("display","=",1)->where("bin","=",0)->where('categoryID','=',$categoryID)->paginate(16);
 	}
 	public static function getAllProductWhereTagID($ID)
 	{		
-		return product::where('TagID','=',$ID)->paginate(16);
+		return product::where("display","=",1)->where("bin","=",0)->where('TagID','=',$ID)->paginate(16);
 	}
 	public static function getAllProductWhereMenuID($ID)
 	{		
-		return product::where('menuID','=',$ID)->paginate(16);
+		return product::where("display","=",1)->where("bin","=",0)->where('menuID','=',$ID)->paginate(16);
 	}
 	public static function update($data,$id)
 	{
@@ -54,15 +52,15 @@ class ProductController extends Controller
 	}
 	public static function getProductWhereName($name)
 	{
-		return product::where("name","like","%".$name."%")->paginate(16);
+		return product::where("display","=",1)->where("bin","=",0)->where("name","like","%".$name."%")->paginate(16);
 	}
 	public static function getProductWhereNameAndCate($name,$categoryID)
 	{
-		return product::where("categoryID","=",$categoryID)->where("name","like","%".$name."%")->paginate(16);
+		return product::where("display","=",1)->where("bin","=",0)->where("categoryID","=",$categoryID)->where("name","like","%".$name."%")->paginate(16);
 	}
 	public static function getproductMaxView()
 	{
-		return product::orderBy('view','desc')->take(5)->get();
+		return product::where("display","=",1)->where("bin","=",0)->orderBy('view','desc')->take(5)->get();
 	}
 }
 

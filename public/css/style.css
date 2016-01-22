@@ -138,7 +138,7 @@ input.search-form[placeholder]:-ms-input-placeholder{color:#464646;}
 .mainmenu nav ul li:hover .drodown-mega-menu{visibility:visible;opacity:1;top:55px;}
 .shopping-cart-out{background:#494E55;height:55px;}
 .shopping-cart{position:relative;}
-.shopping-cart a.shop-link{color:#e9e9ea;display:block;font-size:12px;height:55px;line-height:55px;overflow:hidden;padding-left:19px;text-transform:uppercase;}
+.shopping-cart a.shop-link{color:#e9e9ea;display:block;font-size:12px;height:55px;line-height:55px;overflow:hidden;padding-left:7px;text-transform:uppercase;}
 .shopping-cart a i.cart-icon{font-size:20px;margin-right:15px;position:relative;top:2px;}
 .shopping-cart a b{color:#fff;font-weight:400;height:100%;line-height:55px;position:relative;top:0px;}
 .ajax-cart-quantity{background:#ff4f4f none repeat scroll 0 0;color:#fff;display:inline-block;font-size:16px;font-weight:normal;line-height:55px;margin-left:7px;padding:0 23px;transition:all 0.3s ease 0s;width:55px;float:right;}

@@ -213,7 +213,7 @@
 			<div class="container">
 				<div class="row">
 					<!-- SHOPPING-CART START -->
-					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right shopingcartarea">
+					<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 pull-right shopingcartarea">
 						<div class="shopping-cart-out pull-right">
 							<div class="shopping-cart">
 								<a class="shop-link" href="{{Asset('')}}cart.html" title="Vào xem giỏ hàng của bạn">
@@ -226,7 +226,7 @@
 					</div>	
 					<!-- SHOPPING-CART END -->
 					<!-- MAINMENU START -->
-					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 no-padding-right menuarea">
+					<div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 no-padding-right menuarea">
 						<div class="mainmenu">
 							<nav>
 								<ul class="list-inline mega-menu">

@@ -6,7 +6,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<!-- BSTORE-BREADCRUMB START -->
 						<div class="bstore-breadcrumb">
-							<a href="index.html">Trang chủ</a>
+							<a href="{{Asset('')}}">Trang chủ</a>
 							<span><i class="fa fa-caret-right	"></i></span>
 							<span>Giỏ hàng</span>
 						</div>
@@ -74,18 +74,23 @@
 											<p class="product-name"><a href="{{Asset('products')}}/{{$values[0]->id}}/{{$convert->convertString($values[0]->name)}}.html">{{$values[0]->name}}</a></p>
 											<small><a href="javascript:void(0)">Size : 
 											<select style="width:20%" name="size" class="size">
-											<?php $Size = count(explode(",",$convert->getSize($values[0]->size)));
-												$Color =count(explode(",",$convert->getColor($values[0]->size))); 
+
+											<?php $Size = explode(",",$convert->getSize($values[0]->size));
+												$Color =explode(",",$convert->getColor($values[0]->color)); 												
 												$totalprice += number_format($values[0]->promotion_price);?>
+											@if(count($Size)>0)
 											@for($i=0;$i < count($Size) ;$i++)
 												<option>{{$Size[$i]}}</option>
 											@endfor
+											@endif
 											</select></a></small>
 											<small><a href="javascript:void(0)">Color : 
 											<select style="width:20%" name="color" class="color">
+											@if(count($Color)>0)
 											@for($i=0;$i < count($Color);$i++)
 												<option>{{$Color[$i]}}</option>
 											@endfor
+											@endif
 											</select></a></small>
 										</td>
 										<td class="cart-avail"><span class="label label-success"><?php if($values[0]->quantity >3) echo "Còn hàng"; else if($values[0]->quantity > 0) echo "Còn ít hàng"; else echo "Hết hàng" ?></span></td>

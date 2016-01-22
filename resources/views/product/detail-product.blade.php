@@ -137,7 +137,7 @@
 										<h2>{{number_format($product[0]->promotion_price)}} vnđ</h2>
 									</div>
 									<div class="single-product-desc">
-										<p>{{$product[0]->content}}</p>
+										<p><?php echo $product[0]->content; ?></p>
 										<div class="product-in-stock">
 											<p>{{$product[0]->quantity}} Items<span><?php if($product[0]->quantity >3) echo "Còn hàng"; else if($product[0]->quantity > 0) echo "Còn ít hàng"; else echo "Hết hàng" ?></span></p>
 										</div>
@@ -193,12 +193,12 @@
 									<div class="tab-content">
 										<div class="tab-pane active" id="moreinfo">
 											<div class="tab-description">
-												<p>{{$detailproduct[0]->infomation}}</p>
+												<p><?php echo $detailproduct[0]->infomation; ?></p>
 											</div>
 										</div>
 										<div class="tab-pane" id="datasheet">
 											<div class="deta-sheet">
-												{{$detailproduct[0]->data_sheet}}
+												<?php echo $detailproduct[0]->data_sheet; ?>
 												<!-- <table class="table-data-sheet">			
 													<tbody>
 														<tr class="odd">

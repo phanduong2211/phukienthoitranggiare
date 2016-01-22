@@ -5,7 +5,7 @@ $(function(){
 			ajaxget(url+"wishlist",$(this).parent().parent().attr('id'),"Thêm thành công sản phẩm vào wishlist");
 	});
 	$(".fa-wishlist").parent().click(function() {
-		//alert()
+		
 		ajaxget(url+"wishlist",$(this).parent().parent().attr('data-productID'),"Thêm thành công sản phẩm vào wishlist");
 	});
 	deletewishlist();
@@ -132,9 +132,9 @@ $(function(){
 		});
 	}
 	//ajax jquery get 
-	function ajaxget(url,data,alert)
-	{
-		$.get(url,
+	function ajaxget(url1,data,alert)
+	{		
+		$.get(url1,
         {
           id: data
         },
@@ -146,7 +146,7 @@ $(function(){
 					});
 	            else if(data == 0)
 	            {
-	            	window.location.replace("registration.html");
+	            	window.location.replace(url+"registration.html");
 	            	console.log("chưa đăng nhập");
 	            }
 	            else if(data == 2)
