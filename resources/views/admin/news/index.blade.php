@@ -68,9 +68,16 @@
     <select class="sfilter" name="f">
       <option value="0">-Lọc-</option>
       <option value="1">Tin Của Bạn</option>
-      <option value="2">Hiện</option>
-      <option value="3">Ẩn</option>
+      <option value="2">Chưa có lượt xem</option>
+      <option value="3">Hiện</option>
+      <option value="4">Ẩn</option>
     </select>
+    <?php if(isset($_GET["q"])){ ?>
+    <input type="hidden" name="q" value="<?php echo $_GET["q"] ?>" />
+    <?php } ?>
+    <?php if(isset($_GET["s"])){ ?>
+    <input type="hidden" name="s" value="<?php echo $_GET["s"] ?>" />
+    <?php } ?>
   </form>
   <form method="get" action="" class="pull-right">
 
@@ -79,15 +86,30 @@
       <option value="1">Mới nhất</option>
       <option value="2">Cũ nhất</option>
       <option value="3">Tên</option>
-      <option value="4">Ngày Tạo</option>
-      <option value="5">Ngày Cập Nhật</option>
+      <option value="4">Xem</option>
+      <option value="5">Người Tạo</option>
+      <option value="6">Loại Tin</option>
+      <option value="7">Ngày Tạo</option>
+      <option value="8">Ngày Cập Nhật</option>
     </select>
+    <?php if(isset($_GET["q"])){ ?>
+    <input type="hidden" name="q" value="<?php echo $_GET["q"] ?>" />
+    <?php } ?>
+    <?php if(isset($_GET["f"])){ ?>
+    <input type="hidden" name="f" value="<?php echo $_GET["f"] ?>" />
+    <?php } ?>
   </form>
   <form method="get" action="" class="pull-right">
     <div class="frmsearch clearfix">
       <input title="" type="text" class="textboxsearch" value="<?php if(isset($_GET['q'])) echo $_GET['q']; ?>"  placeholder="Nhập nội dung tìm kiếm..." name="q" />
       <input type="submit" class="buttonsearch" value="" />
     </div>
+    <?php if(isset($_GET["s"])){ ?>
+    <input type="hidden" name="s" value="<?php echo $_GET["s"] ?>" />
+    <?php } ?>
+    <?php if(isset($_GET["f"])){ ?>
+    <input type="hidden" name="f" value="<?php echo $_GET["f"] ?>" />
+    <?php } ?>
     
   </form>
 

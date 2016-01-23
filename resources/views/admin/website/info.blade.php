@@ -191,7 +191,7 @@
 				<form method="post" action="<?php echo Asset('admin/info/changelogo') ?>" id="frmchangelogo" enctype="multipart/form-data">
 				<label for="logo" class="uploadimg">
 					<div>
-						<img class="img-thumbnail" src="{{Asset($data['logo'])}}" data-old="logo.png" />
+						<img class="img-thumbnail" src="{{Asset('public/img/logo.png')}}" data-old="logo.png" />
 					</div>
 					<br />
 					<input type="file" name="logo" class="hide" id="logo" />
@@ -207,7 +207,7 @@
 				<form method="post" action="<?php echo Asset('admin/info/changefavicon') ?>"  enctype="multipart/form-data">
 				<label for="favicon" class="uploadimg">
 					<div>
-						<img class="img-thumbnail" src="{{Asset($data['favicon'])}}" data-old="favicon.png" />
+						<img class="img-thumbnail" src="{{Asset('public/img/favicon.png')}}" data-old="favicon.png" />
 					</div>
 					<br />
 					<input type="file" name="favicon" class="hide" id="favicon" />

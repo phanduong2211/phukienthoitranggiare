@@ -6,7 +6,7 @@
 <script type="text/javascript">
 function callBackSuccessModal(data){
          if(dataitem.action=="addnew"){
-            $(".table-responsive .table tr:eq(0)").after(html);
+           
             var tr="";
             if(data.root!=0){
                 var obj=$(".table-responsive .table tr[data-column='"+data.root+"'] td:eq(1) i").size();
@@ -37,6 +37,7 @@ function callBackSuccessModal(data){
              }else{
                 $(".table-responsive .table tr[data-column='"+data.root+"']").after(html);
              }
+             $("#modaldialog form select").append("<option value='"+data.id+"'>"+data.name+"</option>");
         }else{
             var obj=$(".table-responsive .table tr[data-column='"+data.idedit+"']");
             obj.find("td:eq(1) span:eq(0)").html(data.name);

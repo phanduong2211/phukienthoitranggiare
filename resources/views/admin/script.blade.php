@@ -19,11 +19,18 @@ function callBackModal(){
             $('#modaldialog #savemodal').attr("disabled","disabled");
             $("#modaldialog").find("p.text-center").html("Đang thực hiện...");
             RunJson(dataitem.url,data,function(result){
-                $("#modaldialog").find("p.text-center").html(result.message).fadeOut(5000);
+                $("#modaldialog").find("p.text-center").html(result.message).fadeOut(10000);
                 $('#modaldialog #savemodal').removeAttr("disabled");
                 if(result.result==1){
                     $("#modaldialog").find("form .form-control").each(function(){
-                        $(this).val("");
+                        if(this.nodeName=="SELECT"){
+                            this.value="-1";   
+                        }else{
+                            if(this.type!="password" && this.type!="hidden")
+                                this.value="";
+                            else
+                                this.value=this.defaultValue;
+                        }
                     });
                     if(dataitem.action=="addnew")
                         callBackSuccessModal(result.data);
@@ -45,6 +52,18 @@ function callBackModal(){
                     for(var item in dataitem.value) {
                         obj.find("[name='"+item+"']").val(dataitem.value[item]);
                     }
+                }else{
+                    $("#modaldialog").find("form .form-control").each(function(){
+                       
+                        if(this.nodeName=="SELECT"){
+                            this.value="-1";   
+                        }else{
+                            if(this.type!="password" && this.type!="hidden")
+                                this.value="";
+                            else
+                                this.value=this.defaultValue;
+                        }
+                    });
                 }
             });
 

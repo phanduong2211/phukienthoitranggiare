@@ -101,7 +101,7 @@
                 <span>{{$value->name}}</span>
                  <div class="groupaction">
                         <a class="edit" data-toggle="modal" dataitem='{"action":"edit","title":"Sửa {{$value->name}}","id":"{{$value->id}}","url":"{{Asset('admin/category/edit')}}","value":{"name":"{{$value->name}}"}}' data-target="#modaldialog" href='#'>Sửa</a>
-                        <form method="post" action="{{Asset('admin/category/delete')}}" class="remove" dataitem='{"id":"{{$value->id}}","name":"{{$value->name}}","url":"{{Asset('admin/category/delete')}}"}'>
+                        <form method="post" action="{{Asset('admin/category/delete')}}" class="remove" dataitem='{"id":"{{$value->id}}","title":"{{$value->name}}","url":"{{Asset('admin/category/delete')}}"}'>
                                 <input type="submit" value="Xóa">
                         </form>
                  </div>

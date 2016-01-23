@@ -599,12 +599,15 @@
                             var dataremove=jQuery.parseJSON(thhhs.attr("dataitem"));
                             thhhs=thhhs.parents("tr");
                             thhhs.addClass("noaction");
-                            RunJson(dataremove.url,{"id":dataremove.id,"title":dataremove.name,"_token":__datatoken,"json":1},function(result){
+                            RunJson(dataremove.url,{"id":dataremove.id,"title":dataremove.title,"_token":__datatoken,"json":1},function(result){
                                 if(result.result==1){
                                     thhhs.fadeOut();
                                 }else{
                                       thhhs.removeClass("noaction");
-                                      alert(result.message);
+                                     
+                                }
+                                if(result.message!=null){
+                                     alert(result.message);
                                 }
                             });
                         }

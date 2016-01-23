@@ -9,60 +9,75 @@ use Session;
 class NewsController extends Controller
 {
 	public function getIndex(){
-		if(!Input::exists('s') && !Input::exists('f') && !Input::exists('q')){
-			$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy('id','desc')->paginate(15);
-		}else{
-			if(Input::exists('q')){
-				$query=trim(Input::get('q'));
-				if($query!=""){
-					$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy('id','desc')->where(function($q) use ($query){
-						$q->where('news.name','like','%'.$query.'%');
-						$q->orWhere('admin.name','like','%'.$query.'%');
-						$q->where('news.description','like','%'.$query.'%');
-						$q->orWhere('categorynews.name','like','%'.$query.'%');
-					})->paginate(15);
-				}else{
-					$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy('id','desc')->paginate(15);
-				}
-			}else{
-				if(Input::exists('s')){
-					switch (Input::get('s')) {
-						case '2':
-							$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy('id','desc')->paginate(15);
-							break;
-						case '3':
-							$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy('name','asc')->paginate(15);
-							break;
-						case '4':
-							$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy('created_at','desc')->paginate(15);
-							break;
-						case '5':
-							$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy('updated_at','desc')->paginate(15);
-							break;
-						
-						default:
-							$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy('id','desc')->paginate(15);
-							break;
-					}
-				}else{
-					switch (Input::get('f')) {
-						case '1':
-						$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->where('admin.id',Session::get('logininfo')->id)->orderBy('id','desc')->paginate(15);
-						
-						break;
-						case '3':
-						$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->where('display',0)->orderBy('id','desc')->paginate(15);
-						break;
-						case '2':
-						$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->where('display',1)->orderBy('id','desc')->paginate(15);
-						break;
-						
-						default:
-						$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy('id','desc')->paginate(15);
-					}
-				}
+
+		$ordercl="news.id";
+		$ordertype="desc";
+
+		if(Input::exists('s')){
+			switch (Input::get('s')) {
+				case '2':
+					$ordertype="asc";
+					break;
+				case '3':
+					$ordercl="news.name";
+					$ordertype="asc";
+					break;
+				case '4':
+					$ordercl="view";
+					$ordertype="desc";
+					break;
+				case '5':
+					$ordertype="admin.name";
+					$ordertype="asc";
+					break;
+				case '6':
+					$ordertype="categorynews.name";
+					$ordertype="asc";
+					break;
+				case '7':
+					$ordertype="news.created_at";
+					$ordertype="desc";
+					break;
+				case '8':
+					$ordertype="news.updated_at";
+					$ordertype="desc";
+					break;
 			}
 		}
+
+		$data=news::select('news.*','admin.name as nameuser','categorynews.name as namec')->join('admin','news.user','=','admin.id')->join('categorynews','news.categoryNewsID','=','categorynews.id')->orderBy($ordercl,$ordertype);
+
+		if(Input::exists('f')){
+			switch (Input::get('f')) {
+				case '1':
+					$data=$data->where('admin.id',Session::get('logininfo')->id);
+					break;
+				case '2':
+					$data=$data->where('view',0);
+					break;
+				case '3':
+					$data=$data->where('display',1);
+					break;
+				case '4':
+					$data=$data->where('display',0);
+					break;
+				
+			}
+		}
+
+		if(Input::exists('q')){
+			$query=trim(Input::get('q'));
+			if($query!=""){
+				$data=$data->where(function($q) use ($query){
+						$q->where('news.name','like','%'.$query.'%');
+						$q->orWhere('admin.name',$query);
+						$q->orWhere('categorynews.name','like','%'.$query.'%');
+						$q->orWhere('news.description','like','%'.$query.'%');
+					});
+			}
+		}
+
+		$data=$data->paginate(15);
 		return view("admin.news.index",array('data'=>$data));
 	}
 
@@ -85,7 +100,7 @@ class NewsController extends Controller
 		);
 		$slide->fill($data);
 		if($slide->save()){
-			return redirect('admin/news')->with(['message'=>'Thêm thành công tin tức '.Input::get('name')]);
+			return redirect('admin/news/add')->with(['message'=>'Thêm thành công tin tức '.Input::get('name')]);
 		}else{
 			return view('admin.news.add')->with(['message'=>'Thêm thất bại. Vui lòng thử lại']);
 		}
@@ -186,8 +201,20 @@ class NewsController extends Controller
 		$category= new categorynews();
 		$category->fill(Input::get());
 		if($category->save()){
+			if(Input::exists('json')){
+				$data=array(
+					'id'=>$category->id,
+					'name'=>$category->name,
+					'created_at'=>$category->created_at,
+					'updated_at'=>$category->updated_at
+				);
+				return json_encode(array('result'=>1,'message'=>'Thêm thành công loại tin tức '.Input::get('name'),'data'=>$data));
+			}
 			return redirect('admin/news/category')->with(['message'=>'Thêm thành công loại tin tức '.Input::get('name')]);
 		}else{
+			if(Input::exists('json')){
+				return json_encode(array('result'=>-1,'message'=>'Có lỗi. Vui lòng thử lại'));
+			}
 			return redirect('admin/news/add-category')->with(['message'=>'Có lỗi. Vui lòng thử lại']);
 		}
 	}
@@ -210,8 +237,14 @@ class NewsController extends Controller
 		$category->fill(Input::get());
 
 		if($category->update()){
+			if(Input::exists('json')){
+				return json_encode(array('result'=>1,'message'=>'Cập nhật thành công'));
+			}
 			return redirect('admin/news/category')->with(['message'=>'Cập nhật thành công loại tin tức '.Input::get('name')]);
 		}else{
+			if(Input::exists('json')){
+				return json_encode(array('result'=>-1,'message'=>'Cập nhật thất bại. Vui lòng thử lại'));
+			}
 			return redirect('admin/news/edit-category?id='.Input::get('idedit'))->with(['message'=>'Cập nhật thất bại. Vui lòng thử lại.']);
 		}
 	}	
@@ -220,14 +253,23 @@ class NewsController extends Controller
 	{
 		$news=news::where('categoryNewsID',Input::get('id'))->get();
 		if(count($news)>0){
+			if(Input::exists('json')){
+				return json_encode(array('result'=>-1,'message'=>'Loại tin tức "'.Input::get('title').'" đã có tin tức. Không thể xóa'));
+			}
 			return redirect('admin/news/category')->with(['message'=>'Loại tin tức "'.Input::get('title').'" đã có tin tức. Không thể xóa']);
 		}
 		$category=categorynews::find(Input::get('id'));
 
 
 		if($category->delete()){
+			if(Input::exists('json')){
+				return json_encode(array('result'=>1));
+			}
 			return redirect('admin/news/category')->with(['message'=>'Xóa thành công loại tin tức "'.Input::get('title').'"']);
 		}else{
+			if(Input::exists('json')){
+				return json_encode(array('result'=>-1,'message'=>'Có lỗi. Xóa thất bại'));
+			}
 			return redirect('admin/news/category')->with(['message'=>'Xóa thất bại. Vui lòng thử lại']);
 		}
 		

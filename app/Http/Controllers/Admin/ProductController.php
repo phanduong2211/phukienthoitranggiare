@@ -24,7 +24,7 @@ class ProductController extends BaseController
 
 		$bin=0;
 
-		$sortf="id";
+		$sortf="product.id";
 		$sorttype="desc";
 
 		if(Input::exists('s')){
@@ -33,7 +33,7 @@ class ProductController extends BaseController
 					$sorttype="asc";
 					break;
 				case '3':
-					$sortf="name";
+					$sortf="product.name";
 					$sorttype="asc";
 					break;
 				case '4':
@@ -53,11 +53,11 @@ class ProductController extends BaseController
 					$sorttype="desc";
 					break;
 				case '8':
-					$sortf="created_at";
+					$sortf="product.created_at";
 					$sorttype="desc";
 					break;
 				case '9':
-					$sortf="updated_at";
+					$sortf="product.updated_at";
 					$sorttype="desc";
 					break;
 			}

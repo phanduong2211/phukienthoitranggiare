@@ -2,11 +2,105 @@
 
 @section('title', 'SlideShow')
 @section('script')
+<script src="{{Asset('public/admin')}}/js/validate.js" ></script>
+<script type="text/javascript" src="{{Asset('')}}public/admin/js/dialog.js"></script>
 <script type="text/javascript">
+var base_url_admin="{{Asset('admin')}}/";
+    var asset_path="{{Asset('public')}}/";
+    var __token="{{csrf_token()}}";
+     function callBackUpload(idobjclick,path){
+            $(idobjclick).val(path);
+            $(".boxupload img").attr("src",asset_path+"image/"+path);
+    
+            $("#modaldialog form input[name='image']").removeClass("error").next(".errortext").hide();
+        }
+
+    function callBackSuccessModal(data){
+         if(dataitem.action=="addnew"){
+            var html="<tr data-column='"+data.id+"'>";
+            html+='<td><span>'+data.name+'</span>';
+            html+='<div class="groupaction">';
+            html+='<a class="edit" data-toggle="modal" dataitem=\'{"action":"edit","title":"Sửa '+data.name+'","id":"'+data.id+'","url":"'+(dataitem.url.substr(0,dataitem.url.length-3)+"edit")+'","value":{"name":"'+data.name+'","image":"'+data.image+'","content":"'+data.content+'","url":"'+data.url+'","page":"'+data.page+'"}}\' data-target="#modaldialog" href="#">Sửa</a>';
+            html+='<form method="post" action="http://localhost/phukienthoitranggiare/admin/category/delete" class="remove" dataitem=\'{"id":"'+data.id+'","title":"'+data.name+'","url":"'+(dataitem.url.substr(0,dataitem.url.length-3)+"delete")+'"}\'>';
+            html+='<input type="submit" value="Xóa">';
+            html+='</form>';
+            html+='</div>';
+            html+="</td>";
+            html+='<td><img src="'+(asset_path+'image/'+data.image)+'" style="width:100px"></td>';
+            html+='<td>'+data.content+'</td>';
+            html+='<td>'+data.url+'</td>';
+            var page="";
+            $("#modaldialog form select[name='page'] option").each(function(){
+                if($(this).attr("value")==data.page){
+                    page=$(this).text();
+                }
+            });
+            html+='<td>'+page+'</td>';
+            html+='<td>Tạo: '+data.created_at.date+'<br />Cập Nhật: '+data.updated_at.date+'</td>';
+            html+='</tr>';
+            $(".table-responsive .table tr:eq(0)").after(html);
+            $("#modaldialog form .uploadimg").attr("src",asset_path+"image/uploadimg.png");
+        }else{
+            var obj=$(".table-responsive .table tr[data-column='"+data.idedit+"']");
+            obj.find("td:eq(0) span:eq(0)").html(data.name);
+            obj.find("td:eq(1) img").attr("src",asset_path+"image/"+data.image);
+            obj.find("td:eq(2)").html(data.content);
+            obj.find("td:eq(3)").html(data.url);
+            var page="";
+            $("#modaldialog form select[name='page'] option").each(function(){
+                if($(this).attr("value")==data.page){
+                    page=$(this).text();
+                }
+            });
+            obj.find("td:eq(4)").html(page);
+            obj.find("td:eq(5)").html("Vừa xong");
+            dataitem.value.name=data.name;
+            dataitem.title="Sửa "+data.name;
+            obj.find("a.edit").attr("dataitem",JSON.stringify(dataitem));
+            $("#modaldialog").modal('hide');
+        }
+    }
     $(function(){
         $("#nav-accordion>li:eq(2)>a").addClass("active");
+    
+        $("#modaldialog form").kiemtra([
+           {
+                'name':'name',
+                'trong':true
+            },
+            {
+                'name':'image',
+                'trong':true
+            },
+            {
+                'name':'url',
+                'url':true,
+                'isnull':true
+            },
+            {
+                'name':'page',
+                'select':true
+            }
+        ],function(){
+            callBackModal();
+            return false;
+        });
     });
 </script>
+@include('admin.script')
+<script type="text/javascript">
+  $(function(){
+    $('#modaldialog').on('shown.bs.modal', function(e) {
+      if(dataitem.action=="edit"){
+        $(this).find("form .uploadimg").attr("src",asset_path+"image/"+dataitem.value.image);
+       
+      }else{
+        $(this).find("form .uploadimg").attr("src",asset_path+"image/uploadimg.png");
+      }
+    });
+  });
+</script>
+<script type="text/javascript" src="{{Asset('')}}public/admin/js/jsupload.js"></script>
 @endsection
 @section('content')
 @if(Session::has('message'))
@@ -17,7 +111,7 @@
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:5px">
        <div class="group-button clearfix">
-           <a href="{{Asset('admin/slide/add')}}" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
+           <a href="#addnew" dataitem='{"action":"addnew","title":"Thêm Mới","url":"{{Asset('admin/slide/add')}}"}' data-toggle="modal" id="addnewitem" data-target="#modaldialog" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
        </div>
    </div>
    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
@@ -65,16 +159,13 @@ function showImage($path){
         @foreach ($data as $value)
             <tr data-column="{{$value->id}}">
             <td>
-                {{$value->name}}
+                <span>{{$value->name}}</span>
                  <div class="groupaction">
-                        <a class="edit" href='{{Asset('admin/slide/edit?id='.$value->id)}}'>Sửa</a>
-                        <form method="post" action="{{Asset('admin/slide/delete')}}" class="remove">
-                                <input type="hidden" name="id" value="{{$value->id}}">
-                                <input type="hidden" name="title" value="{{$value->name}}">
+                        <a class="edit" data-toggle="modal" dataitem='{"action":"edit","title":"Sửa {{$value->name}}","id":"{{$value->id}}","url":"{{Asset('admin/slide/edit')}}","value":{"name":"{{$value->name}}","image":"{{$value->image}}","content":"{{$value->content}}","url":"{{$value->url}}","page":"{{$value->page}}"}}' data-target="#modaldialog" href='#'>Sửa</a>
+                        <form method="post" action="{{Asset('admin/category/delete')}}" class="remove" dataitem='{"id":"{{$value->id}}","title":"{{$value->name}}","url":"{{Asset('admin/slide/delete')}}"}'>
                                 <input type="submit" value="Xóa">
-                                <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-                            </form>
-                    </div>
+                        </form>
+                 </div>
             </td>
             <td><img src="{{showImage($value->image)}}" style="width:100px" /></td>
             <td>
@@ -97,4 +188,86 @@ function showImage($path){
         
     </table>
 </div>
+
+<link rel="stylesheet" type="text/css" href="{{Asset('public/admin')}}/css/validate.css" />
+<!--modal insert and edit-->
+<div id="modaldialog" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+            <p class="text-center"></p>
+            <form method="post" action="{{Asset('admin/category/add')}}">
+                <div class="row">
+                    <div class="col-md-3">
+                        Tiêu Đề:
+                    </div>
+                    <div class="col-md-9 require">
+                        <div class="red">*</div>
+                        <input name="name" class="form-control" />
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-3">
+                        Hình Ảnh:
+                    </div>
+                    <div class="col-md-9 require boxupload">
+                        <div class="red">*</div>
+                        <img src="{{Asset('public/image/uploadimg.png')}}" class="img-thumbnail showupload uploadimg" href="#imagechooseval" id="imgchoose" width="100px">
+                        <br><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br>
+                        <input type="text" class="form-control " name="image" id="imagechooseval" />Hoặc upload ảnh khác.</div>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-3">
+                        Nội Dung:
+                    </div>
+                    <div class="col-md-9 ">
+                       <textarea name="content" rows="4" class="form-control"></textarea>
+                        <span class="desc">Nội dung ngắn gọn. Khoảng 250 ký tự.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Hiển Thị Trong Trang:
+                    </div>
+                    <div class="col-md-9 require">
+                        <div class="red">*</div>
+                        <select name="page" class="form-control">
+                            <option value="-1">-- Lựa Chọn --</option>
+                            <option value="0">Trang Chủ</option>
+                            @foreach($datac as $value)
+                                <option value="{{$value->id}}">{{$value->name}}</option>
+                            @endforeach
+                        </select>
+                        <span class="desc">Slide này sẽ hiện thị trong trang nào?</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Url:
+                    </div>
+                    <div class="col-md-8">
+                        <textarea name="url" rows="1" class="form-control"></textarea>
+                        <span class="desc">Copy url trên trình duyệt vào dán vào.</span>
+                    </div>
+                </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="savemodal" class="btn btn-primary">Lưu Lại</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--//modal insert and edit-->
+
+@include('upload')
     @endsection
