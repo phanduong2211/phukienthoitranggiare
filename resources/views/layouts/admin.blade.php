@@ -262,15 +262,15 @@
                     <!-- user login dropdown start-->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" src="img/avatar1_small.jpg">
+                            
                             <span class="username">{{Session::get('logininfo')->name}}</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
-                            <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
+                            <li><a href="{{Asset('admin/info')}}"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                            <li><a href="{{Asset('admin/info/change-pass')}}"><i class="fa fa-edit"></i> Đổi Mật Khẩu</a></li>
+                            <li><a href="{{Asset('admin/info/level')}}"><i class="fa fa-exclamation-triangle"></i> Quyền hạn</a></li>
                             <li><a href="{{Asset('admin/logout')}}"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
                     </li>
@@ -347,6 +347,13 @@
                       <a href="{{Asset('admin/ad')}}">
                           <i class="fa  fa-sitemap"></i>
                           <span>Quản Trị Viên</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="{{Asset('admin/user')}}">
+                          <i class="fa fa-users"></i>
+                          <span>Khách Hàng</span>
                       </a>
                   </li>
 

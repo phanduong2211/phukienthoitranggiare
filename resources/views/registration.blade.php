@@ -68,6 +68,7 @@
 									<div class="submit-button">
 										<button class="btn btn-danger" id="register" type="submit">Tạo tài khoản</button>
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">		
+										<input type="hidden" name="active" value="1">	
 									</div>
 								</div>
 							</form>							

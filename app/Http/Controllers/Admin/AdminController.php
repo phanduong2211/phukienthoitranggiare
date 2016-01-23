@@ -83,7 +83,32 @@ class AdminController extends Controller
 	}
 
 	public function postEdit(){
-		$admin=admin::find(Input::get('idedit'));
+
+		$admin=new admin();
+
+		if(Input::get('email')!=""){
+			$email=$admin->where('email',Input::get('email'))->where('id','<>',Input::get('idedit'))->get();
+
+			if(count($email)>0){
+				if(Input::exists('json')){
+					return json_encode(array('result'=>-1,'message'=>'Email '.Input::get('email').' đã tồn tại. Vui lòng điền email khác.'));
+				}
+				Session::flash('message', 'Email '.Input::get('email').' đã tồn tại. Vui lòng điền email khác.');
+				return view("admin.admin.add");
+			}
+		}
+
+		$username=$admin->where('username',Input::get('username'))->where('id','<>',Input::get('idedit'))->get();
+
+		if(count($username)>0){
+			if(Input::exists('json')){
+					return json_encode(array('result'=>-1,'message'=>'Tài khoản '.Input::get('username').' đã tồn tại. Vui lòng điền tài khoản khác'));
+				}
+			Session::flash('message', 'Tài khoản '.Input::get('username').' đã tồn tại. Vui lòng điền tài khoản khác');
+			return view("admin.admin.add");
+		}
+
+		$admin=$admin->find(Input::get('idedit'));
 		$admin->fill(Input::get());
 
 		if($admin->update()){

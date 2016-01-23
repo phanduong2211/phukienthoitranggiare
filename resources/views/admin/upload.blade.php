@@ -67,8 +67,13 @@ if(isset($_POST['submit'])){
 			}
 		}
 		$message="Upload thành công ".$message."/".$fileleg." hình ảnh";
+		echo "<div style='margin-bottom:10px;text-align:center;color:red'>".$message."</div>";
+		header("Location: ".Asset('admin/uploadimage?keyupload='.$_GET['keyupload']));
 	}else{
+
 		$message="Vui lòng chọn hình ảnh để upload.";
+		echo "<div style='margin-bottom:10px;text-align:center;color:red'>".$message."</div>";
+		header("Location: ".Asset('admin/uploadimage?keyupload='.$_GET['keyupload']));
 	}
 }
 ?>
@@ -76,7 +81,7 @@ if(isset($_POST['submit'])){
 <script type="text/javascript" src="{{Asset('public/admin')}}/js/jquery.js"></script>
 <script type="text/javascript" src="{{Asset('public/admin')}}/js/dialog.js"></script>
 <div style="text-align:center;margin-top:3%">
-	<?php if(isset($message)){echo "<div style='margin-bottom:10px;text-align:center;color:red'>".$message."</div>";} ?>
+	
 		<form method="post"  action="" enctype="multipart/form-data">
 			Chọn Hình Ảnh Từ Máy Tính Của Bạn(<2MB). <br /><span style="color:#888;font-size:13px">( Có thể chọn nhiều ảnh 1 lúc )</span><br /><br />
 			<label style="padding:10px 0px;cursor:pointer;display:block;width:300px;margin:10px auto;border:1px solid #ddd" id="areauploadfile">
@@ -88,7 +93,7 @@ if(isset($_POST['submit'])){
 			
 			<br /><br /><br />
 			<input type="submit" id="submitform" value="Upload Hình Ảnh" name="submit" />
-			<input type="button" value="Hủy Bỏ" onclick="window.location.reload()" />
+			<input type="reset" value="Hủy Bỏ" />
 			
 			
 			<input type="hidden" name="_token" value="{{csrf_token()}}"/>
