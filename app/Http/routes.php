@@ -69,6 +69,8 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::controller("ad","Admin\AdminController");
     Route::controller("user","Admin\UserController");
     Route::controller("info","Admin\InfoController");
+    Route::controller("page","Admin\PageController");
+    Route::controller("ads","Admin\AdsController");
 });
 
 //Admin//

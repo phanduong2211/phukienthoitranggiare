@@ -19,7 +19,7 @@
   var base_url="{{Asset('admin')}}/";
   var __token="{{csrf_token()}}";
   $(function(){
-    $("#nav-accordion>li:eq(4)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
+    $("#nav-accordion>li#menuitemtt>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
    
 
     $(".displayitem").click(function(){

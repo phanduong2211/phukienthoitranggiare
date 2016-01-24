@@ -10,11 +10,7 @@
 		<meta name="csrf_token" content="{{ csrf_token() }}" />
 		<!-- Favicon
 		============================================ -->
-		@foreach($info as $values)
-		@if($values->name == "favicon" && $values->contents!="")
-		<link rel="shortcut icon" type="image/x-icon" href="{{Asset('')}}{{$values->contents}}">
-		@endif
-		@endforeach		
+		<link rel="shortcut icon" type="image/x-icon" href="{{Asset('public/img/favicon.png')}}">	
 		<!-- FONTS
 		============================================ -->	
 		<link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'> 
@@ -167,13 +163,20 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<!-- LOGO START -->
+<<<<<<< HEAD
 						@foreach($info as $values)
 							@if($values->name == "logo")
 							<div class="logo">
 								<a href="{{Asset('')}}"><img src="{{Asset('')}}{{$values->contents}}" alt="bstore logo" /></a>
+=======
+						<div class="logo">
+								<a href="{{Asset('')}}"><img src="{{Asset('public/img/logo.png')}}" alt="bstore logo" /></a>
+>>>>>>> 3e34f9126938e10d15e1ad80bf1463ede8fe3916
 							</div>
-							@endif
+
 						<!-- LOGO END -->
+						@foreach($info as $values)
+							
 						<!-- HEADER-RIGHT-CALLUS START -->
 						
 							@if($values->name == "phone" && $values->contents!="")
