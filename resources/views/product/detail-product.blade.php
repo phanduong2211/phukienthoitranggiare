@@ -14,7 +14,7 @@
 						<div class="bstore-breadcrumb">
 							<a href="{{Asset('')}}">Trang Chủ<span><i class="fa fa-caret-right"></i> </span> </a>
 							<span> <i class="fa fa-caret-right"> </i> </span>
-							<a href="{{Asset('')}}product/{{$convert->convertString($category['name'])}}">{{$category['name']}}</a>
+							<a href="{{Asset('')}}danh-muc/{{$convert->convertString($category['name'])}}">{{$category['name']}}</a>
 							<span>{{$product[0]->name}}</span>
 						</div>
 						<!-- BSTORE-BREADCRUMB END -->
@@ -108,10 +108,10 @@
 									<h2>{{$product[0]->name}}</h2>
 									<div class="single-product-social-share">
 										<ul>
-											<li><a href="#" class="twi-link"><i class="fa fa-twitter"></i>Tweet</a></li>
-											<li><a href="#" class="fb-link"><i class="fa fa-facebook"></i>Share</a></li>
-											<li><a href="#" class="g-plus-link"><i class="fa fa-google-plus"></i>Google+</a></li>
-											<li><a href="#" class="pin-link"><i class="fa fa-pinterest"></i>Pinterest</a></li>
+											<!-- <li><a href="http://twitter.com/share?text={{$product[0]->name}}&url={{Asset('products')}}/{{$product[0]->id}}/{{$convert->convertString($product[0]->name)}}.html" class="twi-link"><i class="fa fa-twitter"></i>Tweet</a></li> -->
+											<li><div class="fb-share-button" data-href="{{Asset('products')}}/{{$product[0]->id}}/{{$convert->convertString($product[0]->name)}}.html" data-layout="button_count"></div></li>
+											<!-- <li><a href="#" class="g-plus-link"><i class="fa fa-google-plus"></i>Google+</a></li>
+											<li><a href="#" class="pin-link"><i class="fa fa-pinterest"></i>Pinterest</a></li> -->
 										</ul>
 									</div>
 									<!-- <div class="single-product-review-box">
