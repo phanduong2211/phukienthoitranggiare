@@ -323,10 +323,9 @@
                       <ul class="sub">
                           <li><a  href="{{Asset('admin/website/menu')}}">Menu</a></li>
                           <li><a  href="{{Asset('admin/website/info')}}">Thông Tin Website</a></li>
-                          <li><a  href="header-color.html">Different Color Top bar</a></li>
-                          <li><a  href="mega_menu.html">Mega Menu</a></li>
-                          <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
-                          <li><a  href="email_template.html" target="_blank">Email Template</a></li>
+                          <li><a  href="{{Asset('admin/page')}}">Trang</a></li>
+                          <li><a  href="{{Asset('admin/page/add')}}">Tạo Trang</a></li>
+                       
                       </ul>
                   </li>
 
@@ -353,7 +352,14 @@
                   <li>
                       <a href="{{Asset('admin/user')}}">
                           <i class="fa fa-users"></i>
-                          <span>Khách Hàng</span>
+                          <span>Người Dùng</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="{{Asset('admin/ads')}}">
+                          <i class="fa fa-bullhorn"></i>
+                          <span>Quảng Cáo</span>
                       </a>
                   </li>
 
