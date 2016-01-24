@@ -23,7 +23,7 @@
             $("#frm input[name='image']").removeClass("error").next(".errortext").hide();
         }
     $(function(){
-		$("#nav-accordion>li:eq(4)>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
+		$("#nav-accordion>li#menuitemtt>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
 		$("#frm").kiemtra([
     		{
     			'name':'name',

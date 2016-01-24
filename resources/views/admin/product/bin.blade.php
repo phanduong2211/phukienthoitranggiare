@@ -19,7 +19,7 @@
 }
 var base_url="{{Asset('admin')}}/";
     $(function(){
-        $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(4)").addClass("active");
+        $("#nav-accordion>li#menuitemsp>a").addClass("active").parent().find("ul>li:eq(4)").addClass("active");
         
         $("form.remove1").submit(function(){
         if(confirm("Bạn có chắc muốn khôi phục sản phẩm này?")){

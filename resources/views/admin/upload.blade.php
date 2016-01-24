@@ -146,6 +146,7 @@ if(isset($_POST['submit'])){
 				<li data-value="product">Sản Phẩm</li>
 				<li data-value="news">Tin Tức</li>
 				<li data-value="slide">Slide</li>
+				<li data-value="ads">Quảng Cáo</li>
 			</div>
 			
 		</div>
@@ -191,7 +192,7 @@ if(isset($_POST['submit'])){
 			if(dialogchoosefolder==null){
 				dialogchoosefolder=new dialog($("#dialog4"),{
 				"width":300,
-				"height":250,
+				"height":270,
 				"ttop":125,
 				"outside":false,
 				"hidedim":true

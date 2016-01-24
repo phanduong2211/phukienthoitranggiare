@@ -31,7 +31,7 @@ function callBackSuccessModal(data){
         }
     }
     $(function(){
-        $("#nav-accordion>li:eq(4)>a").addClass("active").parent().find("ul>li:eq(2)").addClass("active");
+        $("#nav-accordion>li#menuitemtt>a").addClass("active").parent().find("ul>li:eq(2)").addClass("active");
         $("#modaldialog form").kiemtra([
             {
                 'name':'name',

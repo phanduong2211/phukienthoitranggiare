@@ -12,14 +12,14 @@
 		
 		public static function get_user($username,$password)
 		{
-			$data=DB::table("admin")->select('id','name','active')->where(function($q) use ($username) {
+			$data=DB::table("admin")->select('id','name','level','active')->where(function($q) use ($username) {
 				$q->where('username', $username)->orWhere('email', $username);
 			})->where('password',md5($password))->first();
 			return $data;
 		}
 
 		public static function get_userid($id){
-			return DB::table("admin")->select('id','name','active')->where('id',(int)$id)->first();
+			return DB::table("admin")->select('id','name','level','active')->where('id',(int)$id)->first();
 		}
 
 	}

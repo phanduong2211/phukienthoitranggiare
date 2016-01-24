@@ -10,6 +10,7 @@ use View;
 use App\Http\Module\menu;
 use App\Http\Module\product;
 use App\Http\Module\info;
+use App\Http\Module\page;
 
 class WebsiteController extends BaseController
 {
@@ -114,6 +115,26 @@ class WebsiteController extends BaseController
 
 		if($data['root']==-1){
 			return Redirect::to('admin/website/menu/edit?id='.Input::get('idedit'))->with(['message'=>'Vui lòng điền đầy đủ thông tin.']);
+		}
+
+		if($menu->url!='' && $data['url']==''){
+			$page=page::select('name')->where('menuid',Input::get('idedit'))->get();
+			if(count($page)>0){
+				if(Input::exists('json')){
+					return json_encode(array('result'=>-1,'message'=>'Menu này đã thuộc trang '.$page[0]->name.'. Không thể sửa url'));
+				}
+				return 2;
+			}
+		}
+
+		if($data['url']!='' && $menu->url==''){
+			$product=product::where('menuID',Input::get('idedit'))->count();
+			if($product>0){
+				if(Input::exists('json')){
+					return json_encode(array('result'=>-1,'message'=>'Menu này đã thuộc có sản phẩm. Không thể sửa url'));
+				}
+				return Redirect::to('admin/website/menu/edit?id='.Input::get('idedit'))->with(['message'=>'Menu này đã thuộc có sản phẩm. Không thể sửa url']);
+			}
 		}
 
 		$menu->fill($data);

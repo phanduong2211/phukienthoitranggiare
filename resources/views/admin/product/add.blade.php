@@ -85,7 +85,7 @@
             $("#frm input[name='image']").removeClass("error").next(".errortext").hide();
         }
 	$(function(){
-		$("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
+		$("#nav-accordion>li#menuitemsp>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
 		$("#frm").kiemtra([
     		{
     			'name':'name',
@@ -228,7 +228,7 @@
          });
     }
     dialogChooseColor.show();
-}).keypress(function(){
+}).keydown(function(){
     return false;
 });
 

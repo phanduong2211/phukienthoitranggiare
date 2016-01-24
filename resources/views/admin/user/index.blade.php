@@ -19,7 +19,7 @@
   var base_url="{{Asset('admin')}}/";
   var __token="{{csrf_token()}}";
   $(function(){
-    $("#nav-accordion>li:eq(6)>a").addClass("active");
+    $("#nav-accordion>li#menuitemnd>a").addClass("active");
 
   $("form.blockuser").submit(function(){
     var th=$(this);

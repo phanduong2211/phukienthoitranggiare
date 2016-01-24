@@ -19,7 +19,7 @@
   var base_url="{{Asset('admin')}}/";
   var __token="{{csrf_token()}}";
   $(function(){
-    $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
+    $("#nav-accordion>li#menuitemsp>a").addClass("active").parent().find("ul>li:eq(0)").addClass("active");
     $("form.remove").submit(function(){
  var th=$(this);
       getConfirm('Bạn có chắc muốn đưa sản phẩm này vào thùng rác?',function(result) {
@@ -30,6 +30,7 @@
           th.addClass("noaction");
           LoadJson(base_url+'product/addbin',{"id":id,"_token":__token},function(result){
             if(result=="1"){
+             alert("Thêm thành công sản phẩm vào thùng rác.");
               th.fadeOut();
             }else{
               th.removeClass("noaction");
@@ -52,9 +53,11 @@
       LoadJson(base_url+'product/hidden',{"id":id,"_token":__token,"flag":flag},function(result){
         if(result=="1"){
           if(flag==0){
+            
             th.html("Hiện");
             th.parents("tr").addClass("opahi");
           }else{
+            
             th.html("Ẩn");
             th.parents("tr").removeClass("opahi");
           }

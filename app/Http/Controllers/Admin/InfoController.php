@@ -33,9 +33,16 @@ class InfoController extends Controller
 		}
 
 		$admin=$admin->find($id);
+
+		$nameuserold=$admin->name;
+
 		$admin->fill(Input::get());
 
 		if($admin->update()){
+			if($nameuserold!=Input::get('name')){
+				$info=Session::get('logininfo');
+				$info->name=Input::get('name');
+			}
 			return redirect('admin/info')->with(['message'=>'Cập nhật thành công thông tin cá nhân']);
 		}else{
 			return redirect('admin/info')->with(['message'=>'Cập nhật thất bại. Vui lòng thử lại.']);

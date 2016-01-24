@@ -270,7 +270,7 @@
                             <div class="log-arrow-up"></div>
                             <li><a href="{{Asset('admin/info')}}"><i class=" fa fa-suitcase"></i>Profile</a></li>
                             <li><a href="{{Asset('admin/info/change-pass')}}"><i class="fa fa-edit"></i> Đổi Mật Khẩu</a></li>
-                            <li><a href="{{Asset('admin/info/level')}}"><i class="fa fa-exclamation-triangle"></i> Quyền hạn</a></li>
+                            <li><a href="#" id="viewlevel"><i class="fa fa-exclamation-triangle"></i> Quyền hạn</a></li>
                             <li><a href="{{Asset('admin/logout')}}"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
                     </li>
@@ -283,6 +283,7 @@
       <!--header end-->
       <!--sidebar start-->
       <aside>
+            <?php $level=Session::get('logininfo')->level; ?>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
@@ -293,7 +294,7 @@
                       </a>
                   </li>
 
-                  <li class="sub-menu">
+                  <li class="sub-menu" id="menuitemsp">
                       <a href="javascript:;" >
                           <i class="fa fa-qrcode"></i>
                           <span>Sản Phẩm</span>
@@ -307,14 +308,14 @@
                       </ul>
                   </li>
 
-                  <li>
+                  <li id="menuitemslide">
                       <a href="{{Asset('admin/slide')}}">
                           <i class="fa fa-picture-o"></i>
                           <span>SlideShow</span>
                       </a>
                   </li>
 
-
+                  <?php if($level!=3){ ?>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-windows"></i>
@@ -323,14 +324,14 @@
                       <ul class="sub">
                           <li><a  href="{{Asset('admin/website/menu')}}">Menu</a></li>
                           <li><a  href="{{Asset('admin/website/info')}}">Thông Tin Website</a></li>
-                          <li><a  href="header-color.html">Different Color Top bar</a></li>
-                          <li><a  href="mega_menu.html">Mega Menu</a></li>
-                          <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
-                          <li><a  href="email_template.html" target="_blank">Email Template</a></li>
+                          <li><a  href="{{Asset('admin/page')}}">Trang</a></li>
+                          <li><a  href="{{Asset('admin/page/add')}}">Tạo Trang</a></li>
+                          
                       </ul>
                   </li>
+                  <?php } ?>
 
-                  <li class="sub-menu">
+                  <li class="sub-menu" id="menuitemtt">
                       <a href="javascript:;" >
                          <i class="fa fa-list-alt"></i>
                           <span>Tin Tức</span>
@@ -343,19 +344,30 @@
                       </ul>
                   </li>
 
-                  <li>
+                  <?php if($level!=3){ ?>
+                  <?php if($level!=2){ ?>
+                  <li id="menuitemad">
                       <a href="{{Asset('admin/ad')}}">
                           <i class="fa  fa-sitemap"></i>
                           <span>Quản Trị Viên</span>
                       </a>
                   </li>
-
-                  <li>
+                  <?php } ?>
+                  <li id="menuitemnd">
                       <a href="{{Asset('admin/user')}}">
                           <i class="fa fa-users"></i>
-                          <span>Khách Hàng</span>
+                          <span>Người Dùng</span>
                       </a>
                   </li>
+
+                  <li id="menuitemqc">
+                      <a href="{{Asset('admin/ads')}}">
+                          <i class="fa fa-bullhorn"></i>
+                          <span>Quảng Cáo</span>
+                      </a>
+                  </li>
+
+                  <?php } ?>
 
 
                   <!--multi level menu end-->
@@ -409,21 +421,21 @@
     <div class="modal fade" id="confirmbox" role="dialog">
          <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-        <div class="modal-header">
-             
-              <h4 class="modal-title">Thông Báo</h4>
-        </div>
-        <div class="modal-body">
-            <p id="confirmMessage">Any confirmation message?</p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn" id="confirmFalse">Cancel</button>
-            <button class="btn btn-primary" id="confirmTrue">OK</button>
-        </div>
-        </div>
-        </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                 
+                  <h4 class="modal-title">Thông Báo</h4>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Any confirmation message?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="confirmFalse">Cancel</button>
+                <button class="btn btn-primary" id="confirmTrue">OK</button>
+            </div>
+            </div>
+            </div>
     </div>
    
 
@@ -478,8 +490,22 @@
             });
         }  
 
-    
+    var leveluser="{{Session::get('logininfo')->level}}";
       $(function(){
+            $("#viewlevel").click(function(){
+                switch(leveluser){
+                    case '1':
+                        alert('Bạn là Administrator.\nBạn có mọi quyền trong trang quản trị.');
+                        break;
+                    case '2':
+                        alert('Bạn là Moderator.\nBạn không có quyền quản lý quản trị viên.');
+                        break;
+                    case '3':
+                        alert('Bạn là Nhân Viên.\nBạn có quyền quản lý sản phẩm, tin tức, liên hệ, slideshow.');
+                        break;
+                }
+                return false;
+            });
             $("#searchtable .buttonsearch").click(function(){
                 var key=$(this).parent().find(".textboxsearch").val();
                 if(key.trim()!=""){
@@ -602,12 +628,12 @@
                             thhhs.addClass("submitform");
                             thhhs.submit();
                         }else{
-                           
                             var dataremove=jQuery.parseJSON(thhhs.attr("dataitem"));
                             thhhs=thhhs.parents("tr");
                             thhhs.addClass("noaction");
                             RunJson(dataremove.url,{"id":dataremove.id,"title":dataremove.title,"_token":__datatoken,"json":1},function(result){
                                 if(result.result==1){
+                                    
                                     thhhs.fadeOut();
                                 }else{
                                       thhhs.removeClass("noaction");

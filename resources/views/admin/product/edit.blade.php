@@ -125,7 +125,7 @@
    }
 }
 $(function(){
-  $("#nav-accordion>li:eq(1)>a").addClass("active");
+  $("#nav-accordion>li#menuitemsp>a").addClass("active");
   $("#frm").kiemtra([
   {
      'name':'name',
@@ -309,7 +309,7 @@ $("#colors").focus(function(){
          });
     }
     dialogChooseColor.show();
-}).keypress(function(){
+}).keydown(function(){
     return false;
 });
 });

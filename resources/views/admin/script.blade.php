@@ -17,7 +17,7 @@ function callBackModal(){
 
 
             $('#modaldialog #savemodal').attr("disabled","disabled");
-            $("#modaldialog").find("p.text-center").html("Đang thực hiện...");
+            $("#modaldialog").find("p.text-center").show().html("Đang thực hiện...");
             RunJson(dataitem.url,data,function(result){
                 $("#modaldialog").find("p.text-center").html(result.message).fadeOut(10000);
                 $('#modaldialog #savemodal').removeAttr("disabled");
