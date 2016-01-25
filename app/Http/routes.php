@@ -63,6 +63,7 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::post("ajax/loadfolder","Admin\UploadController@loadfolder");
     Route::post("upload/checkfile","Admin\UploadController@checkfile");
     Route::post("ajax/removeimg","Admin\UploadController@removeimg");
+    Route::post("ajax/count","Admin\IndexController@count");
 
     Route::controller("slide","Admin\SlideController");
     Route::controller("news","Admin\NewsController");
@@ -71,6 +72,7 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::controller("info","Admin\InfoController");
     Route::controller("page","Admin\PageController");
     Route::controller("ads","Admin\AdsController");
+    Route::controller("contact","Admin\ContactController");
 });
 
 Route::get("nojavascript.html",function(){
@@ -99,11 +101,6 @@ Route::get("tim-kiem","ViewController@search"); ///tìm kiếm sản phẩm
 Route::get("danh-muc/{category}","ViewController@category");
 Route::get("tag/{tag}","ViewController@tag");
 Route::get("signout","ViewController@signout");
-
-Route::get("upload",function(){
-    return view('admin.upload');
-});
-
 
 Route::get('cart.html',"ViewController@cart");
 

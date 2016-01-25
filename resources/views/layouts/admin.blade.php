@@ -56,15 +56,15 @@
                     <!-- settings start -->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="fa fa-tasks"></i>
-                            <span class="badge bg-success">6</span>
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="badge bg-success">0</span>
                         </a>
                         <ul class="dropdown-menu extended tasks-bar">
                             <div class="notify-arrow notify-arrow-green"></div>
                             <li>
-                                <p class="green">You have 6 pending tasks</p>
+                                <p class="green">Không có đơn hàng mới</p>
                             </li>
-                            <li>
+                           <!--  <li>
                                 <a href="#">
                                     <div class="task-info">
                                         <div class="desc">Dashboard v1.3</div>
@@ -77,61 +77,9 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <div class="task-info">
-                                        <div class="desc">Database Update</div>
-                                        <div class="percent">60%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="task-info">
-                                        <div class="desc">Iphone Development</div>
-                                        <div class="percent">87%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 87%">
-                                            <span class="sr-only">87% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="task-info">
-                                        <div class="desc">Mobile App</div>
-                                        <div class="percent">33%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
-                                            <span class="sr-only">33% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="task-info">
-                                        <div class="desc">Dashboard v1.3</div>
-                                        <div class="percent">45%</div>
-                                    </div>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                            <span class="sr-only">45% Complete</span>
-                                        </div>
-                                    </div>
-
-                                </a>
-                            </li>
+                            -->
                             <li class="external">
-                                <a href="#">See All Tasks</a>
+                                <a href="{{Asset('admin/order')}}">Xem tất cả</a>
                             </li>
                         </ul>
                     </li>
@@ -140,63 +88,16 @@
                     <li id="header_inbox_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-important">5</span>
+                            <span class="badge bg-important">0</span>
                         </a>
                         <ul class="dropdown-menu extended inbox">
                             <div class="notify-arrow notify-arrow-red"></div>
                             <li>
-                                <p class="red">You have 5 new messages</p>
+                                <p class="red">Không có liên hệ mới</p>
                             </li>
+                         
                             <li>
-                                <a href="#">
-                                    <span class="photo"><img alt="avatar" src="img/avatar-mini.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Jonathan Smith</span>
-                                    <span class="time">Just now</span>
-                                    </span>
-                                    <span class="message">
-                                        Hello, this is an example msg.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="photo"><img alt="avatar" src="img/avatar-mini2.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Jhon Doe</span>
-                                    <span class="time">10 mins</span>
-                                    </span>
-                                    <span class="message">
-                                     Hi, Jhon Doe Bhai how are you ?
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="photo"><img alt="avatar" src="img/avatar-mini3.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Jason Stathum</span>
-                                    <span class="time">3 hrs</span>
-                                    </span>
-                                    <span class="message">
-                                        This is awesome dashboard.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="photo"><img alt="avatar" src="img/avatar-mini4.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Jondi Rose</span>
-                                    <span class="time">Just now</span>
-                                    </span>
-                                    <span class="message">
-                                        Hello, this is metrolab
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">See all messages</a>
+                                <a href="{{Asset('admin/contact')}}">Xem tất cả</a>
                             </li>
                         </ul>
                     </li>
@@ -205,51 +106,24 @@
                     <li id="header_notification_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
-                            <i class="fa fa-bell-o"></i>
-                            <span class="badge bg-warning">7</span>
+                            <i class="fa fa-user"></i>
+                            <span class="badge bg-warning">0</span>
                         </a>
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-yellow"></div>
                             <li>
-                                <p class="yellow">You have 7 new notifications</p>
+                                <p class="yellow">Không có người dùng mới</p>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#">
                                     <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                                     Server #3 overloaded.
                                     <span class="small italic">34 mins</span>
                                 </a>
-                            </li>
+                            </li> -->
+                          
                             <li>
-                                <a href="#">
-                                    <span class="label label-warning"><i class="fa fa-bell"></i></span>
-                                    Server #10 not respoding.
-                                    <span class="small italic">1 Hours</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-danger"><i class="fa fa-bolt"></i></span>
-                                    Database overloaded 24%.
-                                    <span class="small italic">4 hrs</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-success"><i class="fa fa-plus"></i></span>
-                                    New user registered.
-                                    <span class="small italic">Just now</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-info"><i class="fa fa-bullhorn"></i></span>
-                                    Application error.
-                                    <span class="small italic">10 mins</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">See all notifications</a>
+                                <a href="{{Asset('admin/user')}}">Xem tất cả</a>
                             </li>
                         </ul>
                     </li>
@@ -372,6 +246,13 @@
                   </li>
 
                   <?php } ?>
+
+                  <li id="menuitemlh">
+                      <a href="{{Asset('admin/contact')}}">
+                          <i class=" fa fa-envelope"></i>
+                          <span>Liên Hệ</span>
+                      </a>
+                  </li>
 
 
                   <!--multi level menu end-->
@@ -667,8 +548,45 @@
           $(".btn-reset").click(function(){
             window.location.reload();
           });
-          
+          var _baseurl="{{Asset('admin')}}";
+           $(window).load(function(){
+               RunJson(_baseurl+"/ajax/count",{'_token':'{{csrf_token()}}'},function(result){
+                    if(result.contact.length>0){
+
+                       var p=$("#top_menu .nav>li:eq(1)");
+                       p.find(".badge").html(result.contact.length);
+                       p.find("ul li:eq(0) .red").html("Có "+result.contact.length+" liên hệ mới");
+                        p=p.find("ul li:eq(0)");
+
+                        for(var i=0;i<result.contact.length;i++){
+                            var item=result.contact[i];
+                            p.after("<li><a href='"+_baseurl+"/contact?id="+item.id+"'><span class='subject'><span class='from'>"+item.email+"</span><span class='time'>"+(item.h+":"+item.m)+"</span></span><span class='message'>"+item.content.substr(0,70)+"...</span></a></li>");
+
+                        }
+
+
+                    }
+
+                    if(result.user.length>0){
+
+                       var p=$("#top_menu .nav>li:eq(2)");
+                       p.find(".badge").html(result.user.length);
+                       p.find("ul li:eq(0) .yellow").html("Có "+result.user.length+" người dùng mới");
+                        p=p.find("ul li:eq(0)");
+
+                        for(var i=0;i<result.user.length;i++){
+                            var item=result.user[i];
+                            p.after(' <li><a href="#"> <span class="label label-danger"><i class="fa fa-'+(item.sex==1?'male':'female')+'"></i></span> '+item.name+' <span class="small italic pull-right">'+(item.h+":"+item.m)+'</span></a></li>');
+
+                        }
+
+
+                    }
+               });
+            });
       });
+
+
 
   </script>
 
