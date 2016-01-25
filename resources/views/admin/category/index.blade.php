@@ -31,7 +31,7 @@
         }
     }
     $(function(){
-        $("#nav-accordion>li#menuitemsp>a").addClass("active").parent().find("ul>li:eq(2)").addClass("active");
+        $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(2)").addClass("active");
     
 
         $("#modaldialog form").kiemtra([

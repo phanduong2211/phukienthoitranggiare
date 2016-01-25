@@ -73,6 +73,10 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::controller("ads","Admin\AdsController");
 });
 
+Route::get("nojavascript.html",function(){
+    return view('admin.noscript');
+});
+
 //Admin//
   
 
@@ -95,6 +99,10 @@ Route::get("tim-kiem","ViewController@search"); ///tìm kiếm sản phẩm
 Route::get("danh-muc/{category}","ViewController@category");
 Route::get("tag/{tag}","ViewController@tag");
 Route::get("signout","ViewController@signout");
+
+Route::get("upload",function(){
+    return view('admin.upload');
+});
 
 
 Route::get('cart.html',"ViewController@cart");
@@ -122,9 +130,7 @@ Route::post('signinCreate',"UserController@login");
 Route::post('AccountCreate',"UserController@register");
 Route::post("insertcontact","ViewController@Sendcontact");
 Route::post("AccountUpdate","UserController@updateUser");
-Route::get("upload",function(){
-    return view("upload");
-});
+
 Route::get("{menu}","ViewController@getMenu");
 Route::get("{menu1}/{menu2}","ViewController@getMenuSecond");
 Route::get("{menu1}/{menu2}/{menu3}","ViewController@getMenuThree");

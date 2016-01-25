@@ -28,6 +28,7 @@
                         <li id="fffproduct" data-value="product">Sản Phẩm</li>
                         <li id="fffnews" data-value="news">Tin Tức</li>
                         <li id="fffslide" data-value="slide">Slide</li>
+                        <li id="fffads" data-value="ads">Quảng Cáo</li>
                     </div>
                 </div>
                 <div class="col-md-10 col-sm-8 col-xs-8" id="folderitems">
@@ -47,11 +48,15 @@
                     <div id="slidefolder" data-value='{"folder":"slide"}' class="folderitem">
                         Đang Tải...
                     </div>
+
+                    <div id="adsfolder" data-value='{"folder":"ads"}' class="folderitem">
+                        Đang Tải...
+                    </div>
                 </div>
             </div>
         </div>
         <div class="tabuploaditem" id="tabuploadimg">
-            <iframe src="" width="100%" height="300px" frameborder="0"></iframe>
+            <iframe src="" width="100%" height="350px" frameborder="0"></iframe>
         </div>
     </div>
 

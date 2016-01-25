@@ -83,17 +83,27 @@ if(isset($_POST['submit'])){
 <div style="text-align:center;margin-top:3%">
 	
 		<form method="post"  action="" enctype="multipart/form-data">
-			Chọn Hình Ảnh Từ Máy Tính Của Bạn(<2MB). <br /><span style="color:#888;font-size:13px">( Có thể chọn nhiều ảnh 1 lúc )</span><br /><br />
-			<label style="padding:10px 0px;cursor:pointer;display:block;width:300px;margin:10px auto;border:1px solid #ddd" id="areauploadfile">
-			<input type="file" name="image[]" multiple="multiple" id="image" /><br /><br />
-			</label>
-			Lưu Hình Ảnh Vào Thư Mục:
-			<div style="height:7px"></div>
-			<input style="padding:4px;border:1px solid #ccc;outline:none" onkeydown="return false;" type="text" value="upload" name="folder" id="foldersave" /><input type="button" id="choosefolder" style="padding:3px 6px" value="..." />
 			
-			<br /><br /><br />
-			<input type="submit" id="submitform" value="Upload Hình Ảnh" name="submit" />
-			<input type="reset" value="Hủy Bỏ" />
+			<label for="image" style="display:block;width:520px;margin:10px auto;" id="areauploadfile" class="hoverarea">
+				<input type="file" name="image[]" multiple="multiple" id="image" /><br />
+				<div id="hiddenaup">
+					<img src="{{Asset('public/image')}}/pVbuU.png" />
+					<h1>Chọn hình ảnh để upload.</h1><br /><span style="color:#888;font-size:14px">Bạn có thể upload nhiều hình ảnh 1 lúc bằng cách giữ phím Ctrl và chọn các files</span><br /><br />
+				</div>
+				<div id="hiddebup">
+					<h3 id="slfile"></h3>
+					Lưu Hình Ảnh Vào Thư Mục:
+					<div style="height:7px"></div>
+					<input style="padding:4px;border:1px solid #ccc;outline:none" onkeydown="return false;" type="text" value="upload" name="folder" id="foldersave" /><input type="button" id="choosefolder" style="padding:3px 6px" value="..." />
+					<br /><br /><br />
+				<input type="submit" id="submitform" value="Upload Hình Ảnh" name="submit" />
+				<input type="reset" value="Hủy Bỏ" id="caupload" />
+				</div>
+				<div stype="height:10px"></div>
+			</label>
+			
+			
+			
 			
 			
 			<input type="hidden" name="_token" value="{{csrf_token()}}"/>
@@ -102,6 +112,9 @@ if(isset($_POST['submit'])){
 
 
 <style type="text/css">
+#hiddebup{
+	display: none;
+}
 #dialog4 .ct li{
 	border:1px solid #fff;
 	display: block;
@@ -124,15 +137,57 @@ if(isset($_POST['submit'])){
 }
 #areauploadfile{
 	border-radius: 3px;
+	padding: 20px 0px;
+	border:1px dashed #a100a1;
+	background-color: #F9E9F9;
 }
-#areauploadfile:hover{
-	border:1px solid #AFAEAE !important;
+#areauploadfile #image{
+	display: none;
+}
+#areauploadfile img{
+	display: block;
+	width: 80px;
+	margin: 0px auto;
+}
+#slfile{
+	margin-top: 0px;
+	padding-top: 0px;
+	color:#a100a1;
+}
+.hoverarea:hover{
+	cursor: pointer;
+}
+#areauploadfile h1{
+	font-size: 20px;
+	color:#a100a1;
 }
 #dialog4{
 	-moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+}
+#submitform{
+	background-color: #721799;
+    border: 1px solid #721799;
+    color: white;
+    padding: 7px 10px;
+}
+#submitform:hover{
+	background-color: #a100a1;
+    border: 1px solid #a100a1;
+    cursor: pointer;
+}
+#caupload{
+	background-color: #F7A400;
+    border: 1px solid #F7A400;
+    color: white;
+    padding: 7px 10px;
+}
+#caupload:hover{
+	background-color: #FCB322;
+    border: 1px solid #FCB322;
+    cursor: pointer;
 }
 </style>
 
@@ -146,6 +201,7 @@ if(isset($_POST['submit'])){
 				<li data-value="product">Sản Phẩm</li>
 				<li data-value="news">Tin Tức</li>
 				<li data-value="slide">Slide</li>
+				<li data-value="ads">Quảng Cáo</li>
 			</div>
 			
 		</div>
@@ -187,11 +243,33 @@ if(isset($_POST['submit'])){
 			foldername1=$(this).val();
 		});
 
+		$("label#areauploadfile").click(function(){
+			if(!$(this).hasClass("hoverarea"))
+			return false;
+		});
+
+		$("#areauploadfile input[type='file']").change(function(){
+			$("#hiddebup").show();
+			$("#hiddenaup").hide();
+			$("#slfile").html(this.files.length+" hình ảnh được chọn.");
+			$("#areauploadfile").removeClass("hoverarea");
+		});
+
+		$("#caupload").click(function(){
+			$("#hiddebup").hide();
+			$("#hiddenaup").show();
+			$("#areauploadfile").addClass("hoverarea");
+		});
+
+		$("#foldersave").focus(function(){
+			$("#choosefolder").click();
+		});
+
 		$("#choosefolder").click(function(){
 			if(dialogchoosefolder==null){
 				dialogchoosefolder=new dialog($("#dialog4"),{
 				"width":300,
-				"height":250,
+				"height":275,
 				"ttop":125,
 				"outside":false,
 				"hidedim":true

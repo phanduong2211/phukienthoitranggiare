@@ -8,7 +8,7 @@
  <script src="{{Asset('public/admin')}}/js/validate.js" ></script>
 <script type="text/javascript">
 	$(function(){
-		$("#nav-accordion>li#menuitemsp>a").addClass("active").parent().find("ul>li:eq(2)").addClass("active");
+		$("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(2)").addClass("active");
 		$("#frm").kiemtra([
     		{
     			'name':'name',

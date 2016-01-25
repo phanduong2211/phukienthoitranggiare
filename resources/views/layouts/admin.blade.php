@@ -3,12 +3,14 @@
   
 <!-- Mirrored from thevectorlab.net/flatlab/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 14 Aug 2015 03:42:50 GMT -->
 <head>
+    <noscript>
+        <meta http-equiv="refresh" content="0; URL=<?php echo Asset('nojavascript.html') ?>" />
+    </noscript>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Mosaddek">
-    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <link rel="shortcut icon" href="img/favicon.html">
+  
+    <meta name="author" content="Lovadweb">
+  
 
     <title>ACP - @yield('title')</title>
 
@@ -258,6 +260,8 @@
             <div class="top-nav ">
                 <!--search & user info start-->
                 <ul class="nav pull-right top-menu">
+
+                    <?php $leveluser=Session::get('logininfo')->level; ?>
                    
                     <!-- user login dropdown start-->
                     <li class="dropdown">
@@ -268,9 +272,9 @@
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
-                            <li><a href="{{Asset('admin/info')}}"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                            <li><a href="{{Asset('admin/info')}}"><i class=" fa fa-suitcase"></i>Thông Tin</a></li>
                             <li><a href="{{Asset('admin/info/change-pass')}}"><i class="fa fa-edit"></i> Đổi Mật Khẩu</a></li>
-                            <li><a href="{{Asset('admin/info/level')}}"><i class="fa fa-exclamation-triangle"></i> Quyền hạn</a></li>
+                            <li><a href="#"><i class="fa fa-exclamation-triangle"></i> Quyền hạn</a></li>
                             <li><a href="{{Asset('admin/logout')}}"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
                     </li>
@@ -314,22 +318,23 @@
                       </a>
                   </li>
 
+                  <?php if($leveluser!=3){ ?>
+                      <li class="sub-menu">
+                          <a href="javascript:;" >
+                              <i class="fa fa-windows"></i>
+                              <span>Website</span>
+                          </a>
+                          <ul class="sub">
+                              <li><a  href="{{Asset('admin/website/menu')}}">Menu</a></li>
+                              <li><a  href="{{Asset('admin/website/info')}}">Thông Tin Website</a></li>
+                              <li><a  href="{{Asset('admin/page')}}">Trang</a></li>
+                              <li><a  href="{{Asset('admin/page/add')}}">Tạo Trang</a></li>
+                           
+                          </ul>
+                      </li>
+                  <?php } ?>
 
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-windows"></i>
-                          <span>Website</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="{{Asset('admin/website/menu')}}">Menu</a></li>
-                          <li><a  href="{{Asset('admin/website/info')}}">Thông Tin Website</a></li>
-                          <li><a  href="{{Asset('admin/page')}}">Trang</a></li>
-                          <li><a  href="{{Asset('admin/page/add')}}">Tạo Trang</a></li>
-                       
-                      </ul>
-                  </li>
-
-                  <li class="sub-menu">
+                  <li class="sub-menu" id="menuitemtt">
                       <a href="javascript:;" >
                          <i class="fa fa-list-alt"></i>
                           <span>Tin Tức</span>
@@ -342,26 +347,31 @@
                       </ul>
                   </li>
 
-                  <li>
-                      <a href="{{Asset('admin/ad')}}">
-                          <i class="fa  fa-sitemap"></i>
-                          <span>Quản Trị Viên</span>
-                      </a>
-                  </li>
+                  <?php if($leveluser!=3){ ?>
+                    <?php if($leveluser!=2){ ?>
+                      <li>
+                          <a href="{{Asset('admin/ad')}}">
+                              <i class="fa  fa-sitemap"></i>
+                              <span>Quản Trị Viên</span>
+                          </a>
+                      </li>
+                    <?php } ?>
 
-                  <li>
+                  <li id="menuitemnd">
                       <a href="{{Asset('admin/user')}}">
                           <i class="fa fa-users"></i>
                           <span>Người Dùng</span>
                       </a>
                   </li>
 
-                  <li>
+                  <li id="menuitemqc">
                       <a href="{{Asset('admin/ads')}}">
                           <i class="fa fa-bullhorn"></i>
                           <span>Quảng Cáo</span>
                       </a>
                   </li>
+
+                  <?php } ?>
 
 
                   <!--multi level menu end-->
@@ -484,8 +494,9 @@
             });
         }  
 
-    
+        var leveluser="{{$leveluser}}";
       $(function(){
+
             $("#searchtable .buttonsearch").click(function(){
                 var key=$(this).parent().find(".textboxsearch").val();
                 if(key.trim()!=""){
@@ -516,6 +527,22 @@
                     }
                 }
             });
+
+            $(".dropdown-menu.logout li:eq(2) a").click(function(){
+                switch(leveluser){
+                    case '1':
+                        alert('Bạn là Administrator.');
+                        break;
+                    case '2':
+                        alert('Bạn là Moderator.');
+                        break;
+                    case '3':
+                        alert('Bạn là Nhân Viên.');
+                        break;
+                }
+                return false;
+            });
+
             $(".sfilter").change(function(){
                 var thf=$(this);
                 if(!thf.hasClass("noautosubmit")){
