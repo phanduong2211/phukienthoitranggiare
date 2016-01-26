@@ -140,7 +140,7 @@ function showImage($path){
        <tr>
             <th>Tiêu Đề</th>
             <th>Hình Ảnh</th>
-            <th>Url</th>
+            <th>Liên Kết</th>
             <th>Kiểu</th>
             <th>Date</th>
         </tr>
@@ -157,7 +157,15 @@ function showImage($path){
             </td>
             <td><img src="{{showImage($value->image)}}" style="width:100px" /></td>
             <td>
-                 {{$value->url}}
+                <a href='{{$value->url}}' target="_black">
+                 <?php 
+                    if(strlen($value->url)>40){
+                        echo substr($value->url, 0,40)."...";
+                    }else{
+                        echo $value->url;
+                    }
+                 ?>
+             </a>
             </td>
             <td>
                  {{$value->type}}
@@ -211,12 +219,12 @@ function showImage($path){
                
                 <div class="row">
                     <div class="col-md-3">
-                        Url:
+                        Liên Kết:
                     </div>
                     <div class="col-md-8 require">
                         <span class="red">*</span>
                         <textarea name="url" rows="1" class="form-control"></textarea>
-                        <span class="desc">Copy url trên trình duyệt vào dán vào.</span>
+                        <span class="desc">Khi click vào quảng cáo sẽ chuyển đến trang nào?. Copy url trang đó rồi dán vào.</span>
                     </div>
                 </div>
                  <div class="row">

@@ -9,6 +9,7 @@
         <div class="tabitem clearfix">
             <li class="active" data-value="tabchooseimg">Chọn Hình Ảnh</li>
             <li data-value="tabuploadimg">Upload Hình Mới</li>
+            <li data-value="tabuploadin">Upanhtocdo.com</li>
             
         </div>
         <div class="ct">
@@ -58,6 +59,7 @@
         <div class="tabuploaditem" id="tabuploadimg">
             <iframe src="" width="100%" height="350px" frameborder="0"></iframe>
         </div>
+        <div class="tabuploaditem" id="tabuploadin"></div>
     </div>
 
 </div>

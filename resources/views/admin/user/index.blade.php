@@ -3,19 +3,7 @@
 @section('title', 'Quản Lý Khách Hàng')
 @section('script')
 <script type="text/javascript">
-  function LoadJson(url,dt,callback) {
-    $.ajax({
-      type: "POST",
-      url: url,
-      dataType: 'json',
-      data:dt,
-      beforeSend: function(){
-      },
-      success: callback,
-      error: function (e, e2, e3) {
-      }
-    });
-  }
+
   var base_url="{{Asset('admin')}}/";
   var __token="{{csrf_token()}}";
   $(function(){
@@ -31,7 +19,7 @@
         th=th.parents("tr");
         th.addClass("noaction");
         loai=(loai=="Khóa")?0:1;
-        LoadJson(base_url+'user/active',{"id":id,"loai":loai,"_token":__token},function(result){
+        RunJson(base_url+'user/active',{"id":id,"loai":loai,"_token":__token},function(result){
           th.removeClass("noaction");
           if(result=="1"){
             if(loai==0){
@@ -67,7 +55,7 @@
         tho=tho.parents("tr");
         tho.addClass("noaction");
         datadelete['_token']=__token;
-        LoadJson(base_url+'user/delete',datadelete,function(result){
+        RunJson(base_url+'user/delete',datadelete,function(result){
           if(result=="1"){
             tho.remove();
           }else{
@@ -93,9 +81,9 @@
 @endif
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:5px">
-   <div class="group-button clearfix">
-    
-   </div>
+   @if(isset($_GET['id']))
+      <a href='{{Asset('admin/user')}}' class="btn btn-primary btn-sm">Xem Tất Cả Người Dùng</a>
+    @endif
  </div>
  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
   <form method="get" action="" class="pull-right">

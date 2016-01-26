@@ -152,8 +152,8 @@ function showImage($path){
             <th>Tiêu Đề</th>
             <th>Hình Ảnh</th>
             <th width="10%">Nội Dung</th>
-            <th>Url</th>
-            <th>Trang</th>
+            <th>Liên Kết</th>
+            <th>HT Tại</th>
             <th>Date</th>
         </tr>
         @foreach ($data as $value)
@@ -172,7 +172,15 @@ function showImage($path){
                  {!!$value->content!!}
             </td>
             <td>
-                 {{$value->url}}
+                <a href='{{$value->url}}' target="_black">
+                 <?php 
+                    if(strlen($value->url)>20){
+                        echo substr($value->url, 0,20)."...";
+                    }else{
+                        echo $value->url;
+                    }
+                 ?>
+             </a>
             </td>
             <td>
                  {{$value->namepage}}
@@ -250,11 +258,11 @@ function showImage($path){
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        Url:
+                        Liên Kết:
                     </div>
-                    <div class="col-md-8">
-                        <textarea name="url" rows="1" class="form-control"></textarea>
-                        <span class="desc">Copy url trên trình duyệt vào dán vào.</span>
+                    <div class="col-md-9">
+                        <input name="url" class="form-control" type="text" />
+                        <span class="desc">Khi click vào slideshow sẽ chuyển đến trang nào?. Copy url trang đó rồi dán vào.</span>
                     </div>
                 </div>
             </form>

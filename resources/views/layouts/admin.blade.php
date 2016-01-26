@@ -57,12 +57,12 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="fa fa-shopping-cart"></i>
-                            <span class="badge bg-success">0</span>
+                            <span class="badge bg-success"><img style="width:10px" src="{{Asset('public/admin/img/ajax-loader.gif')}}" /></span>
                         </a>
                         <ul class="dropdown-menu extended tasks-bar">
                             <div class="notify-arrow notify-arrow-green"></div>
                             <li>
-                                <p class="green">Không có đơn hàng mới</p>
+                                <p class="green">Đang tải...</p>
                             </li>
                            <!--  <li>
                                 <a href="#">
@@ -88,12 +88,12 @@
                     <li id="header_inbox_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-important">0</span>
+                            <span class="badge bg-important"><img style="width:10px" src="{{Asset('public/admin/img/ajax-loader.gif')}}" /></span>
                         </a>
                         <ul class="dropdown-menu extended inbox">
                             <div class="notify-arrow notify-arrow-red"></div>
                             <li>
-                                <p class="red">Không có liên hệ mới</p>
+                                <p class="red">Đang tải...</p>
                             </li>
                          
                             <li>
@@ -107,12 +107,12 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
                             <i class="fa fa-user"></i>
-                            <span class="badge bg-warning">0</span>
+                            <span class="badge bg-warning"><img style="width:10px" src="{{Asset('public/admin/img/ajax-loader.gif')}}" /></span>
                         </a>
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-yellow"></div>
                             <li>
-                                <p class="yellow">Không có người dùng mới</p>
+                                <p class="yellow">Đang tải...</p>
                             </li>
                             <!-- <li>
                                 <a href="#">
@@ -282,27 +282,6 @@
       <!--footer end-->
   </section>
 
-    <!-- js placed at the end of the document so the pages load faster -->
-    <script src="{{Asset('public/admin')}}/js/jquery.js"></script>
-    <script src="{{Asset('public/admin')}}/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="{{Asset('public/admin')}}/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="{{Asset('public/admin')}}/js/jquery.scrollTo.min.js"></script>
-    <script src="{{Asset('public/admin')}}/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="{{Asset('public/admin')}}/js/jquery.sparkline.js" type="text/javascript"></script>
-    <script src="{{Asset('public/admin')}}/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
-    <script src="{{Asset('public/admin')}}/js/owl.carousel.js" ></script>
-    <script src="{{Asset('public/admin')}}/js/jquery.customSelect.min.js" ></script>
-    <script src="{{Asset('public/admin')}}/js/respond.min.js" ></script>
-    
-    @yield('script')
-    <!--right slidebar-->
-    <script src="{{Asset('public/admin')}}/js/slidebars.min.js"></script>
-
-    <!--common script for all pages-->
-    <script src="{{Asset('public/admin')}}/js/common-scripts.js"></script>
-
-    <!--script for this page-->
-
     <div class="modal fade" id="confirmbox" role="dialog">
          <div class="modal-dialog">
 
@@ -322,6 +301,57 @@
         </div>
         </div>
     </div>
+
+    <div id="ajaxloader" style="display:none;position:fixed;top:20px;left:45%;z-index:9999;box-shadow:0px 0px 3px #ff6c60;border-radius:3px;background-color:#ff6c60;width:100px;padding:10px 0px;opacity:0.8;color:white;text-align:center">
+        <img src="{{Asset('public/admin/img/ajax-loader.gif')}}" />
+        <div style="height:5px"></div>Đang Chạy
+    </div>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{{Asset('public/admin')}}/js/jquery.js"></script>
+    <script src="{{Asset('public/admin')}}/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="{{Asset('public/admin')}}/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="{{Asset('public/admin')}}/js/jquery.scrollTo.min.js"></script>
+    <script src="{{Asset('public/admin')}}/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="{{Asset('public/admin')}}/js/jquery.sparkline.js" type="text/javascript"></script>
+    <script src="{{Asset('public/admin')}}/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+    <script src="{{Asset('public/admin')}}/js/owl.carousel.js" ></script>
+    <script src="{{Asset('public/admin')}}/js/jquery.customSelect.min.js" ></script>
+    <script src="{{Asset('public/admin')}}/js/respond.min.js" ></script>
+    <script type="text/javascript">
+    
+      function RunJson(url,dt,callback,disload) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: 'json',
+                data:dt,
+                beforeSend: function(){
+                  if(disload==null)
+                  $("#ajaxloader").show();
+                },
+                success: function(data){
+                    if(disload==null)
+                  $("#ajaxloader").hide();
+                  callback(data);
+                },
+                error: function (e, e2, e3) {
+                    if(disload==null)
+                   $("#ajaxloader").hide();
+                }
+            });
+        }
+    </script>
+    @yield('script')
+    <!--right slidebar-->
+    <script src="{{Asset('public/admin')}}/js/slidebars.min.js"></script>
+
+    <!--common script for all pages-->
+    <script src="{{Asset('public/admin')}}/js/common-scripts.js"></script>
+
+    <!--script for this page-->
+
+  
    
 
   <script>
@@ -341,19 +371,14 @@
 
       //custom select box
 
-      function RunJson(url,dt,callback) {
-            $.ajax({
-                type: "POST",
-                url: url,
-                dataType: 'json',
-                data:dt,
-                beforeSend: function(){
-                },
-                success: callback,
-                error: function (e, e2, e3) {
-                }
-            });
-        }
+
+
+          function getTimeInDate(date){
+            var time=date.split(' ');
+
+            var time=time[1].split(':');
+            return time[0]+":"+time[1];
+          }
 
       function getConfirm(confirmMessage,callback){
             confirmMessage = confirmMessage || '';
@@ -551,38 +576,59 @@
           var _baseurl="{{Asset('admin')}}";
            $(window).load(function(){
                RunJson(_baseurl+"/ajax/count",{'_token':'{{csrf_token()}}'},function(result){
+                    var p=$("#top_menu .nav>li");
+                    var p1=p.eq(1);
+                    p1.find(".badge").html(result.contact.length);
                     if(result.contact.length>0){
-
-                       var p=$("#top_menu .nav>li:eq(1)");
-                       p.find(".badge").html(result.contact.length);
-                       p.find("ul li:eq(0) .red").html("Có "+result.contact.length+" liên hệ mới");
-                        p=p.find("ul li:eq(0)");
+                      
+                       p1.find("ul li:eq(0) .red").html("Có "+result.contact.length+" liên hệ mới");
+                        p1=p1.find("ul li:eq(0)");
 
                         for(var i=0;i<result.contact.length;i++){
                             var item=result.contact[i];
-                            p.after("<li><a href='"+_baseurl+"/contact?id="+item.id+"'><span class='subject'><span class='from'>"+item.email+"</span><span class='time'>"+(item.h+":"+item.m)+"</span></span><span class='message'>"+item.content.substr(0,70)+"...</span></a></li>");
-
+                            p1.after("<li><a href='"+_baseurl+"/contact?id="+item.id+"'><span class='subject'><span class='from'>"+item.email+"</span><span class='time'>"+getTimeInDate(item.created_at)+"</span></span><span class='message'>"+item.content.substr(0,70)+"...</span></a></li>");
                         }
-
-
+                    }else{
+                      p1.find("ul li:eq(0) .red").html("Không có liên hệ mới");
                     }
 
+                    var p1=p.eq(2);
+                    p1.find(".badge").html(result.user.length);
                     if(result.user.length>0){
 
-                       var p=$("#top_menu .nav>li:eq(2)");
-                       p.find(".badge").html(result.user.length);
-                       p.find("ul li:eq(0) .yellow").html("Có "+result.user.length+" người dùng mới");
-                        p=p.find("ul li:eq(0)");
+                       p1.find("ul li:eq(0) .yellow").html("Có "+result.user.length+" người dùng mới");
+                        p1=p1.find("ul li:eq(0)");
 
                         for(var i=0;i<result.user.length;i++){
                             var item=result.user[i];
-                            p.after(' <li><a href="#"> <span class="label label-danger"><i class="fa fa-'+(item.sex==1?'male':'female')+'"></i></span> '+item.name+' <span class="small italic pull-right">'+(item.h+":"+item.m)+'</span></a></li>');
+                            p1.after(' <li><a href="#"> <span class="label label-danger"><i class="fa fa-'+(item.sex==1?'male':'female')+'"></i></span> '+item.name+' <span class="small italic pull-right">'+getTimeInDate(item.created_at)+'</span></a></li>');
 
                         }
-
-
+                    }else{
+                      p1.find("ul li:eq(0) .yellow").html("Không có người dùng mới");
                     }
-               });
+
+                    var p1=p.eq(0);
+                    p1.find(".badge").html(result.order.length);
+                    if(result.order.length>0){
+
+                       p1.find("ul li:eq(0) .green").html("Có "+result.order.length+" đơn hàng mới");
+                        p1=p1.find("ul li:eq(0)");
+
+                        for(var i=0;i<result.order.length;i++){
+                            var item=result.order[i];
+                            var name=item.address.match(/(\"name\")(.*?)(:\")*([a-zA-Z0-9 ]*)\";/i);
+                            name=name[0].toString();
+                            name=name.substr(0,name.length-2);
+                            name=name.replace(/\"name\";s:[0-9]*:\"/ig,"");
+                          
+                            p1.after(' <li><a href="#"> <span class="label label-danger"><i class="fa fa-plus"></i></span> '+name+' <span class="small italic pull-right">'+getTimeInDate(item.created_at)+'</span></a></li>');
+
+                        }
+                    }else{
+                      p1.find("ul li:eq(0) .yellow").html("Không có đơn hàng mới");
+                    }
+               },true);
             });
       });
 

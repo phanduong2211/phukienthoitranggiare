@@ -105,6 +105,13 @@ $(document).ready(function(){
             $("#tabuploadimg>iframe").attr("src",base_url_admin+"uploadimage?keyupload="+__token);
           }
          }
+
+         if($(this).attr("data-value")=="tabuploadin"){
+          if($("#tabuploadin").html()==""){
+            $("#tabuploadin").html('<iframe src="http://upload.aloxovn.com/" width="100%" height="650px" style="margin-top:-300px" frameborder="0"></iframe><br /><h4 style="font-size:15px;color:red">Upload ảnh xong click vào tab <b>Direct Link</b> để lấy url hình, sau đó dán vào textbox</h4>');
+          }
+         }
+
         }
    	 	});
 

@@ -5,19 +5,7 @@
 <script src="{{Asset('public/admin')}}/js/validate.js" ></script>
 
 <script type="text/javascript">
-  function LoadJson(url,dt,callback) {
-    $.ajax({
-      type: "POST",
-      url: url,
-      dataType: 'json',
-      data:dt,
-      beforeSend: function(){
-      },
-      success: callback,
-      error: function (e, e2, e3) {
-      }
-    });
-  }
+  
 
   function callBackSuccessModal(data){
    if(dataitem.action=="addnew"){
@@ -94,7 +82,7 @@ $(function(){
         th=th.parents("tr");
         th.addClass("noaction");
         loai=(loai=="Khóa")?0:1;
-        LoadJson(base_url+'ad/active',{"id":id,"loai":loai,"_token":__token},function(result){
+        RunJson(base_url+'ad/active',{"id":id,"loai":loai,"_token":__token},function(result){
           th.removeClass("noaction");
           if(result=="1"){
             if(loai==0){

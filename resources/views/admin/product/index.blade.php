@@ -3,19 +3,6 @@
 @section('title', 'Quản Lý Sản Phẩm')
 @section('script')
 <script type="text/javascript">
-  function LoadJson(url,dt,callback) {
-    $.ajax({
-      type: "POST",
-      url: url,
-      dataType: 'json',
-      data:dt,
-      beforeSend: function(){
-      },
-      success: callback,
-      error: function (e, e2, e3) {
-      }
-    });
-  }
   var base_url="{{Asset('admin')}}/";
   var __token="{{csrf_token()}}";
   $(function(){
@@ -28,7 +15,7 @@
           var id=th.find("input[name='id']").val();
           th=th.parents("tr");
           th.addClass("noaction");
-          LoadJson(base_url+'product/addbin',{"id":id,"_token":__token},function(result){
+          RunJson(base_url+'product/addbin',{"id":id,"_token":__token},function(result){
             if(result=="1"){
               th.fadeOut();
             }else{
@@ -49,7 +36,7 @@
       th.parents("tr").addClass("noaction");
 
 
-      LoadJson(base_url+'product/hidden',{"id":id,"_token":__token,"flag":flag},function(result){
+      RunJson(base_url+'product/hidden',{"id":id,"_token":__token,"flag":flag},function(result){
         if(result=="1"){
           if(flag==0){
             th.html("Hiện");

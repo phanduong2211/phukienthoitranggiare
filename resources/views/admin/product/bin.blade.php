@@ -4,31 +4,20 @@
 
 @section('script')
 <script type="text/javascript">
-  function LoadJson(url,dt,callback) {
-  $.ajax({
-    type: "POST",
-    url: url,
-    dataType: 'json',
-    data:dt,
-    beforeSend: function(){
-    },
-    success: callback,
-    error: function (e, e2, e3) {
-    }
-  });
-}
+ 
 var base_url="{{Asset('admin')}}/";
     $(function(){
         $("#nav-accordion>li:eq(1)>a").addClass("active").parent().find("ul>li:eq(4)").addClass("active");
         
         $("form.remove1").submit(function(){
-        if(confirm("Bạn có chắc muốn khôi phục sản phẩm này?")){
-             var th=$(this);
+            var th=$(this);
+        getConfirm('Bạn có chắc khôi phục sản phẩm này?',function(result) {
+           if(result){
           var id=th.find("input[name='id']").val();
           var __token=th.find("input[name='_token']").val();
         th=th.parents("tr");
         th.addClass("noaction");
-          LoadJson(base_url+'product/restore',{"id":id,"_token":__token},function(result){
+          RunJson(base_url+'product/restore',{"id":id,"_token":__token},function(result){
             if(result=="1"){
               th.fadeOut();
             }else{
@@ -36,7 +25,8 @@ var base_url="{{Asset('admin')}}/";
               alert("có lỗi. không thể khôi phục sản phẩm");
             }
           });
-        }
+          }
+        });
         return false;
       });
 

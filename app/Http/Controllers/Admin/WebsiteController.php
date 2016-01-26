@@ -242,13 +242,18 @@ class WebsiteController extends BaseController
 
 	public function changebrand(){
 		$silebar_images="";
-		foreach (Input::get('silebar_images') as $key => $value) {
-			if($value!=""){
-				$silebar_images.=$value.",";
+		if(Input::exists('silebar_images')){
+		
+			foreach (Input::get('silebar_images') as $key => $value) {
+				if($value!=""){
+					$silebar_images.=$value.",";
+				}
+			}
+			if($silebar_images!=""){
+				$length=strlen($silebar_images);
+				$silebar_images=substr($silebar_images, 0,$length-1);
 			}
 		}
-		$length=strlen($silebar_images);
-		$silebar_images=substr($silebar_images, 0,$length-1);
 		
 		$info=new info();
 		$info->where('name','brand')->update(array('contents'=>$silebar_images));

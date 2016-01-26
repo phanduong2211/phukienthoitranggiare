@@ -265,27 +265,37 @@ class ProductController extends BaseController
 
 	public function detail(){
 		$productdetail=detailproduct::find(Input::get('idedit'));
-		$images="";
-		foreach (Input::get('images') as $key => $value) {
-			if($value!=""){
-				$images.=$value.",";
-			}
-		}
-		$length=strlen($images);
-		$images=substr($images, 0,$length-1);
+
 		
+		if(Input::exists('images')){
+			$images="";
+			foreach (Input::get('images') as $key => $value) {
+				if($value!=""){
+					$images.=$value.",";
+				}
+			}
+			if($images!=""){
+				$length=strlen($images);
+				$images=substr($images, 0,$length-1);
+				
 
-		$productdetail->images=$images;
-
-		$silebar_images="";
-		foreach (Input::get('silebar_images') as $key => $value) {
-			if($value!=""){
-				$silebar_images.=$value.",";
+				$productdetail->images=$images;
 			}
 		}
-		$length=strlen($silebar_images);
-		$silebar_images=substr($silebar_images, 0,$length-1);
-		$productdetail->silebar_images=$silebar_images;
+
+		if(Input::exists('silebar_images')){
+			$silebar_images="";
+			foreach (Input::get('silebar_images') as $key => $value) {
+				if($value!=""){
+					$silebar_images.=$value.",";
+				}
+			}
+			if($silebar_images!=""){
+				$length=strlen($silebar_images);
+				$silebar_images=substr($silebar_images, 0,$length-1);
+				$productdetail->silebar_images=$silebar_images;
+			}
+		}
 
 		$productdetail->infomation=Input::get('infomation');
 		$productdetail->size=Input::get('size');

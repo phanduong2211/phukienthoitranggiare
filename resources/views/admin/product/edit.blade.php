@@ -665,7 +665,7 @@ function showImg(input) {
                 </div>
              </div><br /><br />
              <div class="col-md-12" >
-                <textarea id="infomation" name="infomation" style="width:100%;height:250px">{{$detail->infomation}}</textarea>
+                <textarea id="infomation" name="infomation" style="width:100%;height:250px">{!!$detail->infomation!!}</textarea>
              </div>
         </div><!--//Info--><br /><br />
         <div class="row">
@@ -675,7 +675,7 @@ function showImg(input) {
                 </div>
              </div><br /><br />
              <div class="col-md-12" >
-                <textarea id="data_sheet" name="data_sheet" style="width:100%;height:250px">{{$detail->data_sheet}}</textarea>
+                <textarea id="data_sheet" name="data_sheet" style="width:100%;height:250px">{!!$detail->data_sheet!!}</textarea>
              </div>
         </div><!--//data-sheet--><br />
         <br />
