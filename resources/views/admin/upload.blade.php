@@ -10,21 +10,16 @@ function KhongDau($str){
 	$str = preg_replace("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
 	$str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
 	$str = preg_replace("/(đ)/", 'd', $str);
-
 	return $str;
 }
-
 function formatToUrl($name){
-
 	$name=KhongDau(trim(mb_strtolower($name,'UTF-8')));
-
 	if (preg_match_all("/[a-za-z0-9_ ]*/", $name, $matches)) {
 		$str="";
 		foreach($matches[0] as $value)
 		{
 			$str.=$value;
 		}
-
 		$str=str_replace(" ", "-", $str);
 		$str=str_replace("--", "-", $str);
 		$str=str_replace("--", "-", $str);
@@ -32,30 +27,27 @@ function formatToUrl($name){
 		$str=str_replace("__", "-", $str);
 		return $str;		  
 	}
-
-
-
 	return $name;
-
 }
 function createFileName($name,$basename,$i,$root,$duoi){
-
 	if(file_exists($root."/".$name.".".$duoi)){
-
 		return createFileName($basename."(".$i.")",$basename,$i+1,$root,$duoi);
 	}
-
 	return $root."/".$name.".".$duoi;
 }
 if(isset($_POST['submit'])){
 	$flag=false;
 	if(isset($_FILES['image'])){
 		$message=0;
+		$arrex=array('png','jpg','jpeg','gif','bmp');
 		$fileleg=count($_FILES['image']['name']);
 		for ($i=0; $i <$fileleg ; $i++) { 
 			if($_FILES['image']['size'][$i]>0 && strpos($_FILES['image']['type'][$i],"image")===0){
 					$arr=explode(".", $_FILES['image']['name'][$i]);
 					$length=count($arr)-1;
+					if(!in_array($arr[$length], $arrex)){
+						continue;
+					}
 					$name='';
 					for($j=0;$j<$length;$j++)
 						$name.=$arr[$j];
@@ -70,7 +62,6 @@ if(isset($_POST['submit'])){
 		echo "<div style='margin-bottom:10px;text-align:center;color:red'>".$message."</div>";
 		header("Location: ".Asset('admin/uploadimage?keyupload='.$_GET['keyupload']));
 	}else{
-
 		$message="Vui lòng chọn hình ảnh để upload.";
 		echo "<div style='margin-bottom:10px;text-align:center;color:red'>".$message."</div>";
 		header("Location: ".Asset('admin/uploadimage?keyupload='.$_GET['keyupload']));
@@ -88,7 +79,7 @@ if(isset($_POST['submit'])){
 				<input type="file" name="image[]" multiple="multiple" id="image" /><br />
 				<div id="hiddenaup">
 					<img src="{{Asset('public/image')}}/pVbuU.png" />
-					<h1>Chọn hình ảnh để upload.</h1><br /><span style="color:#888;font-size:14px">Bạn có thể upload nhiều hình ảnh 1 lúc bằng cách giữ phím Ctrl và chọn các files</span><br /><br />
+					<h1>Chọn hình ảnh để upload.<small>(png, jpg, jpeg, gif, bmp)</small></h1><br /><span style="color:#888;font-size:14px">Bạn có thể upload nhiều hình ảnh 1 lúc bằng cách giữ phím Ctrl và chọn các hình</span><br /><br />
 				</div>
 				<div id="hiddebup">
 					<h3 id="slfile"></h3>
@@ -96,15 +87,15 @@ if(isset($_POST['submit'])){
 					<div style="height:7px"></div>
 					<input style="padding:4px;border:1px solid #ccc;outline:none" onkeydown="return false;" type="text" value="upload" name="folder" id="foldersave" /><input type="button" id="choosefolder" style="padding:3px 6px" value="..." />
 					<br /><br /><br />
-				<input type="submit" id="submitform" value="Upload Hình Ảnh" name="submit" />
-				<input type="reset" value="Hủy Bỏ" id="caupload" />
+			
 				</div>
 				<div stype="height:10px"></div>
 			</label>
+				<div id="inputform">
 			
-			
-			
-			
+				<input type="submit" id="submitform" value="Upload Hình Ảnh" name="submit" />
+				<input type="reset" value="Hủy Bỏ" id="caupload" />
+				</div>
 			
 			<input type="hidden" name="_token" value="{{csrf_token()}}"/>
 		</form>
@@ -112,6 +103,12 @@ if(isset($_POST['submit'])){
 
 
 <style type="text/css">
+h1 small{
+	color:#888;
+	display: block;
+	font-size: 14px;
+	font-weight: normal;
+}
 #hiddebup{
 	display: none;
 }
@@ -189,6 +186,10 @@ if(isset($_POST['submit'])){
     border: 1px solid #FCB322;
     cursor: pointer;
 }
+#inputform{
+	display: none;
+	margin-top: -60px;
+}
 </style>
 
 <div id="dialog4">
@@ -230,41 +231,32 @@ if(isset($_POST['submit'])){
 			}
 		});
 	}
-	function GiuAnh(){
-		$("#actionform").val(1);
-		$("#submitform").click();
-	}
-	function XoaAnh(){
-		$("#actionform").val(0);
-		$("#submitform").click();
-	}
 	$(document).ready(function(){
 		$("form input[name='folder']").change(function(){
 			foldername1=$(this).val();
 		});
-
 		$("label#areauploadfile").click(function(){
 			if(!$(this).hasClass("hoverarea"))
 			return false;
 		});
-
 		$("#areauploadfile input[type='file']").change(function(){
 			$("#hiddebup").show();
 			$("#hiddenaup").hide();
+			$("#inputform").show();
 			$("#slfile").html(this.files.length+" hình ảnh được chọn.");
-			$("#areauploadfile").removeClass("hoverarea");
-		});
 
+			$("#areauploadfile").css("padding-bottom","30px").removeClass("hoverarea");
+		});
+		
 		$("#caupload").click(function(){
 			$("#hiddebup").hide();
 			$("#hiddenaup").show();
-			$("#areauploadfile").addClass("hoverarea");
+			$("#inputform").hide();
+			$("#areauploadfile").css("padding-bottom","20px").addClass("hoverarea");
 		});
-
 		$("#foldersave").focus(function(){
 			$("#choosefolder").click();
 		});
-
 		$("#choosefolder").click(function(){
 			if(dialogchoosefolder==null){
 				dialogchoosefolder=new dialog($("#dialog4"),{

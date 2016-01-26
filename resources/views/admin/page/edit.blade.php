@@ -50,35 +50,19 @@ var base_url_admin="{{Asset('admin')}}/";
 @endif
     <form method="post" action="" id="frm" name="frmedit">
     	<div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         Tiêu Đề Trang:
                     </div>
-                    <div class="col-md-8 require">
+                    <div class="col-md-10 require">
                         <div class="red">*</div>
-                        <input type="text" name="name" class="form-control" value="{{$data->name}}" />
+                        <textarea name="name" class="form-control">{{$data->name}}</textarea>
                          <span class="desc">Hiển thị trên trình duyệt.</span>
                     </div>
                 </div><br />
             </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        Thuộc Menu:
-                    </div>
-                    <div class="col-md-8 require">
-                        <div class="red">*</div>
-                        <select name="menuid" class="form-control">
-                            <option value="-1">-- Lựa Chọn --</option>
-                            @foreach($datam as $value)
-                            <option value="{{$value->id}}">{{$value->name}}</option>
-                            @endforeach
-                        </select>    
-                        <span class="desc">Trang này sẽ hiển thị trong menu nào?.</span>
-                    </div>
-                </div><br />
-            </div>
+          
         </div><br />
         <div class="row">
             <div class="col-md-12">
@@ -101,9 +85,7 @@ var base_url_admin="{{Asset('admin')}}/";
     	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="idedit" value="{{$data->id}}"/>
     </form>
-    <script type="text/javascript">
-        document.frmedit.menuid.value="{{$data->menuid}}";
-    </script>
+
 @include('upload')
 <a class="nicupload showupload" href="#nicupload">Upload</a>
 @endsection

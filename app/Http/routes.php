@@ -89,7 +89,6 @@ Route::get('shop-gird.html', function () {
 });
 
 
-
 Route::get('products/{id}/{name}.html','ViewController@productDetail');
 Route::get("tin-tuc/{id}/{name}.html",'ViewController@detailnews');
 Route::get("tin-tuc",'ViewController@news');

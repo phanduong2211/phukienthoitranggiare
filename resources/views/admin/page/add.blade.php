@@ -24,11 +24,12 @@ var base_url_admin="{{Asset('admin')}}/";
     		{
     			'name':'name',
     			'trong':true
-    		},
-            {
-                'name':'menuid',
-                'select':true
-            }
+    		}
+            // ,
+            // {
+            //     'name':'menuid',
+            //     'select':true
+            // }
     	]);
 	});
 </script>
@@ -50,32 +51,15 @@ var base_url_admin="{{Asset('admin')}}/";
 @endif
     <form method="post" action="" id="frm">
     	<div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         Tiêu Đề Trang:
                     </div>
-                    <div class="col-md-8 require">
+                    <div class="col-md-10 require">
                         <div class="red">*</div>
-                        <input type="text" name="name" class="form-control" value="{{$_POST['name'] or ''}}" />
+                        <textarea name="name" class="form-control"></textarea>
                          <span class="desc">Hiển thị trên trình duyệt.</span>
-                    </div>
-                </div><br />
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        Thuộc Menu:
-                    </div>
-                    <div class="col-md-8 require">
-                        <div class="red">*</div>
-                        <select name="menuid" class="form-control">
-                            <option value="-1">-- Lựa Chọn --</option>
-                            @foreach($datam as $value)
-                            <option value="{{$value->id}}">{{$value->name}}</option>
-                            @endforeach
-                        </select>    
-                        <span class="desc">Trang này sẽ hiển thị trong menu nào?.</span>
                     </div>
                 </div><br />
             </div>
@@ -99,6 +83,7 @@ var base_url_admin="{{Asset('admin')}}/";
     		</div>
     	</div><br />
     	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
+        <input type="hidden" name="menuid" value="0"/>
     </form>
 @include('upload')
 <a class="nicupload showupload" href="#nicupload">Upload</a>

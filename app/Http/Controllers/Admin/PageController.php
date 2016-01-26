@@ -8,14 +8,14 @@ use Input;
 class PageController extends Controller
 {
 	public function getIndex(){
-		$data=page::select('page.*','menu.name as namem')->join('menu','page.menuid','=','menu.id')->orderBy('id','desc')->get();
+		$data=page::orderBy('id','desc')->get();
 		return view("admin.page.index",array('data'=>$data));
 	}
 
 	public function getAdd(){
-		$arrmenuid=page::select('menuid')->get();
-		$datam=menu::select('id','name')->where('url','<>','')->whereNotIn('id',$arrmenuid)->get();
-		return view('admin.page.add',array('datam'=>$datam));
+		// $arrmenuid=page::select('menuid')->get();
+		// $datam=menu::select('id','name')->where('url','<>','')->whereNotIn('id',$arrmenuid)->get();
+		return view('admin.page.add');
 	}
 
 	public function postAdd(){
@@ -38,13 +38,13 @@ class PageController extends Controller
 		$data=page::where('id',Input::get('id'))->first();
 		if($data==null)
 			return redirect('admin/page')->with(['message'=>'Trang không tồn tại.']);
-		$arrmenuid=page::select('menuid')->get();
-		$menuid=$data->menuid;
-		$datam=menu::select('id','name')->where('url','<>','')->where(function($q) use ($arrmenuid,$menuid){
-			$q->whereNotIn('id',$arrmenuid);
-			$q->orWhere('id',$menuid);
-		})->get();
-		return view("admin.page.edit",array('data'=>$data,'datam'=>$datam));
+		// $arrmenuid=page::select('menuid')->get();
+		// $menuid=$data->menuid;
+		// $datam=menu::select('id','name')->where('url','<>','')->where(function($q) use ($arrmenuid,$menuid){
+		// 	$q->whereNotIn('id',$arrmenuid);
+		// 	$q->orWhere('id',$menuid);
+		// })->get();
+		return view("admin.page.edit",array('data'=>$data));
 	}
 
 	public function postEdit(){

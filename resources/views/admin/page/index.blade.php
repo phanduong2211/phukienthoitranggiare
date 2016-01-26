@@ -53,7 +53,7 @@
        <tr>
             <th>Tiêu Đề</th>
             <th>Nội Dung</th>
-            <th>Menu</th>
+           
             <th>Lượt Xem</th>
             
             <th>Ngày Tạo</th>
@@ -75,9 +75,6 @@
                 <div class="hide">
                     {!! $value->content !!}
                 </div>
-            </td>
-            <td>
-                {{$value->namem}}
             </td>
             <td>
                 {{$value->view}}

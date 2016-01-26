@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use Input;
 use DB;
 use Carbon\Carbon;
+
 class IndexController extends Controller
 {
 	public function index()
@@ -26,7 +27,6 @@ class IndexController extends Controller
 
 		return json_encode($data);
 	}	
-
 	
 }
 
