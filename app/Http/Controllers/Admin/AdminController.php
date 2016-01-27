@@ -16,10 +16,6 @@ class AdminController extends Controller
 		$data=admin::orderBy('id','desc')->get();
 
 		return view("admin.admin.index",array('data'=>$data));
-	}	
-
-	public function getAdd(){
-		return view("admin.admin.add");
 	}
 
 	public function postAdd(){
@@ -69,17 +65,6 @@ class AdminController extends Controller
 			}
 		Session::flash('message', 'Có lỗi. Vui lòng thử lại.');
 		return view("admin.admin.add");
-	}
-
-	public function getEdit(){
-		if(!Input::exists('id'))
-			return redirect('admin/ad')->with(['message'=>'Vui lòng chọn 1 QTV để sửa.']);
-		$admin=new admin();
-		$data=$admin->where('id',Input::get('id'))->first();
-		if($data==null)
-			return redirect('admin/ad')->with(['message'=>'QTV không tồn tại.']);
-		
-		return view("admin.admin.edit",array('data'=>$data));
 	}
 
 	public function postEdit(){

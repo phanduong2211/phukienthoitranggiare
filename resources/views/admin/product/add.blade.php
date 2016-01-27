@@ -126,25 +126,9 @@
                 'name':'color',
                 'trong':true
             }
-    	],function(){
-            if($("#frm input[name='image_upload']").val().length>0){
+    	]);
 
-            }else{
-                var obj=$("#frm input[name='image']");
-                if(obj.val().trim()==""){
-                    obj.addClass("error");
-                        if(!obj.next('.errortext').length){
-                            obj.after("<span class='errortext'></span>");
-                    }
-                    obj.next('.errortext').show().html("Vui lòng chọn hình ảnh.");
-                    obj.on("change",function(){
-                        $(this).off('change').removeClass('error').next(".errortext").hide();
-                    });
-                    return false;
-                }
-            }
-            return true;
-        });
+        $("#valiapp").show();
 
 
         $(".boxupload .showimage").click(function(){
@@ -522,7 +506,7 @@
             </div>
         </div>
     	<div class="row">
-    		<div class="col-md-12 text-right">
+    		<div class="col-md-12 text-right" id="valiapp">
     			<input type="submit" class="btn btn-success" value="Lưu Lại" />
     			<input type="reset" class="btn btn-default" value="Nhập Lại" />
     		</div>

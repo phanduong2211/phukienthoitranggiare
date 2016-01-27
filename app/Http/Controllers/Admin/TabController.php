@@ -19,11 +19,6 @@ class TabController extends BaseController
 		return View::make("admin.tab.index",array('data'=>$data));
 	}
 
-	public function add()
-	{
-		return View::make("admin.tab.add");
-	}	
-
 	public function save()
 	{
 		$tab_category= new tab_category();
@@ -45,18 +40,6 @@ class TabController extends BaseController
 			}
 			return Redirect::to('admin/tab/add')->with(['message'=>'Có lỗi. Vui lòng thử lại']);
 		}
-	}	
-
-	public function edit()
-	{
-		if(!Input::exists('id'))
-			return Redirect::to('admin/tab')->with(['message'=>'Vui lòng chọn 1 tab để sửa.']);
-		$tab_category= new tab_category();
-		$data=$tab_category->where('id',Input::get('id'))->first();
-		if($data==null)
-			return Redirect::to('admin/tab')->with(['message'=>'Tab không tồn tại.']);
-		
-		return View::make("admin.tab.edit",array('data'=>$data));
 	}	
 
 	public function saveedit()

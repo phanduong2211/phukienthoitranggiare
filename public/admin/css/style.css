@@ -43,6 +43,10 @@ a, a:hover, a:focus {
     height: 100%;
 }
 
+#valiapp{
+    display: none;
+}
+
 /*login page*/
 
 .login-body {

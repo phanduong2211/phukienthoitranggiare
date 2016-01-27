@@ -14,6 +14,12 @@
         <i class="pull-right fa fa-times-circle"></i>
         </p>
 @endif
+<style type="text/css">
+hr{
+	border-top:1px solid #ddd !important;
+	margin-top: 0 !important;
+}
+</style>
 <div>
 	<h4>Thông Tin Chung</h4>
 	<hr />

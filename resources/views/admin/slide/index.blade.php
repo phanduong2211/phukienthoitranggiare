@@ -153,7 +153,7 @@ function showImage($path){
             <th>Hình Ảnh</th>
             <th width="10%">Nội Dung</th>
             <th>Liên Kết</th>
-            <th>HT Tại</th>
+            <th>Hiện Thị Tại</th>
             <th>Date</th>
         </tr>
         @foreach ($data as $value)

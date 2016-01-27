@@ -19,11 +19,7 @@ class CategoryAdminController extends BaseController
 		return View::make("admin.category.index",array('data'=>$data));
 	}
 
-	public function add()
-	{
-		return View::make("admin.category.add");
-	}	
-
+	
 	public function save()
 	{
 		$category= new category();
@@ -45,18 +41,6 @@ class CategoryAdminController extends BaseController
 			}
 			return Redirect::to('admin/category/add')->with(['message'=>'Có lỗi. Vui lòng thử lại']);
 		}
-	}	
-
-	public function edit()
-	{
-		if(!Input::exists('id'))
-			return Redirect::to('admin/category')->with(['message'=>'Vui lòng chọn 1 loại sản phẩm để sửa.']);
-		$category= new category();
-		$data=$category->where('id',Input::get('id'))->first();
-		if($data==null)
-			return Redirect::to('admin/category')->with(['message'=>'Loại sản phẩm không tồn tại.']);
-		
-		return View::make("admin.category.edit",array('data'=>$data));
 	}	
 
 	public function saveedit()

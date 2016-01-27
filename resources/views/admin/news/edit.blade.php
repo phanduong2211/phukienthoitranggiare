@@ -42,6 +42,7 @@
                 'select':true
             }
     	]);
+        $("#valiapp").show();
 	});
 </script>
 
@@ -139,7 +140,7 @@
             </div>
         </div><br />
     	<div class="row">
-    		<div class="col-md-12 text-right">
+    		<div class="col-md-12 text-right" id="valiapp">
     			<input type="submit" class="btn btn-success" value="Lưu Lại" />
     			<input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
     		</div>

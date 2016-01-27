@@ -33,16 +33,12 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
 
 
     Route::get("category","Admin\CategoryAdminController@index");
-    Route::get("category/add","Admin\CategoryAdminController@add");
     Route::post("category/add","Admin\CategoryAdminController@save");
-    Route::get("category/edit","Admin\CategoryAdminController@edit");
     Route::post("category/edit","Admin\CategoryAdminController@saveedit");
     Route::post("category/delete","Admin\CategoryAdminController@delete");
 
     Route::get("tab","Admin\TabController@index");
-    Route::get("tab/add","Admin\TabController@add");
     Route::post("tab/add","Admin\TabController@save");
-    Route::get("tab/edit","Admin\TabController@edit");
     Route::post("tab/edit","Admin\TabController@saveedit");
     Route::post("tab/delete","Admin\TabController@delete");
 
@@ -56,14 +52,17 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::post("product/restore","Admin\ProductController@restore");
     Route::post("product/delete","Admin\ProductController@delete");
     Route::post("product/hidden","Admin\ProductController@hidden");
-
     Route::post("product/detail","Admin\ProductController@detail");
+    
     Route::get("uploadimage","Admin\UploadController@upload");
     Route::post("uploadimage","Admin\UploadController@upload");
     Route::post("ajax/loadfolder","Admin\UploadController@loadfolder");
     Route::post("upload/checkfile","Admin\UploadController@checkfile");
     Route::post("ajax/removeimg","Admin\UploadController@removeimg");
+    Route::post("ajax/removefolder","Admin\UploadController@removefolder");
     Route::post("ajax/count","Admin\IndexController@count");
+    Route::post("ajax/createfolder","Admin\UploadController@createfolder");
+    Route::post("ajax/loadonlyfolder","Admin\UploadController@loadonlyfolder");
 
     Route::controller("slide","Admin\SlideController");
     Route::controller("news","Admin\NewsController");

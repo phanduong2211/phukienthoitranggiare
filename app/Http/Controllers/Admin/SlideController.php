@@ -15,11 +15,6 @@ class SlideController extends Controller
 		return view("admin.slide.index",array('data'=>$data,'datac'=>$datac));
 	}
 
-	public function getAdd(){
-		$datac=category::get();
-		return view('admin.slide.add',array('datac'=>$datac));
-	}
-
 	public function postAdd(){
 		$slide=new slideshow();
 		Input::merge(array('name' => str_replace("\"","'",trim(Input::get('name')))));
@@ -46,17 +41,6 @@ class SlideController extends Controller
 			}
 			return view('admin.slide.add')->with(['message'=>'Thêm thất bại. Vui lòng thử lại']);
 		}
-	}
-
-	public function getEdit(){
-		if(!Input::exists('id'))
-			return redirect('admin/slide')->with(['message'=>'Vui lòng chọn 1 slide để sửa.']);
-		$slide= new slideshow();
-		$data=$slide->where('id',Input::get('id'))->first();
-		if($data==null)
-			return redirect('admin/slide')->with(['message'=>'Slide không tồn tại.']);
-		$datac=category::get();
-		return view("admin.slide.edit",array('data'=>$data,'datac'=>$datac));
 	}
 
 	public function postEdit(){

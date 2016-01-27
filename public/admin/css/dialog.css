@@ -44,7 +44,7 @@
 .dialog hr{
 	border-top:1px solid #ccc;
 }
-#dialog,#dialog2,#dialog3,#dialog4,#dialogxoaimg,#dialog1,#dialogupload,#dialogshowimg{
+#dialog,#dialog2,#dialog3,#dialog4,#dialogxoaimg,#dialog1,#dialogupload,#dialogshowimg,#dialognewfolder,#dialogxoafolder{
 	display: none;
 }
 	#dialogupload .tabupload .tabitem li{
@@ -88,7 +88,7 @@
     cursor: pointer;
     padding: 5px 0px;
 }
-#dialogupload .tabfolder li:hover,#dialogupload .tabfolder li.active{
+#dialogupload .tabfolder li:hover,#dialogupload .tabfolder li.active,#dialogupload .tabfolder li.activeroot{
     color:#D20101;
 }
 #dialogupload .tabupload{
@@ -113,7 +113,7 @@
     float: left;
     margin: 0px 7px;
 }
-#refreshupload:hover,#removeupload:hover,#downloadimg:hover,#chooseImg:hover,#zoomimage:hover{
+#refreshupload:hover,#removeupload:hover,#downloadimg:hover,#chooseImg:hover,#zoomimage:hover,#newfolderupload:hover{
     cursor: pointer;
     color:blue;
 }
@@ -169,4 +169,16 @@
 }
 #dialogshowimg p{
     text-align: center;
+}
+#backfolderupload{
+    position: absolute;
+    left: 404px;
+    top: 6px;
+    font-size: 15px;
+    z-index: 999999;
+    display: none;
+}
+#backfolderupload i:hover{
+    cursor: pointer;
+    color:red;
 }

@@ -162,25 +162,9 @@ $(function(){
     'name':'categoryID',
     'select':true
 }
-],function(){
-    if($("#frm input[name='image_upload']").val().length>0){
+]);
 
-    }else{
-        var obj=$("#frm input[name='image']");
-        if(obj.val().trim()==""){
-            obj.addClass("error");
-            if(!obj.next('.errortext').length){
-                obj.after("<span class='errortext'></span>");
-            }
-            obj.next('.errortext').show().html("Vui lòng chọn hình ảnh.");
-            obj.on("change",function(){
-                $(this).off('change').removeClass('error').next(".errortext").hide();
-            });
-            return false;
-        }
-    }
-    return true;
-});
+  $("#valiapp").show();
 
 $(".newimage").click(function(){
     var size=$("#imagescls").find(".itemimages").size();
@@ -588,7 +572,7 @@ function showImg(input) {
 </div>
 </div>
 <div class="row">
-  <div class="col-md-12 text-right">
+  <div class="col-md-12 text-right" id="valiapp">
      <input type="submit" class="btn btn-success" value="Lưu Lại" />
      <input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
  </div>
@@ -705,7 +689,7 @@ function showImg(input) {
             </div>
         </div><br />
                 <div class="row">
-                    <div class="col-md-12 text-right">
+                    <div class="col-md-12 text-right" id="valiapp">
                         <input type="submit" class="btn btn-success" value="Lưu Lại" />
                         <input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
                     </div>
