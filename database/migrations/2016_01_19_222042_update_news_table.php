@@ -13,7 +13,7 @@ class UpdateNewsTable extends Migration
     public function up()
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->Integer('categoryNewsID')->unsigned();
+            //$table->Integer('categoryNewsID')->unsigned();
             $table->tinyInteger('display');
         });
 

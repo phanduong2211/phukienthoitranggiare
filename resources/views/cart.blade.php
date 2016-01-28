@@ -75,9 +75,10 @@
 											<small><a href="javascript:void(0)">Size : 
 											<select style="width:20%" name="size" class="size">
 
-											<?php $Size = explode(",",$convert->getSize($values[0]->size));
-												$Color =explode(",",$convert->getColor($values[0]->color)); 												
-												$totalprice += number_format($values[0]->promotion_price);?>
+											<?php $Size = explode(",",$convert->getSize($values[0]->id)[0]->size);
+												$Color =explode(",",$convert->getColor($values[0]->id)[0]->color); 												
+												$totalprice += number_format($values[0]->promotion_price);
+												?>
 											@if(count($Size)>0)
 											@for($i=0;$i < count($Size) ;$i++)
 												<option>{{$Size[$i]}}</option>

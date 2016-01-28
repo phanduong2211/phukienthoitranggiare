@@ -11,6 +11,6 @@
         <object type="application/x-shockwave-flash" name="name" data="http://www.bluefountainmedia.com/swf/pacman.swf" width="977" height="500" id="flash-404" style="visibility: visible;"><param name="quality" value="high"><param name="wmode" value="transparent"></object>
     
     </div>
-    <div style="text-align:center"><h2><a href="http://lovadweb.com">Go to Home Pages!</a></h2></div>
+    <div style="text-align:center"><h2><a href="{{Asset('')}}">Go to Home Pages!</a></h2></div>
 </body>
 </html

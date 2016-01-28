@@ -108,7 +108,7 @@ Route::get('checkout-address.html',"ViewController@checkaddress");
 
 Route::get("dat-hang-thanh-cong.html","ViewController@orderSuccess");
 Route::get('checkout-shipping.html',"ViewController@checkoutshipping");
-
+Route::get("pages/{name}","ViewController@pages");
 Route::get('checkout.html',"ViewController@payment");
 Route::get("contact-us.html","ViewController@contact");
 Route::get('my-account.html',"ViewController@myacount");

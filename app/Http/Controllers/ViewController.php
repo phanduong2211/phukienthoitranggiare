@@ -870,6 +870,32 @@ public function payment()
 		return view::make("contact-us",array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert
 		,"header"=>$header));
 	}
+
+	public function pages($url)
+	{
+		$menu = MenuController::getMenu();
+		$categorys = CategoryController::getCategory();
+		$info = InfoController::getInfo();
+		$convert = new convertString();
+		$pages = PageController::getPageWhereUrl($url);
+		if(count($pages)==0)
+			return View::make("errors.404");
+		$header = array("title"=>$pages[0]->name."- phụ kiện thời trang","keyword"=>"Liên hệ-phụ kiện thời trang","description"=>"Liên hệ-phụ kiện thời trang");
+		foreach($info as $values)
+		{
+		if($values->name == "keyword" && $values->contents!="")
+			$header["keyword"] = $values->contents;
+		if($values->name == "description" && $values->contents!="")
+			$header["description"] = $values->contents;
+		}
+		if(count($menu)>0)
+		{
+			$menu = $this->ConvertMenuToArray($menu);
+		}
+		return view::make("page",array('menu'=>$menu,"categorys"=>$categorys,"info"=>$info,"convert"=>$convert
+		,"header"=>$header,"pages"=>$pages));
+
+	}
 	public function test()
 	{
 	    //Session::forget("cart");

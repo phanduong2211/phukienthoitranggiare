@@ -17,6 +17,7 @@ class CreatePageTable extends Migration
             $table->string('name');
             $table->text('content');
             $table->integer('view');
+            $table->string("url");
             $table->integer('menuid')->unsigned();
             $table->timestamps();
         });

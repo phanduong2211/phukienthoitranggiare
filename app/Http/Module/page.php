@@ -9,6 +9,6 @@
 	class page extends Model
 	{		
 		public $table = "page";
-		public $fillable=['name','content','view','menuid'];		
+		public $fillable=['name','content','view','url','menuid'];		
 	}
  ?>
