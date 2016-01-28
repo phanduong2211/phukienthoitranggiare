@@ -36,6 +36,11 @@ class ContactController extends Controller
 						$data=$data->where(DB::raw('day(created_at)'),$mytime->day)->where(DB::raw('month(created_at)'),$mytime->month)->where(DB::raw('year(created_at)'),$mytime->year);
 						break;
 					case '2':
+						$mytime = Carbon::now()->subDay();
+					
+						$data=$data->where(DB::raw('day(created_at)'),$mytime->day)->where(DB::raw('month(created_at)'),$mytime->month)->where(DB::raw('year(created_at)'),$mytime->year);
+						break;
+					case '3':
 						$mytime = Carbon::now();
 						$data=$data->where(DB::raw('month(created_at)'),$mytime->month)->where(DB::raw('year(created_at)'),$mytime->year);
 						break;

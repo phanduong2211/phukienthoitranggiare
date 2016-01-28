@@ -419,6 +419,20 @@ h1 small{
 			$("#slfile").html(this.files.length+" hình ảnh được chọn.");
 
 			$("#areauploadfile").css("padding-bottom","35px").removeClass("hoverarea");
+			
+			var flagc=true;
+			for(var i=0;i<this.files.length;i++){
+				if(this.files[i].name.split('.').pop()=="bmp"){
+					flagc=false;
+					break;
+				}
+			}
+
+			if(flagc){
+				$("#hiddebup>div:eq(2)").show();
+			}else{
+				$("#hiddebup>div:eq(2)").val("").hide();
+			}
 		});
 		
 		$("#caupload").click(function(){

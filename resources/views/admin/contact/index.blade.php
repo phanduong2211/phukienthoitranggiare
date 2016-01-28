@@ -51,7 +51,8 @@
     <select class="sfilter" name="f">
       <option value="0">-Lọc-</option>
       <option value="1">Hôm Nay</option>
-      <option value="2">Tháng Này</option>
+      <option value="2">Hôm Qua</option>
+      <option value="3">Tháng Này</option>
     </select>
     <?php if(isset($_GET["q"])){ ?>
     <input type="hidden" name="q" value="<?php echo $_GET["q"] ?>" />

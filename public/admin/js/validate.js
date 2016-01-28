@@ -4,8 +4,12 @@
     }
 })($);
 
+String.prototype.str_trim = function() {
+    return this.replace(/^\s+|\s+$/g,"");
+}
+
 function checklength(obj,maxl,minl){
-	if(obj.val().length>=minl && obj.val().length<=maxl){
+	if(obj.val().str_trim().length>=minl && obj.val().str_trim().length<=maxl){
 		return true;
 	}
 	return false;
@@ -17,7 +21,7 @@ function isEmpty(obj){
 		obj.off('keypress').removeClass('error').next('.errortext').hide();
 		return true;
 	}
-	if(obj.val().length>0){
+	if(obj.val().str_trim().length>0){
 		return true;
 	}
 	return false;
@@ -85,7 +89,7 @@ function checkIsNumber(obj) {
 function CompareObj(obj,c){
 	var value=obj.val();
 	if(c.indexOf("=")!=-1 && c.indexOf("<")==-1 && c.indexOf(">")==-1){
-		return value==c.replace("=","").trim();
+		return value==c.replace("=","").str_trim();
 	}
 	if(c.indexOf(">")!=-1){
 		if(c.indexOf("<")!=-1){
@@ -97,17 +101,17 @@ function CompareObj(obj,c){
 
 			if(c.substring(c.indexOf(">")+1,c.indexOf(">")+2)=="="){
 				nhohonbang=true;
-				 mi=parseFloat(c.substring(c.indexOf(">")+2,c.indexOf("<")-1).trim());
+				 mi=parseFloat(c.substring(c.indexOf(">")+2,c.indexOf("<")-1).str_trim());
 			}else{
-				 mi=parseFloat(c.substring(c.indexOf(">")+1,c.indexOf("<")-1).trim());
+				 mi=parseFloat(c.substring(c.indexOf(">")+1,c.indexOf("<")-1).str_trim());
 			}
 			if(c.substring(c.indexOf("<")+1,c.indexOf("<")+2)=="="){
 				lonhonbang=true;
-				ma=parseFloat(c.substring(c.indexOf("<")+2,c.length).trim());
+				ma=parseFloat(c.substring(c.indexOf("<")+2,c.length).str_trim());
 			}else{
-				ma=parseFloat(c.substring(c.indexOf("<")+1,c.length).trim());
+				ma=parseFloat(c.substring(c.indexOf("<")+1,c.length).str_trim());
 			}
-			var v=parseFloat(obj.val().trim());
+			var v=parseFloat(obj.val().str_trim());
 
 			if(nhohonbang && lonhonbang){
 				return v>=mi && v<=ma;
@@ -128,7 +132,7 @@ function CompareObj(obj,c){
 }
 
 function isDate(obj){
-	var date=obj.val().trim().split("/");
+	var date=obj.val().str_trim().split("/");
 
 	if(date.length==3){
 		var ngay=parseInt(date[0]);
@@ -162,19 +166,19 @@ function isCharacter(obj){
 }
 
 function isPrice(obj){
-	if(obj.val().trim()=="")
+	if(obj.val().str_trim()=="")
 		return false;
-	if(obj.val().trim()=="0")
+	if(obj.val().str_trim()=="0")
 		return true;
-	return /^[0-9]{1,3}( |-|\.|\,)?[0-9]{3}(( |-|\.|\,)?[0-9]{3})?(( |-|\.|\,)?[0-9]{3})?(( |-|\.|\,)?[0-9]{3})?$/.test(obj.val().trim());
+	return /^[0-9]{1,3}( |-|\.|\,)?[0-9]{3}(( |-|\.|\,)?[0-9]{3})?(( |-|\.|\,)?[0-9]{3})?(( |-|\.|\,)?[0-9]{3})?$/.test(obj.val().str_trim());
 }
 
 function isPriceEn(obj){
-	if(obj.val().trim()=="")
+	if(obj.val().str_trim()=="")
 		return false;
-	if(obj.val().trim()=="0")
+	if(obj.val().str_trim()=="0")
 		return true;
-	return /^[0-9]{1,3}(( |-|\.|\,)?[0-9]{1,3})?(( |-|\.|\,)?[0-9]{1,3})?(( |-|\.|\,)?[0-9]{1,3})?$/.test(obj.val().trim());
+	return /^[0-9]{1,3}(( |-|\.|\,)?[0-9]{1,3})?(( |-|\.|\,)?[0-9]{1,3})?(( |-|\.|\,)?[0-9]{1,3})?$/.test(obj.val().str_trim());
 }
 
 function compare2obj(obj1,obj2){
