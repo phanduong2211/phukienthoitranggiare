@@ -5,29 +5,55 @@ use Illuminate\Routing\Controller;
 use App\Http\Module\page;
 use App\Http\Module\menu;
 use Input;
+use Illuminate\Support\Str;
 class PageController extends Controller
 {
 	public function getIndex(){
-		$data=page::orderBy('id','desc')->get();
+		$data=page::select('id','name','view','created_at','url','updated_at')->orderBy('id','desc')->get();
 		return view("admin.page.index",array('data'=>$data));
 	}
 
 	public function getAdd(){
 		// $arrmenuid=page::select('menuid')->get();
 		// $datam=menu::select('id','name')->where('url','<>','')->whereNotIn('id',$arrmenuid)->get();
+		
 		return view('admin.page.add');
 	}
 
 	public function postAdd(){
 		$page=new page();
-		Input::merge(array('name' => str_replace("\"","'",trim(Input::get('name')))));
+		
+		$name=str_replace("\"","'",trim(Input::get('name')));
+		$url=trim(Input::get('url'));
+		if($url=='')
+			$url=$name;
+		$url=Str::slug($url);
 
-		$page->fill(Input::get());
+		if($url==''){
+			return redirect('admin/page/add')->with('message','Url đã tồn tại')->withInput();
+		}
+
+		$kt=$page->where('url',$url)->count();
+
+		if($kt>0){
+			$message=(trim(Input::get('url'))==''?'Trang đã tồn tại.':'Url đã tồn tại.');
+			return redirect('admin/page/add')->with('message',$message)->withInput();
+		}
+
+		$data=array(
+			'name'=>$name,
+			'content'=>Input::get('content'),
+			'view'=>0,
+			'url'=>$url,
+			'menuid'=>0
+		);
+
+		$page->fill($data);
+
 		if($page->save()){
 			return redirect('admin/page')->with(['message'=>'Thêm thành công page '.Input::get('name')]);
 		}else{
-			
-			return view('admin.page.add')->with(['message'=>'Thêm thất bại. Vui lòng thử lại']);
+			return redirect('admin/page/add')->with('message','Có lỗi. Thêm thất bại. Vui lòng thử lại.')->withInput();
 		}
 	}
 
@@ -48,18 +74,53 @@ class PageController extends Controller
 	}
 
 	public function postEdit(){
-		$page=page::find(Input::get('idedit'));
+		// $page=page::find(Input::get('idedit'));
 
-		Input::merge(array('name' => str_replace("\"","'",trim(Input::get('name')))));
+		// Input::merge(array('name' => str_replace("\"","'",trim(Input::get('name')))));
 		
-		$page->fill(Input::get());
+		// $page->fill(Input::get());
+
+		// if($page->update()){
+			
+		// 	return redirect('admin/page')->with(['message'=>'Cập nhật thành công trang "'.Input::get('name').'"']);
+		// }else{
+			
+		// 	return redirect('admin/page/edit?id='.Input::get('idedit'))->with(['message'=>'Cập nhật thất bại. Vui lòng thử lại.']);
+		// }
+
+		$page=new page();
+		
+		$name=str_replace("\"","'",trim(Input::get('name')));
+		$url=trim(Input::get('url'));
+		if($url=='')
+			$url=$name;
+		$url=Str::slug($url);
+
+		if($url==''){
+			return redirect('admin/page/edit?id='.Input::get('idedit'))->with('message','Url đã tồn tại');
+		}
+
+		$kt=$page->where('url',$url)->where('id','<>',Input::get('idedit'))->count();
+
+		if($kt>0){
+			$message=(trim(Input::get('url'))==''?'Trang đã tồn tại.':'Url đã tồn tại.');
+			return redirect('admin/page/edit?id='.Input::get('idedit'))->with('message',$message);
+		}
+
+		$data=array(
+			'name'=>$name,
+			'content'=>Input::get('content'),
+			'url'=>$url
+		);
+
+		$page=$page->find(Input::get('idedit'));
+
+		$page->fill($data);
 
 		if($page->update()){
-			
-			return redirect('admin/page')->with(['message'=>'Cập nhật thành công trang "'.Input::get('name').'"']);
+			return redirect('admin/page')->with(['message'=>'Cập nhật thành công page '.Input::get('name')]);
 		}else{
-			
-			return redirect('admin/page/edit?id='.Input::get('idedit'))->with(['message'=>'Cập nhật thất bại. Vui lòng thử lại.']);
+			return redirect('admin/page/edit?id='.Input::get('idedit'))->with('message','Có lỗi. Cập nhật thất bại. Vui lòng thử lại.');
 		}
 	}
 

@@ -9,7 +9,7 @@
 	class order extends Model
 	{		
 		public $table = "order";
-		public $fillable=['id','userID','address'];
+		public $fillable=['id','userID','address','status'];
 				
 	}
  ?>

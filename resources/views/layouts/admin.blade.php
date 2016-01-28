@@ -626,7 +626,7 @@
 
                         }
                     }else{
-                      p1.find("ul li:eq(0) .yellow").html("Không có đơn hàng mới");
+                      p1.find("ul li:eq(0) .green").html("Không có đơn hàng mới");
                     }
                },true);
             });

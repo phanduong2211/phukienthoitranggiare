@@ -19,7 +19,7 @@ var base_url_admin="{{Asset('admin')}}/";
             }
         }
 	$(function(){
-		$("#nav-accordion>li:eq(3)>a").addClass("active").parent().find("ul>li:eq(3)").addClass("active");
+		$("#nav-accordion>li:eq(3)>a").addClass("active");
 		$("#frm").kiemtra([
     		{
     			'name':'name',
@@ -52,15 +52,28 @@ var base_url_admin="{{Asset('admin')}}/";
 @endif
     <form method="post" action="" id="frm" name="frmedit">
     	<div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         Tiêu Đề Trang:
                     </div>
-                    <div class="col-md-10 require">
+                    <div class="col-md-8 require">
                         <div class="red">*</div>
-                        <textarea name="name" class="form-control">{{$data->name}}</textarea>
-                         <span class="desc">Hiển thị trên trình duyệt.</span>
+                        <input type="text" name="name" class="form-control" value="{{$data->name}}" />
+                        <span class="desc">Hiển thị trên trình duyệt.</span>
+                    </div>
+                </div><br />
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        Url:
+                    </div>
+                    <div class="col-md-8 require">
+                        <div class="red">*</div>
+                        <input type="text" name="url" class="form-control" value="{{$data->url}}" />
+                        <span class="desc">Nếu bỏ trống thì sẽ lấy theo tiêu đề trang</span>
                     </div>
                 </div><br />
             </div>

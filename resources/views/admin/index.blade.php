@@ -2,12 +2,40 @@
 
 @section('title', 'Dashboard')
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{Asset('public/admin/css/morris.css')}}" />
+@endsection
 @section('script')
+ <script src="<?php echo Asset('') ?>public/admin/js/raphael.min.js"></script>
+    <script src="<?php echo Asset('') ?>public/admin/js/morris.min.js"></script>
 <script type="text/javascript">
 
 	 $(function(){
     	$("#nav-accordion>li:eq(0)>a").addClass("active");
 	});
+
+    $(function(){
+       
+         Morris.Bar({
+        element: 'morris-bar-chart',
+        data: [@foreach ($chart as $itk)
+        {
+            date: '{{$itk->t.'-'.$itk->y}}',
+            sotien: {{$itk->s}}
+        },
+        @endforeach],
+        xkey: 'date',
+        ykeys: ['sotien'],
+        labels: ['Số Tiền'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        resize: true
+    });
+
+   });
+  
+
 </script>
 @endsection
 @section('content')
@@ -16,26 +44,26 @@
                   <div class="col-lg-3 col-sm-6">
                       <section class="panel">
                           <div class="symbol terques">
-                              <i class="fa fa-user"></i>
+                              <i class="fa fa-qrcode"></i>
                           </div>
                           <div class="value">
                               <h1 class="count">
-                                  0
+                                  {{$thongke->sp}}
                               </h1>
-                              <p>New Users</p>
+                              <p>Sản Phẩm</p>
                           </div>
                       </section>
                   </div>
                   <div class="col-lg-3 col-sm-6">
                       <section class="panel">
                           <div class="symbol red">
-                              <i class="fa fa-tags"></i>
+                              <i class="fa fa-list-alt"></i>
                           </div>
                           <div class="value">
                               <h1 class=" count2">
-                                  0
+                                  {{$thongke->tt}}
                               </h1>
-                              <p>Sales</p>
+                              <p>Tin Tức</p>
                           </div>
                       </section>
                   </div>
@@ -46,25 +74,106 @@
                           </div>
                           <div class="value">
                               <h1 class=" count3">
-                                  0
+                                  {{$thongke->dh}}
                               </h1>
-                              <p>New Order</p>
+                              <p>Đơn Hàng</p>
                           </div>
                       </section>
                   </div>
                   <div class="col-lg-3 col-sm-6">
                       <section class="panel">
                           <div class="symbol blue">
-                              <i class="fa fa-bar-chart-o"></i>
+                              <i class="fa fa-bullhorn"></i>
                           </div>
                           <div class="value">
                               <h1 class=" count4">
-                                  0
+                                  {{$thongke->qc}}
                               </h1>
-                              <p>Total Profit</p>
+                              <p>Quảng Cáo</p>
+                          </div>
+                      </section>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="panel">
+                          <div class="symbol" style="background-color:#a9d96c">
+                              <i class="fa fa-users"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class=" count4">
+                                  {{$thongke->nd}}
+                              </h1>
+                              <p>Người Dùng</p>
+                          </div>
+                      </section>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="panel">
+                          <div class="symbol" style="background-color:#8075c4">
+                              <i class="fa fa-envelope"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class=" count4">
+                                  {{$thongke->lh}}
+                              </h1>
+                              <p>Liên Hệ</p>
+                          </div>
+                      </section>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="panel">
+                          <div class="symbol" style="background-color:#fcb322">
+                              <i class="fa fa-picture-o"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class=" count4">
+                                  {{$thongke->sl}}
+                              </h1>
+                              <p>Slide</p>
+                          </div>
+                      </section>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="panel">
+                          <div class="symbol" style="background-color:#A94442">
+                              <i class="fa fa-bar-chart-o"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class="count4" style="font-size:18px">
+                                  {{number_format($thongke->tongtien,0,',','.')}}<br />
+                                  VNĐ
+                              </h1>
+                           
+                              <p>Tiền Bán Được</p>
                           </div>
                       </section>
                   </div>
               </div>
               <!--state overview end-->
+
+<br />
+<div style="padding-bottom:3px;">
+<div class="border-head clearfix">
+      <h3 class="clearfix">
+         <div class="pull-left">
+          Tổng tiền bán được trong năm {{$year}}
+        </div>
+           <div class="pull-right" style="margin-top: -3px;">
+            <form method="get" action="" name="chooseyear">
+            <select name="y" style="font-size:15px" onchange="this.parentElement.submit()">
+              @for($i=2016;$i<=$current_year;$i++)
+                <option value="{{$i}}">Năm {{$i}}</option>
+              @endfor
+            </select>
+          </form>
+          <script type="text/javascript">
+          document.chooseyear.y.value="{{$year}}";
+          </script>
+          </div>
+      </h3>
+     
+</div>
+
+</div>
+
+<div id="morris-bar-chart"></div>
 @endsection

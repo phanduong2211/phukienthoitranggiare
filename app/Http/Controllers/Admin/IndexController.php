@@ -11,7 +11,29 @@ class IndexController extends Controller
 {
 	public function index()
 	{ 
-		return view("admin.index");
+		$data=array();
+		$data['thongke']=DB::table('admin')->select(
+			DB::raw('(select count(id) from product) sp'),
+			DB::raw('(select count(id) from news) tt'),
+			DB::raw('(select count(id) from `order`) dh'),
+			DB::raw('(select count(id) from ads) qc'),
+			DB::raw('(select count(id) from users) nd'),
+			DB::raw('(select count(id) from contact) lh'),
+			DB::raw('(select count(id) from slideshow) sl'),
+			DB::raw('(select sum(price) from product where id in(select productID from detailorder)) tongtien'))->first();
+		$year=Carbon::now()->year;
+
+		$data['current_year']=$year;
+
+		if(Input::exists('y')){
+			$year=(int)Input::get('y');
+		}
+
+		$data['year']=$year;
+
+		$data['chart']=DB::table('product')->select(DB::raw('sum(product.price) as s'),DB::raw('month(detailorder.created_at) as t'),DB::raw('year(detailorder.created_at) as y'))->join('detailorder','product.id','=','detailorder.productID')->where(DB::raw('year(detailorder.created_at)'),$year)->groupBy('t','y')->get();
+		
+		return view("admin.index",$data);
 	}	
 
 	public function count()

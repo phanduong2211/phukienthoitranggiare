@@ -52,15 +52,26 @@ var base_url_admin="{{Asset('admin')}}/";
 @endif
     <form method="post" action="" id="frm">
     	<div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         Tiêu Đề Trang:
                     </div>
-                    <div class="col-md-10 require">
+                    <div class="col-md-8 require">
                         <div class="red">*</div>
-                        <textarea name="name" class="form-control"></textarea>
-                         <span class="desc">Hiển thị trên trình duyệt.</span>
+                        <input name="name" class="form-control" type="text" value="{{old('name')}}" />
+                        <span class="desc">Hiển thị trên trình duyệt.</span>
+                    </div>
+                </div><br />
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        Url:
+                    </div>
+                    <div class="col-md-8">
+                        <input name="url" class="form-control" type="text" value="{{old('url')}}" />
+                        <span class="desc">Nếu bỏ trống thì sẽ lấy theo tiêu đề trang</span>
                     </div>
                 </div><br />
             </div>
@@ -72,7 +83,7 @@ var base_url_admin="{{Asset('admin')}}/";
                         Nội Dung:
                     </div>
                     <div class="col-md-10">
-                        <textarea style="width:100%;height:250px" name="content" id="content">{{$_POST['content'] or ''}}</textarea>
+                        <textarea style="width:100%;height:250px" name="content" id="content">{{old('content')}}</textarea>
                     </div>
                 </div><br />
             </div>

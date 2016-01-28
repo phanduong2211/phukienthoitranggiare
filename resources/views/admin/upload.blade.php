@@ -140,8 +140,9 @@ if(isset($_POST['submit'])){
 	
 			}
 		}
+		$messagec=$message;
 		$message="Upload thành công ".$message."/".$fileleg." hình ảnh";
-		if($message<$fileleg){
+		if((int)$messagec<(int)$fileleg){
 			$message.=". Kích thước ảnh phải nhỏ hơn 1MB.";
 		}
 		echo "<div style='margin-bottom:10px;text-align:center;color:red'>".$message."</div>";

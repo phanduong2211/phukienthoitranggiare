@@ -26,7 +26,7 @@ var base_url_admin="{{Asset('admin')}}/";
             html+='</form>';
             html+='</div>';
             html+="</td>";
-            html+='<td><img src="'+(asset_path+'image/'+data.image)+'" style="width:100px"></td>';
+            html+='<td><img src="'+showImage(data.image,asset_path+'image/')+'" style="width:100px"></td>';
             html+='<td>'+data.content+'</td>';
             html+='<td>'+data.url+'</td>';
             var page="";
@@ -43,7 +43,7 @@ var base_url_admin="{{Asset('admin')}}/";
         }else{
             var obj=$(".table-responsive .table tr[data-column='"+data.idedit+"']");
             obj.find("td:eq(0) span:eq(0)").html(data.name);
-            obj.find("td:eq(1) img").attr("src",asset_path+"image/"+data.image);
+            obj.find("td:eq(1) img").attr("src",showImage(data.image,asset_path+'image/'));
             obj.find("td:eq(2)").html(data.content);
             obj.find("td:eq(3)").html(data.url);
             var page="";
@@ -55,6 +55,10 @@ var base_url_admin="{{Asset('admin')}}/";
             obj.find("td:eq(4)").html(page);
             obj.find("td:eq(5)").html("Vừa xong");
             dataitem.value.name=data.name;
+            dataitem.value.content=data.content;
+            dataitem.value.url=data.url;
+            dataitem.value.page=data.page;
+            dataitem.value.image=data.image;
             dataitem.title="Sửa "+data.name;
             obj.find("a.edit").attr("dataitem",JSON.stringify(dataitem));
             $("#modaldialog").modal('hide');
@@ -92,7 +96,7 @@ var base_url_admin="{{Asset('admin')}}/";
   $(function(){
     $('#modaldialog').on('shown.bs.modal', function(e) {
       if(dataitem.action=="edit"){
-        $(this).find("form .uploadimg").attr("src",asset_path+"image/"+dataitem.value.image);
+        $(this).find("form .uploadimg").attr("src",showImage(dataitem.value.image,asset_path+'image/'));
        
       }else{
         $(this).find("form .uploadimg").attr("src",asset_path+"image/uploadimg.png");

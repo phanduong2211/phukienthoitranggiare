@@ -253,6 +253,20 @@ $(document).ready(function(){
       });
       $("#refreshuploadend").click(function(){
         var folderarea=$("#fff"+$(this).attr("data-folder").replace(/\//ig,"_"));
+        if(!folderarea.length){
+          $("#folderitems .active").removeClass("active");
+          var folderroot=$(this).attr("data-folder");
+          $("#folderitems").append('<div id="'+(folderroot.replace(/\//ig,"_"))+'folder" data-value=\'{"folder":"'+(folderroot)+'"}\' class="folderitem active">Đang Tải...</div>');
+          $("#dialogupload .tabfolder").append('<li id="fff'+(folderroot.replace(/\//ig,"_"))+'" data-value="'+(folderroot)+'" style="display:none"></li>');
+          
+          $("#dialogupload .tabfolder li.active").removeClass("active").addClass("activeroot");
+
+          $("#dialogupload .tabfolder #fff"+(folderroot.replace(/\//ig,"_"))).addClass("active");
+          
+          LoadDataFolder();
+          $("#backfolderupload").show().find("span").attr("data-value",'{"folder":"'+(folderroot)+'"}').html(" "+folderroot);
+          return false;
+        }
         folderarea.click();
         if(folderarea.hasClass("success")){
           var result=jQuery.parseJSON($(this).attr("data-value"));

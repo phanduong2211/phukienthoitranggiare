@@ -6,10 +6,7 @@
    var __datatoken="{{csrf_token()}}";
     $(function(){
         $("#nav-accordion>li:eq(3)>a").addClass("active").parent().find("ul>li:eq(2)").addClass("active");
-        $(".table .viewcontent").click(function(){
-            $("#modalcontent .modal-title").html($(this).parent().parent().find("td:eq(0) span:eq(0)").text()).parents('.modal-content').find('.modal-body').html($(this).parent().find(".hide").html());
-            
-        });
+       
     });
 </script>
 @endsection
@@ -53,16 +50,15 @@
        <tr>
             <th>Tiêu Đề</th>
             <th>Nội Dung</th>
-           
+            <th>Url</th>
             <th>Lượt Xem</th>
-            
             <th>Ngày Tạo</th>
             <th>Ngày Cập Nhật</th>
         </tr>
         @foreach ($data as $value)
             <tr data-column="{{$value->id}}">
             <td>
-                <span>{{$value->name}}</span>
+                <span> <a target="_black" href='{{Asset('pages/'.$value->url)}}' >{{$value->name}}</a></span>
                 <div class="groupaction">
                         <a class="edit" href='{{Asset('admin/page/edit?id='.$value->id)}}'>Sửa</a>
                         <form method="post" action="{{Asset('admin/page/delete')}}" class="remove" dataitem='{"id":"{{$value->id}}","title":"{{$value->name}}","url":"{{Asset('admin/page/delete')}}"}'>
@@ -71,10 +67,10 @@
                  </div>
             </td>
             <td>
-                <a href='#view' class='viewcontent' data-toggle="modal" data-target="#modalcontent">Xem</a>
-                <div class="hide">
-                    {!! $value->content !!}
-                </div>
+                <a target="_black" href='{{Asset('pages/'.$value->url)}}' >Xem</a>
+            </td>
+            <td>
+                {{$value->url}}
             </td>
             <td>
                 {{$value->view}}
@@ -93,26 +89,7 @@
     </table>
 </div>
 
-<!-- Modal -->
-<div id="modalcontent" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-            
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 
 @endsection

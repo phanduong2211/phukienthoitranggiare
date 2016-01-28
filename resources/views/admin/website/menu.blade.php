@@ -37,13 +37,14 @@ function callBackSuccessModal(data){
              }else{
                 $(".table-responsive .table tr[data-column='"+data.root+"']").after(html);
              }
-             $("#modaldialog form select").append("<option value='"+data.id+"'>"+data.name+"</option>");
+             $("#modaldialog form select[name='root']").append("<option value='"+data.id+"'>"+data.name+"</option>");
         }else{
             var obj=$(".table-responsive .table tr[data-column='"+data.idedit+"']");
             obj.find("td:eq(1) span:eq(0)").html(data.name);
             obj.find("td:eq(2)").html(data.url);
             obj.find("td:eq(4)").html("Vừa xong");
             dataitem.value.name=data.name;
+            dataitem.value.url=data.url;
             dataitem.title="Sửa "+data.name;
             obj.find("a.edit").attr("dataitem",JSON.stringify(dataitem));
             $("#modaldialog").modal('hide');
@@ -67,6 +68,29 @@ function callBackSuccessModal(data){
     });
 </script>
 @include('admin.script')
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#modaldialog').on('shown.bs.modal', function(e) {
+                var modal=$(this);
+                dataitem=jQuery.parseJSON(e.relatedTarget.attributes.dataitem.nodeValue);
+                modal.find(".modal-title").html(dataitem.title);
+                
+                if(dataitem.action=="edit"){
+                    var obj=modal.find("form");
+                    for(var item in dataitem.value) {
+                        obj.find("[name='"+item+"']").val(dataitem.value[item]);
+                    }
+                }else{
+                   var modal=modal.find("form");
+                   modal.find("input[name='name']").val('');
+                   modal.find("select[name='root']").val('-1');
+                   modal.find("select[name='url']").val('');
+                }
+            });
+    });
+</script>
+
 @endsection
 @section('content')
 @if(Session::has('message'))
@@ -108,13 +132,13 @@ function callBackSuccessModal(data){
        <tr>
             <th>STT</th>
             <th>Tên</th>
-            <th>Url</th>
+            <th>Trang</th>
             <th>Ngày Tạo</th>
             <th>Ngày Cập Nhật</th>
         </tr>
         <?php $count=0; ?>
         <?php 
-            function dequy($parentid,$arr,$res = '<i class="fa fa-mail-forward"></i>'){
+            function dequy($parentid,$arr,$datap,$res = '<i class="fa fa-mail-forward"></i>'){
                 foreach ($arr as $key => $subvalue) {
                     if($subvalue->root==$parentid){?>
  <tr class="submenu" data-column="{{$subvalue->id}}">
@@ -122,14 +146,22 @@ function callBackSuccessModal(data){
             <td>
                 <?php echo $res ?> <span>{{$subvalue->name}}</span>
                 <div class="groupaction">
-                        <a class="edit" data-toggle="modal" dataitem='{"action":"edit","title":"Sửa {{$subvalue->name}}","id":"{{$subvalue->id}}","url":"{{Asset('admin/website/menu/edit')}}","value":{"name":"{{$subvalue->name}}","url":"{{$subvalue->url}}","root":"{{$subvalue->root}}"}}' data-target="#modaldialog" href='#'>Sửa</a>
+                        <a class="edit" data-toggle="modal" dataitem='{"action":"edit","title":"Sửa {{$subvalue->name}}","id":"{{$subvalue->id}}","url":"{{Asset('admin/website/menu/edit')}}","value":{"name":"{{$subvalue->name}}","url":"{{str_replace('pages/','',$subvalue->url)}}","root":"{{$subvalue->root}}"}}' data-target="#modaldialog" href='#'>Sửa</a>
                         <form method="post" action="{{Asset('admin/website/menu/delete')}}" class="remove" dataitem='{"id":"{{$subvalue->id}}","title":"{{$subvalue->name}}","url2":"{{$subvalue->url}}","root":"{{$subvalue->root}}","url":"{{Asset('admin/website/menu/delete')}}"}'>
                                 <input type="submit" value="Xóa">
                         </form>
                  </div>
             </td>
              <td>
-                 {{$subvalue->url}}
+                 @if($subvalue->url=='')
+                 Sản phẩm
+                 @else
+                     @foreach($datap as $item)
+                        @if('pages/'.$item->url==$subvalue->url)
+                            {{$item->name}}
+                        @endif
+                     @endforeach
+                 @endif
             </td>
             <td>
                  {{date('d/m/Y H:i',strtotime($subvalue->created_at))}}
@@ -139,7 +171,7 @@ function callBackSuccessModal(data){
             </td>
             </tr>
                     <?php     
-                        dequy($subvalue->id,$arr,$res.' <i class="fa fa-mail-forward"></i>');
+                        dequy($subvalue->id,$arr,$datap,$res.' <i class="fa fa-mail-forward"></i>');
                     }
                 }
             }
@@ -151,7 +183,7 @@ function callBackSuccessModal(data){
             <td>
                 <span>{{$value->name}}</span>
                  <div class="groupaction">
-                        <a class="edit" data-toggle="modal" dataitem='{"action":"edit","title":"Sửa {{$value->name}}","id":"{{$value->id}}","url":"{{Asset('admin/website/menu/edit')}}","value":{"name":"{{$value->name}}","url":"{{$value->url}}","root":"{{$value->root}}"}}' data-target="#modaldialog" href='#'>Sửa</a>
+                        <a class="edit" data-toggle="modal" dataitem='{"action":"edit","title":"Sửa {{$value->name}}","id":"{{$value->id}}","url":"{{Asset('admin/website/menu/edit')}}","value":{"name":"{{$value->name}}","url":"{{str_replace('pages/','',$value->url)}}","root":"{{$value->root}}"}}' data-target="#modaldialog" href='#'>Sửa</a>
                        <form method="post" action="{{Asset('admin/website/menu/delete')}}" class="remove" dataitem='{"id":"{{$value->id}}","title":"{{$value->name}}","url2":"{{$value->url}}","root":"{{$value->root}}","url":"{{Asset('admin/website/menu/delete')}}"}'>
                                 <input type="submit" value="Xóa">
                         </form>
@@ -159,7 +191,15 @@ function callBackSuccessModal(data){
                
             </td>
             <td>
-                 {{$value->url}}
+               @if($value->url=='')
+                 Sản phẩm
+                 @else
+                     @foreach($datap as $item)
+                        @if('pages/'.$item->url==$value->url)
+                            {{$item->name}}
+                        @endif
+                     @endforeach
+                 @endif
             </td>
             <td>
                  {{date('d/m/Y H:i',strtotime($value->created_at))}}
@@ -168,7 +208,7 @@ function callBackSuccessModal(data){
                  {{date('d/m/Y H:i',strtotime($value->updated_at))}}
             </td>
         </tr>
-            <?php dequy($value->id,$data);
+            <?php dequy($value->id,$data,$datap);
             } ?>
        <?php } ?>
        
@@ -224,10 +264,15 @@ function callBackSuccessModal(data){
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-4">Url:</div>
+                    <div class="col-xs-4">Trang:</div>
                     <div class="col-xs-8">
-                        <input type="text" name="url" class="form-control" />
-                        <span class="desc">vd: gioi-thieu. Nếu bỏ trống thì loại menu sẽ là post</span>
+                        <select name="url" class="form-control">
+                            <option value=''>Trang hiện thị sản phẩm</option>
+                            @foreach($datap as $item)
+                                <option value='{{$item->url}}'>{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                        <span class="desc"></span>
                     </div>
                 </div>
                 <br />

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Routing\Controller as BaseController;
 use Input;
 use Session;
-use Redirect;
 use View;
 use App\Http\Module\menu;
 use App\Http\Module\product;
@@ -16,55 +15,30 @@ class WebsiteController extends BaseController
 {
 	public function menu()
 	{
-		$menu=new menu();
-		$order='id';
-		$typeorder='asc';
-		if(Input::exists('s')){
-			switch (Input::get('s')) {
-				case '1':
-					$order='id';
-					$typeorder='desc';
-					break;
-				case '3':
-					$order='name';
-					$typeorder='asc';
-					break;
-				case '4':
-					$order='created_at';
-					$typeorder='desc';
-					break;
-				case '5':
-					$order='updated_at';
-					$typeorder='desc';
-					break;
-				default:
-					$order='id';
-					$typeorder='desc';
-					break;
-			}
-		}
-		$data=$menu->orderBy($order,$typeorder)->get();	
-		
-		return View::make("admin.website.menu",array('data'=>$data));
+	
+		$data=menu::orderBy('id','desc')->get();	
+		$page=page::select('name','url')->orderBy('id','desc')->get();
+		return View::make("admin.website.menu",array('datap'=>$page,'data'=>$data));
 	}	
-	public function addmenu()
-	{
-		$data=menu::select('id','name','root')->orderBy('root','asc')->get();
-		return View::make("admin.website.addmenu",array('data'=>$data));
-	}	
+	
 
 	public function savemenu()
 	{
 		$menu= new menu();
 
+		$url=trim(Input::get('url'));
+
+		if($url!='')
+			$url='pages/'.$url;
+
 		$data=array(
 			'name'=>str_replace("\"", "'", trim(Input::get('name'))),
 			'root'=>Input::get('root'),
-			'url'=>trim(Input::get('url'))
+			'url'=>$url
 		);
 
 		if($data['root']==-1){
-			return Redirect::to('admin/website/menu')->with(['message'=>'Vui lòng điền đầy đủ thông tin.']);
+			return -1;
 		}
 
 		$menu->fill($data);
@@ -74,66 +48,47 @@ class WebsiteController extends BaseController
 					'id'=>$menu->id,
 					'name'=>$menu->name,
 					'root'=>$menu->root,
-					'url'=>$menu->url,
+					'url'=>str_replace("pages/","",$menu->url),
 					'created_at'=>$menu->created_at,
 					'updated_at'=>$menu->updated_at
 				);
 				return json_encode(array('result'=>1,'message'=>'Thêm thành công menu '.$data['name'],'data'=>$data));
 			}
-			return Redirect::to('admin/website/menu')->with(['message'=>'Thêm thành công menu "'.$data['name'].'"']);
+			
 		}else{
 			if(Input::exists('json')){
 				return json_encode(array('result'=>-1,'message'=>'Có lỗi. Vui lòng thử lại'));
 			}
-			return Redirect::to('admin/website/menu/add')->with(['message'=>'Có lỗi. Vui lòng thử lại']);
+			
 		}
 	}
 
-	public function editmenu()
-	{
-		if(!Input::exists('id'))
-			return Redirect::to('admin/website/menu')->with(['message'=>'Vui lòng chọn 1 menu để sửa.']);
-		$menu= new menu();
-		$data=$menu->where('id',Input::get('id'))->first();
-		if($data==null)
-			return Redirect::to('admin/website/menu')->with(['message'=>'Menu không tồn tại.']);
-		
-		$dataall=$menu->select('id','name','root')->where('id','<>',Input::get('id'))->get();
-
-		return View::make("admin.website.editmenu",array('data'=>$data,'dataall'=>$dataall));
-	}	
-
+	
 	public function saveeditmenu()
 	{
 		$menu=menu::find(Input::get('idedit'));
 		
+		$url=trim(Input::get('url'));
+
+		if($url!='')
+			$url='pages/'.$url;
+
 		$data=array(
 			'name'=>str_replace("\"", "'", trim(Input::get('name'))),
 			'root'=>Input::get('root'),
-			'url'=>trim(Input::get('url'))
+			'url'=>$url
 		);
-
 		if($data['root']==-1){
-			return Redirect::to('admin/website/menu/edit?id='.Input::get('idedit'))->with(['message'=>'Vui lòng điền đầy đủ thông tin.']);
-		}
-
-		if($menu->url!='' && $data['url']==''){
-			$page=page::select('name')->where('menuid',Input::get('idedit'))->get();
-			if(count($page)>0){
-				if(Input::exists('json')){
-					return json_encode(array('result'=>-1,'message'=>'Menu này đã thuộc trang '.$page[0]->name.'. Không thể sửa url'));
-				}
-				return 2;
-			}
+			return -1;
 		}
 
 		if($data['url']!='' && $menu->url==''){
 			$product=product::where('menuID',Input::get('idedit'))->count();
 			if($product>0){
 				if(Input::exists('json')){
-					return json_encode(array('result'=>-1,'message'=>'Menu này đã thuộc có sản phẩm. Không thể sửa url'));
+					return json_encode(array('result'=>-1,'message'=>'Menu này đã có sản phẩm. Không thể sửa url'));
 				}
-				return Redirect::to('admin/website/menu/edit?id='.Input::get('idedit'))->with(['message'=>'Menu này đã thuộc có sản phẩm. Không thể sửa url']);
+				
 			}
 		}
 
@@ -143,12 +98,12 @@ class WebsiteController extends BaseController
 			if(Input::exists('json')){
 				return json_encode(array('result'=>1,'message'=>'Cập nhật thành công'));
 			}
-			return Redirect::to('admin/website/menu')->with(['message'=>'Cập nhật thành công menu "'.$data['name'].'"']);
+			
 		}else{
 			if(Input::exists('json')){
 				return json_encode(array('result'=>-1,'message'=>'Cập nhật thất bại. Vui lòng thử lại'));
 			}
-			return Redirect::to('admin/website/menu/edit?id='.Input::get('idedit'))->with(['message'=>'Cập nhật thất bại. Vui lòng thử lại.']);
+			
 		}
 	}	
 
@@ -160,7 +115,7 @@ class WebsiteController extends BaseController
 				if(Input::exists('json')){
 					return json_encode(array('result'=>-1,'message'=>'Menu "'.Input::get('title').'" đã có menu con. Không thể xóa'));
 				}
-				return Redirect::to('admin/website/menu')->with(['message'=>'Menu "'.Input::get('title').'" đã có menu con. Không thể xóa']);
+				
 			}
 		}
 		if(Input::get("url2")==""){
@@ -169,7 +124,7 @@ class WebsiteController extends BaseController
 				if(Input::exists('json')){
 					return json_encode(array('result'=>-1,'message'=>'Menu "'.Input::get('title').'" đã có sản phẩm. Không thể xóa'));
 				}
-				return Redirect::to('admin/website/menu')->with(['message'=>'Menu "'.Input::get('title').'" đã có sản phẩm. Không thể xóa']);
+			
 			}
 		}
 		$menu=menu::find(Input::get('id'));
@@ -177,12 +132,12 @@ class WebsiteController extends BaseController
 			if(Input::exists('json')){
 				return json_encode(array('result'=>1));
 			}
-			return Redirect::to('admin/website/menu')->with(['message'=>'Xóa thành công menu "'.Input::get('title').'"']);
+			
 		}else{
 			if(Input::exists('json')){
 				return json_encode(array('result'=>-1,'message'=>'Có lỗi. Xóa thất bại'));
 			}
-			return Redirect::to('admin/website/menu')->with(['message'=>'Có lỗi xóa menu "'.Input::get('title').'" thất bại. Vui lòng thử lại.']);
+			
 		}
 		
 	}
