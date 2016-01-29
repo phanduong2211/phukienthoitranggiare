@@ -15,7 +15,9 @@ class WebsiteController extends BaseController
 {
 	public function menu()
 	{
-	
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$data=menu::orderBy('id','desc')->get();	
 		$page=page::select('name','url')->orderBy('id','desc')->get();
 		return View::make("admin.website.menu",array('datap'=>$page,'data'=>$data));
@@ -24,6 +26,9 @@ class WebsiteController extends BaseController
 
 	public function savemenu()
 	{
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$menu= new menu();
 
 		$url=trim(Input::get('url'));
@@ -66,6 +71,9 @@ class WebsiteController extends BaseController
 	
 	public function saveeditmenu()
 	{
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$menu=menu::find(Input::get('idedit'));
 		
 		$url=trim(Input::get('url'));
@@ -109,6 +117,9 @@ class WebsiteController extends BaseController
 
 	public function deletemenu()
 	{
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		if(Input::get("root")==="0"){
 			$menu=menu::where('root',Input::get('id'))->get();
 			if(count($menu)>0){
@@ -143,6 +154,9 @@ class WebsiteController extends BaseController
 	}
 
 	public function info(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$info=info::get();
 		$data=array();
 		foreach ($info as $key => $value) {
@@ -175,6 +189,9 @@ class WebsiteController extends BaseController
 	}
 
 	public function postinfoall(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$info=new info();
 		$info->where('name','title')->update(array('contents'=>str_replace("\"", "'", trim(Input::get('title')))));
 		$info->where('name','description')->update(array('contents'=>str_replace("\"", "'", trim(Input::get('description')))));
@@ -184,6 +201,9 @@ class WebsiteController extends BaseController
 	}
 
 	public function postinfcontact(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$info=new info();
 		$info->where('name','address')->update(array('contents'=>str_replace("\"", "'", trim(Input::get('address')))));
 		$info->where('name','phone')->update(array('contents'=>Input::get('phone')));
@@ -196,6 +216,9 @@ class WebsiteController extends BaseController
 	}
 
 	public function changebrand(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$silebar_images="";
 		if(Input::exists('silebar_images')){
 		

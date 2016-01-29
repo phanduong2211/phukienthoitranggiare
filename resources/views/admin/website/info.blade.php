@@ -308,7 +308,7 @@ function isImage(file) {
 		}
 	}
 	$(document).ready(function(){
-		$("#nav-accordion>li:eq(3)>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
+		$("#nav-accordion>li:eq(4)>a").addClass("active").parent().find("ul>li:eq(1)").addClass("active");
 		$("label.uploadimg .hide").change(function(){
 			if(this.files){
 			readURL(this);

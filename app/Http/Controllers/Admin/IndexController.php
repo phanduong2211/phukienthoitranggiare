@@ -20,7 +20,7 @@ class IndexController extends Controller
 			DB::raw('(select count(id) from users) nd'),
 			DB::raw('(select count(id) from contact) lh'),
 			DB::raw('(select count(id) from slideshow) sl'),
-			DB::raw('(select sum(price) from product where id in(select productID from detailorder)) tongtien'))->first();
+			DB::raw('(select sum(promotion_price) from product where id in(select productID from detailorder inner join `order` on detailorder.orderid=order.id where order.status=1)) tongtien'))->first();
 		$year=Carbon::now()->year;
 
 		$data['current_year']=$year;
@@ -31,7 +31,7 @@ class IndexController extends Controller
 
 		$data['year']=$year;
 
-		$data['chart']=DB::table('product')->select(DB::raw('sum(product.price) as s'),DB::raw('month(detailorder.created_at) as t'),DB::raw('year(detailorder.created_at) as y'))->join('detailorder','product.id','=','detailorder.productID')->where(DB::raw('year(detailorder.created_at)'),$year)->groupBy('t','y')->get();
+		$data['chart']=DB::table('product')->select(DB::raw('sum(product.price) as s'),DB::raw('month(detailorder.created_at) as t'),DB::raw('year(detailorder.created_at) as y'))->join('detailorder','product.id','=','detailorder.productID')->join('order','detailorder.orderid','=','order.id')->where('order.status',1)->where(DB::raw('year(detailorder.created_at)'),$year)->groupBy('t','y')->get();
 		
 		return view("admin.index",$data);
 	}	
@@ -44,7 +44,7 @@ class IndexController extends Controller
 
 		$data['user']=DB::table('users')->select('id','sex','name','created_at')->where(DB::raw('DATE(created_at)'),$mytime)->get();
 
-		$data['order']=DB::table('order')->select('id','address','created_at')->where(DB::raw('DATE(created_at)'),$mytime)->get();
+		$data['order']=DB::table('order')->select('id','address','created_at')->where('status',0)->where(DB::raw('DATE(created_at)'),$mytime)->get();
 
 
 		return json_encode($data);

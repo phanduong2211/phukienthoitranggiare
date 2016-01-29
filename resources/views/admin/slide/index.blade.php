@@ -65,7 +65,7 @@ var base_url_admin="{{Asset('admin')}}/";
         }
     }
     $(function(){
-        $("#nav-accordion>li:eq(2)>a").addClass("active");
+        $("#nav-accordion>li:eq(3)>a").addClass("active");
     
         $("#modaldialog form").kiemtra([
            {

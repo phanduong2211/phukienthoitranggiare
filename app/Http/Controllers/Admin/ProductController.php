@@ -109,9 +109,10 @@ class ProductController extends BaseController
 			if($query!=""){
 				$data=$data->where(function($q) use ($query){
 						$q->where('product.name','like','%'.$query.'%');
-						$q->orWhere('promotion_price',preg_replace("/(\.|-| |\,)*/", "",$query));
-						$q->orWhere('original_price',preg_replace("/(\.|-| |\,)*/", "",$query));
-						$q->orWhere('price',preg_replace("/(\.|-| |\,)*/", "",$query));
+						$tien=preg_replace("/(\.|-| |\,)*/", "",$query);
+						$q->orWhere('promotion_price',$tien);
+						$q->orWhere('original_price',$tien);
+						$q->orWhere('price',$tien);
 						$q->orWhere('quantity',$query);
 						$q->orWhere('admin.name',$query);
 						$q->orWhere('category.name','like','%'.$query.'%');

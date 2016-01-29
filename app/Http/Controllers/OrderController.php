@@ -23,7 +23,9 @@ class OrderController extends Controller
 	{		
 			$order =new order();
 			$order->fill($data);
-			$order->save();			
+			$order->save();
+
+			return $order->id;			
 	}
 }
 

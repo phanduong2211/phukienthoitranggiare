@@ -156,46 +156,12 @@ class NewsController extends Controller
 	}
 
 	public function getCategory(){
-		$category=new categorynews();
-		$order='id';
-		$typeorder='desc';
-		if(Input::exists('s')){
-			switch (Input::get('s')) {
-				case '1':
-					$order='id';
-					$typeorder='desc';
-					break;
-				case '3':
-					$order='name';
-					$typeorder='asc';
-					break;
-				case '4':
-					$order='created_at';
-					$typeorder='desc';
-					break;
-				case '5':
-					$order='updated_at';
-					$typeorder='desc';
-					break;
-				default:
-					$order='id';
-					$typeorder='desc';
-					break;
-			}
-		}
-		if(Input::exists('q')){
-			$query=Input::get('q');
-			$data=$category->where('name','like','%'.$query.'%')->orderBy($order,$typeorder)->get();	
-		}else{
-			$data=$category->orderBy($order,$typeorder)->get();	
-		}
+		$data=categorynews::orderBy('id','desc')->get();	
 
 		return view("admin.news.category",array('data'=>$data));
 	}
 
-	public function getAddCategory(){
-		return view("admin.news.addcategory");
-	}
+
 
 	public function postAddCategory(){
 		$category= new categorynews();
@@ -217,18 +183,6 @@ class NewsController extends Controller
 			}
 			return redirect('admin/news/add-category')->with(['message'=>'Có lỗi. Vui lòng thử lại']);
 		}
-	}
-
-	public function getEditCategory()
-	{
-		if(!Input::exists('id'))
-			return redirect('admin/news/category')->with(['message'=>'Vui lòng chọn 1 loại tin tức để sửa.']);
-		$category= new categorynews();
-		$data=$category->where('id',Input::get('id'))->first();
-		if($data==null)
-			return redirect('admin/news/category')->with(['message'=>'Loại tin tức không tồn tại.']);
-		
-		return view("admin.news.editcategory",array('data'=>$data));
 	}
 
 	public function postEditCategory()

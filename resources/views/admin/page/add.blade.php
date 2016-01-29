@@ -19,7 +19,7 @@ var base_url_admin="{{Asset('admin')}}/";
             }
         }
 	$(function(){
-		$("#nav-accordion>li:eq(3)>a").addClass("active").parent().find("ul>li:eq(3)").addClass("active");
+		$("#nav-accordion>li:eq(4)>a").addClass("active").parent().find("ul>li:eq(3)").addClass("active");
 		$("#frm").kiemtra([
     		{
     			'name':'name',
@@ -31,7 +31,7 @@ var base_url_admin="{{Asset('admin')}}/";
             //     'select':true
             // }
     	]);
-        $("#valiapp").show();
+        $("#valiapp").show().find("input[type='submit']").removeAttr("disabled");
 	});
 </script>
 <script type="text/javascript" src="{{Asset('')}}public/admin/js/jsupload.js"></script>
@@ -90,7 +90,7 @@ var base_url_admin="{{Asset('admin')}}/";
         </div><br />
     	<div class="row">
     		<div class="col-md-12 text-right" id="valiapp">
-    			<input type="submit" class="btn btn-success" value="Lưu Lại" />
+    			<input type="submit" class="btn btn-success" disabled="disabled" value="Lưu Lại" />
     			<input type="reset" class="btn btn-default" value="Nhập Lại" />
     		</div>
     	</div><br />

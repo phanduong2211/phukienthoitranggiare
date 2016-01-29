@@ -13,7 +13,7 @@
     var th=$(this);
     var th2=th;
     var loai=th.find("input[type='submit']").val();
-    getConfirm('Bạn có chắc muốn '+loai+' khách hàng này?',function(result) {
+    getConfirm('Bạn có chắc muốn '+loai+' người dùng này?',function(result) {
       if(result){
         var id=th.find("input[name='id']").val();
         th=th.parents("tr");
@@ -44,11 +44,11 @@
 
   $("form.remove").submit(function(){
     var tho=$(this);
-    getConfirm('Bạn có chắc xóa khách hàng này?',function(result) {
+    getConfirm('Bạn có chắc xóa người dùng này?',function(result) {
       if(result){
         var datadelete=jQuery.parseJSON(tho.attr("datadelete"));
         if(datadelete.dh>0){
-          alert("Khách hàng "+datadelete.title+" đã có đơn hàng. Không thể xóa.");
+          alert("Người dùng "+datadelete.title+" đã có đơn hàng. Không thể xóa.");
           return false;
         }
 
@@ -95,9 +95,6 @@
       <option value="4">Khóa</option>
       <option value="5">Mở Khóa</option>
     </select>
-    <?php if(isset($_GET["q"])){ ?>
-    <input type="hidden" name="q" value="<?php echo $_GET["q"] ?>" />
-    <?php } ?>
     <?php if(isset($_GET["s"])){ ?>
     <input type="hidden" name="s" value="<?php echo $_GET["s"] ?>" />
     <?php } ?>
@@ -117,9 +114,6 @@
     <?php if(isset($_GET["q"])){ ?>
     <input type="hidden" name="q" value="<?php echo $_GET["q"] ?>" />
     <?php } ?>
-    <?php if(isset($_GET["f"])){ ?>
-    <input type="hidden" name="f" value="<?php echo $_GET["f"] ?>" />
-    <?php } ?>
   </form>
   <form method="get" action="" class="pull-right">
     <div class="frmsearch clearfix">
@@ -128,9 +122,6 @@
     </div>
     <?php if(isset($_GET["s"])){ ?>
     <input type="hidden" name="s" value="<?php echo $_GET["s"] ?>" />
-    <?php } ?>
-    <?php if(isset($_GET["f"])){ ?>
-    <input type="hidden" name="f" value="<?php echo $_GET["f"] ?>" />
     <?php } ?>
   </form>
 

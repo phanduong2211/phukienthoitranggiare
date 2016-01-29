@@ -43,7 +43,7 @@
             }
     	]);
 
-        $("#valiapp").show();
+        $("#valiapp").show().find("input[type='submit']").removeAttr("disabled");
 	});
 </script>
 
@@ -134,7 +134,7 @@
         </div><br />
     	<div class="row">
     		<div class="col-md-12 text-right" id="valiapp">
-    			<input type="submit" class="btn btn-success" value="Lưu Lại" />
+    			<input type="submit" class="btn btn-success" disabled="disabled" value="Lưu Lại" />
     			<input type="reset" class="btn btn-default" value="Nhập Lại" />
     		</div>
     	</div><br />

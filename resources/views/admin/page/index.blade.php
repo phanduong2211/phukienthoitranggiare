@@ -5,7 +5,7 @@
 <script type="text/javascript">
    var __datatoken="{{csrf_token()}}";
     $(function(){
-        $("#nav-accordion>li:eq(3)>a").addClass("active").parent().find("ul>li:eq(2)").addClass("active");
+        $("#nav-accordion>li:eq(4)>a").addClass("active").parent().find("ul>li:eq(2)").addClass("active");
        
     });
 </script>

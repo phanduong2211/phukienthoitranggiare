@@ -164,7 +164,7 @@ $(function(){
 }
 ]);
 
-  $("#valiapp").show();
+  $("#valiapp").show().find("input[type='submit']").removeAttr("disabled");
 
 $(".newimage").click(function(){
     var size=$("#imagescls").find(".itemimages").size();
@@ -573,7 +573,7 @@ function showImg(input) {
 </div>
 <div class="row">
   <div class="col-md-12 text-right" id="valiapp">
-     <input type="submit" class="btn btn-success" value="Lưu Lại" />
+     <input type="submit" class="btn btn-success" disabled="disabled" value="Lưu Lại" />
      <input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
  </div>
 </div><br />
@@ -689,7 +689,7 @@ function showImg(input) {
             </div>
         </div><br />
                 <div class="row">
-                    <div class="col-md-12 text-right" id="valiapp">
+                    <div class="col-md-12 text-right">
                         <input type="submit" class="btn btn-success" value="Lưu Lại" />
                         <input type="button" class="btn btn-default btn-reset" value="Hủy Bỏ" />
                     </div>

@@ -60,9 +60,6 @@
       <option value="3">Hiện</option>
       <option value="4">Ẩn</option>
     </select>
-    <?php if(isset($_GET["q"])){ ?>
-    <input type="hidden" name="q" value="<?php echo $_GET["q"] ?>" />
-    <?php } ?>
     <?php if(isset($_GET["s"])){ ?>
     <input type="hidden" name="s" value="<?php echo $_GET["s"] ?>" />
     <?php } ?>
@@ -83,9 +80,6 @@
     <?php if(isset($_GET["q"])){ ?>
     <input type="hidden" name="q" value="<?php echo $_GET["q"] ?>" />
     <?php } ?>
-    <?php if(isset($_GET["f"])){ ?>
-    <input type="hidden" name="f" value="<?php echo $_GET["f"] ?>" />
-    <?php } ?>
   </form>
   <form method="get" action="" class="pull-right">
     <div class="frmsearch clearfix">
@@ -94,9 +88,6 @@
     </div>
     <?php if(isset($_GET["s"])){ ?>
     <input type="hidden" name="s" value="<?php echo $_GET["s"] ?>" />
-    <?php } ?>
-    <?php if(isset($_GET["f"])){ ?>
-    <input type="hidden" name="f" value="<?php echo $_GET["f"] ?>" />
     <?php } ?>
     
   </form>

@@ -19,9 +19,7 @@ Route::get("admin/logout","Admin\LoginAdminController@logout");
 Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::get("/","Admin\IndexController@index");
     Route::get("website/menu","Admin\WebsiteController@menu");
-    Route::get("website/menu/add","Admin\WebsiteController@addmenu");
     Route::post("website/menu/add","Admin\WebsiteController@savemenu");
-    Route::get("website/menu/edit","Admin\WebsiteController@editmenu");
     Route::post("website/menu/edit","Admin\WebsiteController@saveeditmenu");
     Route::post("website/menu/delete","Admin\WebsiteController@deletemenu");
     Route::get("website/info","Admin\WebsiteController@info");
@@ -72,6 +70,7 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::controller("page","Admin\PageController");
     Route::controller("ads","Admin\AdsController");
     Route::controller("contact","Admin\ContactController");
+    Route::controller("order","Admin\OrderController");
 });
 
 Route::get("nojavascript.html",function(){

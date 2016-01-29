@@ -9,7 +9,7 @@
 	class detailorder extends Model
 	{		
 		public $table = "detailorder";
-		public $fillable=['id','userID','productID','quantity','color','size'];
+		public $fillable=['id','userID','productID','quantity','color','size','orderid'];
 				
 	}
  ?>

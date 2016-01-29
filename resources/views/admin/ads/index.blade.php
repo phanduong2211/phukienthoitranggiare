@@ -64,10 +64,6 @@ var base_url_admin="{{Asset('admin')}}/";
             {
                 'name':'image',
                 'trong':true
-            },
-            {
-                'name':'type',
-                'so':true
             }
         ],function(){
             callBackModal();
@@ -79,11 +75,15 @@ var base_url_admin="{{Asset('admin')}}/";
 <script type="text/javascript">
   $(function(){
     $('#modaldialog').on('shown.bs.modal', function(e) {
+        var modal=$(this);
       if(dataitem.action=="edit"){
         $(this).find("form .uploadimg").attr("src",showImage(dataitem.value.image,asset_path+'image/'));
        
       }else{
         $(this).find("form .uploadimg").attr("src",asset_path+"image/uploadimg.png");
+        var modal=modal.find("form");
+
+        modal.find("select[name='type']").val('0');
       }
     });
   });

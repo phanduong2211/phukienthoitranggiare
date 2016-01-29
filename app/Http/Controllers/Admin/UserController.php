@@ -7,9 +7,13 @@ use App\Http\Module\order;
 use Input;
 use DB;
 use Carbon\Carbon;
+use Session;
 class UserController extends Controller
 {
 	public function getIndex(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		if(!Input::exists('id')){
 			$sortf="users.id";
 			$sorttype="desc";
@@ -91,6 +95,9 @@ class UserController extends Controller
 	}
 
 	public function postActive(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$user=user::find(Input::get('id'));
 		$user->active=Input::get('loai');
 		if($user->update()){
@@ -100,6 +107,9 @@ class UserController extends Controller
 	}
 
 	public function postDelete(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$order=order::where('userID',Input::get('id'))->get();
 		if(count($order)>0){
 			return 2;

@@ -186,6 +186,13 @@
                   </li>
 
                   <li>
+                      <a href="{{Asset('admin/order')}}">
+                          <i class="fa fa-shopping-cart"></i>
+                          <span>Đơn Hàng</span>
+                      </a>
+                  </li>
+
+                  <li>
                       <a href="{{Asset('admin/slide')}}">
                           <i class="fa fa-picture-o"></i>
                           <span>SlideShow</span>
@@ -389,13 +396,17 @@
             });
 
             $('#confirmMessage').html(confirmMessage);
-            $('#confirmFalse').click(function(){
+            $('#confirmFalse').on('click',function(){
                 $('#confirmbox').modal('hide');
+                $(this).off('click');
+                 $('#confirmTrue').off('click');
                 if (callback) callback(false);
 
             });
-            $('#confirmTrue').click(function(){
+            $('#confirmTrue').on('click',function(){
                 $('#confirmbox').modal('hide');
+                 $(this).off('click');
+                 $('#confirmFalse').off('click');
                 if (callback) callback(true);
             });
         }  
@@ -601,7 +612,7 @@
 
                         for(var i=0;i<result.user.length;i++){
                             var item=result.user[i];
-                            p1.after(' <li><a href="#"> <span class="label label-danger"><i class="fa fa-'+(item.sex==1?'male':'female')+'"></i></span> '+item.name+' <span class="small italic pull-right">'+getTimeInDate(item.created_at)+'</span></a></li>');
+                            p1.after(' <li><a href="'+_baseurl+'/user?id='+item.id+'"> <span class="label label-danger"><i class="fa fa-'+(item.sex==1?'male':'female')+'"></i></span> '+item.name+' <span class="small italic pull-right">'+getTimeInDate(item.created_at)+'</span></a></li>');
 
                         }
                     }else{
@@ -622,7 +633,7 @@
                             name=name.substr(0,name.length-2);
                             name=name.replace(/\"name\";s:[0-9]*:\"/ig,"");
                           
-                            p1.after(' <li><a href="#"> <span class="label label-danger"><i class="fa fa-plus"></i></span> '+name+' <span class="small italic pull-right">'+getTimeInDate(item.created_at)+'</span></a></li>');
+                            p1.after(' <li><a href="'+_baseurl+'/order?id='+item.id+'"> <span class="label label-danger"><i class="fa fa-plus"></i></span> '+name+' <span class="small italic pull-right">'+getTimeInDate(item.created_at)+'</span></a></li>');
 
                         }
                     }else{

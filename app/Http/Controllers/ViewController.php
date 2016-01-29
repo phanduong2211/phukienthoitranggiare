@@ -755,14 +755,14 @@ public function payment()
 			}
 
 			$order = array("userID"=>$userID,"address"=>$address);
-			OrderController::insert($order);
+			$orderid=OrderController::insert($order);
 			for($i=1;$i< count($cartArr);$i++)
 				{
 					$quantity = $infoProductArr["2"][($i-1)];
 					$size = $infoProductArr["0"][($i-1)];
 					$color = $infoProductArr["1"][($i-1)];
 					$productID = $cartArr[$i][0]['id'];
-					$detailproduct = array("userID"=>$userID,"productID"=>$productID,"quantity"=>$quantity,"color"=>$color,"size"=>$size);
+					$detailproduct = array("userID"=>$userID,"productID"=>$productID,"quantity"=>$quantity,"color"=>$color,"size"=>$size,"orderid"=>$orderid);
 					DetailOrderController::insert($detailproduct);
 				}
 				if(Session::has("address"))

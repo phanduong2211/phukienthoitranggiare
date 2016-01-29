@@ -14,7 +14,7 @@ function LoadJson(url,dt,callback) {
 function showImage(url,asset_path){
 	if(url.indexOf('http')===0)
 		return url;
-	return asset_path.url;
+	return asset_path+url;
 }
 function dialog(obj,options){
 	var th=this;

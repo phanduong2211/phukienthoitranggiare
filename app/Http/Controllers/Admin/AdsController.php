@@ -4,14 +4,21 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Routing\Controller;
 use App\Http\Module\ads;
 use Input;
+use Session;
 class AdsController extends Controller
 {
 	public function getIndex(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$data=ads::orderBy('id','desc')->get();
 		return view("admin.ads.index",array('data'=>$data));
 	}
 
 	public function postAdd(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$ads=new ads();
 		Input::merge(array('name' => str_replace("\"","'",trim(Input::get('name')))));
 		
@@ -34,6 +41,9 @@ class AdsController extends Controller
 	}
 
 	public function postEdit(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$ads=ads::find(Input::get('idedit'));
 
 		Input::merge(array('name' => str_replace("\"","'",trim(Input::get('name')))));
@@ -50,6 +60,9 @@ class AdsController extends Controller
 	}
 
 	public function postDelete(){
+		if(Session::get('logininfo')->level==3){
+			return view('admin.error');
+		}
 		$ads=ads::find(Input::get('id'));
 		if($ads->delete()){
 			return json_encode(array('result'=>1));

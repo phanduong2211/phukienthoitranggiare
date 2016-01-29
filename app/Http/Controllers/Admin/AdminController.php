@@ -13,12 +13,18 @@ class AdminController extends Controller
 {
 	public function getIndex()
 	{
+		if(Session::get('logininfo')->level!=1){
+			return view('admin.error');
+		}
 		$data=admin::orderBy('id','desc')->get();
 
 		return view("admin.admin.index",array('data'=>$data));
 	}
 
 	public function postAdd(){
+		if(Session::get('logininfo')->level!=1){
+			return view('admin.error');
+		}
 		$admin=new admin();
 
 		if(Input::get('email')!=""){
@@ -68,7 +74,9 @@ class AdminController extends Controller
 	}
 
 	public function postEdit(){
-
+		if(Session::get('logininfo')->level!=1){
+			return view('admin.error');
+		}
 		$admin=new admin();
 
 		if(Input::get('email')!=""){
@@ -110,6 +118,9 @@ class AdminController extends Controller
 	}
 
 	public function postResetPass(){
+		if(Session::get('logininfo')->level!=1){
+			return view('admin.error');
+		}
 		$admin=admin::find(Input::get('id'));
 		$admin->password=md5("123456");
 		if($admin->update()){
@@ -120,6 +131,9 @@ class AdminController extends Controller
 	}
 
 	public function postDelete(){
+		if(Session::get('logininfo')->level!=1){
+			return view('admin.error');
+		}
 		$product=product::where('user',Input::get('id'))->get();
 		if(count($product)>0){
 			if(Input::exists('json')){
