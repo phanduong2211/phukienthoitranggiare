@@ -32,7 +32,7 @@ class OrderController extends Controller
 
 			$data=order::select('order.id','order.address','order.created_at','order.status',
 				DB::raw('(select count(id) from detailorder where orderid=order.id) as sp'),
-				DB::raw('(select sum(promotion_price) from product where product.id in (select productID from detailorder where detailorder.orderid=order.id)) as tongtien'))->orderBy($ordercl,$ordertype);
+				DB::raw('(select sum(product.promotion_price*detailorder.quantity) from detailorder inner join product on detailorder.productID=product.id where detailorder.orderid=order.id) as tongtien'))->orderBy($ordercl,$ordertype);
 
 			if(Input::exists('f')){
 				switch (Input::get('f')) {
@@ -118,6 +118,16 @@ class OrderController extends Controller
 		}
 
 		return json_encode(array('result'=>-1,'message'=>'Có lỗi. Xóa thất bại'));
+	}
+
+	public function postChangeq(){
+		$order=detailorder::find(Input::get('iddetail'));
+		$order->quantity=Input::get('sl');
+		if($order->update()){
+			return 1;
+		}
+
+		return -1;
 	}
 
 	public function postDelete(){

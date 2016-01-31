@@ -140,7 +140,7 @@ function showImage($path){
             <th>Tiêu Đề</th>
             <th>Hình Ảnh</th>
             <th>Liên Kết</th>
-            <th>Kiểu</th>
+            <th>Loại</th>
             <th>Date</th>
         </tr>
         @foreach ($data as $value)

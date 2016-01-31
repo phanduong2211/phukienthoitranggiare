@@ -67,6 +67,47 @@ var n = this,
      });
    return false;
  }
+
+function changequantity(th,name,id,idroot){
+  var value=parseInt(th.value);
+  var oldvalue=parseInt($(th).attr("data-value"));
+  if(value!=oldvalue && value>0){
+    var loai=(value>oldvalue)?"lên":"xuống";
+    getConfirm('Bạn có chắc muốn thay đổi số lượng sản phẩm <b>'+name+'</b> từ '+oldvalue+' '+loai+' '+value+' ',function(result){
+      if(result){
+        RunJson(base_url+"order/changeq",{"_token":__datatoken,"iddetail":id,"sl":value},function(result){
+          if(result=='1'){
+              var tr=$(".table tr[data-value='"+idroot+"']");
+              
+              $(th).attr("data-value",value);
+              var tien=parseFloat($(th).parents("tr").find("td:eq(4)").text().replace(/\./g,""));
+
+              var tongtien=value*tien;
+
+              $(th).parents("tr").find("td:eq(5)").text(tongtien.formatMoney(0,',','.'));
+              var tot=parseFloat(tr.find("td:eq(6)").text().replace(/\./g,""));
+              var tienhientai=0;
+
+              if(value>oldvalue){
+                tienhientai=tot+(tien*(value-oldvalue));
+              }else{
+                tienhientai=tot-(tien*(oldvalue-value));
+              }
+
+              tr.find("td:eq(6)").text(tienhientai.formatMoney(0,',','.'));
+
+              $("#DetailOrder .modal-body .pull-right").html("Tổng Tiền: <b>"+tienhientai.formatMoney(0,',','.')+" VNĐ</b>");
+
+              $("#areadetail #order"+obj.attr("data-root")).remove();
+          }else{
+            alert("Có lỗi. Vui lòng thử lại");
+          }
+        });
+      }
+    });
+  }
+}
+
   $(function(){
     $("#nav-accordion>li:eq(2)>a").addClass("active");
 
@@ -90,6 +131,8 @@ var n = this,
           html+='<th>Xóa</th>';
         }
         html+='</tr>';
+
+        var ttong=0;
        
         for(var i=0;i<result.length;i++){
           var item=result[i];
@@ -97,16 +140,23 @@ var n = this,
           html+='<td>'+(i+1)+'</td>';
           html+='<td>'+item.name+'</td>';
           html+='<td><img src="'+showImage(item.image,asset_url+'public/image/')+'" width="50px" /></td>';
-          
-          html+='<td>'+item.quantity+'</td>';
+          if(data.status=='0'){
+            html+='<td><input type="number" data-value="'+item.quantity+'" onchange="changequantity(this,\''+item.name+'\','+item.detailid+','+data.id+')" value="'+item.quantity+'" style="width:50px" /></td>';
+            
+          }else{
+            html+='<td>'+item.quantity+'</td>';
+          }
+        
           html+='<td>'+parseFloat(item.promotion_price).formatMoney(0,',','.')+'</td>';
-          html+='<td>'+parseFloat(item.quantity*item.promotion_price).formatMoney(0,',','.')+'</td>';
+          var tongt=parseFloat(item.quantity*item.promotion_price);
+          ttong+=tongt;
+          html+='<td>'+tongt.formatMoney(0,',','.')+'</td>';
           if(data.status=='0'){
             html+='<td><div class="removesporder" onclick="removesp(this)" data-sp="'+item.name+'" data-id="'+item.detailid+'" data-root="'+data.id+'">Xóa</div></td>';
           }
           html+='</tr>';
         }
-         html+="</table></div><div class='pull-right' style='font-size:15px'>Tổng Tiền: <b>"+data.tt+" VNĐ</b></div><br />";
+         html+="</table></div><div class='pull-right' style='font-size:15px'>Tổng Tiền: <b>"+ttong.formatMoney(0,',','.')+" VNĐ</b></div><br />";
          $('#DetailOrder .modal-body').html(html);
         $("#areadetail").append("<div id='order"+data.id+"'>"+html+"</div>");
       });

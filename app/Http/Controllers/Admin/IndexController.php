@@ -44,7 +44,7 @@ class IndexController extends Controller
 
 		$data['user']=DB::table('users')->select('id','sex','name','created_at')->where(DB::raw('DATE(created_at)'),$mytime)->get();
 
-		$data['order']=DB::table('order')->select('id','address','created_at')->where('status',0)->where(DB::raw('DATE(created_at)'),$mytime)->get();
+		$data['order']=DB::table('order')->select('id','address','created_at')->where('status',0)->get();
 
 
 		return json_encode($data);

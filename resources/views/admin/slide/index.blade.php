@@ -232,9 +232,10 @@ function showImage($path){
                         <div class="red">*</div>
                         <img src="{{Asset('public/image/uploadimg.png')}}" class="img-thumbnail showupload uploadimg" href="#imagechooseval" id="imgchoose" width="100px">
                         <br><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br>
-                        <input type="text" class="form-control " name="image" id="imagechooseval" />Hoặc upload ảnh khác.</div>
+                        <input type="text" class="form-control " name="image" id="imagechooseval" />Hoặc upload ảnh khác. Kích thước chuẩn 870x432</div>
+                     
                     </div>
-                </div><br />
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         Nội Dung:

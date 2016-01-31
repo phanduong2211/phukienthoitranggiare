@@ -623,7 +623,7 @@
                     p1.find(".badge").html(result.order.length);
                     if(result.order.length>0){
 
-                       p1.find("ul li:eq(0) .green").html("Có "+result.order.length+" đơn hàng mới");
+                       p1.find("ul li:eq(0) .green").html("Có "+result.order.length+" đơn hàng chưa giao");
                         p1=p1.find("ul li:eq(0)");
 
                         for(var i=0;i<result.order.length;i++){
@@ -637,7 +637,7 @@
 
                         }
                     }else{
-                      p1.find("ul li:eq(0) .green").html("Không có đơn hàng mới");
+                      p1.find("ul li:eq(0) .green").html("Không có đơn hàng chưa giao");
                     }
                },true);
             });

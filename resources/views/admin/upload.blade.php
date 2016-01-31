@@ -171,7 +171,7 @@ if(isset($_POST['submit'])){
 					<h3 id="slfile"></h3>
 					<div style="margin-left:95px">
 						<div style="float:left;width:100px;text-align:left;margin-top:3px">
-							Save As:
+							Lưu Vào:
 						</div>
 						<div style="float:left;width:170px">
 							<input style="width:100%;padding:4px;border:1px solid #ccc;outline:none" onkeydown="return false;" type="text" value="upload" name="folder" id="foldersave" />
@@ -188,11 +188,15 @@ if(isset($_POST['submit'])){
 						</div>
 						<div style="float:left;width:200px">
 							<select name="resize" style="padding:3px;width:100%">
-								<option value="">Gữi nguyên kích thước</option>
-								<option value="300x300">300x300(Sản Phẩm)</option>
-								<option value="720x480">720x480(Sản Phẩm Khác Lớn)</option>
+								<option value="">Gữi nguyên kích thước gốc</option>
+								<option value="458x458">458x458(Sản Phẩm)</option>
 								<option value="80x80">80x80(Sản Phẩm Khác Nhỏ)</option>
-
+								<option value="870x432">870x432(SlideShow)</option>
+								<option value="270x169">270x169(Tin Tức)</option>
+								<option value="130x50">130x50(Đối Tác)</option>
+								<option value="270x432">270x432(Quảng Cáo Vị Trí 1)</option>
+								<option value="770x243">770x243(Quảng Cáo Vị Trí 2)</option>
+								<option value="370x243">370x243(Quảng Cáo Vị Trí 3)</option>
 							</select>
 						</div>
 					</div>

@@ -435,7 +435,7 @@ function showImg(input) {
                             <span class="showimage"> Xem hình ảnh</span>
                             <img src="<?php echo showImage($data->image) ?>" class="showimg" />
                         </div>
-                        <span class="desc">Copy url hình ảnh và dán vào hoặc click vào icon upload để upload ảnh mới.</span>
+                        <span class="desc">Copy url hình ảnh và dán vào hoặc click vào icon upload để upload ảnh mới. Kích thước chuẩn 458x458</span>
                     </div>
                 </div><br />
             </div>

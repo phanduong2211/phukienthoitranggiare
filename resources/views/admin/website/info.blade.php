@@ -221,7 +221,7 @@ hr{
 					<br /><br />
 					<br /><br />
 					<br />
-					<span class="desc">Kích thước chuẩn: 75x75.</span>
+					<span class="desc">Kích thước chuẩn: 16x16.</span>
 
 					<input type="submit" class="btn btn-success btn-xs disabled" disabled="disabled" value="Lưu Lại" />
 					<input type="reset"  disabled="disabled" class="btn btn-primary btn-xs disabled" value="Hủy Bỏ" />
@@ -232,7 +232,7 @@ hr{
 
 </div><!--//Logo và favicon-->
 <br />
-<h4>Đối tác
+<h4>Đối tác(Kích thước chuẩn 130x50)
 <a href='' class="newimageslide btn btn-xs btn-primary pull-right">
                             <i class="fa fa-plus" ></i> Thêm Đối Tác
 
