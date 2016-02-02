@@ -237,6 +237,31 @@ class WebsiteController extends BaseController
 		$info->where('name','brand')->update(array('contents'=>$silebar_images));
 		return Redirect::to('admin/website/info')->with(['message'=>'Cập nhật đối tác thành công.']);
 	}
+
+	public function note(){
+		$data=info::select('contents')->where('name','note')->first();
+
+		if($data==null){
+			$data='';
+		}else{
+			$data=$data->contents;
+		}
+
+		return view('admin.website.note',array('data'=>$data));
+	}
+
+	public function postNote(){
+		$info=new info();
+
+		$data=info::select('contents')->where('name','note')->first();
+		if($data==null){
+			$info->insert(array('name'=>'note','contents'=>Input::get('note')));
+			
+		}else{
+			$info->where('name','note')->update(array('contents'=>Input::get('note')));
+		}
+		return redirect('admin/website/note');
+	}
 	
 }
 

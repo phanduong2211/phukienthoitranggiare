@@ -130,7 +130,16 @@
                     <!-- notification dropdown end -->
                 </ul>
                 <!--  notification end -->
+                
             </div>
+            <div id="note" class="pull-left clearfix">
+              <div class="pull-left">
+                <i class="fa fa-bullhorn"></i>
+              </div>
+                <div id="ctnote">
+                  <marquee width="450" onmouseover="this.stop()" onmouseout="this.start()"></marquee>
+                </div> 
+             </div>
             <div class="top-nav ">
                 <!--search & user info start-->
                 <ul class="nav pull-right top-menu">
@@ -210,7 +219,7 @@
                               <li><a  href="{{Asset('admin/website/info')}}">Thông Tin Website</a></li>
                               <li><a  href="{{Asset('admin/page')}}">Trang</a></li>
                               <li><a  href="{{Asset('admin/page/add')}}">Tạo Trang</a></li>
-                           
+                              <li><a  href="{{Asset('admin/website/note')}}">Thông Báo</a></li>
                           </ul>
                       </li>
                   <?php } ?>
@@ -639,6 +648,15 @@
                     }else{
                       p1.find("ul li:eq(0) .green").html("Không có đơn hàng chưa giao");
                     }
+
+                    if(result.note.contents!=null){
+                      var note=result.note.contents;
+                      note=note.replace(/\n/ig,'|');
+                      note=note.replace(/\|/ig," <span style='padding:0px 10px'><i class='fa fa-star'></i></span> ");
+                      $("#note marquee").html(note);
+                      $("#note").css("padding-bottom","1px");
+                    }
+
                },true);
             });
       });

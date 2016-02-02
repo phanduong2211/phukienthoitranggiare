@@ -28,7 +28,8 @@ Route::group(["middleware"=>'checklogin','prefix'=>'admin'],function(){
     Route::post("info/postinfoall","Admin\WebsiteController@postinfoall");
     Route::post("info/postinfcontact","Admin\WebsiteController@postinfcontact");
     Route::post("info/changebrand","Admin\WebsiteController@changebrand");
-
+    Route::get("website/note","Admin\WebsiteController@note");
+    Route::post("website/note","Admin\WebsiteController@postNote");
 
     Route::get("category","Admin\CategoryAdminController@index");
     Route::post("category/add","Admin\CategoryAdminController@save");

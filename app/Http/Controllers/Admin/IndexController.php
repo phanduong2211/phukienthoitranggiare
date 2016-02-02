@@ -46,6 +46,8 @@ class IndexController extends Controller
 
 		$data['order']=DB::table('order')->select('id','address','created_at')->where('status',0)->get();
 
+		$data['note']=DB::table('info')->select('contents')->where('name','note')->first();
+
 
 		return json_encode($data);
 	}	

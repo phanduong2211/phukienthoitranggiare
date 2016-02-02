@@ -6397,3 +6397,15 @@ header.blue-bg .search:focus {
 .table tr.noaction .groupaction{
     display: none;
 }
+#note{
+    margin-left: 10%;
+    margin-top:12px;
+    padding: 5px;
+    border: 1px solid #f0f0f8;
+    border-radius: 3px;
+    background-color: #F5F5F5;
+}
+#note #ctnote{
+    float:left;
+    margin-left:5px;
+}
