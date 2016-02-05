@@ -326,6 +326,7 @@ class ViewController extends Controller
 			$menu = $this->ConvertMenuToArray($menu);
 		}
 		$product = array();
+
 		if(Session::has("cart"))
 		{
 			
@@ -336,7 +337,8 @@ class ViewController extends Controller
 			{				
 				$product[] =  ProductController::getProductWhereID($cart[$i][0]["id"]);
 			}
-			
+
+		//Session::forget("cart");
 		}		
 		return View::make("cart",array('menu'=>$menu,"categorys"=>$categorys,"product"=>$product,"convert"=>$convert,"info"=>$info
 			,"header"=>$header,"user"=>$user));
@@ -400,7 +402,12 @@ class ViewController extends Controller
 	}
 	public function deletecart()
 	{
+
 		$cart = Session::get("cart");
+
+		if(count($cart)==2)
+			Session::forget("cart");
+		return 2;
 		$index = $_POST["contents"]+1;
 		/*if($index==0)
 			Session::put("removeCartAtIndex0","true");*/

@@ -53,10 +53,10 @@ use App\Http\Module\detailproduct;
     }
     public function getSize($id)
     {
-        return detailproduct::select("size")->where('productID','=',$id)->first();
+        return detailproduct::select("size")->where('productID','=',$id)->get();
     }
     public function getColor($id)
     {
-        return detailproduct::select("color")->where('productID','=',$id)->first();
+        return detailproduct::select("color")->where('productID','=',$id)->get();
     }
 }
