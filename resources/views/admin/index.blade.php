@@ -149,6 +149,86 @@
                   </div>
               </div>
               <!--state overview end-->
+<br />
+<div style="padding-bottom:3px;">
+
+<div class="row">
+  <div class="col-md-6">
+
+    <div class="border-head clearfix">
+        <h3 class="clearfix">
+           <div class="pull-left">
+            Sản Phẩm Gần Hết Hàng
+          </div>
+             <div class="pull-right">
+                <a href='{{Asset('admin/product?f=10')}}' style='font-size:13px'>Xem thêm >></a>
+            </div>
+        </h3>
+       
+    </div>
+  <div style="margin-top:-25px">
+    <table class="table">
+        <tr>
+          <th width="30%" style="border-top:0 !important">Tên</th>
+          <th style="border-top:0 !important">Giá</th>
+          <th style="border-top:0 !important">SL Còn</th>
+          <th style="border-top:0 !important"></th>
+        </tr>
+        @foreach($product_o as $item)
+        <tr>
+          <td>{{$item->name}}</td>
+          <td>{{number_format($item->promotion_price)}}</td>
+          <td>{{$item->quantity}}</td>
+          <td>
+            <a href=""><i class="fa fa-edit"></i> Sửa</a>
+          </td>
+        </tr>
+        @endforeach
+    </table>
+  </div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="border-head clearfix">
+      <h3 class="clearfix">
+         <div class="pull-left">
+          Sản Phẩm Đang Giảm Giá
+        </div>
+           <div class="pull-right">
+              <a href='{{Asset('admin/product?f=2')}}' style='font-size:13px'>Xem thêm >></a>
+          </div>
+      </h3>
+     
+</div>
+
+<div style="margin-top:-25px">
+    <table class="table">
+        <tr>
+          <th width="30%" style="border-top:0 !important">Tên</th>
+          <th style="border-top:0 !important">Giá</th>
+          <th style="border-top:0 !important">Giá Gốc</th>
+          <th style="border-top:0 !important"></th>
+        </tr>
+        @foreach($product_p as $item)
+        <tr>
+          <td>{{$item->name}}</td>
+          <td>{{number_format($item->promotion_price)}}</td>
+          <td>{{number_format($item->price)}}</td>
+          <td>
+            <a href=""><i class="fa fa-edit"></i> Sửa</a>
+          </td>
+        </tr>
+        @endforeach
+    </table>
+  </div>
+
+</div>
+
+</div>
+
+</div>
 
 <br />
 <div style="padding-bottom:3px;">

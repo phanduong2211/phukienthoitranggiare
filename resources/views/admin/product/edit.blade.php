@@ -169,11 +169,13 @@ $(function(){
 $(".newimage").click(function(){
     var size=$("#imagescls").find(".itemimages").size();
    $("#imagescls").append('<div class="col-md-3 text-center itemimages"><img src="'+(asset_path+"image/uploadimg.png")+'" class="img-thumbnail showupload uploadimg" href="#imageschooseval'+size+'" id="imgchoose" width="50%" /><br /><b class="removeimgsss">Xóa</b><br /><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br /><input type="text" value="" class="form-control " name="images[]" id="imageschooseval'+size+'" />Hoặc upload ảnh khác.</div></div>');
+   $("#imgaddimage").hide();
     return false;
 });
 $(".newimageslide").click(function(){
     var size=$("#imagesclss").find(".itemimages").size();
    $("#imagesclss").append('<div class="col-md-3 text-center itemimages"><img src="'+(asset_path+"image/uploadimg.png")+'" class="img-thumbnail showupload uploadimg" href="#imagesschooseval'+size+'" id="imgchoose" width="50%" /><br /><b class="removeimgsss">Xóa</b><br /><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br /><input type="text" value="" class="form-control " name="silebar_images[]" id="imagesschooseval'+size+'" />Hoặc upload ảnh khác.</div></div>');
+   $("#slideaddimage").hide();
     return false;
 });
 $("#imagescls").on("click",".removeimgsss",function(){
@@ -608,7 +610,10 @@ function showImg(input) {
                     if($value!=""){
                     ?>
                     <div class="col-md-3 text-center itemimages"><img src="{{showImage($value)}}" class="img-thumbnail showupload uploadimg" href="#imageschooseval{{$key}}" id="imgchoose" width="50%"><br><b class="removeimgsss">Xóa</b><br><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br><input type="text" value="{{$value}}" class="form-control " name="images[]" id="imageschooseval{{$key}}" />Hoặc upload ảnh khác.</div></div>
-                    <?php }} ?>
+                    <?php }}
+                    if(count($images)==1)
+                        echo "<p id='imgaddimage' style='padding:0px 15px'>Click vào nút 'Thêm Ảnh Khác' phía trên để thêm ảnh.</p>";
+                     ?>
                 </div>
             </div>
         </div><br />
@@ -630,7 +635,10 @@ function showImg(input) {
                     if($value!=""){
                     ?>
                     <div class="col-md-3 text-center itemimages"><img src="{{showImage($value)}}" class="img-thumbnail showupload uploadimg" href="#imagesschooseval{{$key}}" id="imgchoose" width="50%"><br><b class="removeimgsss">Xóa</b><br><div class="text-left desc">Copy url image từ nơi khác và paste vào textbox bên dưới<br><input type="text" value="{{$value}}" class="form-control " name="silebar_images[]" id="imagesschooseval{{$key}}" />Hoặc upload ảnh khác.</div></div>
-                    <?php }} ?>
+                    <?php }} 
+                    if(count($silebar_images)==1)
+                        echo "<p id='slideaddimage' style='padding:0px 15px'>Click vào nút 'Thêm Ảnh Khác' phía trên để thêm ảnh.</p>";
+                     ?>
                    <!--  <div class="col-md-3 text-center">
                         <a href='' class="newimageslide">
                             <i class="fa fa-plus" style="font-size:30px"></i>

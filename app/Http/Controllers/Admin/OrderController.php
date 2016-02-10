@@ -5,6 +5,7 @@ use Illuminate\Routing\Controller;
 use App\Http\Module\order;
 use App\Http\Module\detailorder;
 use App\Http\Module\finishorder;
+use App\Http\Module\product;
 use Input;
 use DB;
 class OrderController extends Controller
@@ -64,7 +65,7 @@ class OrderController extends Controller
 		}else{
 			$data=order::select('order.id','order.address','order.created_at','order.status',
 				DB::raw('(select count(id) from detailorder where orderid=order.id) as sp'),
-				DB::raw('(select sum(promotion_price) from product where product.id in (select productID from detailorder where detailorder.orderid=order.id)) as tongtien'))->orderBy($ordercl,$ordertype)->where('order.id',Input::get('id'))->paginate(2);
+				DB::raw('(select sum(product.promotion_price*detailorder.quantity) from detailorder inner join product on detailorder.productID=product.id where detailorder.orderid=order.id) as tongtien'))->orderBy($ordercl,$ordertype)->where('order.id',Input::get('id'))->paginate(2);
 		}
 
 		$arrid=array();
@@ -100,10 +101,22 @@ class OrderController extends Controller
 			$finish->fill($data);
 
 			if($finish->save()){
+
+				$detailorder=detailorder::select('productID','quantity')->where('orderid',Input::get('id'))->get();
+
+				foreach ($detailorder as $value) {
+					$producto=product::find($value->productID);
+
+					$producto->quantity=$producto->quantity-$value->quantity;
+
+					$producto->update();
+				}
+
 				return 1;
 			}
 			$order->status=0;
 			$order->update();
+
 			return -1;
 		}
 

@@ -22,14 +22,13 @@ Number.prototype.format = function(n, x) {
 
 ///////////tính lại giá trị khi thay đổi số lượng
 $(".quantity-product").change(function(){
-	var price = parseInt($(this).parent().parent().prev().children().find(".promotion_price-match").text().replace(",",""));
-	//alert(price);
+	var price = parseFloat($(this).parent().parent().prev().children().find(".promotion_price-match").text().replace(/\,/g,""));
 	var quantity = $(this).val();
 	totalprice = $(this).parent().parent().next().next().children().text((price*quantity).format());
 	var total=0;
 	$(".total-price").each(function(){
 		var textFull = $(this).text();
-		var texreplace = convertNumberToNomal(textFull);
+		var texreplace = textFull.replace(/\,/g,'');
 		total+=parseFloat(texreplace);
 	});
 	
@@ -63,8 +62,11 @@ $(".promotion-price-match").each(function(){
 	var promotion = parseInt($(this).parent().prev().children().text());
 	var price = parseInt($(this).parent().next().children().text());
 	
-	var setPromotion = 100 - (promotion*100)/price;
-	$(this).text(setPromotion);
+	var setPromotion = Number(100 - (promotion*100)/price).toFixed(1);
+	if(setPromotion!="0.0")
+		$(this).text(setPromotion);
+	else
+		$(this).text(0);
 });
 	 /*
 Sand mail

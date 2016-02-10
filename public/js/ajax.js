@@ -32,7 +32,7 @@ $(function(){
 	////////////delete product in cart
 	$(".cart_quantity_delete").on("click",function(){
 		///alert();
-		var index= $(this).attr("data-index");
+		var index= $(this).attr("data-id");
 		bootbox.confirm("Xóa sản phẩm này khỏi giỏ hàng của bạn?", function(result) {
 			  	if(result==true)
 			  	{			  		

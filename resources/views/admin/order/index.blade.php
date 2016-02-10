@@ -209,7 +209,7 @@ $("#FinishOrder .modal-body .col-md-8 input").click(function(){
       return false;
     }
     $("#FinishOrder").modal('hide');
-     objfinish.parents("tr").removeClass("noaction");
+     objfinish.parents("tr").addClass("noaction");
       RunJson(base_url+'order/finish',{"id":idfinish,"_token":__token,"name":name},function(result){
           if(result=='1'){
             objfinish.parents("tr").removeClass("nosuccess");
@@ -223,11 +223,13 @@ $("#FinishOrder .modal-body .col-md-8 input").click(function(){
               $("#areadetail #order"+idfinish+" .removesporder").remove();
             }
             objfinish.parents("tr").find("td:eq(7)").html("Đã Giao<br /><small>Bởi "+name+"<br />Vừa Xong</small>");
-            objfinish.remove();
+            objfinish.parents("tr").removeClass("noaction");
+            objfinish.parent().remove();
           }else{
+            objfinish.parents("tr").removeClass("noaction");
             alert('Có lỗi. Vui lòng thử lại');
           }
-          objfinish.parents("tr").removeClass("noaction");
+          
 
       });
     });
@@ -321,7 +323,7 @@ $("#FinishOrder .modal-body .col-md-8 input").click(function(){
     $info=unserialize($item->address);
      ?>
     <td align="center">
-      <i data-toggle="modal" data-target="#DetailOrder" data='{"id":"{{$item->id}}","name":"{{$info['name']}}","address":"{{$info['address']}}","phone":"{{$info['phone']}}","email":"{{$info['email']}}","status":"{{$item->status}}","tt":"{{number_format($item->tongtien,0,',','.')}}"}' class="fa fa-plus"></i>
+      <i data-toggle="modal" data-target="#DetailOrder" data='{"id":"{{$item->id}}","name":"{{$info['name']}}","address":"{{$info['address']}}","phone":"{{$info['phone']}}","email":"{{$info['email']}}","status":"{{$item->status}}","tt":"{{number_format($item->tongtien,0,',','.')}}"}' class="fa fa-search"> Xem</i>
     </td>
     
      <td>
@@ -373,9 +375,11 @@ $("#FinishOrder .modal-body .col-md-8 input").click(function(){
       @else
         Đã Giao<br />
         @foreach($fi as $v)
+        @if($v->idorder==$item->id)
         <small>Bởi {{$v->name}}<br />
           {{date('d/m/Y H:i',strtotime($v->created_at))}}
         </small>
+        @endif
         @endforeach
       @endif
     </td>
@@ -443,7 +447,7 @@ $("#FinishOrder .modal-body .col-md-8 input").click(function(){
   .table .nosuccess{
     background-color: #E9FFFD;
   }
-  .table tr .fa-plus:hover{
+  .table tr .fa-search:hover{
     color:blue;
     cursor: pointer;
   }

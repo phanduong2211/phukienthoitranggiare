@@ -95,9 +95,12 @@ class ProductController extends BaseController
 					$data=$data->where('status','Ngừng Kinh Doanh');
 					break;
 				case '10':
-					$data=$data->where('display',1);
+					$data=$data->where('quantity','<',10);
 					break;
 				case '11':
+					$data=$data->where('display',1);
+					break;
+				case '12':
 					$data=$data->where('display',0);
 					break;
 				

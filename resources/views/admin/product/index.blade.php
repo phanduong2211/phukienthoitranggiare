@@ -83,8 +83,9 @@
       <option value="7">Bán Chạy</option>
       <option value="8">Khuyến Mãi</option>
       <option value="9">Ngừng Kinh Doanh</option>
-      <option value="10">Hiện</option>
-      <option value="11">Ẩn</option>
+      <option value="10">Gần Hết Hàng</option>
+      <option value="11">Hiện</option>
+      <option value="12">Ẩn</option>
     </select>
     <?php if(isset($_GET["s"])){ ?>
     <input type="hidden" name="s" value="<?php echo $_GET["s"] ?>" />

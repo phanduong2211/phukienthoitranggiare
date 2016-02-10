@@ -207,7 +207,7 @@ div.nivo-controlNav a.active{background:#FF4F4F;border:1px solid #fff;}
 .overlay-content{height:100%;position:absolute;right:-65px;top:0;transition:all 800ms ease 0s;opacity:0;}
 .single-product-item:hover .overlay-content{right:0;opacity:1;}
 .overlay-content ul{height:100%;}
-.overlay-content ul li{border-bottom:1px solid rgba(255, 255, 255, 0.3);height:25%;}
+.overlay-content ul li{border-bottom:1px solid rgba(255, 255, 255, 0.3);height:33.33%;}
 .overlay-content ul li:last-child{border-bottom:0px solid #555;}
 .overlay-content ul li a{background:rgba(70, 70, 70, 0.5) none repeat scroll 0 0;color:#fff;display:block;text-align:center;width:65px;height:100%;font-size:21px;transition:all 0.3s ease 0s;position:relative;}
 .overlay-content ul li a i{bottom:0;display:block;height:25px;left:0;margin:auto;position:absolute;right:0;top:0;width:25px;}

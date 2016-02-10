@@ -405,12 +405,25 @@ class ViewController extends Controller
 
 		$cart = Session::get("cart");
 
-		if(count($cart)==2)
+		if(count($cart)==2){
 			Session::forget("cart");
-		return 2;
-		$index = $_POST["contents"]+1;
-		/*if($index==0)
-			Session::put("removeCartAtIndex0","true");*/
+			return 2;
+		}
+		$id = $_POST["contents"];
+
+		$index=-1;
+		
+		$cart = Session::get("cart");
+			for($i=1;$i< count($cart);$i++)
+			{
+				if($cart[$i][0]["id"] == $id){
+					$index=$i;
+					break;
+				}
+			}
+
+		if($index==-1)
+			return -1;
 		unset($cart[$index]);
 		$cart = array_values($cart);
 		Session::put("cart",$cart);
