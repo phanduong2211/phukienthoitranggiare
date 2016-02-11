@@ -92,6 +92,18 @@
     color:#333;
     cursor: pointer;
      }
+     .addonselect{
+    position: relative;
+}
+.addonselect .fa{
+    position: absolute;
+    top: 11px;
+    right: 19px;
+}
+.addonselect .fa:hover{
+    cursor: pointer;
+    color:#000;
+}
 </style>
 @endsection
 @section('script')
@@ -104,6 +116,9 @@
     var __token="{{csrf_token()}}";
     var btnUpload=null;
     var dialogChooseColor=null;
+      var dialogAddNewMenu=null;
+         var dialogAddNewCT=null;
+         var dialogAddNewTab=null;
     function callBackUpload(idobjclick,path){
         if(idobjclick=="#nicupload"){
             $("textarea"+btnUpload).parent().find(".nicEdit-main").append("<div class='postimg'><img src='"+asset_path+"image/"+path+"' /></div>");
@@ -298,6 +313,46 @@ $("#colors").focus(function(){
 }).keypress(function(){
     return false;
 });
+
+$("#addnewmenu").click(function(){
+        if(dialogAddNewMenu==null){
+            dialogAddNewMenu=new dialog($("#dialogmenu"),{
+                "width":1000,
+                "height":500,
+                "ttop":40
+            });
+            dialogAddNewMenu.init();
+            dialogAddNewMenu.getObj().find("iframe").attr("src",base_url_admin+"website/menu?iframe=1");
+        }
+        dialogAddNewMenu.show();
+    });
+
+    $("#addnewct").click(function(){
+        if(dialogAddNewCT==null){
+            dialogAddNewCT=new dialog($("#dialogct"),{
+                "width":1000,
+                "height":500,
+                "ttop":40
+            });
+            dialogAddNewCT.init();
+            dialogAddNewCT.getObj().find("iframe").attr("src",base_url_admin+"category?iframe=1");
+        }
+        dialogAddNewCT.show();
+    });
+
+    $("#addnewtab").click(function(){
+        if(dialogAddNewTab==null){
+            dialogAddNewTab=new dialog($("#dialogtab"),{
+                "width":1000,
+                "height":500,
+                "ttop":40
+            });
+            dialogAddNewTab.init();
+            dialogAddNewTab.getObj().find("iframe").attr("src",base_url_admin+"tab?iframe=1");
+        }
+        dialogAddNewTab.show();
+    });
+
 });
 
 function showImg(input) {
@@ -405,7 +460,7 @@ function showImg(input) {
                     <div class="col-md-8 require">
                         <div class="red">*</div>
                         <input type="text" name="original_price" class="form-control" value="{{number_format($data->original_price,0,',','.')}}" />
-                        <span class="desc">Giá sỉ. Giá này không hiển thị trên website. Chỉ QTV biết giá này</span>
+                        <span class="desc">Giá sỉ. Giá này không hiển thị trên website. Chỉ QTV biết giá này. Điền là 0 nếu không biết</span>
                     </div>
                 </div><br />
             </div>
@@ -463,34 +518,37 @@ function showImg(input) {
                     </div>
                     <div class="col-md-8 require">
                         <div class="red">*</div>
-                        <select name="menuID" class="form-control">
-                            <option value="-1">--Lựa Chọn--</option>
-                            <?php 
-                            function getMinRoot($data){
-                                $length=count($data);
-                                if($length>0){
-                                    $min=$data[0]->root;
-                                    for ($i=1; $i <$length ; $i++) { 
-                                        if($data[$i]->root<$min)
-                                            $min=$data[$i]->root;
+                        <div class="addonselect">
+                            <select name="menuID" class="form-control">
+                                <option value="-1">--Lựa Chọn--</option>
+                                <?php 
+                                function getMinRoot($data){
+                                    $length=count($data);
+                                    if($length>0){
+                                        $min=$data[0]->root;
+                                        for ($i=1; $i <$length ; $i++) { 
+                                            if($data[$i]->root<$min)
+                                                $min=$data[$i]->root;
+                                        }
+                                        return $min;
                                     }
-                                    return $min;
+                                    return 0;
                                 }
-                                return 0;
-                            }
-                            function dequy($parentid,$arr,$text = ''){
-                                foreach ($arr as $key => $value) {
-                                    if($value->root==$parentid){?>
-                                    <option value="{{$value->id}}">{{$text.$value->name}}</option>
-                                    <?php 
-                                    dequy($value->id,$arr,$text.'--');
+                                function dequy($parentid,$arr,$text = ''){
+                                    foreach ($arr as $key => $value) {
+                                        if($value->root==$parentid){?>
+                                        <option value="{{$value->id}}">{{$text.$value->name}}</option>
+                                        <?php 
+                                        dequy($value->id,$arr,$text.'--');
+                                    }
                                 }
                             }
-                        }
-                        dequy(getMinRoot($datamenu),$datamenu);
-                        ?>
+                            dequy(getMinRoot($datamenu),$datamenu);
+                            ?>
 
-                    </select>
+                        </select>
+                        <i class="fa fa-plus" id="addnewmenu" title="Thêm Mới"></i>
+                    </div>
                     <span class="desc">Chọn menu hiển thị sản phẩm.</span>
                 </div>
             </div><br />
@@ -502,10 +560,13 @@ function showImg(input) {
                 </div>
                 <div class="col-md-8 require">
                     <div class="red">*</div>
-                    <select name="categoryID" class="form-control">
-                        <option value="-1">--Lựa Chọn--</option>
-                        @foreach($datacategory as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
-                    </select>
+                    <div class="addonselect">
+                        <select name="categoryID" class="form-control">
+                            <option value="-1">--Lựa Chọn--</option>
+                            @foreach($datacategory as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
+                        </select>
+                        <i class="fa fa-plus" id="addnewct" title="Thêm Mới"></i>
+                    </div>
                 </div>
             </div><br />
         </div>
@@ -518,11 +579,13 @@ function showImg(input) {
                     Tab:
                 </div>
                 <div class="col-md-8">
-                    <select name="tab_categoryID" class="form-control">
-                        <option value="0">--Lựa Chọn--</option>
-                        @foreach($datatabcategory as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
-                    </select>
-
+                    <div class="addonselect">
+                        <select name="tab_categoryID" class="form-control">
+                            <option value="0">--Lựa Chọn--</option>
+                            @foreach($datatabcategory as $value)<option value="{{$value->id}}">{{$value->name}}</option>@endforeach
+                        </select>
+                        <i class="fa fa-plus" id="addnewtab" title="Thêm Mới"></i>
+                    </div>
                 </div>
             </div><br />
         </div>
@@ -711,6 +774,32 @@ function showImg(input) {
         </form>
     </div>
     <a class="nicupload showupload" href="#nicupload">Upload</a>
+    <div id="dialogmenu" style="display:none">
+        <div class='header'>
+            Quản Lý Menu <i title="close" class="fa fa-times closedialog"></i>
+        </div>
+        <div class="ct" style="padding:0">
+            <iframe src="" width="100%" height="98%" frameborder="0"></iframe>
+        </div>
+    </div>
+
+<div id="dialogct" style="display:none">
+        <div class='header'>
+            Quản Lý Danh Mục <i title="close" class="fa fa-times closedialog"></i>
+        </div>
+        <div class="ct" style="padding:0">
+            <iframe src="" width="100%" height="98%" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <div id="dialogtab" style="display:none">
+        <div class='header'>
+            Quản Lý Tab <i title="close" class="fa fa-times closedialog"></i>
+        </div>
+        <div class="ct" style="padding:0">
+            <iframe src="" width="100%" height="98%" frameborder="0"></iframe>
+        </div>
+    </div>
    <div id="dialog3">
         <div class='header'>
             Chọn Màu <input type="text" id="valuefindcolor" style="font-size:12px;width:50%" placeholder="Nhập tên màu..." /><input type="button"  id="findcolor" value="Tìm" /> <i title="close" class="fa fa-times closedialog"></i>

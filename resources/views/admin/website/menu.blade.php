@@ -1,9 +1,25 @@
 @extends('layouts.admin')
 
 @section('title', 'Quản Lý Menu')
+
+@if(isset($_GET['iframe']))
+<style type="text/css">
+.header,#sidebar,.sfilter,.table .groupaction{
+  display: none;
+}
+#main-content{
+  margin-left: 0 !important;
+}
+.wrapper{
+  margin-top: 0 !important;
+}
+</style>
+@endif
+
 @section('script')
 <script src="{{Asset('public/admin')}}/js/validate.js" ></script>
 <script type="text/javascript">
+var iFrame="<?php if(isset($_GET['iframe'])) echo 'true'; else echo 'false'; ?>"
 function callBackSuccessModal(data){
          if(dataitem.action=="addnew"){
            
@@ -38,6 +54,10 @@ function callBackSuccessModal(data){
                 $(".table-responsive .table tr[data-column='"+data.root+"']").after(html);
              }
              $("#modaldialog form select[name='root']").append("<option value='"+data.id+"'>"+data.name+"</option>");
+            if(iFrame=="true"){
+              $('#addnewmenu', window.parent.document).parent().find("select").append("<option value='"+data.id+"'>"+data.name+"</option>").val(data.id);
+              $('#dialogmenu .closedialog', window.parent.document).click();
+            }
         }else{
             var obj=$(".table-responsive .table tr[data-column='"+data.idedit+"']");
             obj.find("td:eq(1) span:eq(0)").html(data.name);

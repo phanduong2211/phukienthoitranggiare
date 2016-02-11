@@ -20,6 +20,7 @@ class WebsiteController extends BaseController
 		}
 		$data=menu::orderBy('id','desc')->get();	
 		$page=page::select('name','url')->orderBy('id','desc')->get();
+	
 		return View::make("admin.website.menu",array('datap'=>$page,'data'=>$data));
 	}	
 	

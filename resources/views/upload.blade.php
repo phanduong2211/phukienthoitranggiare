@@ -18,8 +18,8 @@
                 <div id="groupbutton" class="clearfix">
                     <div id="chooseImg" title="Chọn" class="fa fa-check"> Chọn</div>
                     <div id="removeupload" title="Xóa ảnh" class="fa fa-times"> Xóa</div>
-                    <div id="zoomimage" title="Xem ảnh với kích thước lớn" class="fa fa-search-plus"> Xem</div>
-                    <div id="newfolderupload" title="Tạo folder mới" class="fa fa-folder-o"> Thư Mục Mới</div>
+                    <div id="zoomimage" title="Xem ảnh với kích thước lớn" class="fa fa-search-plus"> Phóng To</div>
+                    <div id="newfolderupload" title="Tạo folder mới" class="fa fa-folder-o"> Tạo Thư Mục</div>
                     <div id="refreshupload" title="làm mới" class="fa fa-refresh"> Tải Lại</div>
                     
                     

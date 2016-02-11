@@ -84,6 +84,9 @@
    @if(isset($_GET['id']))
       <a href='{{Asset('admin/user')}}' class="btn btn-primary btn-sm">Xem Tất Cả Người Dùng</a>
     @endif
+    <?php  if(isset($_GET['f']) || isset($_GET['q'])){ ?>
+     <a href="{{Asset('admin/user')}}" class="pull-left btn btn-default btn-sm" style="margin-left:5px">Xem tất cả</a>
+    <?php } ?>
  </div>
  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
   <form method="get" action="" class="pull-right">

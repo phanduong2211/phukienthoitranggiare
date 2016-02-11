@@ -180,7 +180,7 @@
           <td>{{number_format($item->promotion_price)}}</td>
           <td>{{$item->quantity}}</td>
           <td>
-            <a href=""><i class="fa fa-edit"></i> Sửa</a>
+            <a href="{{Asset('admin/product/edit?id='.$item->id)}}"><i class="fa fa-edit"></i> Sửa</a>
           </td>
         </tr>
         @endforeach
@@ -217,7 +217,7 @@
           <td>{{number_format($item->promotion_price)}}</td>
           <td>{{number_format($item->price)}}</td>
           <td>
-            <a href=""><i class="fa fa-edit"></i> Sửa</a>
+            <a href="{{Asset('admin/product/edit?id='.$item->id)}}"><i class="fa fa-edit"></i> Sửa</a>
           </td>
         </tr>
         @endforeach

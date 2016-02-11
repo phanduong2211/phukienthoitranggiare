@@ -67,7 +67,10 @@
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:5px">
    <div class="group-button clearfix">
-     <a href="{{Asset('admin/product/add')}}" class="pull-left btn btn-primary btn-sm">Thêm mới</a>
+     <a href="{{Asset('admin/product/add')}}" class="pull-left btn btn-primary btn-sm">Thêm mới</a> 
+    <?php  if(isset($_GET['f']) || isset($_GET['q'])){ ?>
+     <a href="{{Asset('admin/product')}}" class="pull-left btn btn-default btn-sm" style="margin-left:5px">Xem tất cả</a>
+    <?php } ?>
    </div>
  </div>
  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">

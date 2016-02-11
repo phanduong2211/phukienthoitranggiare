@@ -263,6 +263,9 @@ $("#FinishOrder .modal-body .col-md-8 input").click(function(){
   @if(isset($_GET['id']))
       <a href='{{Asset('admin/order')}}' class="btn btn-primary btn-sm">Xem Tất Cả Đơn Hàng</a>
     @endif
+    <?php  if(isset($_GET['f']) || isset($_GET['q'])){ ?>
+     <a href="{{Asset('admin/order')}}" class="pull-left btn btn-default btn-sm" style="margin-left:5px">Xem tất cả</a>
+    <?php } ?>
  </div>
  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-xs-marg text-right clearfix">
   <form method="get" action="" class="pull-right">
@@ -320,7 +323,7 @@ $("#FinishOrder .modal-body .col-md-8 input").click(function(){
   <?php $now=getdate(); foreach ($data as $item): ?>
    <tr data-value="{{$item->id}}" <?php if($item->status==0) echo "class='nosuccess'" ?>>
     <?php 
-    $info=unserialize($item->address);
+       $info=unserialize($item->address);
      ?>
     <td align="center">
       <i data-toggle="modal" data-target="#DetailOrder" data='{"id":"{{$item->id}}","name":"{{$info['name']}}","address":"{{$info['address']}}","phone":"{{$info['phone']}}","email":"{{$info['email']}}","status":"{{$item->status}}","tt":"{{number_format($item->tongtien,0,',','.')}}"}' class="fa fa-search"> Xem</i>
