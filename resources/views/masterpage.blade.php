@@ -164,7 +164,7 @@
 					<div class="col-sm-12">
 						<!-- LOGO START -->
 						<div class="logo">
-								<a href="{{Asset('')}}"><img src="{{Asset('public/img/logo.png')}}" alt="bstore logo" /></a>
+								<a href="{{Asset('')}}"><img src="{{Asset('public/img/logo.png')}}" alt="phụ kiện thời trang logo" /></a>
 							</div>
 						<!-- LOGO END -->
 						@foreach($info as $values)
@@ -226,7 +226,7 @@
 						<div class="mainmenu">
 							<nav>
 								<ul class="list-inline mega-menu">
-									<li class="active"><a href="{{Asset('')}}">Trag chủ</a>
+									<li class="active"><a href="{{Asset('')}}">Trang chủ</a>
 										<!-- DROPDOWN MENU START -->
 										<!-- <div class="home-var-menu">
 											<ul class="home-menu">
@@ -240,7 +240,7 @@
 									@for($i=0;$i< count($menu["root_menu"]);$i++)
 									<li>
 										@if($menu['root_menu'][$i]['url']!="")
-											<a title="{{$menu['root_menu'][$i]['name']}}" href="{{$menu['root_menu'][$i]['url']}}" >{{$menu["root_menu"][$i]["name"]}}</a>
+											<a title="{{$menu['root_menu'][$i]['name']}}" href="{{Asset('')}}{{$menu['root_menu'][$i]['url']}}" >{{$menu["root_menu"][$i]["name"]}}</a>
 											@else
 											<a title="{{$menu['root_menu'][$i]['name']}}" href="{{Asset('')}}{{$convert->convertString($menu['root_menu'][$i]['name'])}}" >{{$menu["root_menu"][$i]["name"]}}</a>
 										@endif
@@ -258,7 +258,7 @@
 											<div class="left-mega col-xs-6">
 												<div class="mega-menu-list">
 												@if($menu['second_menu'][$j]['url']!="")
-													<a title="{{$menu['second_menu'][$j]['name']}}" class="mega-menu-title" href="{{$menu['second_menu'][$j]['url']}}">{{$menu["second_menu"][$j]["name"]}}</a>
+													<a title="{{$menu['second_menu'][$j]['name']}}" class="mega-menu-title" href="{{Asset('')}}{{$menu['second_menu'][$j]['url']}}">{{$menu["second_menu"][$j]["name"]}}</a>
 													@else
 													<a title="{{$menu['second_menu'][$j]['name']}}" class="mega-menu-title" href="{{Asset('')}}{{$convert->convertString($menu['root_menu'][$i]['name'])}}/{{$convert->convertString($menu['second_menu'][$j]['name'])}}">{{$menu["second_menu"][$j]["name"]}}</a>
 												@endif
@@ -267,7 +267,7 @@
 														@if($menu["second_menu"][$j]["id"]==$menu["three_menu"][$k]["root"])
 														<li>
 														@if($menu['three_menu'][$k]['url']!="")
-															<a title="{{$menu['three_menu'][$k]['name']}}" href="{{$menu['three_menu'][$k]['url']}}">{{$menu["three_menu"][$k]["name"]}}</a>
+															<a title="{{$menu['three_menu'][$k]['name']}}" href="{{Asset('')}}{{$menu['three_menu'][$k]['url']}}">{{$menu["three_menu"][$k]["name"]}}</a>
 															@else
 															<a title="{{$menu['three_menu'][$k]['name']}}" href="{{Asset('')}}{{$convert->convertString($menu['root_menu'][$i]['name'])}}/{{$convert->convertString($menu['second_menu'][$j]['name'])}}/{{$convert->convertString($menu['three_menu'][$k]['name'])}}">{{$menu["three_menu"][$k]["name"]}}</a>
 														@endif
@@ -302,16 +302,16 @@
 									</li>
 									@if(count($menu)>0)
 									@for($i=0;$i< count($menu["root_menu"]);$i++)							
-									<li><a tile="{{$menu['root_menu'][$i]['name']}}" href="shop-gird.html">{{$menu['root_menu'][$i]['name']}}</a>														
+									<li><a tile="{{$menu['root_menu'][$i]['name']}}" href="{{Asset('')}}shop-gird.html">{{$menu['root_menu'][$i]['name']}}</a>														
 										
 										<ul>
 										@for($j=0;$j< count($menu["second_menu"]);$j++)
 										@if($menu["root_menu"][$i]["id"]==$menu["second_menu"][$j]["root"])
-											<li><a title="{{$menu['second_menu'][$j]['name']}}" href="shop-gird.html">{{$menu['second_menu'][$j]['name']}}</a>
+											<li><a title="{{$menu['second_menu'][$j]['name']}}" href="{{Asset('')}}shop-gird.html">{{$menu['second_menu'][$j]['name']}}</a>
 												<ul>
 													@for($k=0;$k< count($menu["three_menu"]);$k++)
 													@if($menu["second_menu"][$j]["id"]==$menu["three_menu"][$k]["root"])
-													<li><a title="{{$menu['three_menu'][$k]['name']}}" href="shop-gird.html">{{$menu['three_menu'][$k]['name']}}</a></li>
+													<li><a title="{{$menu['three_menu'][$k]['name']}}" href="{{Asset('')}}shop-gird.html">{{$menu['three_menu'][$k]['name']}}</a></li>
 													@endif
 													@endfor	
 												</ul>													

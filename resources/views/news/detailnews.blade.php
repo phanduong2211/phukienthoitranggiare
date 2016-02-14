@@ -54,7 +54,7 @@
 
                             <span id="sllike">0</span> Thích                        </div>
                         <div id="contentbox">
-                           {{$news[0]->content}}
+                           <?php echo $news[0]->content; ?>
                       </div>
 
                     </div>
