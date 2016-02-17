@@ -122,7 +122,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-8 col-md-9 blog-content">
-                            <a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" class="img-responsive img-blog" src="{{$values->image}}" width="100%" alt="{{$values->name}}"></a>
+                            <a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html"><img title="{{$values->name}}" class="img-responsive img-blog" src="{{$convert->showImage($values->image)}}" width="100%" alt="{{$values->name}}"></a>
                             <h2><a href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html">{{$values->name}}</a></h2>
                             <h3>{{$values->description}}</h3>
                             <a style="margin-top: -38px;float: right;" class="btn btn-primary readmore" href="{{Asset('')}}tin-tuc/{{$values->id}}/{{$convert->convertString($values->name)}}.html">Xem Thêm <i class="fa fa-angle-right"></i></a>

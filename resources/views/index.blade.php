@@ -233,7 +233,7 @@
 								<!-- FEARTURED-CAROUSEL START -->
 								<div class="feartured-carousel">
 								@foreach($product as $values)
-								@if($values->status=="featured")
+								@if($values->status=="hot")
 									<!-- SINGLE-PRODUCT-ITEM START -->
 									<div class="item">
 										<div class="single-product-item">
@@ -375,7 +375,7 @@
 								<div class="bestseller-carousel">
 									<!-- BESTSELLER-SINGLE-ITEM START -->
 									@foreach($product as $values)
-									@if($values->status == "bestseller")
+									@if($values->status == "sell")
 									<div class="item">
 										<div class="single-product-item">
 											<div class="product-image">
