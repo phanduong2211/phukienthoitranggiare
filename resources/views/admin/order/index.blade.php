@@ -126,7 +126,7 @@ function changequantity(th,name,id,idroot){
         html+="<div class='col-md-6'><b>Email:</b> "+data.email+"</div>";
         html+='</div>';
         html+="<br /><h5>Danh Sách Sản Phẩm</h5><div class='table-responsive'>";
-        html+='<table class="table table-hover"><tr><th>STT</th><th>Tên SP</th><th>Hình SP</th><th>SL</th><th>Đơn Giá</th><th>Thành Tiền</th>';
+        html+='<table class="table table-hover"><tr><th>STT</th><th width="30%">Tên SP</th><th>Hình SP</th><th>Size/Color</th><th>SL</th><th>Đơn Giá</th><th>Thành Tiền</th>';
         if(data.status=='0'){
           html+='<th>Xóa</th>';
         }
@@ -140,6 +140,7 @@ function changequantity(th,name,id,idroot){
           html+='<td>'+(i+1)+'</td>';
           html+='<td>'+item.name+'</td>';
           html+='<td><img src="'+showImage(item.image,asset_url+'public/image/')+'" width="50px" /></td>';
+          html+='<td>Size: '+item.size+'.<br />Color: '+item.color+'</td>';
           if(data.status=='0'){
             html+='<td><input type="number" data-value="'+item.quantity+'" onchange="changequantity(this,\''+item.name+'\','+item.detailid+','+data.id+')" value="'+item.quantity+'" style="width:50px" /></td>';
             

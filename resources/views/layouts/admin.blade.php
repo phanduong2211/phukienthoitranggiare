@@ -320,7 +320,7 @@
 
     <div id="ajaxloader" style="display:none;position:fixed;top:20px;left:45%;z-index:9999;box-shadow:0px 0px 3px #ff6c60;border-radius:3px;background-color:#ff6c60;width:100px;padding:10px 0px;opacity:0.8;color:white;text-align:center">
         <img src="{{Asset('public/admin/img/ajax-loader.gif')}}" />
-        <div style="height:5px"></div>Đang Chạy
+        <div style="height:5px"></div>Đang Xử Lý
     </div>
 
     <!-- js placed at the end of the document so the pages load faster -->

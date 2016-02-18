@@ -33,9 +33,9 @@ class IndexController extends Controller
 
 		$data['chart']=DB::table('product')->select(DB::raw('sum(product.price) as s'),DB::raw('month(detailorder.created_at) as t'),DB::raw('year(detailorder.created_at) as y'))->join('detailorder','product.id','=','detailorder.productID')->join('order','detailorder.orderid','=','order.id')->where('order.status',1)->where(DB::raw('year(detailorder.created_at)'),$year)->groupBy('t','y')->get();
 
-		$data['product_o']=DB::table('product')->select('id','name','promotion_price','quantity')->where('quantity','<',10)->skip(0)->take(5)->get();
+		$data['product_o']=DB::table('product')->select('id','name','promotion_price','quantity')->where('quantity','<',10)->where('bin',0)->skip(0)->take(5)->get();
 
-		$data['product_p']=DB::table('product')->select('id','name','promotion_price','price')->where('promotion_price','<>',DB::raw('price'))->skip(0)->take(5)->get();
+		$data['product_p']=DB::table('product')->select('id','name','promotion_price','price')->where('promotion_price','<>',DB::raw('price'))->where('bin',0)->skip(0)->take(5)->get();
 		
 		return view("admin.index",$data);
 	}	
