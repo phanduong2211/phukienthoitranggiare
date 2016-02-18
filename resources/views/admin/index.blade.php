@@ -169,7 +169,7 @@
   <div style="margin-top:-25px">
     <table class="table">
         <tr>
-          <th width="30%" style="border-top:0 !important">Tên</th>
+          <th width="40%" style="border-top:0 !important">Tên</th>
           <th style="border-top:0 !important">Giá</th>
           <th style="border-top:0 !important">SL Còn</th>
           <th style="border-top:0 !important"></th>
@@ -206,7 +206,7 @@
 <div style="margin-top:-25px">
     <table class="table">
         <tr>
-          <th width="30%" style="border-top:0 !important">Tên</th>
+          <th width="40%" style="border-top:0 !important">Tên</th>
           <th style="border-top:0 !important">Giá</th>
           <th style="border-top:0 !important">Giá Gốc</th>
           <th style="border-top:0 !important"></th>

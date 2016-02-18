@@ -137,7 +137,7 @@ function showImage($path){
 <div class="table-responsive">
  <table class="table table-hover">
    <tr>
-    <th>Sản Phẩm</th>
+    <th width="25%">Sản Phẩm</th>
     <th>Image</th>
     <th width="10%">Loại SP</th>
     <th>Giá Sỉ</th>

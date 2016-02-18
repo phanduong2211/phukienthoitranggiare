@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Input;
 use Session;
 use View;
+use Redirect;
 use App\Http\Module\menu;
 use App\Http\Module\product;
 use App\Http\Module\info;
